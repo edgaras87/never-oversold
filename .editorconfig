@@ -1,0 +1,54 @@
+# Editor settings the repo carries itself.
+#
+# When rules fire (labels used below; a setting may carry several):
+#   [creating] - at new-file creation
+#   [typing]   - as you type: Tab key, Enter
+#   [save]     - at each save of an edited file
+#   [format]   - consulted by the IDE formatter when it runs
+# Never on their own: untouched files keep their bytes.
+#
+# Layout conventions (hand-kept - no tool formats this file): each
+# comment+setting group is separated from the previous entry by one
+# blank line; comments are whole lines, above their setting; a ruler
+# line marks each file-type block.
+#
+# LAYERS: this is the base layer (any repo, day zero). Stack overlay
+# blocks are appended at app bootstrap below the marker at the bottom.
+
+root = true
+
+# ---------------------------------------------------------------------
+[*]
+
+# [creating] charset of new files; existing files keep their encoding
+charset = utf-8
+
+# [creating][typing] pairs with .gitattributes (* text=auto eol=lf) -
+# the editor writes LF, git guarantees LF
+end_of_line = lf
+
+# [save] appends the final newline if missing
+insert_final_newline = true
+
+# [save] strips spaces at line ends
+trim_trailing_whitespace = true
+
+# [typing][format] Tab inserts spaces, never a tab character
+indent_style = space
+
+# ---------------------------------------------------------------------
+[*.md]
+
+# [save] exception: trailing double-space is a markdown hard line break -
+# never trim it away
+trim_trailing_whitespace = false
+
+# ---------------------------------------------------------------------
+[*.{yaml,yml}]
+
+# [typing][format]
+indent_size = 2
+
+# =====================================================================
+# stack overlays - appended below this line at app bootstrap
+# =====================================================================

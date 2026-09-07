@@ -1,0 +1,26 @@
+# ======================================================================
+# base layer — any repo, from day zero (records-only repos included)
+# ======================================================================
+
+# JetBrains IDE state — machine-local, never project truth
+.idea/
+*.iml
+
+# OS scratch files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local secrets — .env.example is the committed shape; real values
+# never enter history
+.env
+
+# Claude Code machine-local settings — permissions and local overrides;
+# the committed shape (if any) is .claude/settings.json
+.claude/settings.local.json
+
+# ======================================================================
+# stack overlays — appended below this line at app bootstrap
+# ======================================================================

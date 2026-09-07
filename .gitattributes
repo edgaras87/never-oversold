@@ -1,0 +1,10 @@
+# ======================================================================
+# base layer — any repo, from day zero
+# ======================================================================
+
+# Set default behavior to automatically normalize line endings.
+* text=auto eol=lf
+
+# ======================================================================
+# stack overlays — appended below this line at app bootstrap
+# ======================================================================
