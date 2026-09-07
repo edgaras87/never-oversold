@@ -23,25 +23,25 @@ Detail only the next 1–2 steps finely; keep later steps coarse (rolling wave).
 
 <!-- STEPS-BEGIN — steps between the markers; the markers stay -->
 
-## Step 0: Bootstrap                                [~]
+## Step 0: Bootstrap                                [x] 2026-09-07
 
 Goal: the container exists — repo, records, arrangement — before content.
 Gate:
-- [ ] Every delivered file is tracked on main: `git status
+- [x] Every delivered file is tracked on main: `git status
       --porcelain` is empty, and the pinned copies match the receipt
       (`git diff birth-seed -- docs/concept .claude/skills` is empty).
-- [ ] The nine skills under `.claude/skills/` load; each is
+- [x] The nine skills under `.claude/skills/` load; each is
       registered in `.claude/decisions.md` at its pin (kit @ c670fe5,
       bundle @ 57cf22f); no placeholder remains in the log.
-- [ ] Every record exists and is true or honestly stubbed: PLAN
+- [x] Every record exists and is true or honestly stubbed: PLAN
       titled and this gate written; the devlog carries the birth
       session with a Resume line; TODO triaged; every link in
       README's records table resolves; CHANGELOG and ARCHITECTURE
       stubs name their own fill moment.
-- [ ] CLAUDE.md passes its three tests, line by line.
-- [ ] Nothing names the problem: no `docs/system/`, no source, no
+- [x] CLAUDE.md passes its three tests, line by line.
+- [x] Nothing names the problem: no `docs/system/`, no source, no
       build file; the devlog's briefing line says so explicitly.
-- [ ] Every commit on main follows commit-messages: subject ≤ 50,
+- [x] Every commit on main follows commit-messages: subject ≤ 50,
       imperative; no commit straddles agent and project paths.
 Notes: the title is a working name (Step 2 decides the public
 identity). The birth ran as one change set — see the
@@ -122,7 +122,6 @@ Notes:
 
 <!-- Non-blocking findings. Triage each into TODO.md: assign to a step,
      park in Later, or drop. Then delete the line here. -->
-- <YYYY-MM-DD> <finding> → <where it went>
 
 ## Decision index
 
