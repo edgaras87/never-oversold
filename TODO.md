@@ -16,6 +16,9 @@
       CHANGELOG header placeholder (it names Framing as decider).
 - [ ] Step 1: when cbc-framing creates `docs/system/`, add its row
       to the records tables in CLAUDE.md and README.
+- [ ] Step 1, and each later step while the trial runs: the gate
+      carries one item — the step ran on its own branch cut from
+      main and reached main by fast-forward on the reviewer's word.
 
 ## Later / someday
 
