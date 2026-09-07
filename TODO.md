@@ -19,9 +19,10 @@
 
 ## Later / someday
 
-- [ ] Step N: the two `(CbC)` Release gate items carry another
-      run's recorded exclusions (checkout-system) as caveats —
-      re-decide observability and deploy/rollback for this run.
+- [ ] Retrospective: PLAN's Release step was reshaped at birth —
+      a Goal line, the gate in the run's step form, the two `(CbC)`
+      items no longer naming another run's exclusions — fold the
+      rewording back to the cbc-run-pure playbook.
 - [ ] Retrospective: the worked-example twin in cbc-framing and
       cbc-slice claims a byte-identical copy but differs in its
       provenance path line — fold back to the source, never edit

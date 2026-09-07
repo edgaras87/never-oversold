@@ -19,6 +19,10 @@
 **Gate** = exit criteria: verifiable facts, not intentions. A step is done only when every gate item is true.
 Detail only the next 1–2 steps finely; keep later steps coarse (rolling wave).
 
+Each step carries Goal · Gate · Notes. A gate is derived when the
+step opens — verifiable facts from the goal, the named skill, and
+the run's records — and written in before the step's work starts.
+
 ---
 
 <!-- STEPS-BEGIN — steps between the markers; the markers stay -->
@@ -98,20 +102,17 @@ Notes:
 ## Step N: Release                                  [ ]
 
 <!-- Kit step — vendored from starter/playbooks/default.md
-     @ c670fe5; additions marked (CbC). -->
+     @ c670fe5; reshaped at birth to the run's step form. -->
 
-Gate:
-- [ ] CHANGELOG entry for the release.
-- [ ] README true for a stranger; any commands verified on a clean
-      machine.
-- [ ] Known issues filed in TODO.md, not just remembered.
-- [ ] (CbC) Monitoring/alerts in place — unless observability was a
-      recorded exclusion (it was, for checkout-system's
-      correctness-portfolio shape; a deployed service should not
-      skip it).
-- [ ] (CbC) Deploy/rollback procedure documented and tried once —
-      same caveat: locally-runnable-only was a recorded exclusion
-      there.
+Goal: the system handed to its audience — the promise shipped,
+observable, and reversible wherever it deploys.
+Gate: derived when this step opens — verifiable facts, from the
+goal, the run's records, and the exclusions framing recorded.
+Known already: a CHANGELOG entry for the release; README true for
+a stranger, its commands verified on a clean machine; known
+issues filed in TODO.md. Decided at framing, checked here:
+monitoring and alerts in place; deploy and rollback documented and
+tried once — each unless this run's own recorded exclusion.
 Notes:
 
 <!-- STEPS-END -->
