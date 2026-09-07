@@ -32,3 +32,15 @@
   agent-arrangement.
   Why: handbook defaults.
   Rejected: none — see the handbook's ADRs.
+
+- 2026-09-07 The correctness-by-construction bundle installed
+  @ 57cf22f: docs/concept/ (five chapters), the five method
+  skills (cbc-framing, cbc-slice, cbc-bootstrap, infra-establish,
+  infra-serve, with their references and templates), PLAN's steps
+  (cbc-run-pure v4), the entry-file fills. Pinned copies: changed
+  only by copying anew from the source, each copy logged here.
+  Why: this run practices the method; the kit knows nothing of it.
+  Rejected: the handbook's default playbook as PLAN's step source
+  (the concept's run playbook carries the method's order; only
+  its Release step is vendored in); editing any copy in place
+  (the source owns them — lessons fold back at the retrospective).

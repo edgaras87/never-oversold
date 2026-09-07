@@ -1,0 +1,41 @@
+# Template — master copy in correctness-by-construction (ADR-0008);
+# checked against concept v1 (ADR-0003, ADR-0005 — practice-born).
+# Extracted 2026-08-28 from checkout-system's lived
+# src/main/resources/application.yaml (PLAN Step 6). Changes on
+# extraction: identities generalized to placeholders (<project>,
+# <project_db>, uppercase <PROJECT> in env keys); the run's
+# business-config section removed — a run grows its own under its
+# own project key; run-local ADR references generalized to neutral
+# wording. Copy into a run and fill; the filled file is the run's
+# own (ADR-0008).
+# Harvested 2026-08-28: the password key renamed
+# <PROJECT>_DB_PASSWORD → <PROJECT>_RUNTIME_PASSWORD, together with
+# the .env shape it must match (infra-establish
+# templates/.env.example) — from safe-reservations' lived key
+# (ADR-0007).
+
+spring:
+  application:
+    name: <project>
+
+  # The one identity this application knows: <project>_runtime — the data
+  # authority, nothing else (the run's infrastructure contract).
+  # Deliberate absences, each a decision:
+  #   - no schema pinning here: the ground pins search_path server-side
+  #     for the runtime role
+  #   - no migrator credentials in any profile: schema is the flyway
+  #     one-shot's (ground) and the harness's (tests), never the app's
+  #   - no test profile: the harness overrides the datasource itself
+  datasource:
+    url: jdbc:postgresql://localhost:${<PROJECT>_DB_PORT:5432}/<project_db>
+    username: <project>_runtime
+    # secrets never default: exported by the operator; local-dev value
+    # rides in .env (see .env.example)
+    password: ${<PROJECT>_RUNTIME_PASSWORD}
+
+management:
+  endpoint:
+    health:
+      # evidence runs gate on "world is up, store included" — the db
+      # component must be visible, not just folded into the status
+      show-components: always
