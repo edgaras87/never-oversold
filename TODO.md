@@ -23,6 +23,9 @@
       a Goal line, the gate in the run's step form, the two `(CbC)`
       items no longer naming another run's exclusions — fold the
       rewording back to the cbc-run-pure playbook.
+- [ ] Retrospective: the one-branch-per-step rule (PLAN, Standing
+      rules) is on trial from Step 1 — if it held, fold it back to
+      the source the steps came from.
 - [ ] Retrospective: the worked-example twin in cbc-framing and
       cbc-slice claims a byte-identical copy but differs in its
       provenance path line — fold back to the source, never edit

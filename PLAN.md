@@ -23,6 +23,16 @@ Each step carries Goal · Gate · Notes. A gate is derived when the
 step opens — verifiable facts from the goal, the named skill, and
 the run's records — and written in before the step's work starts.
 
+## Standing rules
+
+<!-- Arrived 2026-09-07, before the briefing; on trial from Step 1.
+     Its why and rejected options: .claude/decisions.md. -->
+
+- **One branch per step.** A step starts on its own branch cut
+  from main, and ends after its gate closes by fast-forward merge
+  into main, on the reviewer's word. A restarted step keeps its
+  old branch renamed and cuts a new one.
+
 ---
 
 <!-- STEPS-BEGIN — steps between the markers; the markers stay -->
