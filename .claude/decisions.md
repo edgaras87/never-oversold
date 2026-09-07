@@ -44,3 +44,14 @@
   (the concept's run playbook carries the method's order; only
   its Release step is vendored in); editing any copy in place
   (the source owns them — lessons fold back at the retrospective).
+
+- 2026-09-07 Standing rule added to PLAN, above the steps: one
+  branch per step, cut from main, fast-forward merged after the
+  gate closes on the reviewer's word; a restart renames the old
+  branch and cuts a new one. On trial from Step 1; fold-back
+  filed in TODO Later.
+  Why: a step's work lands on main only as a reviewed, gated
+  unit; fast-forward keeps main linear and the step's own commits.
+  Rejected: committing on main as Step 0 did (the birth had no
+  reviewer between it and main); merge or squash commits (either
+  hides the step's commit trail from main).
