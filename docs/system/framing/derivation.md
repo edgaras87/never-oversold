@@ -25,6 +25,23 @@ cbc-framing as pinned, every verdict the reviewer's.
 **Promise:** For any item, the reserved quantity never exceeds the
 stock on hand, however many reservations race for the same units.
 
+**Reading of the sentence** — what each word commits to, and which
+step confirms it:
+- *for any item*: the claim holds per item, never across items;
+  an item is whatever the ledger counts stock of.
+- *the reserved quantity*: the sum of active reservations — not
+  yet released, expired, or consumed. The lifecycle enters the
+  sentence here, unstated; step 1 decides which of its moments are
+  ours.
+- *the stock on hand*: the ledger's own recorded count, not a
+  warehouse's truth. Whether restock and corrections are ours or
+  arrive from outside is step 1's first question, and its answer
+  can change this word.
+- *race for the same units*: concurrent requests overlapping in
+  time against one item; the adversity is per item.
+- *never exceeds*: true in every state readable from outside, not
+  eventually.
+
 **Audience:** the portfolio reader — the party judging whether the
 author can do correctness-driven backend construction. Callers that
 reserve stock and operators that restock or correct it are
@@ -97,8 +114,16 @@ first question.
 
 ### How it ran
 
-Six candidates derived from the territory, each tested against the
-six bars; five banked with the bar they failed. Two wording choices
+The candidates came from a sweep, not a pick: the ledger's
+never-events, one per adversity class the method names — contention
+(an oversell), duplication (a retry creates two), vanishing (a
+reservation lost), staleness (a stale count shown as fresh) — plus
+the lifecycle's far end (a release counted twice) and the sentence
+that names structure instead of state (units held twice). The
+briefing fixed the class as contention, which leaves the oversell
+nearly alone; the six bars then confirmed it and banked the rest
+with the bar each failed. The bars are the briefing's, copied, not
+derived here. Two wording choices
 in the chosen sentence, made deliberately: "stock on hand" makes the
 ledger's own count the reference rather than a warehouse's truth,
 keeping the claim inside one system's walls; "race for the same
@@ -124,3 +149,9 @@ what they changed:
   Too soon for two bars: stageable and one-owner cannot be settled
   by a sentence; they are argued at step 0 and proven downstream.
   Each bar now says whether it settles here or where it is proven.
+- Q4, final or polished, and how derived: final at the verdict,
+  changed after only by logged return trips — no polish passes. The
+  sweep behind the candidates was not written; it is now, above.
+  Depth at step 0 is in the words, not in a cleverer sentence: the
+  reading block states what each word commits to, so steps 1–3
+  test a stated meaning rather than a guessed one.
