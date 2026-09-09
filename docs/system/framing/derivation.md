@@ -162,7 +162,11 @@ what they changed:
 
 ## Step 1 — What must be ours? (L2)
 
-**Verdict:** open — draft awaiting the reviewer's questions.
+**Verdict:** taken, 2026-09-09 — the reviewer accepts the
+possessions and refusals as stated. Section frozen; one question
+ran before the call (below). Hands down: the four possessions the
+census must cover, the sketch-enemies as debt, the downward
+correction as a parked collision.
 
 ### Earned
 
