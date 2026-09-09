@@ -73,3 +73,14 @@
   withdrew the same rule in its own checkout for asking a word
   already given in chat (its ADR-0035, decision 2's note). The
   receipt branch keeps the file so the compare stays faithful.
+
+- 2026-09-09 The entry file moved to .claude/CLAUDE.md, content
+  untouched; the harness reads either address as one file. On
+  trial from Step 1.
+  Why: every agent-side file then sits under .claude/, and the
+  handbook's kit keeps the root address until a born project
+  reports on the move — this run is that report.
+  Rejected: leaving it at the root as the kit's default (agent-
+  arrangement now permits either; tidiness alone earned no change
+  in the handbook, so the trial is what earns it here); renaming or
+  restating any mention — records name the file, none its path.
