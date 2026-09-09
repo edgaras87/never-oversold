@@ -52,10 +52,16 @@ The sort, the dedupe, the folds; the slice shape with a presumption
 order and a chosen-next.
 
 Steps 2–8 are firm in intent and number; their wording arrives at
-each verdict. Between any two of them, **return trips** may land —
-zero or more, each a logged revision to a frozen section, one
-commit each (`docs: return trip, <what> revised from <step>`),
-inserted where they fall. They are provisional by design: this plan
+each verdict. **Each is a series, not one commit:** a draft
+(`docs: draft step N, <name>`), then one revision per reviewer
+question that changes something (`docs: revise step N — <what
+changed>`, the question in the body), then the verdict commit
+carrying the planned subject, which freezes the section. A question
+that changes nothing lands as a line in the section's "how it ran"
+half, in the next commit that touches it. Between any two of
+them, **return trips** may land — zero or more, each a logged
+revision to a frozen section, one commit each (`docs: return trip,
+<what> revised from <step>`), inserted where they fall. They are provisional by design: this plan
 names them so their landing is refinement, not divergence.
 
 **9. `docs: export the intent`**
@@ -101,10 +107,15 @@ the set cannot schedule; provisional, not divergence.
 
 ## Decisions taken inside this plan
 
-- **One commit per verdict.** The derivation record is one file
-  whose sections freeze at the reviewer's verdict; the verdict is
-  the commit boundary. Seven verdicts, seven commits, so the
-  history reads as the derivation.
+- **One series per verdict** (revised 2026-09-09 from one commit
+  per verdict, before step 0's first commit). The derivation record
+  is one file whose sections freeze at the reviewer's verdict; the
+  verdict is the last commit of a step's series, the drafts and
+  revisions before it are kept, never amended or squashed. The
+  reviewer asked for it: a question's effect on the derivation is
+  then a diff between two commits, and whether the second try is
+  what they want is readable. The history reads as the derivation
+  at the grain the derivation actually ran.
 - **Exports follow the skill's derivation order,** the default it
   names; five definition commits even where a layer is empty with
   reasons, because the skill counts an empty layer as a lived
