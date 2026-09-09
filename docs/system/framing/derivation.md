@@ -168,7 +168,13 @@ what they changed:
 
 The hostage test on each candidate possession. Yes → ours. No → the
 mirror: can the promise stay true even if this goes wrong elsewhere?
-Yes → refused, written.
+Yes → refused, written. Refusal is never by scope: what is refused
+is what cannot make the promise false. And the promise's enemies
+are not only the class its sentence names — contention is what the
+evidence stages and the reader judges; anything that can make
+reserved exceed on hand (a retried consume, a crash between its two
+moves, an operator's correction) is the promise's enemy too, and
+step 2 lists them all.
 
 | Candidate | If someone else owned it, could they break the promise? | Verdict |
 |---|---|---|
@@ -230,4 +236,12 @@ guarantee this promise carries; and the once-ness of *consume* is
 ours for exactly the reason reserve's is not — it moves on hand. The
 downward correction is the first real tension between the promise
 and the world, parked as a collision rather than settled here. The
-reviewer's questions and what they changed: (pending).
+reviewer's questions and what they changed:
+- Q1, on refusing reserve once-ness: refused for correctness, not
+  scope? Yes — a duplicate reservation is admitted against on hand
+  like any other, so it cannot push the sum past on hand; the
+  promise does not need it owned. Owning it would guard a second
+  claim, banked at step 0. A duplicate consume can push on hand
+  under the sum, so that once-ness is ours. Added to the earned
+  half: refusal is never by scope, and the promise's enemies are
+  everything that can falsify it, contention being the headline.
