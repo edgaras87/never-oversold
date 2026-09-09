@@ -84,3 +84,15 @@
   arrangement now permits either; tidiness alone earned no change
   in the handbook, so the trial is what earns it here); renaming or
   restating any mention — records name the file, none its path.
+
+- 2026-09-09 CLAUDE.local.md exists at the root, ignored, holds the
+  reviewer's pace. The operator's, not the project's: its words
+  enter no record, and no project file derives from it. On trial
+  from Step 1.
+  Why: the harness loads it beside the entry file and reads it the
+  same way; one person, one checkout, so the arrangement's reply to
+  a repeated request lives there rather than in a tracked rule.
+  Rejected: the kit's settings-file gate for the same pace (the
+  entry above); restating its text in a record (a record that
+  quotes it lets one operator's preference into the project's
+  truth).
