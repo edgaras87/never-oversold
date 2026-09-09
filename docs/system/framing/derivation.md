@@ -18,7 +18,11 @@ cbc-framing as pinned, every verdict the reviewer's.
 
 ## Step 0 — Choose the promise
 
-**Verdict:** open — draft awaiting the reviewer's questions.
+**Verdict:** taken, 2026-09-09 — the reviewer accepts the promise
+as worded, with its reading. Section frozen; four questions ran
+before the call (below). Hands down: the promise. Debt to step 1:
+the lifecycle moments and the stock-on-hand ownership named in the
+reading.
 
 ### Earned
 
