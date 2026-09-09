@@ -56,19 +56,23 @@ does not lose them either.
   from persisted state, checkable from outside the system;
 - the path from claim to proof followable by the reader.
 
-**Against the six bars:**
+**Against the six bars** (the briefing's exit test for the
+sentence; four settle here, two are argued here and proven later):
 1. One claim, one sentence, a timeless state property: for every
-   item, reserved ≤ on hand, at every instant.
+   item, reserved ≤ on hand, at every instant. Settled.
 2. The adversity class is in the sentence: "race for the same units"
-   is contention.
+   is contention. Settled.
 3. Trivially false: the unserialized read-check-write breaks it; the
-   negation is one observable event, the oversell.
+   negation is one observable event, the oversell. Settled.
 4. Stageable: fire N concurrent reservations at an item with fewer
    than N units; read the witness from persisted state afterwards.
-5. Matters to the audience: see worth proving.
+   Argued here; proven when the evidence harness creates it (PLAN
+   Step 4, then each slice).
+5. Matters to the audience: see worth proving. Settled.
 6. Narrow: one owner, the reservation ledger; the full lifecycle —
    reserve, release, expire, consume — inside one system's walls;
-   no orders, no payments.
+   no orders, no payments. Argued here; confirmed at step 4 (L3),
+   which reopens this bar if the collisions force a division.
 
 **Banked rejections:**
 - "No unit of stock is ever held by two reservations at once" —
@@ -115,3 +119,8 @@ what they changed:
   what it is; and the briefing fixed the audience. The grain kept:
   the seller is who the promise protects, added to the earned block
   as its own line, and worth-proving now names their stake.
+- Q3, on the six-bar block: what is it, and is it too soon? It is
+  the briefing's exit test run on the chosen sentence, in its place.
+  Too soon for two bars: stageable and one-owner cannot be settled
+  by a sentence; they are argued at step 0 and proven downstream.
+  Each bar now says whether it settles here or where it is proven.
