@@ -6,6 +6,41 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-09  (pre-briefing: the working arrangement)
+
+- Four arrangement pieces went in before the briefing, all on
+  trial from Step 1. The branch rule landed on main on 09-07, as a
+  Standing rules section in PLAN. The other three landed on the
+  branch `prebriefing-arrangement` under a change-plan, seven
+  commits, fast-forwarded to main on the reviewer's word.
+- Kit updated c670fe5 → af16eb7 through the receipt branch
+  `kit-af16eb7`: one commit cut from the seed, the kit copied over
+  it. What the branch gave the compare: the whole kit diff at the
+  two pins in one place, file by file, and compare-first became
+  `git diff 27db35e main -- <file>` — every copy identical, so
+  every overwrite was clean. Where it fell short: the four
+  placeholder reversions are noise to read past; the receipt
+  cannot say which convention a stub change belongs to (that is
+  the starter README's table, read in the handbook checkout); the
+  why is not in it either — ADR-0035, ADR-0036 and the
+  agent-arrangement convention text are not kit files, and the
+  rejection and the move both needed them; the entry file's stub
+  diff had to be carried into the living file by hand, comment
+  only; and the script's bare `git add -A` would have swept the
+  untracked `temp/` into the receipt (excluded by hand).
+- The kit's settings-file commit gate: rejected, not deferred. The
+  reviewer gives the word once in chat; a prompt asking for it
+  again is a second word. The handbook withdrew the same rule in
+  its own checkout for the same reason. The receipt keeps the file
+  so the compare stays honest.
+- CLAUDE.md moved under .claude/; content untouched; the harness
+  picks up the new address from the next session. CLAUDE.local.md
+  exists at the root, ignored — the operator's, not quoted.
+- Briefing: still not brought. Nothing names the problem.
+- Resume: wait for the briefing. On its arrival cut Step 1's branch
+  from main, derive Step 1's gate into PLAN first (the branch item
+  among them), then run cbc-framing jointly.
+
 ## 2026-09-07  (Step 0: bootstrap)
 
 - Project started. Seeded, not born whole: the kit's hygiene commit
