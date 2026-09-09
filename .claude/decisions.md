@@ -55,3 +55,21 @@
   Rejected: committing on main as Step 0 did (the birth had no
   reviewer between it and main); merge or squash commits (either
   hides the step's commit trail from main).
+
+- 2026-09-09 The kit updated @ af16eb7, from c670fe5, through the
+  receipt branch kit-af16eb7 (one commit against the seed: the kit
+  at the two pins). Taken: commit-messages, change-plans,
+  convention-lifecycle — skill copies overwritten, compare-first
+  finding each identical to c670fe5; agent-arrangement — the entry
+  file's guard comment, tests 2 and 3; repo-hygiene — the ignore
+  line for CLAUDE.local.md, landed in aa9b3ec, the settings comment
+  keeping "(if any)" since the file below is rejected. Unchanged:
+  artifact-kinds, the project-recording stubs (placeholders only).
+  Why: the pace rule and §8's installed path reached the handbook
+  after the birth pin; the registry names the hash the records hold.
+  Rejected: the kit's tracked .claude/settings.json holding the
+  commit ask rule — the reviewer holds the pace through
+  CLAUDE.local.md and the commit-messages rule, and the handbook
+  withdrew the same rule in its own checkout for asking a word
+  already given in chat (its ADR-0035, decision 2's note). The
+  receipt branch keeps the file so the compare stays faithful.

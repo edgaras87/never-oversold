@@ -48,10 +48,10 @@ from the source, logged in `.claude/decisions.md`.
      1. True of this project and nowhere else — else it is a
         convention, stated once, there.
      2. No moment — else it goes where the moment is: the record's
-        stub, README, a project skill.
+        stub, README, a project skill, or .claude/rules/ with a
+        paths: list for a rule about one directory.
      3. Nothing else would deliver it — a stance, or a fact whose
-        failure is not noticing it, like a generated directory nobody
-        may edit by hand.
+        failure is not noticing it.
      Longer than a screen means a line is failing. Shrinking it is
      maintenance, not tidying. -->
 

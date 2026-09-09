@@ -119,6 +119,11 @@ keeps the work — only if no commit ever straddles them.
 
 ## Rules of thumb
 
+- **Commit on the word.** Stage, show the reviewer the diff, and
+  commit only when they have said so — one commit at a time, and no
+  push without the same word. The boundary is the one place a wrong
+  assumption is cheap to catch (change-plans §6), and it is every
+  commit's boundary, not only a change set's.
 - **Atomic commits.** One logical change per commit. "Fix X and update
   deps and rename file" is three commits wearing a trenchcoat — split it.
 - **Subject alone must make sense** in `git log --oneline`. That listing
@@ -135,7 +140,7 @@ keeps the work — only if no commit ever straddles them.
 
 ## Delivery
 
-`pushed`, with a `gate` that does not exist yet.
+`pushed`, with a `gate` for the stop and none yet for the format.
 
 Pushed because the rule applies at one moment and is dead weight
 otherwise; in Claude Code that means a skill, which is an ambient
@@ -143,6 +148,9 @@ trigger over a pulled body rather than true pushed (ADR-0015).
 
 **What this constrains.** The entry file gets a path to this file,
 never a summary of it (ADR-0014). And no text channel changes an
-outcome, only the odds — until a commit hook exists the limit is
+outcome, only the odds. The stop is gated: a permission rule in the
+arrangement's tracked settings file halts every commit at a prompt
+the human answers (ADR-0035) — repo state, not text, so the word is
+asked for even when nobody remembers to. The subject limit is still
 enforced nowhere, which is what 15 of the first 20 commits looked
 like.

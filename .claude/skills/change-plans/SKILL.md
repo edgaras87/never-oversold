@@ -126,6 +126,11 @@ say) simply has nothing to walk there. The final records commit
 noticed at the close works exactly as long as judgment is present,
 and nothing catches the run where it is not.
 
+The same walk covers the plan's gate. A change set that will close a
+`PLAN.md` gate item names the commit that closes it — the item is a
+record-moment like any other, and a close with no step to land in
+lands as a divergence.
+
 ## 4. Lifecycle
 
 | Step | Commit | Contents |
@@ -178,14 +183,18 @@ commit's body distinguishes the two.
 
 ## 6. Review protocol
 
-Work stops at every commit boundary. The reviewer inspects the actual
-diff before it lands, and may ask for an explanation of any part of it
-before agreeing to continue.
+Work stops at every commit boundary. The rule is commit-messages' —
+stage, show the diff, commit only on the reviewer's word — and it
+binds at every commit, not only inside a change set; the arrangement's
+settings file makes the stop a gate (ADR-0035). The reviewer inspects
+the actual diff before it lands, and may ask for an explanation of any
+part of it before agreeing to continue.
 
-This matters most when an agent is doing the committing: the boundary
-is the only place where a misunderstanding is cheap to catch. Without
-it, a wrong assumption in step 2 propagates silently through every
-later step, and the review becomes an archaeology exercise.
+Why it matters most here: when an agent is doing the committing,
+the boundary is the only place where a misunderstanding is cheap to
+catch. Without it, a wrong assumption in step 2 propagates silently
+through every later step, and the review becomes an archaeology
+exercise.
 
 ## 7. Anti-patterns
 

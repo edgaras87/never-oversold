@@ -177,12 +177,23 @@ project's registry (§7). Written from the first lived injection
    An **installed** convention has no copy in the project to
    compare: what shipped was stub comments and template files, and
    the comments now sit inside filled, living records. The compare
-   is kit against kit — the stub at the pinned hash against the stub
-   now — and what lands is the changed comment text, carried into
-   the project's records; a template file is diffed as a file. The
-   project's content around the comments is not a local edit, it is
-   the record. Stated by argument (ADR-0030): no installed update
-   has run yet, and the first one refines this.
+   is kit against kit — `git diff <hash>..HEAD -- starter/kit/<stub>`
+   for each stub the convention ships through, and the list of
+   those stubs is the "Shipped conventions" table in
+   `starter/README.md`, read there rather than remembered. What
+   lands is the changed comment text, carried into the project's
+   record; a template file is diffed as a file. The project's
+   content around the comments is not a local edit, it is the
+   record.
+
+   Most of the time the diff carries nothing: a rule that changed
+   reached the project through a reply before the update ran, and
+   the record already says it. The update is then verification,
+   and its product is the registry entry (step 5) — which is why
+   the entry is never skipped. A handbook change absorbed through a
+   reply without an entry leaves the pin lying: the registry names
+   a hash the records have moved past, and the currency check in
+   step 2 reads that lie as truth.
 
 5. **Register — one commit.** Two things land together: the copy,
    and the registry entry appended to `.claude/decisions.md` — date,
