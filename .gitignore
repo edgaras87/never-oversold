@@ -21,6 +21,10 @@ Thumbs.db
 # the committed shape (if any) is .claude/settings.json
 .claude/settings.local.json
 
+# The operator's standing instructions — one person, one checkout;
+# the tool loads it beside CLAUDE.md but never ignores it on its own
+CLAUDE.local.md
+
 # ======================================================================
 # stack overlays — appended below this line at app bootstrap
 # ======================================================================
