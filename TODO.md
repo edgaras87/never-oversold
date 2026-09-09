@@ -8,17 +8,15 @@
 
 ## Now (current plan step)
 
-- [ ] Step 1 opens on the briefing — nothing to do until it arrives.
+- [ ] Step 1 (framing), on branch `step-1-framing`; its gate is in
+      PLAN. First: step 0, the promise — candidates against the
+      briefing's six bars, the reviewer's verdict on each.
 
 ## Next (upcoming steps — assign each to a step when triaged)
 
-- [ ] Step 1: decide what a version is here and replace the
-      CHANGELOG header placeholder (it names Framing as decider).
-- [ ] Step 1: when cbc-framing creates `docs/system/`, add its row
-      to the records tables in CLAUDE.md and README.
-- [ ] Step 1, and each later step while the trial runs: the gate
-      carries one item — the step ran on its own branch cut from
-      main and reached main by fast-forward on the reviewer's word.
+- [ ] Each step while the branch trial runs: its gate carries one
+      item — the step ran on its own branch cut from main and
+      reached main by fast-forward on the reviewer's word.
 
 ## Later / someday
 
