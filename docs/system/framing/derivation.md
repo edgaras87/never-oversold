@@ -31,14 +31,22 @@ reserve stock and operators that restock or correct it are
 consumers: they generate adversity and enter the census (step 2) as
 actors, never the intent as audience.
 
+**Who the promise protects** (not who it is sold to): a seller
+running such a ledger, to whom an oversell costs money and trust.
+Real in the world model — the caller's principal, present in the
+census through the callers — and the reason the claim is worth
+anything. Named so the intent does not pretend to serve them and
+does not lose them either.
+
 **Worth proving:**
 - Could it be false: yes — the negation is an event, an oversell:
   persisted state where an item's reserved quantity exceeds its
   stock on hand. Naive code produces it: read the stock, check,
   write; two racers both pass the check on the last unit.
 - Would proving it matter: yes — oversell under contention is the
-  canonical correctness adversity, and contention is what the reader
-  is judging the author on.
+  canonical correctness adversity, contention is what the reader is
+  judging the author on, and the event it rules out is the one that
+  costs the seller.
 
 **Done demonstrably means:**
 - the adversity genuinely created — many concurrent reservations
@@ -91,4 +99,19 @@ in the chosen sentence, made deliberately: "stock on hand" makes the
 ledger's own count the reference rather than a warehouse's truth,
 keeping the claim inside one system's walls; "race for the same
 units" carries the adversity class. The reviewer's questions and
-what they changed: (pending).
+what they changed:
+- Q1, on the audience line: is it worded for the portfolio reader,
+  or for us? Answer: for us here — this record is the workshop.
+  The line reaches the reader through `intent.md`, composed at
+  export, and there it is worded as addressed to them ("the claim
+  is sold to you; callers and operators are the weather"), same
+  meaning. Changes nothing here; binds the intent's export.
+- Q2, on naming the reader at all: should the intent address
+  someone who needs safe reservations instead, the reader kept
+  behind the scenes? Answer: no — the audience decides what done
+  means, and a seller's done (runs, stays up, operable) would derive
+  a surface nobody asked for; an unstated real purpose is the
+  forbidden silent channel; the reader sees a staged intent for
+  what it is; and the briefing fixed the audience. The grain kept:
+  the seller is who the promise protects, added to the earned block
+  as its own line, and worth-proving now names their stake.
