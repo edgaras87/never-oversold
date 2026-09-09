@@ -159,3 +159,75 @@ what they changed:
   Depth at step 0 is in the words, not in a cleverer sentence: the
   reading block states what each word commits to, so steps 1–3
   test a stated meaning rather than a guessed one.
+
+## Step 1 — What must be ours? (L2)
+
+**Verdict:** open — draft awaiting the reviewer's questions.
+
+### Earned
+
+The hostage test on each candidate possession. Yes → ours. No → the
+mirror: can the promise stay true even if this goes wrong elsewhere?
+Yes → refused, written.
+
+| Candidate | If someone else owned it, could they break the promise? | Verdict |
+|---|---|---|
+| The stock-on-hand count, per item | Yes — an outside owner lowering it under the reserved sum breaks it, and we could not stop them | **ours**: the ledger's own number; every change to it enters through our door |
+| The reservation records — which exist, for which item, how many units | Yes — an outside owner could hold two for the last unit | **ours** |
+| A reservation's active state — the transitions into it | Yes — an outside owner reviving a released reservation raises the reserved sum past on hand | **ours** |
+| The admit-or-refuse decision on a reservation request | Yes — this is the moment the race is won or lost | **ours** |
+| Consume — ending a reservation and lowering on hand together | Yes — an outside owner lowering on hand without ending the reservation, or lowering it twice for one reservation, breaks it | **ours** |
+| The once-ness of consume under retry | Yes — a retried consume lowering on hand twice breaks it for every other reservation on the item | **ours** |
+| The once-ness of reserve under retry | No — a duplicated reservation is admitted against on hand like any other; the sum still fits. Mirror: the promise stays true; the caller over-holds | refused, written — a quality, not this promise's |
+| Release and expiry — transitions out of active | Cannot break it: they only lower the reserved sum | ours by ownership of the record, but not promise-bearing; the expiry *policy* (how long) refused — the promise holds for any duration |
+| The item catalog — which items exist | No — someone else's fact. Mirror: the promise holds per item the ledger knows; an unknown item is refused at the door | refused, written |
+| Physical stock truth — what the warehouse actually holds | No — the promise is about the ledger's recorded count (step 0's reading). Mirror: the count can be wrong about the world and the promise still holds | refused, written; consequence below |
+| The answer given to the caller matching the persisted outcome | No — a wrong answer lies to the caller; the state property holds. Mirror: yes | refused, written — the census may still find it as an enemy of something else |
+| Orders, payment, pricing, who may reserve | No — outside the territory | refused, written |
+
+**Possessions, stated:** the per-item on-hand count and every
+change to it; the reservation records and the transitions into
+active; the admit-or-refuse decision under concurrent requests;
+consume, once per reservation, moving both numbers together.
+
+**Refusals, stated:** reserve idempotency; expiry duration; the item
+catalog; physical stock truth; the caller's view; everything beyond
+the reservation ledger.
+
+**Consequence of refusing physical truth:** a downward correction —
+stock lost, broken, miscounted — arrives at our door as a request to
+lower on hand. Lowered under the reserved sum, the promise dies. So
+the correction is a collision, on hand × an operator's fact, for
+step 3 to run; step 1 only fixes that the number is ours to admit or
+refuse. Two shapes are visible already and parked, not chosen:
+refuse the correction below reserved, or let it cancel reservations.
+
+**Sketch-enemies used** (debt, step 2 pays): many callers racing for
+one item's last units; a retrying caller; a store that loses,
+duplicates, or reorders a write; an operator lowering on hand; a
+crash between ending a reservation and lowering on hand; a clock
+that jumps, firing expiry early or late.
+
+**The edge:** every request crosses at the door — reserve(item,
+quantity), release, consume, adjust on hand — parsed and checked
+there; an unknown item, a non-positive quantity, a reservation not
+ours: refused at the door, never inside.
+
+**Step 0's reading, confirmed or moved:** *stock on hand* is ours,
+the reading holds; *reserved quantity* = active reservations, and
+active is ours to enter, the exits promise-neutral.
+
+### How it ran
+
+Candidates gathered from the sentence's words (the two numbers, the
+race) and the lifecycle (reserve, release, expire, consume, adjust),
+then the neighbours the territory touches (catalog, warehouse,
+orders, callers). Two outcomes worth the reviewer's eye: reserve
+idempotency is refused by the mirror, though step 0 expected it back
+as a kill — under this promise a duplicate reservation over-holds
+but never oversells, so it is a quality of the surface, not a
+guarantee this promise carries; and the once-ness of *consume* is
+ours for exactly the reason reserve's is not — it moves on hand. The
+downward correction is the first real tension between the promise
+and the world, parked as a collision rather than settled here. The
+reviewer's questions and what they changed: (pending).
