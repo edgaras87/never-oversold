@@ -53,13 +53,14 @@ numbers, its adversity, its owner — each against the bar:
 
 ## Decision
 
-*Recommended, awaiting the reviewer's verdict:* **never-oversold.**
-The working name safe-reservations is overturned: it named the
+**never-oversold** — the reviewer's verdict, 2026-09-10, on the
+recommendation, no candidate added or reordered. The working name
+safe-reservations is overturned: it named the
 territory and overclaimed; the promise names one event, and the
 name should be that event, ruled out.
 
-The description, one line derived from the intent's why, to be
-used verbatim on the remote:
+The description, one line derived from the intent's why, used
+verbatim on the remote:
 
 > An inventory-reservation ledger built to keep one promise under
 > contention: for any item, reserved never exceeds the
