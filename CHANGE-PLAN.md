@@ -84,6 +84,15 @@ rewritten.
 **15. `docs: export the registry`**
 `docs/system/registry.md` on the skill's template.
 
+**15a. `docs: registry in project voice`** *(added 2026-09-10,
+divergence)*
+The registry's opening carried the template's own words — the
+skill's name, its step number, the delegation slot — and a header
+comment naming the template. Project truth reads as project
+truth: the reviewer refused any line a reader would need the
+agent's arrangement to decipher. Rewritten in the repo's voice;
+content unchanged.
+
 **16. `docs(adr): adopt the framing`**
 ADR-0002, Status: Proposed — the framing adopted as the project's
 truth set, the alternatives it closed (the run-repo layout, the
@@ -145,6 +154,11 @@ the set cannot schedule; provisional, not divergence.
   appending; the presentation order is the map's, L1→L5. One extra
   commit rather than rewriting the five that landed — history is
   the derivation and stays.
+- **Exports carry no agent language** (added 2026-09-10, the
+  reviewer's rule). The three artifacts under `docs/system/` are
+  project truth: nothing in them names a skill, a step of the
+  agent's workflow, or the delegation arrangement. What the
+  template put there is a fold-back for the bundle, filed in TODO.
 - **Return trips are named provisional steps, not divergence.** The
   method calls them its normal working; a plan revision per return
   trip would cost a commit for what the close body can list.
