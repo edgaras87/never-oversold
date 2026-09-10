@@ -99,6 +99,16 @@ The reconciliation line was a run-on of arrows; the reviewer found
 it weak. One row per kill — what dies, where it lands — so
 "nothing dropped" is checked by counting rows. Content unchanged.
 
+**15c. Export touch-ups from the reviewer's reading** *(added
+2026-09-10, provisional — zero or more)*
+Each a wording or shape change to a committed export that the
+reviewer asks for on reading it, one commit each (`docs: <export>
+— <what>`), content unchanged. Named here so the next one is
+refinement, not divergence; the close body lists them. First:
+`docs: registry — L4 is the master` — one sentence over the
+reconciliation table saying the definition's L4 states every kill
+and the table's column is a summary for counting.
+
 **16. `docs(adr): adopt the framing`**
 ADR-0002, Status: Proposed — the framing adopted as the project's
 truth set, the alternatives it closed (the run-repo layout, the
