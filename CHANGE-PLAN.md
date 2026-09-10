@@ -33,9 +33,19 @@ clock), the lived default checked against them, kept or defeated by
 name. `infrastructure/establishment-log.md` opened: its first entry
 maps the skill's default records to this repo's, records Stage 0's
 pass, and logs the decision. No ground file is born here.
+*(Revised 2026-09-10, after it landed: the log is withdrawn by
+commit 3a; see the decisions.)*
+
+**3a. `docs: the walk lives in the records, not a log`** *(added
+2026-09-10, divergence)*
+The establishment log removed; its readiness check and proof table
+move into the devlog's Step 3 entry, which grows as the walk runs;
+ADR-0004 gains the layout: compose and env files at the root, the
+runnable ground under `infrastructure/`, the manuals under
+`docs/infrastructure/`.
 
 **4. `docs: operator manual — the environment`**
-`operator-manual.md` begun from the lived stand-up, verified by
+`docs/infrastructure/operator-manual.md` begun from the lived stand-up, verified by
 execution: engine version, compose provider, host OS and arch,
 cgroups, rootless and its implications. Written at the moment it
 happens.
@@ -51,20 +61,19 @@ mechanism; standing knowledge as the rebuttable default where it
 exists, deviations naming their defeater.
 
 **7. `build(infra): land the ground files`**
-Under `infrastructure/`: the compose declaration, bootstrap
-scripts, tool configs; `.env.example` committed and `.env`
-ignored. The files realize commits 3, 5 and 6 and are younger than
+`compose.yaml` and `.env.example` at the root, `.env` ignored;
+under `infrastructure/`: bootstrap scripts, tool configs. The files realize commits 3, 5 and 6 and are younger than
 all three.
 
 **8. `test(infra): verify the ground both ways`**
 The verify suite: the catalog check with expected results beside
 each query; the behavioral check with each constraint attempted and
-refused live, T2's tool among them. Log entry with actual output.
+refused live, T2's tool among them. The devlog's Step 3 entry gains the actual output.
 The operator manual grows its service sections from this lived
 work in the same commit — the manual and the work are one change.
 
 **9. `docs: write the infrastructure contract`**
-`infrastructure-contract.md`: one section per service — identities
+`docs/infrastructure/infrastructure-contract.md`: one section per service — identities
 to connect as and never to use, reachability inside and outside,
 refusals as contract terms, how schema changes are made.
 
@@ -77,7 +86,7 @@ log and the manuals; CHANGELOG; devlog entry; TODO triaged, the T2
 item closed; PLAN's gate ticked and the step done, the decision
 index gaining ADR-0004 and ADR-0005; both ADRs flipped to Accepted.
 
-**11. `docs(agent): list the ground's records in the entry file`**
+**11. `docs(agent): list the manuals in the entry file`**
 The records-table rows. Agent-scoped.
 
 **12. `docs(agent): close change-plan for the ground`**
@@ -99,15 +108,21 @@ lists both.
   the skill's Stage 0 is exactly the downstream trigger its
   revision rule names. Framing work is not done here; a fact the
   framing left unstated is written where it belongs.
-- **The skill's default record paths are kept** — the log under
-  `infrastructure/`, both manuals at the root — because the repo
-  has no convention on manuals and the defaults are lived; the
-  log's first entry says so.
-- **The ground's decisions are ADRs and the log is the walk.** The
-  records table sends decisions to `docs/adr/`; the skill's log is
-  the lived-result record the walk needs. Two records, two jobs, no
-  duplication: the ADR holds the why and the options, the log the
-  commands and what actually happened.
+- **No establishment log** (revised 2026-09-10, replacing "the
+  skill's default record paths are kept" and "the log is the
+  walk"). The reviewer asked what the log holds that the records
+  do not: nothing — decisions are ADRs, the walk as lived is the
+  devlog's (work history, honesty mandatory), expected results sit
+  in the verify suite and the operator manual. The skill's log
+  exists for repos without records; this one has them, and the
+  skill says the repo's conventions win. Deviation logged here and
+  in ADR-0004.
+- **The layout** (revised 2026-09-10): `compose.yaml` and the env
+  files at the root, where a stranger's first command finds them
+  and where the file becomes the whole system's declaration at
+  bootstrap; the rest of the runnable ground under
+  `infrastructure/`; the two manuals under `docs/infrastructure/`,
+  what is written about the ground beside the other docs.
 - **Ground files land in one commit after the three decisions,**
   so no file exists before the decision that defines it — the
   walk's own rule.
