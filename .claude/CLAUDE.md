@@ -1,4 +1,4 @@
-# cbc-pure-run-3
+# never-oversold
 
 A backend service built by correctness-by-construction — the
 design derived from one falsifiable promise, what must never
