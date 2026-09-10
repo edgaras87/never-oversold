@@ -819,7 +819,12 @@ questions and what they changed: (pending).
 
 ## Step 6 — Cut the slice surface
 
-**Verdict:** open — draft awaiting the reviewer's questions.
+**Verdict:** taken, 2026-09-10 — the reviewer accepts the sort,
+the dedupe, the folds, and the registry shape with SL-1
+chosen-next. Section frozen; no questions ran. The derivation is
+complete; the three exports compose from the earned blocks above,
+under the residue filter. Hands off: to cbc-slice, after bootstrap
+— never directly.
 
 ### Earned
 
