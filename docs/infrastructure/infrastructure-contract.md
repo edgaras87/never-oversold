@@ -68,16 +68,18 @@ the server's grant system and was watched being refused on
    never writes a GRANT; the default privileges do it. A migration
    that writes one is wrong, not helpful.
 
-**What the store offers the promise — the facility SL-1 will use.**
-The server makes two concurrent writers to one thing disagree:
-row-level locks (`SELECT … FOR UPDATE`), unique and check
-constraints checked at commit, serializable isolation, advisory
-locks. Proven to exist and to refuse on this ground (an advisory
-lock held by one session, a second session cancelled by
-`lock_timeout`). Which face the slice uses is the slice's decision,
-recorded there; the contract only promises the facility exists and
-that a refused writer sees an error, never a silent success.
-Multi-statement transactions commit atomically — SL-4's ground.
+**What the store offers — inventory, not a choice.** The server
+can make two concurrent writers to one thing disagree; its faces
+of that facility are row-level locks, unique and check constraints
+checked at commit, serializable isolation, advisory locks. The
+ground proved the facility refuses — an advisory lock held by one
+session, a second cancelled by `lock_timeout` — and chose that
+probe because it needs no schema, not because it is preferred. No
+face is endorsed here: a slice that needs the facility chooses its
+face in its own specification, with its why. The contract promises
+only that the facility exists and that a refused writer sees an
+error, never a silent success. Multi-statement transactions commit
+atomically; that too is inventory.
 
 **How schema changes are made.** Only through Flyway, as
 `migrator`: a file `infrastructure/flyway/migrations/V<n>__<description>.sql`,

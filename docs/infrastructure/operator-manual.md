@@ -142,9 +142,11 @@ podman exec never-oversold-postgres psql -U postgres -d never_oversold -c "DROP 
 Seen here: both refused with exactly those messages.
 
 **T2's tool, shown** — the store makes two concurrent writers to
-one thing disagree; needed by SL-1, proven to exist before any
-schema. Two sessions as `runtime`, one holding a lock, the second
-made to fail by the server:
+one thing disagree; the promise's evidence needs the facility, so
+the ground proves it exists before any schema. The probe uses an
+advisory lock because it needs no table — it is not the face a
+slice should prefer. Two sessions as `runtime`, one holding a lock,
+the second made to fail by the server:
 
 ```sh
 podman exec -d never-oversold-postgres \
@@ -157,8 +159,9 @@ podman exec never-oversold-postgres \
 Seen here: the second session refused after 1.5 s. Advisory locks
 are one of the server's serializing tools; row locks, unique and
 check constraints, and serializable isolation are the same
-facility's other faces. Which one SL-1 uses is the slice's
-decision; the ground proves the facility refuses.
+facility's other faces. Which one a slice uses is that slice's
+decision, made in its specification; the ground proves only that
+the facility refuses.
 
 **Flyway as `migrator`** — connects, sees the schema, empty history,
 which is correct on a fresh ground:
