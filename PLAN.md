@@ -129,13 +129,36 @@ framing; the change-plan's close commit carries the divergences.
 The branch item is ticked on the reviewer's word to merge, given
 at this boundary.
 
-## Step 2: Define (naming)                          [ ]
+## Step 2: Identity  (name, description, remote)     [~]
 
 Goal: the project's public identity decided, not defaulted.
-Gate: derived when this step opens — verifiable facts, from the
-goal and the run's own records; written into this step before
-its work starts.
-Notes:
+Gate:
+- [ ] The name is decided by an ADR: candidates derived from the
+      intent's sentence, each tested against the naming bar — it
+      points at the claim, not a feature; it does not overclaim; a
+      stranger can guess what the project proves from it; it works
+      as a repository name — the rejected ones banked with reasons,
+      and the working name safe-reservations confirmed or overturned
+      in so many words.
+- [ ] The description is one line derived from the intent's why,
+      recorded in the same ADR, and used verbatim on the remote.
+- [ ] No "working name" remains outside history: the entry file,
+      README, PLAN, the three exports and the devlog carry the name;
+      each export's revision log has a dated entry for the change.
+- [ ] CHANGELOG carries the naming as a Changed line under
+      Unreleased.
+- [ ] The remote exists under the name, with the description, and
+      main is on it — created and pushed on the reviewer's word at
+      that boundary; `git remote -v` names it.
+- [ ] README is true for a stranger arriving from the remote: the
+      title, the purpose, every link resolving.
+- [ ] The devlog's entry records the decision, its rejected
+      candidates in one line, and the remote's creation.
+- [ ] The step ran on `step-2-define`, cut from main, and reached
+      main by fast-forward on the reviewer's word.
+Notes: opened 2026-09-10. The hosting is the reviewer's choice.
+Renaming the folder on disk is outside git and the reviewer's
+move; the agent's project memory is keyed to the folder path.
 
 ## Step 3: Ground / infrastructure  (infra-establish)    [ ]
 
