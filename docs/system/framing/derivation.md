@@ -365,22 +365,22 @@ Clock
 **Probe log** — how saturation was earned. Stamps: *new* (the
 census grew) · *nothing new* (which line covers it) · *out* (fenced,
 in ink).
-- P0, the enumeration lens (actors × vanishes/duplicates/lies):
+- PL0, the enumeration lens (actors × vanishes/duplicates/lies):
   F1–F7, F9–F12, F15, F16, F19, F21, F23.
-- P1, the assumption hunt. Silent singulars: "our process" → could
+- PL1, the assumption hunt. Silent singulars: "our process" → could
   be two: **new** F17. "The clock" → could disagree: **new** F18.
   "The adjustment" → could be two, reordered: **new** F13, F11.
   Silent successes: "the check reads the current count" → the other
   branch is a stale read: **new** F22. "Expiry fires" → or never, or
   all at once: **new** F24. "Consume's two moves both happen" →
   nothing new, F16 covers. Result: five new.
-- P2, the timeline stretched. What accumulates: reservations nobody
+- PL2, the timeline stretched. What accumulates: reservations nobody
   returns for → **new** F8; records of ended reservations → **out**,
   W6. What is forgotten: an expired reservation, then its consume
   arrives → nothing new, F5. What arrives very late: a consume a
   day later → nothing new, F5; a reply that arrives after the
   caller retried → nothing new, F2/F12. Result: one new, one out.
-- P3, the resource lens, every quantity at zero / many / huge.
+- PL3, the resource lens, every quantity at zero / many / huge.
   Requested quantity: zero → F6; huge → F6 (the door bounds it).
   On hand: zero → every reservation refused, nothing new, F1's
   check; huge → nothing new. Callers on one item: many → F1.
@@ -388,14 +388,14 @@ in ink).
   known at every admit — a cost, not an enemy: **out**, W3. Items:
   many → the race is per item, nothing new. Adjustments: many at
   once → F10, F13. Instances: many → F17. Result: zero new.
-- P4, the assumption hunt again, over the facts P1–P2 added. F17
+- PL4, the assumption hunt again, over the facts PL1–PL2 added. F17
   "two instances" → could be one that restarts mid-work: F15
   covers. F18 → could a single instance's clock be wrong: F24
   covers. F22 → could a write go to a lagging place: T1 with W4
   covers. F8 → could a hold end without anyone asking: that is
   expiry, F23/F24. Result: zero new.
 
-Two consecutive lenses (P3, P4) with zero new facts → **saturated**,
+Two consecutive lenses (PL3, PL4) with zero new facts → **saturated**,
 the reviewer's call, 2026-09-10, after the audit's four checks.
 
 **Fence list** — exclusions in ink; each earns its place at step 3
@@ -482,6 +482,11 @@ reviewer's other questions and what they changed:
   promise it has no home — not a slice (the enemy cannot break the
   promise), not a fold (it is adversity). The route is the next
   project, or a logged revision after release. Nothing changed.
+
+**Return trip, 2026-09-10, from step 3:** the probe tags P0–P4
+renamed PL0–PL4 throughout this section so that P is free for the
+possessions step 3 collides. Labels only; no fact, stamp, or
+verdict changed.
 
 ## Step 3 — Run the collisions (L4)
 
@@ -666,4 +671,8 @@ split; and "active" turned out undefined in L2, a wording hole
 that the clock facts had been colliding with unnamed — FC3 names
 it, and if step 4 or 6 finds it needs an owner's decision it goes
 back to L2 as a logged return trip. The reviewer's questions and
-what they changed: (pending).
+what they changed:
+- Q1, the possession tags P1–P4: are they the probe log's P0–P4?
+  No — an accidental shared letter. The reviewer chose to keep P
+  for possessions; the probes became PL0–PL4 by a logged return
+  trip to step 2.
