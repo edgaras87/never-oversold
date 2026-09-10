@@ -129,36 +129,41 @@ framing; the change-plan's close commit carries the divergences.
 The branch item is ticked on the reviewer's word to merge, given
 at this boundary.
 
-## Step 2: Identity  (name, description, remote)     [~]
+## Step 2: Identity  (name, description, remote)     [x] 2026-09-10
 
 Goal: the project's public identity decided, not defaulted.
 Gate:
-- [ ] The name is decided by an ADR: candidates derived from the
+- [x] The name is decided by an ADR: candidates derived from the
       intent's sentence, each tested against the naming bar — it
       points at the claim, not a feature; it does not overclaim; a
       stranger can guess what the project proves from it; it works
       as a repository name — the rejected ones banked with reasons,
       and the working name safe-reservations confirmed or overturned
       in so many words.
-- [ ] The description is one line derived from the intent's why,
+- [x] The description is one line derived from the intent's why,
       recorded in the same ADR, and used verbatim on the remote.
-- [ ] No "working name" remains outside history: the entry file,
+- [x] No "working name" remains outside history: the entry file,
       README, PLAN, the three exports and the devlog carry the name;
       each export's revision log has a dated entry for the change.
-- [ ] CHANGELOG carries the naming as a Changed line under
+- [x] CHANGELOG carries the naming as a Changed line under
       Unreleased.
-- [ ] The remote exists under the name, with the description, and
+- [x] The remote exists under the name, with the description, and
       main is on it — created and pushed on the reviewer's word at
       that boundary; `git remote -v` names it.
-- [ ] README is true for a stranger arriving from the remote: the
+- [x] README is true for a stranger arriving from the remote: the
       title, the purpose, every link resolving.
-- [ ] The devlog's entry records the decision, its rejected
+- [x] The devlog's entry records the decision, its rejected
       candidates in one line, and the remote's creation.
-- [ ] The step ran on `step-2-define`, cut from main, and reached
+- [x] The step ran on `step-2-define`, cut from main, and reached
       main by fast-forward on the reviewer's word.
 Notes: opened 2026-09-10. The hosting is the reviewer's choice.
 Renaming the folder on disk is outside git and the reviewer's
 move; the agent's project memory is keyed to the folder path.
+Closed 2026-09-10: never-oversold, by ADR-0003; the remote
+github.com/edgaras87/never-oversold created by the reviewer with
+the ADR's description, main pushed by the reviewer at 0de75df; the
+step's own commits reach it with the fast-forward. The branch item
+is ticked on the reviewer's word to merge, given at this boundary.
 
 ## Step 3: Ground / infrastructure  (infra-establish)    [ ]
 
@@ -216,6 +221,7 @@ Notes:
 
 - ADR-0001: Record architecture decisions (birth)
 - ADR-0002: Adopt the framing as the project's truth set (Step 1)
+- ADR-0003: Name the project (Step 2)
 
 ---
 

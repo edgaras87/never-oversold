@@ -6,6 +6,36 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-10  (Step 2: identity)
+
+- Named **never-oversold** (ADR-0003): the promise's negation,
+  ruled out. Seven candidates from the sentence against a four-point
+  bar; safe-reservations overturned — it named the territory and
+  overclaimed; rejected beside it: no-oversell, oversell-proof,
+  reserved-within-count, reservations-under-contention,
+  reservation-ledger. The reviewer took the recommendation as it
+  stood.
+- The step was retitled from "Define (naming)" when it opened:
+  a public identity is a name, a description, and a remote. The
+  description is one line derived from the intent's why.
+- The rename landed as one project commit across README, PLAN,
+  the three exports (each with its first dated revision entry —
+  the registry gained the log its header promised), CHANGELOG; the
+  derivation record keeps the name it ran under, with a note; the
+  entry file's title in its own agent commit. Closed steps' notes
+  and earlier devlog entries stay as written: dated facts.
+- The remote: github.com/edgaras87/never-oversold, created by the
+  reviewer by hand with the ADR's description, main pushed by the
+  reviewer at 0de75df (Step 1's close). This branch was not
+  pushed; the reviewer pushes main again after the fast-forward.
+- The folder on disk keeps `cbc-pure-run-3`; records name the
+  project, not the path. The agent's memory is keyed to the path.
+- Resume: close the plan, fast-forward `step-2-define` into main
+  on the word, the reviewer pushes main. Then Step 3 (ground): cut
+  its branch, derive its gate into PLAN, run infra-establish from
+  the registry's adversity needs — T2's tool named and verified by
+  refusal is the first thing the ground must show.
+
 ## 2026-09-09 → 2026-09-10  (Step 1: framing)
 
 - Briefing: arrived 2026-09-09 in `temp/`, the reviewer's file,

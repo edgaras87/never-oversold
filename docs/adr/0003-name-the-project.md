@@ -1,7 +1,7 @@
 # 0003. Name the project
 
 Date: 2026-09-10
-Status: Proposed
+Status: Accepted
 
 ## Context
 

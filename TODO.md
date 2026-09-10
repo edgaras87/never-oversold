@@ -8,9 +8,9 @@
 
 ## Now (current plan step)
 
-- [ ] Step 2 (Define): the public name — safe-reservations is the
-      working name from the briefing; confirm or overturn it, with
-      the gate derived into PLAN first, on a branch cut from main.
+- [ ] Step 3 (ground, infra-establish): cut its branch from main,
+      derive its gate into PLAN first, then evaluate the ground
+      strictly from the registry's adversity needs.
 
 ## Next (upcoming steps — assign each to a step when triaged)
 
@@ -32,8 +32,11 @@
 
 - [ ] Retrospective: PLAN's Release step was reshaped at birth —
       a Goal line, the gate in the run's step form, the two `(CbC)`
-      items no longer naming another run's exclusions — fold the
-      rewording back to the cbc-run-pure playbook.
+      items no longer naming another run's exclusions — and Step 2
+      was retitled from "Define (naming)" to "Identity (name,
+      description, remote)" when it opened, the remote being part
+      of a public identity. Fold both back to the cbc-run-pure
+      playbook.
 - [ ] Retrospective: four arrangement pieces are on trial from
       Step 1 — the one-branch-per-step rule (PLAN, Standing rules),
       the kit @ af16eb7 with its settings-file gate rejected, the
