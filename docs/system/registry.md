@@ -1,15 +1,16 @@
 # Slice registry — the work, cut and ready
 
-<!-- On the cbc-framing skill's registry template (its
-     templates/registry.md), filled at framing close from the
-     derivation record beside it (framing/derivation.md). Kill
-     numbers and concern letters are the definition's L4; facts
-     are its L1. Stands alone. -->
+<!-- The work the promise cuts into: one slice per invariant that
+     needs its own proof, each with the adversity its evidence must
+     create. Filled at framing close from the derivation record
+     beside it (framing/derivation.md). Kill numbers and concern
+     letters are the definition's L4; facts are its L1. Stands
+     alone. A living record: statuses change at every slice close;
+     anything else changes only through a dated revision entry. -->
 
-Framed 2026-09-10 (cbc-framing step 6; verdicts the reviewer's,
-every one, no delegation). Source of truth for what to work next.
-Ordering is an expectation, re-decided at each slice close — never
-assumed from this file's original state.
+Framed 2026-09-10; every verdict the reviewer's. Source of truth
+for what to work next. Ordering is an expectation, re-decided at
+each slice close — never assumed from this file's original state.
 
 A slice = one invariant × the adversity its evidence must *create*.
 Status values: `open` · `chosen-next` · `in-progress` ·
@@ -108,8 +109,9 @@ it.
 
 ## Fold-reconciliation line
 
-20 kills (L4's 1–20, derivation trace in framing/derivation.md,
-step 3) ↔ 4 slices + 3 folds + 0 deferrals + the fence remainders:
+20 kills (L4's 1–20; how each was found is in the derivation
+record's collisions section) ↔ 4 slices + 3 folds + 0 deferrals +
+the fence remainders:
 
 - 1, 2, 3, 4, 5, 9, 10 → SL-1 · 6, 7, 8 → SL-2 · 11, 12, 13, 14 →
   SL-3 · 15 → SL-4 · 16 → SL-3 (our retry) and SL-4 (our silence)
