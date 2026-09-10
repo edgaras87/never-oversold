@@ -681,3 +681,64 @@ what they changed:
   No — an accidental shared letter. The reviewer chose to keep P
   for possessions; the probes became PL0–PL4 by a logged return
   trip to step 2.
+
+## Step 4 — Sort into owners (L3)
+
+**Verdict:** open — draft awaiting the reviewer's questions.
+
+### Earned
+
+**What each concern touches:**
+
+| Concern | State touched | Decision touched |
+|---|---|---|
+| A — over-admission | on hand; the active reservations of the item | admit or refuse a reservation, against both |
+| B — the downward correction | on hand; the active reservations of the item | admit or refuse a change to on hand, against the sum |
+| C — a reservation exits once | one reservation's active state; on hand (on consume) | whether this exit is the reservation's first and only |
+| D — consume's two moves | one reservation's active state; on hand | none of its own — it holds A's and C's outcomes together |
+
+Every concern reads the same two numbers of the same item and
+decides against their comparison. No concern touches state the
+others do not; no concern decides something the others must not.
+
+**Seams probed** — each a plausible division, tested against the
+bar: separate state *and* separate decision authority.
+
+- *Stock adjustments as their own area* (the operator side). Its
+  state would be on hand; but concern A's admit decision reads on
+  hand and concern B's admit decision reads the reserved sum. One
+  number cannot be owned by an area whose decisions are taken by
+  another. Fails on state. Named, not drawn.
+- *Expiry, or the clock, as its own area.* Its decision would be
+  when a hold ends; its state, the expiry moment on each
+  reservation — which is the reservation record itself, and ending
+  a hold is concern C's exit. No separate state. Named, not drawn.
+- *The door — request validation — as its own area.* FC1 and FC2
+  are checks with no state of their own; a stage, not an owner.
+  Fails on state. Named, not drawn.
+- *Consume, or fulfilment, as its own area.* It moves both numbers
+  in one act; separate decision authority over a number is exactly
+  what concern D forbids. Fails on authority. Named, not drawn.
+- *One area per item.* The same decision over the same kind of
+  state, repeated; a partition of scale, not of ownership — a
+  mechanism, parked with the others. Not a seam.
+
+**Ownership: one area — the reservation ledger.** It owns the
+per-item on-hand count, the reservations with their active state,
+and the three decisions: admit a reservation, admit a change to on
+hand, allow an exit. Confirmed by sorting four real concerns, not
+assumed. Step 0's bar 6 — one owner, a full lifecycle inside one
+system's walls — is settled here, no longer argued.
+
+### How it ran
+
+The table came first, and it was already the answer: four rows,
+two columns, the same entries. The seams were then probed one by
+one so the one-area result is a refusal of each, in writing, rather
+than an absence. The strongest candidate was the operator side —
+it has its own actor, its own facts, its own concern — and it
+fails on the plainest ground: the two numbers are compared in one
+decision, so they must have one owner. FC3 (what active means) was
+watched for an owner's decision it might need: it needs a
+definition, not an owner, so it stays a fold; no return trip to
+L2. The reviewer's questions and what they changed: (pending).
