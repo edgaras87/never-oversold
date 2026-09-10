@@ -48,6 +48,16 @@
   `infrastructure/`, the manuals under `docs/infrastructure/`.
   Hand-off filed: the skill should treat this as its normal shape
   in a repo with records, not a deviation.
+- Operator manual begun (environment section) from the stand-up;
+  found two compose providers on the host, podman choosing Docker's
+  plugin — noted as "either works, the front door is `podman
+  compose`".
+- Services, slice by slice (ADR-0005, 09-11): every slice needs
+  one shared store with a way to make two writers disagree, atomic
+  commit of two writes, and a witness readable from the host;
+  nothing needs anything else. PostgreSQL, one instance. Eight
+  things not provisioned, each with its why; Flyway as tooling, not
+  a service.
 
 ## 2026-09-10  (Step 2: identity)
 
