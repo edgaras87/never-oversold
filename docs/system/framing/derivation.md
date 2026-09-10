@@ -252,8 +252,11 @@ reviewer's questions and what they changed:
 
 ## Step 2 — Name the enemies (L1)
 
-**Verdict:** open — draft awaiting the reviewer's questions; the
-scope verdicts and the saturation call are the reviewer's.
+**Verdict:** taken, 2026-09-10 — the reviewer accepts the census:
+saturated by the audit, five scope verdicts as recommended, the
+three ledgers as written. Section frozen; six questions ran before
+the call (below). Hands down: the fact list F1–F24 and the three
+ledgers. No L2 revision.
 
 ### Earned
 
