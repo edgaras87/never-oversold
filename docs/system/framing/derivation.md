@@ -490,7 +490,12 @@ verdict changed.
 
 ## Step 3 — Run the collisions (L4)
 
-**Verdict:** open — draft awaiting the reviewer's questions.
+**Verdict:** taken, 2026-09-10 — the reviewer accepts the kills,
+the four concerns, the three fold-candidates, and the coverage.
+Section frozen; one question ran before the call (below), and one
+return trip to step 2 (labels only). Hands down: concerns A–D
+invariant-shaped with adversity named, FC1–FC3, the parked
+mechanisms.
 
 ### Earned
 
