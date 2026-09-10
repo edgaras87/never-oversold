@@ -770,7 +770,9 @@ L2. The reviewer's questions and what they changed:
 
 ## Step 5 — Check between owners (L5)
 
-**Verdict:** open — draft awaiting the reviewer's questions.
+**Verdict:** taken, 2026-09-10 — the reviewer accepts L5 empty
+with its reasons. Section frozen; no questions ran. Hands down:
+nothing to hold across seams; step 6 cuts within one area.
 
 ### Earned
 
