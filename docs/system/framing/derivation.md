@@ -767,3 +767,50 @@ L2. The reviewer's questions and what they changed:
   "available" refused — it is the other number, on-hand-count minus
   reserved; "in-stock" blurs into it. The reviewer chose the one
   token *on-hand-count*; applied by return trips to steps 0–3.
+
+## Step 5 — Check between owners (L5)
+
+**Verdict:** open — draft awaiting the reviewer's questions.
+
+### Earned
+
+**Empty, with its reasons.** L5 holds what must be true across
+seams that no local guarantee covers. There are no seams, and each
+absence traces to a decision already taken:
+
+- *No internal seams:* step 4 sorted four real concerns into one
+  area, the reservation ledger, and refused five candidate
+  divisions in writing. Nothing crosses a boundary inside the
+  system because there is no boundary inside it.
+- *No sibling systems to coordinate with:* the catalog, physical
+  stock truth, orders, payment, and who-may-act were refused at
+  step 1 (L2) and fenced at step 2 (W1, W5). The ledger owes them
+  nothing across a joint, and they owe it nothing the promise
+  depends on.
+- *Callers and operators are environment, not owners:* they enter
+  the census as actors (L1) — what they do reaches the ledger as
+  facts at the door, never as an agreement between peers.
+- *Our own instances are not areas:* two of us running is a fact
+  (F17) inside one area, handled by concern A; instances share
+  state, they do not divide it.
+- *Per-item partition is not a seam:* refused at step 4 as a
+  mechanism of scale; if it is ever chosen, it divides the same
+  decision over disjoint state and creates no cross-item guarantee
+  the promise needs, the promise being per item.
+
+**What L5 would have held, had a seam been drawn** — recorded so
+the emptiness is a check, not a shrug: had the operator side been
+its own area, L5 would have had to state the ordering between an
+adjustment and a concurrent admit across the seam (kill 5) and
+the coordinated failure of a correction that ends reservations
+(concern B's parked shape). Both live inside one area now, as
+concerns A and B, with no joint to hold them together.
+
+### How it ran
+
+Each emptiness was written by asking which prior decision made it
+empty, and the two facts that could have become cross-area
+constraints (kill 5, concern B's second shape) were named as the
+constraints they would have been. Nothing here redefines L3's one
+area or L4's concerns; L5 takes them as given. The reviewer's
+questions and what they changed: (pending).
