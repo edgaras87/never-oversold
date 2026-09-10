@@ -4,9 +4,9 @@
      environment that attacks it (L1), the collisions and what
      dies (L4), the owners (L3), what holds between owners (L5).
      Composed at framing close from the derivation record beside
-     it (framing/derivation.md), in derivation order — L2, L1, L4,
-     L3, L5 — one layer per commit, so the history reads as the
-     derivation. Stands alone. A living record: after close it
+     it (framing/derivation.md), one layer per commit in derivation
+     order — L2, L1, L4, L3, L5 — then ordered as the map reads,
+     L1→L5. Stands alone. A living record: after close it
      changes only through a dated entry in the revision log at the
      end. -->
 
@@ -14,73 +14,10 @@ The promise this definition serves is in `intent.md`:
 *for any item, the reserved quantity never exceeds the
 on-hand-count, however many reservations race for the same units.*
 
-Layers, in the order they were derived (the map's order is L1
-outermost to L5 innermost; the derivation order is not the map's):
-L2 what must be ours · L1 the environment · L4 the collisions ·
-L3 the owners · L5 between owners.
-
-## L2 — What must be ours
-
-The test that earned every possession: *if someone else owned
-this, could they break the promise without us being able to stop
-them?* Yes → ours. No → the mirror: *can the promise stay true
-even if this goes wrong elsewhere?* Yes → refused, in writing.
-Refusal is never by scope: what is refused is what cannot make the
-promise false.
-
-### Possessions
-
-- **P1. The per-item on-hand-count, and every change to it.** An
-  outside owner lowering it under the reserved sum breaks the
-  promise and we could not stop them. The ledger's own number;
-  restock, loss and recount reach it only as requests at our door.
-- **P2. The reservation records, and the transitions into active.**
-  Which reservations exist, for which item, how many units; an
-  outside owner reviving a released reservation raises the sum
-  past the on-hand-count.
-- **P3. The admit-or-refuse decision on a reservation request,
-  under concurrent requests.** The moment the race is won or lost.
-  Owning both numbers and letting someone else compare them is
-  exactly how naive systems oversell.
-- **P4. Consume — ending a reservation and lowering the
-  on-hand-count together — once per reservation.** The one act
-  that moves both numbers; an outside owner lowering the count
-  without ending the hold, or lowering it twice for one hold,
-  breaks the promise for everyone else on the item.
-
-Release and expiry — the transitions out of active — are ours by
-owning the records, but they carry no promise: they only lower the
-sum.
-
-### Refusals, each with its mirror
-
-- **Reserve once-ness.** A retried reserve makes a second hold; it
-  is admitted against the on-hand-count like any other, so the sum
-  still fits. The promise stays true; the caller over-holds. A
-  quality of the surface, not this promise's — the claim that
-  would own it is banked in the intent.
-- **Expiry duration.** How long a hold lasts is the caller's or the
-  seller's policy; the promise holds for any duration.
-- **The item catalog.** Which items exist is someone else's fact;
-  the promise holds per item the ledger knows, and an unknown item
-  is refused at the door.
-- **Physical stock truth.** What the warehouse actually holds is
-  not the on-hand-count; the count can be wrong about the world
-  and the promise still holds. Consequence: a downward correction
-  arrives as a request to lower the count, and lowered under the
-  sum the promise would die — so it is a collision, run below, not
-  a refusal.
-- **The caller's view.** An answer that mismatches the persisted
-  outcome lies to the caller; the state property holds.
-- **Orders, payment, pricing, who may reserve.** Outside the
-  territory.
-
-### The edge
-
-Every request crosses at the door — reserve(item, quantity),
-release, consume, adjust the on-hand-count — parsed and checked
-there. An unknown item, a non-positive quantity, a reservation not
-the caller's own: refused at the door, never inside.
+Layers, in the map's order, outside-in: L1 the environment · L2
+what must be ours · L3 the owners · L4 the collisions · L5 between
+owners. They were derived in a different order — L2, L1, L4, L3,
+L5 — and the commit history keeps that; the file keeps the map.
 
 ## L1 — The environment
 
@@ -259,6 +196,112 @@ reviewer, 2026-09-10:
   reservations (F2, F8): **censused and fenced** — the facts stay
   because expiry is their exit; the boundary (W2) holds.
 
+## L2 — What must be ours
+
+The test that earned every possession: *if someone else owned
+this, could they break the promise without us being able to stop
+them?* Yes → ours. No → the mirror: *can the promise stay true
+even if this goes wrong elsewhere?* Yes → refused, in writing.
+Refusal is never by scope: what is refused is what cannot make the
+promise false.
+
+### Possessions
+
+- **P1. The per-item on-hand-count, and every change to it.** An
+  outside owner lowering it under the reserved sum breaks the
+  promise and we could not stop them. The ledger's own number;
+  restock, loss and recount reach it only as requests at our door.
+- **P2. The reservation records, and the transitions into active.**
+  Which reservations exist, for which item, how many units; an
+  outside owner reviving a released reservation raises the sum
+  past the on-hand-count.
+- **P3. The admit-or-refuse decision on a reservation request,
+  under concurrent requests.** The moment the race is won or lost.
+  Owning both numbers and letting someone else compare them is
+  exactly how naive systems oversell.
+- **P4. Consume — ending a reservation and lowering the
+  on-hand-count together — once per reservation.** The one act
+  that moves both numbers; an outside owner lowering the count
+  without ending the hold, or lowering it twice for one hold,
+  breaks the promise for everyone else on the item.
+
+Release and expiry — the transitions out of active — are ours by
+owning the records, but they carry no promise: they only lower the
+sum.
+
+### Refusals, each with its mirror
+
+- **Reserve once-ness.** A retried reserve makes a second hold; it
+  is admitted against the on-hand-count like any other, so the sum
+  still fits. The promise stays true; the caller over-holds. A
+  quality of the surface, not this promise's — the claim that
+  would own it is banked in the intent.
+- **Expiry duration.** How long a hold lasts is the caller's or the
+  seller's policy; the promise holds for any duration.
+- **The item catalog.** Which items exist is someone else's fact;
+  the promise holds per item the ledger knows, and an unknown item
+  is refused at the door.
+- **Physical stock truth.** What the warehouse actually holds is
+  not the on-hand-count; the count can be wrong about the world
+  and the promise still holds. Consequence: a downward correction
+  arrives as a request to lower the count, and lowered under the
+  sum the promise would die — so it is a collision, run below, not
+  a refusal.
+- **The caller's view.** An answer that mismatches the persisted
+  outcome lies to the caller; the state property holds.
+- **Orders, payment, pricing, who may reserve.** Outside the
+  territory.
+
+### The edge
+
+Every request crosses at the door — reserve(item, quantity),
+release, consume, adjust the on-hand-count — parsed and checked
+there. An unknown item, a non-positive quantity, a reservation not
+the caller's own: refused at the door, never inside.
+
+## L3 — The owners
+
+A division is real only if it would hold separate state *and*
+separate decision authority. Concern-count is not area-count.
+
+### What each concern touches
+
+| Concern | State touched | Decision touched |
+|---|---|---|
+| A — over-admission | the on-hand-count; the active reservations of the item | admit or refuse a reservation, against both |
+| B — the downward correction | the on-hand-count; the active reservations of the item | admit or refuse a change to the count, against the sum |
+| C — a reservation exits once | one reservation's active state; the on-hand-count (on consume) | whether this exit is the reservation's first and only |
+| D — consume's two moves | one reservation's active state; the on-hand-count | none of its own — it holds A's and C's outcomes together |
+
+Every concern reads the same two numbers of the same item and
+decides against their comparison.
+
+### Seams probed and refused
+
+- *Stock adjustments as their own area.* Its state would be the
+  on-hand-count; but A's admit decision reads the count and B's
+  reads the reserved sum. One number cannot be owned by an area
+  whose decisions are taken by another. Fails on state.
+- *Expiry, or the clock, as its own area.* Its state would be the
+  expiry moment on each reservation — the reservation record
+  itself; ending a hold is C's exit. No separate state.
+- *The door — request validation — as its own area.* FC1 and FC2
+  are checks with no state of their own; a stage, not an owner.
+- *Consume, or fulfilment, as its own area.* It moves both numbers
+  in one act; separate authority over a number is what D forbids.
+- *One area per item.* The same decision over the same kind of
+  state, repeated; a partition of scale, not of ownership — a
+  mechanism, parked.
+
+### Ownership: one area — the reservation ledger
+
+It owns the per-item on-hand-count, the reservations with their
+active state, and the three decisions: admit a reservation, admit a
+change to the count, allow an exit. Confirmed by sorting four real
+concerns and refusing five seams in writing, not assumed. The
+intent's sixth test — one owner, a full lifecycle inside one
+system's walls — is settled here.
+
 ## L4 — The collisions, and what dies
 
 Each possession (L2) collided against every fact (L1) that can
@@ -410,49 +453,6 @@ to one item disagree (A); the shape of an adjustment, delta or
 absolute (B); a single clock source for activeness (FC3); one act
 for consume's two moves (D); a marker that makes a retried exit
 recognisable (C).
-
-## L3 — The owners
-
-A division is real only if it would hold separate state *and*
-separate decision authority. Concern-count is not area-count.
-
-### What each concern touches
-
-| Concern | State touched | Decision touched |
-|---|---|---|
-| A — over-admission | the on-hand-count; the active reservations of the item | admit or refuse a reservation, against both |
-| B — the downward correction | the on-hand-count; the active reservations of the item | admit or refuse a change to the count, against the sum |
-| C — a reservation exits once | one reservation's active state; the on-hand-count (on consume) | whether this exit is the reservation's first and only |
-| D — consume's two moves | one reservation's active state; the on-hand-count | none of its own — it holds A's and C's outcomes together |
-
-Every concern reads the same two numbers of the same item and
-decides against their comparison.
-
-### Seams probed and refused
-
-- *Stock adjustments as their own area.* Its state would be the
-  on-hand-count; but A's admit decision reads the count and B's
-  reads the reserved sum. One number cannot be owned by an area
-  whose decisions are taken by another. Fails on state.
-- *Expiry, or the clock, as its own area.* Its state would be the
-  expiry moment on each reservation — the reservation record
-  itself; ending a hold is C's exit. No separate state.
-- *The door — request validation — as its own area.* FC1 and FC2
-  are checks with no state of their own; a stage, not an owner.
-- *Consume, or fulfilment, as its own area.* It moves both numbers
-  in one act; separate authority over a number is what D forbids.
-- *One area per item.* The same decision over the same kind of
-  state, repeated; a partition of scale, not of ownership — a
-  mechanism, parked.
-
-### Ownership: one area — the reservation ledger
-
-It owns the per-item on-hand-count, the reservations with their
-active state, and the three decisions: admit a reservation, admit a
-change to the count, allow an exit. Confirmed by sorting four real
-concerns and refusing five seams in writing, not assumed. The
-intent's sixth test — one owner, a full lifecycle inside one
-system's walls — is settled here.
 
 ## L5 — Between owners
 
