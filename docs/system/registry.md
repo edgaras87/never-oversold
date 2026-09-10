@@ -111,7 +111,10 @@ it.
 
 Every kill the definition's L4 names, accounted for: 20 kills ↔
 4 slices + 3 folds + 0 deferrals + the fence remainders. One row
-per kill; nothing dropped is checked by counting.
+per kill; nothing dropped is checked by counting. The definition's
+L4 is the master for every kill — what dies, against which fact,
+from which possession; the middle column here is a summary for
+counting, never to be read in its place.
 
 | Kill | What dies | Lands in |
 |---|---|---|
