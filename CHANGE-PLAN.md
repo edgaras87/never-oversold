@@ -93,6 +93,12 @@ truth: the reviewer refused any line a reader would need the
 agent's arrangement to decipher. Rewritten in the repo's voice;
 content unchanged.
 
+**15b. `docs: registry reconciliation as a table`** *(added
+2026-09-10, divergence)*
+The reconciliation line was a run-on of arrows; the reviewer found
+it weak. One row per kill — what dies, where it lands — so
+"nothing dropped" is checked by counting rows. Content unchanged.
+
 **16. `docs(adr): adopt the framing`**
 ADR-0002, Status: Proposed — the framing adopted as the project's
 truth set, the alternatives it closed (the run-repo layout, the
