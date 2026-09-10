@@ -454,6 +454,39 @@ concerns and refusing five seams in writing, not assumed. The
 intent's sixth test — one owner, a full lifecycle inside one
 system's walls — is settled here.
 
+## L5 — Between owners
+
+**Empty, with its reasons.** L5 holds what must be true across
+seams that no local guarantee covers. There are no seams, and each
+absence traces to a decision already taken:
+
+- *No internal seams:* L3 sorted four real concerns into one area
+  and refused five candidate divisions in writing. Nothing crosses
+  a boundary inside the system because there is no boundary inside
+  it.
+- *No sibling systems to coordinate with:* the catalog, physical
+  stock truth, orders, payment, and who-may-act were refused at L2
+  and fenced at L1 (W1, W5). The ledger owes them nothing across a
+  joint, and they owe it nothing the promise depends on.
+- *Callers and operators are environment, not owners:* they are
+  actors in L1 — what they do reaches the ledger as facts at the
+  door, never as an agreement between peers.
+- *Our own instances are not areas:* two of us running is a fact
+  (F17) inside one area, handled by concern A; instances share
+  state, they do not divide it.
+- *Per-item partition is not a seam:* refused at L3 as a mechanism
+  of scale; if ever chosen, it divides the same decision over
+  disjoint state and creates no cross-item guarantee the promise
+  needs, the promise being per item.
+
+**What L5 would have held, had a seam been drawn** — recorded so
+the emptiness is a check, not a shrug: had the operator side been
+its own area, L5 would have had to state the ordering between an
+adjustment and a concurrent admit across the seam (kill 5) and the
+coordinated failure of a correction that ends reservations
+(concern B's parked shape). Both live inside one area, as concerns
+A and B, with no joint to hold them together.
+
 ## Revision log
 
 <!-- Dated entries only: what changed, why, what triggered it. -->
