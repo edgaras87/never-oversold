@@ -114,6 +114,28 @@ Clock
 (Numbering skips F14 and F20: folded during the census into F5 and
 W4; the gaps keep every reference true.)
 
+### The runtime ground
+
+What the system assumes about where it runs — facts the ground
+must honour, stated here so the ground is derived from need rather
+than habit:
+
+- **One local machine.** The system and its evidence run on the
+  reviewer's own machine, a Linux workstation; there is no hosted
+  deployment (the intent excludes it) and no second machine.
+- **A stranger's clean machine.** The same system and evidence must
+  stand up from a clean machine by the README's commands alone;
+  what such a machine needs in hand is the README's to say.
+- **More than one instance on that machine.** F17 is a fact, not a
+  deployment choice: our process must be runnable as several
+  instances at once on the one machine, so the evidence can race
+  them.
+- **The store is a service on that machine,** reachable by every
+  instance, outliving any of them; what it is, is the ground's
+  decision, not this definition's.
+- **The clock is the machine's,** shared by the instances unless
+  the evidence deliberately skews it (SL-1's flag).
+
 ### Trust assumptions — accepted deliberately, not defended
 
 - T1. The store durably holds a write it acknowledged. Its
@@ -494,3 +516,8 @@ A and B, with no joint to hold them together.
 - 2026-09-10 — heading: the working name safe-reservations
   replaced by never-oversold (ADR-0003). Triggered by PLAN Step 2.
   No layer changed.
+- 2026-09-10 — L1 gains "The runtime ground": the machine, the
+  stranger's machine, plural instances, the store as a service, the
+  clock. Why: the framing left the runtime facts unstated, and the
+  ground must be derived from them. Triggered by PLAN Step 3's
+  readiness check. No fact, fence, or verdict changed.
