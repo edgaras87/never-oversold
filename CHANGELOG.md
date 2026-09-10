@@ -20,6 +20,11 @@ revision, start a new minor.
 
 ## [Unreleased]
 
+### Changed
+
+- Named `never-oversold`: the name is the promise's negation, ruled
+  out. The working name safe-reservations is overturned (ADR-0003).
+
 ### Added
 
 - The promise, the system definition and the slice registry under

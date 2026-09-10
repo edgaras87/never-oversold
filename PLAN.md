@@ -1,4 +1,4 @@
-# Plan: cbc-pure-run-3
+# Plan: never-oversold
 
 <!-- The stub ships the pure shape: the steps below are placeholders
      showing the form — a goal, a gate of verifiable facts, the records

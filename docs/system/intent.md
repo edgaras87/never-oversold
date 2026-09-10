@@ -1,4 +1,4 @@
-# Intent — safe-reservations (working name)
+# Intent — never-oversold
 
 <!-- The promise this system is built to keep, and what it refuses
      to claim. Composed at framing close from the derivation record
@@ -129,4 +129,7 @@ revision here after release, never a silent extension.
 
 <!-- Dated entries only: what changed, why, what triggered it. -->
 
-- (none since framing close, 2026-09-10)
+- 2026-09-10 — heading: the working name safe-reservations
+  replaced by the project's name, never-oversold. Why: the naming
+  step decided it (ADR-0003) — the name is the promise's negation,
+  ruled out. Triggered by PLAN Step 2. No claim changed.

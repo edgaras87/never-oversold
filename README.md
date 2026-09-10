@@ -1,4 +1,4 @@
-# cbc-pure-run-3  (working name: safe-reservations)
+# never-oversold
 
 An inventory-reservation ledger built to keep one promise: **for
 any item, the reserved quantity never exceeds the on-hand-count,
@@ -38,8 +38,8 @@ Built by correctness-by-construction: what must never happen first,
 features last. The method: [docs/concept/](docs/concept/), start
 with [00-cbc.md](docs/concept/00-cbc.md).
 
-**Status:** framed 2026-09-10. No code, no ground yet; next is the
-public name, then the ground.
+**Status:** framed 2026-09-10, named 2026-09-10. No code, no ground
+yet; next is the ground.
 
 ## Project records
 

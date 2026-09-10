@@ -155,5 +155,14 @@ SL-4 needs an exit's identity to tell half-done from done.
 
 ## Divergences from the briefing (derivation wins, recorded)
 
-None. The working name is untouched — the naming step decides it,
-which is not the derivation overriding the briefing.
+None. The working name safe-reservations was overturned at the
+naming step (ADR-0003) — that step's own decision, not the
+derivation overriding the briefing.
+
+## Revision log
+
+<!-- Dated entries only, for anything but a status change: what
+     changed, why, what triggered it. -->
+
+- 2026-09-10 — the divergences section: the working name's fate
+  recorded (ADR-0003). Triggered by PLAN Step 2. No slice changed.

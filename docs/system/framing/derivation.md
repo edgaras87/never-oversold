@@ -1,5 +1,9 @@
 # Framing derivation — safe-reservations (working name)
 
+<!-- Named never-oversold at PLAN Step 2 (ADR-0003). This record
+     is the archive of the framing and keeps the name it ran under;
+     the exports beside it carry the project's name. -->
+
 <!-- The framing's working record: one section per step, each in
      two halves — what the step earned (on top; the exports compose
      from it) and how it ran (below: candidates, probes, dead ends,

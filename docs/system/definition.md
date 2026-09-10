@@ -1,4 +1,4 @@
-# System definition — safe-reservations (working name)
+# System definition — never-oversold
 
 <!-- The layered system the promise derives: what we own (L2), the
      environment that attacks it (L1), the collisions and what
@@ -491,4 +491,6 @@ A and B, with no joint to hold them together.
 
 <!-- Dated entries only: what changed, why, what triggered it. -->
 
-- (none since framing close, 2026-09-10)
+- 2026-09-10 — heading: the working name safe-reservations
+  replaced by never-oversold (ADR-0003). Triggered by PLAN Step 2.
+  No layer changed.
