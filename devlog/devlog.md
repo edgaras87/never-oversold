@@ -58,6 +58,13 @@
   nothing needs anything else. PostgreSQL, one instance. Eight
   things not provisioned, each with its why; Flyway as tooling, not
   a service.
+- Constraints (ADR-0006): the role-split model checked against the
+  project's facts, nothing defeats it; nine constraints, each with
+  the mechanism that enforces it — the grant system, the image's
+  init hook, a named volume, a published port, the ignore file, the
+  image tag. Names: `migrator`, `runtime`, database and schema
+  `never_oversold`. T2's tool goes into the behavioral check as a
+  capability shown, not a constraint governed.
 
 ## 2026-09-10  (Step 2: identity)
 
