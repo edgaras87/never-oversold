@@ -60,10 +60,21 @@ engine level before any ground file exists: version, compose
 provider, rootless and cgroup facts, an image pulled, a container
 run end to end, two containers alive at once, one killed, one
 paused and resumed — the commands and their actual output in the
-establishment log's first entry.
+devlog's Step 3 entry.
 
 No compose file is born with this decision; its content is the
 service evaluation's and the constraints' outcome.
+
+**Where the ground lives** (revised 2026-09-10, before any ground
+file): `compose.yaml` and `.env.example` at the root, `.env`
+ignored — the stranger's first command finds them there, and at
+bootstrap the file becomes the whole system's declaration; the rest
+of the runnable ground under `infrastructure/`; the two manuals
+under `docs/infrastructure/`. No establishment log: the walk as
+lived is the devlog's, the decisions are ADRs, expected results sit
+in the verify suite and the operator manual — the walk's default
+log exists for repos without records, and this repo's conventions
+win.
 
 ## Consequences
 

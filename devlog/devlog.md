@@ -6,6 +6,49 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-10 →  (Step 3: the ground)
+
+<!-- Grows as the walk runs — the lived-result record: for every
+     executing step, the command, what was expected, what actually
+     happened. Decisions with their options are ADRs. -->
+
+- Opened on `step-3-ground`; the gate derived from the walk's own
+  step gates. Readiness tripped on one thing: the definition had no
+  runtime-ground facts. Added by a dated revision entry in L1
+  (`44f256d`) — the framing's census never asks for them; hand-off
+  filed in TODO.
+- Readiness, on the actual repo: the three exports stand (ADR-0002),
+  four slices, SL-1 chosen-next; the runtime ground now readable;
+  the repo is git with `.gitignore`. Passed.
+- The environment: ADR-0004, podman local containers, compose-
+  driven, kept against every demand the slices make. Proven at the
+  engine level before any ground file, each command with its
+  expected result, then what happened:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | `podman version` | engine 5.x, client and API the same | 5.8.2 / API 5.8.2, linux/amd64 |
+  | `podman compose version` | a provider answers | external provider `docker-compose`, Docker Compose v2.39.4-desktop.1 |
+  | `podman info` | rootless, cgroups v2, crun, Fedora | rootless=true, cgroups v2, crun, fedora 42, amd64, kernel 6.19.14, SELinux enabled |
+  | `podman pull docker.io/library/alpine:3.20` | digest, exit 0 | digest `bf8527eb…`, exit 0 |
+  | `podman run --rm alpine:3.20 sh -c 'echo ground ok'` | `ground ok`, exit 0 | `ground ok`, exit 0 |
+  | two `podman run -d` at once, `podman ps` | both Up | `ng-a Up`, `ng-b Up` |
+  | `podman kill` on a running container | gone from `podman ps -a` | gone |
+  | `podman pause`, then `podman unpause` | paused, then running | `paused`, then `running` |
+
+  Eight of eight as expected; test containers removed. For the
+  operator manual: rootless, ports above 1024; SELinux, `:Z` on
+  bind mounts; the front door is `podman compose`, answered here by
+  an external docker-compose binary.
+- The skill's establishment log was opened at the decision and
+  withdrawn one commit later, at the reviewer's question: what does
+  it hold that the records do not? Nothing — this entry is the walk,
+  ADRs are the decisions. Layout settled with it: `compose.yaml`
+  and the env files at the root, the runnable ground under
+  `infrastructure/`, the manuals under `docs/infrastructure/`.
+  Hand-off filed: the skill should treat this as its normal shape
+  in a repo with records, not a deviation.
+
 ## 2026-09-10  (Step 2: identity)
 
 - Named **never-oversold** (ADR-0003): the promise's negation,
