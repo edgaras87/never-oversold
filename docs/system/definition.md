@@ -411,6 +411,49 @@ absolute (B); a single clock source for activeness (FC3); one act
 for consume's two moves (D); a marker that makes a retried exit
 recognisable (C).
 
+## L3 — The owners
+
+A division is real only if it would hold separate state *and*
+separate decision authority. Concern-count is not area-count.
+
+### What each concern touches
+
+| Concern | State touched | Decision touched |
+|---|---|---|
+| A — over-admission | the on-hand-count; the active reservations of the item | admit or refuse a reservation, against both |
+| B — the downward correction | the on-hand-count; the active reservations of the item | admit or refuse a change to the count, against the sum |
+| C — a reservation exits once | one reservation's active state; the on-hand-count (on consume) | whether this exit is the reservation's first and only |
+| D — consume's two moves | one reservation's active state; the on-hand-count | none of its own — it holds A's and C's outcomes together |
+
+Every concern reads the same two numbers of the same item and
+decides against their comparison.
+
+### Seams probed and refused
+
+- *Stock adjustments as their own area.* Its state would be the
+  on-hand-count; but A's admit decision reads the count and B's
+  reads the reserved sum. One number cannot be owned by an area
+  whose decisions are taken by another. Fails on state.
+- *Expiry, or the clock, as its own area.* Its state would be the
+  expiry moment on each reservation — the reservation record
+  itself; ending a hold is C's exit. No separate state.
+- *The door — request validation — as its own area.* FC1 and FC2
+  are checks with no state of their own; a stage, not an owner.
+- *Consume, or fulfilment, as its own area.* It moves both numbers
+  in one act; separate authority over a number is what D forbids.
+- *One area per item.* The same decision over the same kind of
+  state, repeated; a partition of scale, not of ownership — a
+  mechanism, parked.
+
+### Ownership: one area — the reservation ledger
+
+It owns the per-item on-hand-count, the reservations with their
+active state, and the three decisions: admit a reservation, admit a
+change to the count, allow an exit. Confirmed by sorting four real
+concerns and refusing five seams in writing, not assumed. The
+intent's sixth test — one owner, a full lifecycle inside one
+system's walls — is settled here.
+
 ## Revision log
 
 <!-- Dated entries only: what changed, why, what triggered it. -->
