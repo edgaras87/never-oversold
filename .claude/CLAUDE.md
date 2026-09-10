@@ -1,10 +1,9 @@
 # cbc-pure-run-3
 
-A backend service to be built by correctness-by-construction —
-the design derived from one falsifiable promise, what must never
-happen first, features last. Until the briefing brings the
-problem, this repo is method and records, ready to start:
-nothing to build, no tests, no runtime.
+A backend service built by correctness-by-construction — the
+design derived from one falsifiable promise, what must never
+happen first, features last. The problem: an inventory-reservation
+ledger under contention, framed 2026-09-10; no code, no ground yet.
 
 ## Correctness by construction
 
@@ -14,10 +13,11 @@ questions (promise → guarantees → structure → features → code,
 never backwards) lives there, and the method's reading of each
 record lives in that record's own comments.
 
-Until the framing artifacts exist (cbc-framing creates them, under
-`docs/system/`), the project is pre-framing: the only method work
-is running cbc-framing jointly with the human — never invent the
-artifacts to fill the gap.
+The framing artifacts stand under `docs/system/` — intent,
+definition, registry — the project's truth set; what to work next
+is the registry's chosen-next, and nothing is invented beyond what
+they say. They are living records: changed only by a dated
+revision entry, never in place.
 
 `docs/concept/` and the method skills under `.claude/skills/` are
 pinned copies: never edited in place — a change is a new copy
@@ -33,6 +33,7 @@ from the source, logged in `.claude/decisions.md`.
 
 | When | What's in it | Record |
 |---|---|---|
+| Asking what the system promises, owns, refuses; what to work next | The truth set: intent, definition, registry | docs/system/ |
 | Starting work, or closing a step's gate | Current state, next steps, gates | PLAN.md |
 | A decision taken, options rejected | Decisions and why | docs/adr/ |
 | Noticed something, not doing it now | Backlog | TODO.md |
@@ -57,4 +58,6 @@ from the source, logged in `.claude/decisions.md`.
 
 ## Local rules
 
-- Nothing before the briefing names the problem.
+- The exports under `docs/system/` carry no agent language: nothing
+  in them names a skill, a workflow step, or the arrangement. A
+  reader without this directory must not need it to read them.
