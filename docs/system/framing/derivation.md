@@ -21,13 +21,13 @@ cbc-framing as pinned, every verdict the reviewer's.
 **Verdict:** taken, 2026-09-09 — the reviewer accepts the promise
 as worded, with its reading. Section frozen; four questions ran
 before the call (below). Hands down: the promise. Debt to step 1:
-the lifecycle moments and the stock-on-hand ownership named in the
+the lifecycle moments and the on-hand-count ownership named in the
 reading.
 
 ### Earned
 
 **Promise:** For any item, the reserved quantity never exceeds the
-stock on hand, however many reservations race for the same units.
+on-hand-count, however many reservations race for the same units.
 
 **Reading of the sentence** — what each word commits to, and which
 step confirms it:
@@ -37,8 +37,8 @@ step confirms it:
   yet released, expired, or consumed. The lifecycle enters the
   sentence here, unstated; step 1 decides which of its moments are
   ours.
-- *the stock on hand*: the ledger's own recorded count, not a
-  warehouse's truth. Whether restock and corrections are ours or
+- *the on-hand-count*: one term, one token — the ledger's own
+  recorded count of an item, not a warehouse's truth. Whether restock and corrections are ours or
   arrive from outside is step 1's first question, and its answer
   can change this word.
 - *race for the same units*: concurrent requests overlapping in
@@ -62,7 +62,7 @@ does not lose them either.
 **Worth proving:**
 - Could it be false: yes — the negation is an event, an oversell:
   persisted state where an item's reserved quantity exceeds its
-  stock on hand. Naive code produces it: read the stock, check,
+  on-hand-count. Naive code produces it: read the stock, check,
   write; two racers both pass the check on the last unit.
 - Would proving it matter: yes — oversell under contention is the
   canonical correctness adversity, contention is what the reader is
@@ -73,14 +73,14 @@ does not lose them either.
 - the adversity genuinely created — many concurrent reservations
   against one item holding fewer units than they ask for, never a
   sequential replay pretending;
-- the witness never firing — reserved greater than on hand, read
+- the witness never firing — reserved greater than on-hand-count, read
   from persisted state, checkable from outside the system;
 - the path from claim to proof followable by the reader.
 
 **Against the six bars** (the briefing's exit test for the
 sentence; four settle here, two are argued here and proven later):
 1. One claim, one sentence, a timeless state property: for every
-   item, reserved ≤ on hand, at every instant. Settled.
+   item, reserved ≤ on-hand-count, at every instant. Settled.
 2. The adversity class is in the sentence: "race for the same units"
    is contention. Settled.
 3. Trivially false: the unserialized read-check-write breaks it; the
@@ -112,7 +112,7 @@ sentence; four settle here, two are argued here and proven later):
   negation is a stale number (class: staleness) and the claim reads
   as a feature wish.
 
-**Debt handed to step 1:** stock on hand can move — restock,
+**Debt handed to step 1:** on-hand-count can move — restock,
 corrections. Whether that adjustment is ours is the hostage test's
 first question.
 
@@ -128,7 +128,7 @@ briefing fixed the class as contention, which leaves the oversell
 nearly alone; the six bars then confirmed it and banked the rest
 with the bar each failed. The bars are the briefing's, copied, not
 derived here. Two wording choices
-in the chosen sentence, made deliberately: "stock on hand" makes the
+in the chosen sentence, made deliberately: "on-hand-count" makes the
 ledger's own count the reference rather than a warehouse's truth,
 keeping the claim inside one system's walls; "race for the same
 units" carries the adversity class. The reviewer's questions and
@@ -160,6 +160,14 @@ what they changed:
   reading block states what each word commits to, so steps 1–3
   test a stated meaning rather than a guessed one.
 
+**Return trip, 2026-09-10, from step 4:** the reviewer renamed the
+reference number: "stock on hand" / "on hand" became the one term
+*on-hand-count*, so it reads as a name, not three words. The promise
+now reads: *For any item, the reserved quantity never exceeds the
+on-hand-count, however many reservations race for the same units.*
+Wording only; no reading, bar, or rejection changed. Applied through
+steps 1–4.
+
 ## Step 1 — What must be ours? (L2)
 
 **Verdict:** taken, 2026-09-09 — the reviewer accepts the
@@ -176,26 +184,26 @@ Yes → refused, written. Refusal is never by scope: what is refused
 is what cannot make the promise false. And the promise's enemies
 are not only the class its sentence names — contention is what the
 evidence stages and the reader judges; anything that can make
-reserved exceed on hand (a retried consume, a crash between its two
+reserved exceed on-hand-count (a retried consume, a crash between its two
 moves, an operator's correction) is the promise's enemy too, and
 step 2 lists them all.
 
 | Candidate | If someone else owned it, could they break the promise? | Verdict |
 |---|---|---|
-| The stock-on-hand count, per item | Yes — an outside owner lowering it under the reserved sum breaks it, and we could not stop them | **ours**: the ledger's own number; every change to it enters through our door |
+| The on-hand-count, per item | Yes — an outside owner lowering it under the reserved sum breaks it, and we could not stop them | **ours**: the ledger's own number; every change to it enters through our door |
 | The reservation records — which exist, for which item, how many units | Yes — an outside owner could hold two for the last unit | **ours** |
-| A reservation's active state — the transitions into it | Yes — an outside owner reviving a released reservation raises the reserved sum past on hand | **ours** |
+| A reservation's active state — the transitions into it | Yes — an outside owner reviving a released reservation raises the reserved sum past on-hand-count | **ours** |
 | The admit-or-refuse decision on a reservation request | Yes — this is the moment the race is won or lost | **ours** |
-| Consume — ending a reservation and lowering on hand together | Yes — an outside owner lowering on hand without ending the reservation, or lowering it twice for one reservation, breaks it | **ours** |
-| The once-ness of consume under retry | Yes — a retried consume lowering on hand twice breaks it for every other reservation on the item | **ours** |
-| The once-ness of reserve under retry | No — a duplicated reservation is admitted against on hand like any other; the sum still fits. Mirror: the promise stays true; the caller over-holds | refused, written — a quality, not this promise's |
+| Consume — ending a reservation and lowering on-hand-count together | Yes — an outside owner lowering on-hand-count without ending the reservation, or lowering it twice for one reservation, breaks it | **ours** |
+| The once-ness of consume under retry | Yes — a retried consume lowering on-hand-count twice breaks it for every other reservation on the item | **ours** |
+| The once-ness of reserve under retry | No — a duplicated reservation is admitted against on-hand-count like any other; the sum still fits. Mirror: the promise stays true; the caller over-holds | refused, written — a quality, not this promise's |
 | Release and expiry — transitions out of active | Cannot break it: they only lower the reserved sum | ours by ownership of the record, but not promise-bearing; the expiry *policy* (how long) refused — the promise holds for any duration |
 | The item catalog — which items exist | No — someone else's fact. Mirror: the promise holds per item the ledger knows; an unknown item is refused at the door | refused, written |
 | Physical stock truth — what the warehouse actually holds | No — the promise is about the ledger's recorded count (step 0's reading). Mirror: the count can be wrong about the world and the promise still holds | refused, written; consequence below |
 | The answer given to the caller matching the persisted outcome | No — a wrong answer lies to the caller; the state property holds. Mirror: yes | refused, written — the census may still find it as an enemy of something else |
 | Orders, payment, pricing, who may reserve | No — outside the territory | refused, written |
 
-**Possessions, stated:** the per-item on-hand count and every
+**Possessions, stated:** the per-item on-hand-count and every
 change to it; the reservation records and the transitions into
 active; the admit-or-refuse decision under concurrent requests;
 consume, once per reservation, moving both numbers together.
@@ -206,24 +214,24 @@ the reservation ledger.
 
 **Consequence of refusing physical truth:** a downward correction —
 stock lost, broken, miscounted — arrives at our door as a request to
-lower on hand. Lowered under the reserved sum, the promise dies. So
-the correction is a collision, on hand × an operator's fact, for
+lower on-hand-count. Lowered under the reserved sum, the promise dies. So
+the correction is a collision, on-hand-count × an operator's fact, for
 step 3 to run; step 1 only fixes that the number is ours to admit or
 refuse. Two shapes are visible already and parked, not chosen:
 refuse the correction below reserved, or let it cancel reservations.
 
 **Sketch-enemies used** (debt, step 2 pays): many callers racing for
 one item's last units; a retrying caller; a store that loses,
-duplicates, or reorders a write; an operator lowering on hand; a
-crash between ending a reservation and lowering on hand; a clock
+duplicates, or reorders a write; an operator lowering on-hand-count; a
+crash between ending a reservation and lowering on-hand-count; a clock
 that jumps, firing expiry early or late.
 
 **The edge:** every request crosses at the door — reserve(item,
-quantity), release, consume, adjust on hand — parsed and checked
+quantity), release, consume, adjust on-hand-count — parsed and checked
 there; an unknown item, a non-positive quantity, a reservation not
 ours: refused at the door, never inside.
 
-**Step 0's reading, confirmed or moved:** *stock on hand* is ours,
+**Step 0's reading, confirmed or moved:** *on-hand-count* is ours,
 the reading holds; *reserved quantity* = active reservations, and
 active is ours to enter, the exits promise-neutral.
 
@@ -237,18 +245,21 @@ idempotency is refused by the mirror, though step 0 expected it back
 as a kill — under this promise a duplicate reservation over-holds
 but never oversells, so it is a quality of the surface, not a
 guarantee this promise carries; and the once-ness of *consume* is
-ours for exactly the reason reserve's is not — it moves on hand. The
+ours for exactly the reason reserve's is not — it moves on-hand-count. The
 downward correction is the first real tension between the promise
 and the world, parked as a collision rather than settled here. The
 reviewer's questions and what they changed:
 - Q1, on refusing reserve once-ness: refused for correctness, not
-  scope? Yes — a duplicate reservation is admitted against on hand
-  like any other, so it cannot push the sum past on hand; the
+  scope? Yes — a duplicate reservation is admitted against on-hand-count
+  like any other, so it cannot push the sum past on-hand-count; the
   promise does not need it owned. Owning it would guard a second
-  claim, banked at step 0. A duplicate consume can push on hand
+  claim, banked at step 0. A duplicate consume can push on-hand-count
   under the sum, so that once-ness is ours. Added to the earned
   half: refusal is never by scope, and the promise's enemies are
   everything that can falsify it, contention being the headline.
+
+**Return trip, 2026-09-10, from step 4:** the term *on-hand-count*
+applied throughout (see step 0's return trip). Wording only.
 
 ## Step 2 — Name the enemies (L1)
 
@@ -263,15 +274,15 @@ ledgers. No L2 revision.
 **Actors,** found by following one reservation through its life:
 reserve request → network → our process → store → network → reply;
 later a consume or release by the same or another caller; beside it
-an operator adjusting on hand; underneath, the clock that ends
+an operator adjusting on-hand-count; underneath, the clock that ends
 reservations by expiry. Everything beyond our control is an actor,
 each named by what it does to us:
 - *Callers* — the services that reserve, consume and release on
   behalf of a seller's customers; they move the reserved side.
-- *Operators* — whoever changes stock on hand from the world's
+- *Operators* — whoever changes on-hand-count from the world's
   side: a restock, a loss, a recount; a person at a screen or a
   stock system, the ledger cannot tell and does not need to — it
-  sees an adjust request at the door. They move the on-hand side.
+  sees an adjust request at the door. They move the on-hand-count side.
 - *The network* — carries requests and replies, and loses,
   duplicates, delays, reorders them.
 - *Our own process* — the ledger's running instances, which die
@@ -285,12 +296,12 @@ each named by what it does to us:
 
 Callers
 - F1. Many callers send reserve for one item at the same instant,
-  together asking more than on hand → we face the race for the last
+  together asking more than on-hand-count → we face the race for the last
   units: each request fits alone, together they do not.
 - F2. A caller resends reserve after a lost reply → we face the same
   request twice; a second reservation holds units others need.
 - F3. A caller resends consume after a lost reply → we face lowering
-  on hand twice for one reservation.
+  on-hand-count twice for one reservation.
 - F4. A caller sends consume and release for one reservation at the
   same instant, or two consumes → we face two exits racing on one
   reservation, each moving numbers.
@@ -306,13 +317,13 @@ Callers
   unless something ends it; holds accumulate.
 
 Operators
-- F9. An operator lowers on hand under the reserved sum — loss,
+- F9. An operator lowers on-hand-count under the reserved sum — loss,
   breakage, a recount → we face the promise's negation arriving as
   a legitimate fact from the world.
 - F10. An operator's adjustment and callers' reservations hit one
   item at the same instant → we face the race with a different
   partner: adjust × reserve.
-- F11. An operator's downward adjustment is resent → we face on hand
+- F11. An operator's downward adjustment is resent → we face on-hand-count
   lowered twice for one loss. (An upward one resent overstates on
   hand: the promise as worded is untouched; the world is lied to —
   W1.)
@@ -329,12 +340,12 @@ Our own process
   between recording and replying → we face half-done work at every
   boundary; the caller retries against a state they cannot see.
 - F16. We die between consume's two moves — ending the reservation,
-  lowering on hand → we face one move done: on hand lowered while
-  the reservation still counts (reserved can exceed on hand), or
-  the reservation ended while on hand still counts consumed units.
+  lowering on-hand-count → we face one move done: on-hand-count lowered while
+  the reservation still counts (reserved can exceed on-hand-count), or
+  the reservation ended while on-hand-count still counts consumed units.
 - F17. Two of our processes run at once — a deploy overlap, a
   scale-out → we face the race between our own instances; any
-  belief an instance holds in memory about on hand is a lie.
+  belief an instance holds in memory about on-hand-count is a lie.
 - F18. Our instances' clocks disagree → we face a reservation that
   is expired for one instance and active for another.
 
@@ -431,7 +442,7 @@ with a recommendation; all five taken as recommended by the
 reviewer, 2026-09-10:
 - V1. The downward correction under the reserved sum (F9). Recommend
   **in**: it is the promise's own negation arriving legitimately,
-  the same kind — on hand × reserved — and the reader needs to see
+  the same kind — on-hand-count × reserved — and the reader needs to see
   the promise survive the world contradicting the ledger.
 - V2. Expiry (F8, F18, F23, F24). Recommend **in**: a timed exit
   racing a consume is contention with time as the partner, the same
@@ -488,6 +499,9 @@ renamed PL0–PL4 throughout this section so that P is free for the
 possessions step 3 collides. Labels only; no fact, stamp, or
 verdict changed.
 
+**Return trip, 2026-09-10, from step 4:** the term *on-hand-count*
+applied throughout (see step 0's return trip). Wording only.
+
 ## Step 3 — Run the collisions (L4)
 
 **Verdict:** taken, 2026-09-10 — the reviewer accepts the kills,
@@ -503,7 +517,7 @@ The four possessions from step 1, collided one at a time against
 every fact that can reach them. Each kill says what dies; every
 mechanism that surfaced is parked at the end, unchosen.
 
-- P1 — the per-item on-hand count and every change to it
+- P1 — the per-item on-hand-count and every change to it
 - P2 — the reservation records and the transitions into active
 - P3 — the admit-or-refuse decision under concurrent requests
 - P4 — consume, once per reservation, moving both numbers together
@@ -511,24 +525,24 @@ mechanism that surfaced is parked at the end, unchosen.
 **Kills** (fact × possession → what dies):
 
 1. F1 × P3 → both racing admits succeed on units that fit only
-   once: **reserved exceeds on hand.**
+   once: **reserved exceeds on-hand-count.**
 2. F17 × P3 → the same death, the racers being our own instances,
    each admitting on a count it holds in memory.
 3. F21 × P3 → the same death as the store shows it: two checks pass
    on one count.
 4. F22 × P3 → an admit passes on a count already gone: **reserved
-   exceeds on hand** on a number that was never the truth.
-5. F10 × P3, P1 → an admit passes against on hand while a
+   exceeds on-hand-count** on a number that was never the truth.
+5. F10 × P3, P1 → an admit passes against on-hand-count while a
    concurrent adjustment is lowering it: **reserved exceeds on
    hand,** the partner being an operator, not another caller.
-6. F9 × P1 → a legitimate downward correction sets on hand under
+6. F9 × P1 → a legitimate downward correction sets on-hand-count under
    the reserved sum: **the promise dies by one honest request,**
    no race needed.
-7. F11 × P1 → a resent downward correction lowers on hand twice for
+7. F11 × P1 → a resent downward correction lowers on-hand-count twice for
    one loss: kill 6's death in a second costume; the part that fits
-   under the sum leaves on hand wrong about the world — stops at
+   under the sum leaves on-hand-count wrong about the world — stops at
    W1.
-8. F13 × P1 → reordered adjustments leave on hand at the older
+8. F13 × P1 → reordered adjustments leave on-hand-count at the older
    value: kill 6's death if the older is lower; otherwise wrong
    about the world — stops at W1.
 9. F15 × P2, P3 → an admit decided but not yet recorded is a
@@ -538,12 +552,12 @@ mechanism that surfaced is parked at the end, unchosen.
    and V5, expiry its exit.
 10. F18 × P2, P3 → two instances judge one reservation's activeness
     differently; the one that sees the smaller reserved sum admits:
-    **reserved exceeds on hand by the store's own record.**
+    **reserved exceeds on-hand-count by the store's own record.**
 11. F5 × P2, P4 → a consume lands on a reservation that already
-    ended, its units since reserved by someone else: **on hand is
-    lowered for units nobody holds; reserved exceeds on hand for
+    ended, its units since reserved by someone else: **on-hand-count is
+    lowered for units nobody holds; reserved exceeds on-hand-count for
     the others.**
-12. F3 × P4 → a retried consume lowers on hand twice for one
+12. F3 × P4 → a retried consume lowers on-hand-count twice for one
     reservation: the same death.
 13. F4 × P4 → a consume and a release, or two consumes, race on one
     reservation: **both exits act — units returned and removed, or
@@ -551,7 +565,7 @@ mechanism that surfaced is parked at the end, unchosen.
 14. F23 × P4 → expiry and consume race on one reservation: kill 13
     with time as one partner.
 15. F16 × P4 → we die between consume's two moves: **a readable
-    state with on hand lowered while the reservation still counts,
+    state with on-hand-count lowered while the reservation still counts,
     or the reservation ended while consumed units still count.**
 16. F19 × P4 → consume's outcome unknowable: our own retry is kill
     12; our silence is kill 15's half-state. F19 × P2 → a
@@ -559,8 +573,8 @@ mechanism that surfaced is parked at the end, unchosen.
     promise-bearing dies — the caller's view is refused (L2), the
     possible orphan stops at V5.
 17. F7 × P4 → a consume names a quantity its reservation does not
-    hold, or a reservation not its own: **on hand lowered by units
-    the caller never held; reserved exceeds on hand for the
+    hold, or a reservation not its own: **on-hand-count lowered by units
+    the caller never held; reserved exceeds on-hand-count for the
     others.** A lie at the door; identity stops at W5/T3.
 18. F6 × P3 → a nonsense request — zero, absurd, unknown item —
     reaches the decision: **the numbers move by an amount that
@@ -578,7 +592,7 @@ fault — into concerns whose proof obligations differ:
   1, 2, 3, 4, 5, 9, 10. One death: more units admitted than fit,
   because the decision read a number that was not the truth at the
   moment of writing. Invariant-shaped: *for every item, in every
-  readable state, the sum of active reservations ≤ on hand.*
+  readable state, the sum of active reservations ≤ on-hand-count.*
   Adversity, named: concurrent admits on one item's last units —
   from many callers, from our own instances, against a stale
   read, against a concurrent downward adjustment, under clocks
@@ -588,7 +602,7 @@ fault — into concerns whose proof obligations differ:
   promise's negation arriving as a legitimate request; sequential
   suffices to stage it. Invariant-shaped: *no admitted change to on
   hand leaves it under the sum of active reservations.* Adversity:
-  an operator lowering on hand under the reserved sum, once,
+  an operator lowering on-hand-count under the reserved sum, once,
   twice, out of order. Proof obligation differs from A's: no race
   to create; the question is what the ledger does with an honest
   request it cannot honour as asked. Two shapes seen and parked,
@@ -604,7 +618,7 @@ fault — into concerns whose proof obligations differ:
   (silence). Invariant-shaped: *no readable state holds one of
   consume's two moves without the other.* Adversity: our death, or
   an unknowable outcome, between ending the reservation and
-  lowering on hand. Proof obligation differs from C's: not
+  lowering on-hand-count. Proof obligation differs from C's: not
   "duplicates collapse" but "the half-done converges" — the
   worked example's partial-failure distinction.
 
@@ -682,6 +696,9 @@ what they changed:
   for possessions; the probes became PL0–PL4 by a logged return
   trip to step 2.
 
+**Return trip, 2026-09-10, from step 4:** the term *on-hand-count*
+applied throughout (see step 0's return trip). Wording only.
+
 ## Step 4 — Sort into owners (L3)
 
 **Verdict:** open — draft awaiting the reviewer's questions.
@@ -692,10 +709,10 @@ what they changed:
 
 | Concern | State touched | Decision touched |
 |---|---|---|
-| A — over-admission | on hand; the active reservations of the item | admit or refuse a reservation, against both |
-| B — the downward correction | on hand; the active reservations of the item | admit or refuse a change to on hand, against the sum |
-| C — a reservation exits once | one reservation's active state; on hand (on consume) | whether this exit is the reservation's first and only |
-| D — consume's two moves | one reservation's active state; on hand | none of its own — it holds A's and C's outcomes together |
+| A — over-admission | on-hand-count; the active reservations of the item | admit or refuse a reservation, against both |
+| B — the downward correction | on-hand-count; the active reservations of the item | admit or refuse a change to on-hand-count, against the sum |
+| C — a reservation exits once | one reservation's active state; on-hand-count (on consume) | whether this exit is the reservation's first and only |
+| D — consume's two moves | one reservation's active state; on-hand-count | none of its own — it holds A's and C's outcomes together |
 
 Every concern reads the same two numbers of the same item and
 decides against their comparison. No concern touches state the
@@ -705,7 +722,7 @@ others do not; no concern decides something the others must not.
 bar: separate state *and* separate decision authority.
 
 - *Stock adjustments as their own area* (the operator side). Its
-  state would be on hand; but concern A's admit decision reads on
+  state would be on-hand-count; but concern A's admit decision reads on
   hand and concern B's admit decision reads the reserved sum. One
   number cannot be owned by an area whose decisions are taken by
   another. Fails on state. Named, not drawn.
@@ -724,7 +741,7 @@ bar: separate state *and* separate decision authority.
   mechanism, parked with the others. Not a seam.
 
 **Ownership: one area — the reservation ledger.** It owns the
-per-item on-hand count, the reservations with their active state,
+per-item on-hand-count, the reservations with their active state,
 and the three decisions: admit a reservation, admit a change to on
 hand, allow an exit. Confirmed by sorting four real concerns, not
 assumed. Step 0's bar 6 — one owner, a full lifecycle inside one
@@ -741,4 +758,8 @@ fails on the plainest ground: the two numbers are compared in one
 decision, so they must have one owner. FC3 (what active means) was
 watched for an owner's decision it might need: it needs a
 definition, not an owner, so it stays a fold; no return trip to
-L2. The reviewer's questions and what they changed: (pending).
+L2. The reviewer's questions and what they changed:
+- Q1, the reference number's name: "on hand" read as loose words.
+  "available" refused — it is the other number, on-hand-count minus
+  reserved; "in-stock" blurs into it. The reviewer chose the one
+  token *on-hand-count*; applied by return trips to steps 0–3.
