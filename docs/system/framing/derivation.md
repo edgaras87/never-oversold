@@ -393,15 +393,20 @@ in ink).
   expiry, F23/F24. Result: zero new.
 
 Two consecutive lenses (P3, P4) with zero new facts → **saturated**,
-pending the reviewer's call.
+the reviewer's call, 2026-09-10, after the audit's four checks.
 
 **Fence list** — exclusions in ink; each earns its place at step 3
 by stopping a fact from colliding:
 - W1. Physical stock truth. The world's count is not ours (L2
   refusal); it reaches us only as an operator's adjustment at the
   door.
-- W2. Reserve once-ness. A duplicate reservation over-holds; it
-  cannot oversell (L2 refusal).
+- W2. Reserve once-ness. The ledger does not check whether a
+  reserve request repeats an earlier one: a retry after a lost
+  reply makes a second hold, known to no one, orphaned until expiry
+  ends it (F8). It over-holds; it cannot oversell (L2 refusal). The
+  cost accepted: the seller sells less than they could for the
+  hold's duration. The claim that would remove it, one request →
+  one reservation, is banked at step 0 as another promise's.
 - W3. Throughput, latency, fairness between racers. Who wins a race
   is not ours; that the losers lose correctly is.
 - W4. Loss below the store's acknowledgment — restores from an older
@@ -419,7 +424,8 @@ by stopping a fact from colliding:
 - The clock beyond skew and jumps (leap seconds, monotonic vs wall).
 
 **Scope verdicts** — boundary questions the census raised, each
-with a recommendation; the reviewer decides:
+with a recommendation; all five taken as recommended by the
+reviewer, 2026-09-10:
 - V1. The downward correction under the reserved sum (F9). Recommend
   **in**: it is the promise's own negation arriving legitimately,
   the same kind — on hand × reserved — and the reader needs to see
@@ -454,4 +460,22 @@ are (Q1): the word had entered at step 0 undefined; each actor now
 carries a one-line definition. Numbering skips F14 and F20 — F14 (very
 late requests) folded into F5 and F20 (store loss) into W4 during
 the sort; the gaps are kept so the log's references stay true. The
-reviewer's questions and what they changed: (pending).
+reviewer's other questions and what they changed:
+- Q2, T2 explained (the store must offer one way to make two
+  writers disagree; a floor, not an enemy): nothing changed.
+- Q3, why ended records are "out": they cannot move the reserved
+  sum; written as W6 so the growth is seen, not dropped. Nothing
+  changed.
+- Q4, what saturation is and what the call is: two consecutive
+  empty lenses, audited by four checks. Called saturated.
+- Q5, on W2: is the ledger really not checking for a repeated
+  request? Yes; the fence now states the consequence and the cost
+  accepted, not only the reasoning.
+- Q6, what if the reviewer decided to cover request identity after
+  all: a return trip to step 0 with a logged intent revision; the
+  sentence would carry a second claim under a second class, which
+  the briefing's bars refuse and the method calls overloaded;
+  overriding that re-runs every step downstream. Under this
+  promise it has no home — not a slice (the enemy cannot break the
+  promise), not a fold (it is adversity). The route is the next
+  project, or a logged revision after release. Nothing changed.
