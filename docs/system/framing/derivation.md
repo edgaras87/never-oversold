@@ -816,3 +816,153 @@ constraints (kill 5, concern B's second shape) were named as the
 constraints they would have been. Nothing here redefines L3's one
 area or L4's concerns; L5 takes them as given. The reviewer's
 questions and what they changed: (pending).
+
+## Step 6 — Cut the slice surface
+
+**Verdict:** open — draft awaiting the reviewer's questions.
+
+### Earned
+
+**Pass 1 — the sort.** Every concern and fold-candidate stamped
+theorem (an invariant under adversity; proof creates the adversity
+and witnesses survival) or definition (contract-shaped; declared
+and checked; nothing stages against it), with its because.
+
+| Concern | Stamp | Because |
+|---|---|---|
+| A — over-admission under concurrent writers | **theorem** | the adversity is created — many admits racing for one item's last units — and the witness, reserved ≤ on-hand-count, is read from state after |
+| B — the downward correction | **theorem** | near-miss answered: the adversity is sequential, but it is adversity — naive code accepts the honest request and the promise dies; the evidence creates it (a correction under the sum, resent, out of order) and reads the same witness |
+| C — a reservation exits once | **theorem** | duplicated, racing and late exits are injected; the witness is one move per exit and none after ending |
+| D — consume's two moves hold together | **theorem** | the adversity is death between the moves, created by killing mid-work; the witness is no half-state readable |
+| FC1 — what a valid request is | **definition** | a malformed request is not an attack; declared at the door, checked there |
+| FC2 — an exit names its own reservation and moves what it holds | **definition** | enemy-touched (a lying caller) but its proof is a check, not a staged adversity; the lie is sent, not created under load |
+| FC3 — what *active* means | **definition** | a wording; no enemy of its own — the clock's enemies act through A and C, which consume it |
+
+Four theorems, three definitions. Step 3's discipline held: the
+kills arrived theorem-shaped and this pass confirmed rather than
+sorted.
+
+**Pass 2 — the dedupe.** Pairwise on the theorems, one test: must
+their evidence create *different adversity*?
+
+- A × B: the same witness, different adversity — contention among
+  admits versus an honest request that cannot be honoured as
+  asked. A's evidence hammers; B's sends one correction (and its
+  resends and reorders). **Two slices.** Kill 5 — an adjustment
+  racing a reserve — stays in A: it is a race, and B's evidence
+  would not create it.
+- A × C: both contention-class, different adversity — racing
+  admits on one item's last units versus racing and duplicated
+  exits on one reservation. **Two slices.**
+- C × D: the worked example's own split — duplicates collapse
+  versus the half-done converges; injected duplicates and races
+  versus kill-mid-work. **Two slices.**
+- A × D, B × C, B × D: different adversity on every pair. **Two
+  slices each.**
+
+No merge. Four theorems → four slices.
+
+**Pass 3 — the folds.** Each definition into the first slice that
+consumes it, its check riding along:
+
+- FC1 (valid request) → **SL-1**: the admit is the first door a
+  request reaches.
+- FC3 (what active means) → **SL-1**: the admit reads the sum of
+  active reservations; SL-3 consumes it second.
+- FC2 (an exit moves what it holds) → **SL-3**: the exit path is
+  its only consumer.
+
+**The registry shape** (composed at export on the skill's
+template):
+
+- **SL-1 — no over-admission under contention** · `chosen-next`
+  - Invariant: for every item, in every readable state, the sum of
+    active reservations ≤ on-hand-count.
+  - Adversity to create: concurrent admits on one item's last
+    units — many callers (F1); more than one of our instances
+    (F17); against a stale read (F22); against a downward
+    adjustment racing them (F10); an admit decided but not yet
+    recorded (F15).
+  - Area: the reservation ledger. Kills covered: 1, 2, 3, 4, 5, 9,
+    10.
+  - Folds in: FC1, FC3.
+  - Flag riding: kill 10 — clocks disagreeing about activeness —
+    cannot be staged by hammering; its evidence shape is a
+    controlled clock, or FC3 removes it by judging activeness from
+    one clock, in which case the evidence shows that judgment is
+    the one used. Named here so the slice inherits the warning.
+  - Presumes: nothing — this is the ground.
+  - Judgment logged: kill 5 here, not in SL-2, because it is a
+    race; kill 9 here because a decision invisible to other
+    decisions is A's death from inside.
+- **SL-2 — the correction never undercuts the holds** · `open`
+  - Invariant: no admitted change to on-hand-count leaves it under
+    the sum of active reservations.
+  - Adversity to create: an operator's downward correction under
+    the reserved sum (F9), resent (F11), out of order (F13).
+  - Area: the reservation ledger. Kills covered: 6, 7, 8.
+  - Presumes: SL-1 — the reserved sum it is checked against is
+    the one SL-1 keeps true.
+  - Judgment logged: two shapes were parked at step 1 and step 3 —
+    refuse the correction, or let it end reservations. The slice's
+    specify step decides; the invariant and the witness are the
+    same under either.
+- **SL-3 — a reservation exits once** · `open`
+  - Invariant: a reservation moves its item's numbers at most once
+    on exit, and never after it has ended.
+  - Adversity to create: a retried consume (F3); consume racing
+    release, two consumes (F4); consume racing expiry (F23); a
+    late consume on an ended reservation (F5); expiry fired early
+    (F24).
+  - Area: the reservation ledger. Kills covered: 11, 12, 13, 14,
+    16 (our own retry), 19 (early).
+  - Folds in: FC2.
+  - Presumes: SL-1 — the reservations being exited were admitted
+    truly.
+- **SL-4 — consume's two moves hold together** · `open`
+  - Invariant: no readable state holds one of consume's two moves
+    without the other.
+  - Adversity to create: our death between ending the reservation
+    and lowering on-hand-count (F16); an unknowable outcome of the
+    consume write (F19).
+  - Area: the reservation ledger. Kills covered: 15, 16 (silence).
+  - Flag riding: the evidence is kill-mid-work and unknown-outcome
+    injection, not hammering — the unusual shape named so the
+    consumer inherits it.
+  - Presumes: SL-3 — an exit's identity, so the half-done can be
+    told from the done.
+
+**Fold-reconciliation line:** 20 kills (steps 3's 1–20) ↔ 4 slices
++ 3 folds + 0 deferrals + the fence remainders:
+- 1, 2, 3, 4, 5, 9, 10 → SL-1 · 6, 7, 8 → SL-2 · 11, 12, 13, 14 →
+  SL-3 · 15 → SL-4 · 16 → SL-3 (retry) and SL-4 (silence) · 17 →
+  FC2 in SL-3 · 18 → FC1 in SL-1 · 19 → SL-3 (early) · 20 → W2/V5.
+- Folds: FC1 → SL-1 · FC3 → SL-1 · FC2 → SL-3.
+- Fence remainders, already stopped at step 3: the world-truth
+  parts of 7, 8 (W1); the orphan halves of 9, 16 and the never of
+  19 (W2, V5); the identity part of 17 (W5).
+- The written zero: no deferrals; no kill dropped; no theorem
+  merged.
+
+**Ordering expectation** (re-decided at each close): SL-1 → SL-2 →
+SL-3 → SL-4. SL-1 is the promise's headline and the harness's first
+adversity (PLAN Step 4 proves the harness on it); SL-2 stands on
+SL-1 alone and is the promise's other face, the on-hand-count
+side; SL-3 needs truly admitted reservations to exit; SL-4 needs
+an exit's identity to tell half-done from done.
+
+**Divergences from the briefing:** none. The working name
+safe-reservations is untouched — PLAN's Step 2 decides it, and
+that is not the derivation overriding the briefing.
+
+### How it ran
+
+The sort was a confirmation sweep, as step 3's discipline intended;
+B was the one near-miss, and the because is written so the doubt
+does not linger. The dedupe's only real question was A × B — same
+witness, and a reader could ask why not one slice; the answer is
+the evidence: hammering never sends an honest correction, and a
+correction never creates a race. Kill 5 was the tie-breaker's
+proof: the racing adjustment belongs with the races. Kill 16 lands
+in two slices by its two halves (our retry, our silence), stated
+in both. The reviewer's questions and what they changed: (pending).
