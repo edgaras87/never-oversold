@@ -1,0 +1,41 @@
+# The infrastructure ground, as this repo's decisions established it
+# (ADR-0004 the environment, ADR-0005 the services, ADR-0006 the
+# constraints). Front door: podman compose. Secrets and machine
+# variance live in .env (git-ignored; shape in .env.example);
+# decided identities are literal. Filled from the infra-establish
+# templates (kit @ af16eb7); the filled file is this repo's own.
+name: never-oversold    # pinned: volume/network identity must not depend
+                        # on the directory this file runs from
+services:
+  postgres:
+    image: docker.io/library/postgres:17
+    container_name: never-oversold-postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_BOOTSTRAP_PASSWORD}
+      POSTGRES_DB: never_oversold
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"      # host side = machine variance
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./infrastructure/postgres/init:/docker-entrypoint-initdb.d:ro,Z
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d never_oversold"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  flyway:                                   # the only DDL path — a one-shot,
+    image: docker.io/flyway/flyway:11       # hidden from plain `up`
+    profiles: ["migrate"]
+    environment:
+      FLYWAY_USER: migrator
+      FLYWAY_PASSWORD: ${FLYWAY_MIGRATOR_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./infrastructure/flyway/conf:/flyway/conf:ro,Z
+      - ./infrastructure/flyway/migrations:/flyway/sql:ro,Z
+
+volumes:
+  postgres-data:        # bare name — compose prefixes the pinned project name
