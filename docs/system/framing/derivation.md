@@ -482,3 +482,188 @@ reviewer's other questions and what they changed:
   promise it has no home — not a slice (the enemy cannot break the
   promise), not a fold (it is adversity). The route is the next
   project, or a logged revision after release. Nothing changed.
+
+## Step 3 — Run the collisions (L4)
+
+**Verdict:** open — draft awaiting the reviewer's questions.
+
+### Earned
+
+The four possessions from step 1, collided one at a time against
+every fact that can reach them. Each kill says what dies; every
+mechanism that surfaced is parked at the end, unchosen.
+
+- P1 — the per-item on-hand count and every change to it
+- P2 — the reservation records and the transitions into active
+- P3 — the admit-or-refuse decision under concurrent requests
+- P4 — consume, once per reservation, moving both numbers together
+
+**Kills** (fact × possession → what dies):
+
+1. F1 × P3 → both racing admits succeed on units that fit only
+   once: **reserved exceeds on hand.**
+2. F17 × P3 → the same death, the racers being our own instances,
+   each admitting on a count it holds in memory.
+3. F21 × P3 → the same death as the store shows it: two checks pass
+   on one count.
+4. F22 × P3 → an admit passes on a count already gone: **reserved
+   exceeds on hand** on a number that was never the truth.
+5. F10 × P3, P1 → an admit passes against on hand while a
+   concurrent adjustment is lowering it: **reserved exceeds on
+   hand,** the partner being an operator, not another caller.
+6. F9 × P1 → a legitimate downward correction sets on hand under
+   the reserved sum: **the promise dies by one honest request,**
+   no race needed.
+7. F11 × P1 → a resent downward correction lowers on hand twice for
+   one loss: kill 6's death in a second costume; the part that fits
+   under the sum leaves on hand wrong about the world — stops at
+   W1.
+8. F13 × P1 → reordered adjustments leave on hand at the older
+   value: kill 6's death if the older is lower; otherwise wrong
+   about the world — stops at W1.
+9. F15 × P2, P3 → an admit decided but not yet recorded is a
+   decision no other admit can see: **two decisions on one unit,**
+   kill 1's death from our own half-done work. The other half —
+   recorded but never replied — is an orphaned hold: stops at W2
+   and V5, expiry its exit.
+10. F18 × P2, P3 → two instances judge one reservation's activeness
+    differently; the one that sees the smaller reserved sum admits:
+    **reserved exceeds on hand by the store's own record.**
+11. F5 × P2, P4 → a consume lands on a reservation that already
+    ended, its units since reserved by someone else: **on hand is
+    lowered for units nobody holds; reserved exceeds on hand for
+    the others.**
+12. F3 × P4 → a retried consume lowers on hand twice for one
+    reservation: the same death.
+13. F4 × P4 → a consume and a release, or two consumes, race on one
+    reservation: **both exits act — units returned and removed, or
+    removed twice.**
+14. F23 × P4 → expiry and consume race on one reservation: kill 13
+    with time as one partner.
+15. F16 × P4 → we die between consume's two moves: **a readable
+    state with on hand lowered while the reservation still counts,
+    or the reservation ended while consumed units still count.**
+16. F19 × P4 → consume's outcome unknowable: our own retry is kill
+    12; our silence is kill 15's half-state. F19 × P2 → a
+    reservation whose existence we cannot confirm: nothing
+    promise-bearing dies — the caller's view is refused (L2), the
+    possible orphan stops at V5.
+17. F7 × P4 → a consume names a quantity its reservation does not
+    hold, or a reservation not its own: **on hand lowered by units
+    the caller never held; reserved exceeds on hand for the
+    others.** A lie at the door; identity stops at W5/T3.
+18. F6 × P3 → a nonsense request — zero, absurd, unknown item —
+    reaches the decision: **the numbers move by an amount that
+    means nothing.** At the door.
+19. F24 × P2 → time jumps: expiry fires for everything at once —
+    holds end early, late consumes follow (kill 11); or never —
+    holds last forever, stops at V5.
+20. F2, F12 × P2 → a retried or abandoned reserve makes a second or
+    orphaned hold: over-holds, cannot oversell — stops at W2, V5.
+
+**Dedupe by attack surface** — what a fact does to us, never whose
+fault — into concerns whose proof obligations differ:
+
+- **Concern A — over-admission under concurrent writers.** Kills
+  1, 2, 3, 4, 5, 9, 10. One death: more units admitted than fit,
+  because the decision read a number that was not the truth at the
+  moment of writing. Invariant-shaped: *for every item, in every
+  readable state, the sum of active reservations ≤ on hand.*
+  Adversity, named: concurrent admits on one item's last units —
+  from many callers, from our own instances, against a stale
+  read, against a concurrent downward adjustment, under clocks
+  that disagree about activeness. Proof obligation: create the
+  contention, read the witness from state.
+- **Concern B — the downward correction.** Kills 6, 7, 8. The
+  promise's negation arriving as a legitimate request; sequential
+  suffices to stage it. Invariant-shaped: *no admitted change to on
+  hand leaves it under the sum of active reservations.* Adversity:
+  an operator lowering on hand under the reserved sum, once,
+  twice, out of order. Proof obligation differs from A's: no race
+  to create; the question is what the ledger does with an honest
+  request it cannot honour as asked. Two shapes seen and parked,
+  not chosen: refuse it; or let it end reservations.
+- **Concern C — a reservation exits once.** Kills 11, 12, 13, 14,
+  16 (retry), 19 (early). Invariant-shaped: *a reservation moves
+  its item's numbers at most once on exit, and never after it has
+  ended.* Adversity: duplicated exits, racing exits (consume ×
+  release, consume × consume, consume × expiry), late exits on
+  ended reservations, expiry fired early. Proof obligation:
+  duplicates and races collapse to one exit.
+- **Concern D — consume's two moves hold together.** Kills 15, 16
+  (silence). Invariant-shaped: *no readable state holds one of
+  consume's two moves without the other.* Adversity: our death, or
+  an unknowable outcome, between ending the reservation and
+  lowering on hand. Proof obligation differs from C's: not
+  "duplicates collapse" but "the half-done converges" — the
+  worked example's partial-failure distinction.
+
+**Fold-candidates** — contract-shaped, checked at the door, no
+adversity to stage beyond sending the request:
+- FC1. What a valid request is (kill 18): a known item, a positive
+  bounded quantity, a reservation that exists. Enemy-less: nonsense
+  is not an attack, it is a malformed request.
+- FC2. A consume or release names its own reservation and moves
+  exactly what that reservation holds (kill 17). Enemy-touched — a
+  lying caller — but its proof is a check, not a staged adversity;
+  identity itself is W5/T3. Step 6 stamps it.
+- FC3. What *active* means — a wording hole in L2's own
+  possessions: ended by an exit, or past its expiry as judged by
+  one clock, not one per instance. No enemy of its own; the clock's
+  enemies act through concerns A and C, which consume this
+  definition.
+
+**Fences, and what each stopped at this step:** W1 stopped the
+world-truth part of kills 7 and 8. W2 stopped kill 20 and half of
+kill 9. W3 stopped the fairness question inside kill 1 (who wins is
+not ours). W5 stopped the identity part of kill 17. V5 (expiry as
+the orphan's exit) stopped the other half of kill 9, kill 16's
+orphan, kill 19's never, kill 20. W4 and W6 stopped nothing here —
+no censused fact reaches them; kept because the probes raised them
+in ink, and noted as fences that earned no ink at step 3.
+
+**Coverage — the full pass, every fact placed:**
+
+| Fact | Lands in |
+|---|---|
+| F1, F10, F17, F21, F22 | A |
+| F15 | A (decision half), W2/V5 (orphan half) |
+| F18 | A, consuming FC3 |
+| F9, F11, F13 | B; their world-truth remainder W1 |
+| F3, F4, F5, F23 | C |
+| F24 | C (early), V5 (never) |
+| F16 | D |
+| F19 | D (consume), C (our retry), L2's refused view + V5 (reserve) |
+| F6 | FC1 |
+| F7 | FC2, W5 |
+| F2, F8, F12 | W2, V5 |
+
+A second pass, possession by possession against the full list,
+yielded nothing new: P1 meets only the adjustment facts and the
+races (A, B); P2 lends its facts to A, C and D and keeps no kill of
+its own — the stage, not a victim; P3 is A's whole surface; P4 is
+C's and D's.
+
+**Mechanisms parked** — each surfaced while stating a kill and was
+stopped there; none is chosen, none is named in a kill: something
+that makes two writers to one item disagree (A); the shape of an
+adjustment, delta or absolute (B); a single clock source for
+activeness (FC3); one act for consume's two moves (D); a marker
+that makes a retried exit recognisable (C).
+
+**Step 0's bar 6, checked here:** every kill lands on one ledger's
+numbers; no kill needed a second owner to state. Step 4 confirms.
+
+### How it ran
+
+Possession by possession, then the coverage table as the exit
+check. Three findings shaped the concerns: the downward correction
+is not a race — sequential stages it — so it is not concern A's
+adversity though it shares the witness; exit-once and
+consume-atomic looked like one concern until the proof obligations
+were compared (collapse vs converge), the worked example's own
+split; and "active" turned out undefined in L2, a wording hole
+that the clock facts had been colliding with unnamed — FC3 names
+it, and if step 4 or 6 finds it needs an owner's decision it goes
+back to L2 as a logged return trip. The reviewer's questions and
+what they changed: (pending).
