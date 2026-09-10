@@ -73,6 +73,14 @@ the residue filter.
 derivation order; an empty-with-reasons layer is still a state and
 still a commit.
 
+**14a. `docs: order the definition L1→L5`** *(added 2026-09-10,
+divergence)*
+The five layer commits appended each layer in derivation order,
+leaving the file in that order. The workflow presents L1→L5,
+outside-in: the history keeps the derivation, the file gets the
+map. Content unchanged, sections moved, the header's order note
+rewritten.
+
 **15. `docs: export the registry`**
 `docs/system/registry.md` on the skill's template.
 
@@ -132,6 +140,11 @@ the set cannot schedule; provisional, not divergence.
   derivation record's step 0 takes from it what the intent needs
   and names it as the input; the file itself is the reviewer's, like
   the pre-briefing was, and goes the same way.
+- **The definition is reordered after its growth** (added
+  2026-09-10). "Growing one lived state per commit" was read as
+  appending; the presentation order is the map's, L1→L5. One extra
+  commit rather than rewriting the five that landed — history is
+  the derivation and stays.
 - **Return trips are named provisional steps, not divergence.** The
   method calls them its normal working; a plan revision per return
   trip would cost a commit for what the close body can list.
