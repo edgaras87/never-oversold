@@ -8,15 +8,25 @@
 
 ## Now (current plan step)
 
-- [ ] Step 1 (framing), on branch `step-1-framing`; its gate is in
-      PLAN. First: step 0, the promise — candidates against the
-      briefing's six bars, the reviewer's verdict on each.
+- [ ] Step 2 (Define): the public name — safe-reservations is the
+      working name from the briefing; confirm or overturn it, with
+      the gate derived into PLAN first, on a branch cut from main.
 
 ## Next (upcoming steps — assign each to a step when triaged)
 
 - [ ] Each step while the branch trial runs: its gate carries one
       item — the step ran on its own branch cut from main and
       reached main by fast-forward on the reviewer's word.
+- [ ] Step 4 (bootstrap): the harness must create SL-1's adversity
+      across more than one instance of the ledger (F17), not only
+      threads in one process — a single-process pass proves a shape
+      nobody runs.
+- [ ] Step 4 or SL-1: kill 10's evidence shape — clocks disagreeing
+      about activeness cannot be hammered; a controlled clock, or
+      FC3's one-clock judgment shown to be the one used.
+- [ ] Step 3 (ground): the store must offer a way to make two
+      writers to one item disagree (T2) — the ground's evaluation
+      names which, and verifies it by refusal.
 
 ## Later / someday
 
@@ -31,6 +41,23 @@
       under .claude/. Each that held folds back to its source: the
       rule to the playbook the steps came from, the other three to
       the handbook (its ADR-0035 waits on this run's report).
+- [ ] Retrospective: framing steps ran as commit series — draft,
+      one revision per reviewer question, verdict — so each
+      question's effect is a diff. If it held, fold back to the
+      source: cbc-framing's record section (the mode), and
+      change-plans if the series-per-step shape wants naming there.
+- [ ] Hand-off to the CbC bundle (cbc-framing): the registry
+      template's opening line puts the skill's name, its step
+      number and the delegation slot into a project artifact —
+      rephrase it in project voice ("Framed <date>; every verdict
+      the reviewer's" or the delegation record's pointer). Same
+      for any template line a reader would need the agent's
+      arrangement to decipher.
+- [ ] Hand-off to the CbC bundle (cbc-framing): the export section
+      says the definition grows "L2 → L1 → L4 → L3 → L5, one lived
+      state per commit" while the workflow presents L1→L5; say
+      that the file ends in the map's order and the commits carry
+      the derivation, so the next run does not append.
 - [ ] Retrospective: the worked-example twin in cbc-framing and
       cbc-slice claims a byte-identical copy but differs in its
       provenance path line — fold back to the source, never edit

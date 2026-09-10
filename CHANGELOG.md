@@ -2,9 +2,12 @@
 
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/) ·
-Versioning: <what is a version here? An app releases
-[SemVer](https://semver.org/); a concept repo versions its concepts;
-Framing decides. The answer replaces this placeholder.>
+Versioning: a version is a state of the evidence, in
+[SemVer](https://semver.org/) form. 0.N while the registry's
+slices close — N counts the slices evidence-closed, 0.0 being the
+framed system with none; 1.0.0 when every registry slice is closed
+and the release gate has passed. Later claims, added by dated
+revision, start a new minor.
 
 <!-- Write entries WHEN the change lands, in user-speak
      ("order creation is 3x faster"), not developer-speak
@@ -19,4 +22,7 @@ Framing decides. The answer replaces this placeholder.>
 
 ### Added
 
--
+- The promise, the system definition and the slice registry under
+  `docs/system/`: what this ledger will guarantee, what it owns
+  and refuses, and the four invariants to be proven — written
+  before any code.

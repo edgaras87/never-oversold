@@ -61,7 +61,7 @@ Notes: the title is a working name (Step 2 decides the public
 identity). The birth ran as one change set — see the
 `docs(agent): … change-plan for the birth` commits.
 
-## Step 1: Framing  (cbc-framing)                   [~]
+## Step 1: Framing  (cbc-framing)                   [x] 2026-09-10
 
 <!-- CbC: this step opens on the briefing — its starting input,
      the first prompt of project work. The README purpose
@@ -70,11 +70,11 @@ identity). The birth ran as one change set — see the
 
 Goal: know what we're building and why, before code.
 Gate:
-- [ ] The three exports stand under `docs/system/` — `intent.md`,
+- [x] The three exports stand under `docs/system/` — `intent.md`,
       `definition.md`, `registry.md` — composed from
       `docs/system/framing/derivation.md`; no export references
       the derivation doc (residue filter).
-- [ ] `intent.md` carries exactly one promise, one sentence, and
+- [x] `intent.md` carries exactly one promise, one sentence, and
       it clears the briefing's six bars: one timeless state claim;
       its adversity class (contention) named in the sentence; a
       concrete negation naive code actually produces; the negation
@@ -83,45 +83,51 @@ Gate:
       full lifecycle inside one system's walls. The audience is
       the portfolio reader; what done demonstrably means is spelled
       out; every rejected candidate is banked.
-- [ ] `definition.md`: every L2 possession earned by the hostage
+- [x] `definition.md`: every L2 possession earned by the hostage
       test and every refusal written with its mirror; L1 closed by
       saturation, its probe log recorded, the last two probes
       empty; every L4 kill invariant-shaped, adversity named, no
       mechanism; L3 and L5 filled, or empty with reasons traced to
       prior decisions.
-- [ ] `registry.md` on the skill's template: every slice states
+- [x] `registry.md` on the skill's template: every slice states
       its invariant, the adversity its evidence must create, its
       owner, the kills it covers, what it presumes; the
       reconciliation line accounts for every kill; exactly one
       slice is chosen-next.
-- [ ] Every step verdict in `derivation.md` is the reviewer's,
+- [x] Every step verdict in `derivation.md` is the reviewer's,
       written inline where it fell; `.claude/decisions.md` holds
       no delegation entry.
-- [ ] The framing's adoption is one ADR in `docs/adr/`, listed in
+- [x] The framing's adoption is one ADR in `docs/adr/`, listed in
       this plan's decision index.
-- [ ] Release's framing-time decisions are written in the exports:
+- [x] Release's framing-time decisions are written in the exports:
       monitoring and alerts, deploy and rollback — each in scope,
       or excluded with its why.
-- [ ] README re-derived from the exports per the skill's projection
+- [x] README re-derived from the exports per the skill's projection
       table — why, what, one line per invariant, a method pointer,
       a status line — nothing on it without a master in
       `docs/system/`; the `docs/system/` row added to the records
       tables in `.claude/CLAUDE.md` and README.
-- [ ] CHANGELOG's versioning placeholder replaced by what a version
+- [x] CHANGELOG's versioning placeholder replaced by what a version
       is here.
-- [ ] The devlog's briefing line says the briefing arrived on
+- [x] The devlog's briefing line says the briefing arrived on
       2026-09-09 and what it brought.
-- [ ] The exports landed in derivation order — intent; definition
+- [x] The exports landed in derivation order — intent; definition
       L2 → L1 → L4 → L3 → L5; registry; ADR; README last — or the
       devlog logs why not; every commit follows commit-messages,
       none straddles agent and project paths.
-- [ ] The step ran on `step-1-framing`, cut from main, and reached
+- [x] The step ran on `step-1-framing`, cut from main, and reached
       main by fast-forward on the reviewer's word.
 Notes: opened 2026-09-09 on the briefing — inventory reservation
 under contention, sold to the portfolio reader; spun off from
 checkout-system's territory by lineage, not decomposition, and
 nothing of that repo is read here. Working name from the briefing:
-safe-reservations; Step 2 confirms or overturns it.
+safe-reservations; Step 2 confirms or overturns it. Closed
+2026-09-10: the derivation ran as seven verdict series on
+`step-1-framing`, with two return trips and four later fixes to
+the exports at the reviewer's reading; ADR-0002 adopts the
+framing; the change-plan's close commit carries the divergences.
+The branch item is ticked on the reviewer's word to merge, given
+at this boundary.
 
 ## Step 2: Define (naming)                          [ ]
 
@@ -186,6 +192,7 @@ Notes:
 ## Decision index
 
 - ADR-0001: Record architecture decisions (birth)
+- ADR-0002: Adopt the framing as the project's truth set (Step 1)
 
 ---
 

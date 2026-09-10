@@ -6,6 +6,54 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-09 → 2026-09-10  (Step 1: framing)
+
+- Briefing: arrived 2026-09-09 in `temp/`, the reviewer's file,
+  untracked. Inventory reservation under contention, for the
+  portfolio reader; six bars a promise must clear; the sentence
+  left open. The problem is named from this session on.
+- Step 1 ran on `step-1-framing` under a change-plan. The seven
+  framing steps each landed as a commit series — draft, one
+  revision per reviewer question that changed something, the
+  verdict — the reviewer's request before step 0's first commit,
+  so a question's effect is a diff between commits. It held: 40
+  commits from the gate to the ADR, every verdict the reviewer's.
+- What the questions changed: the seller entered as who the
+  promise protects, not the audience; the six bars split into
+  settled-here and proven-later; the candidate sweep got written
+  and each word of the sentence its commitment; refusal was
+  restated as by-falsifiability, never by scope; the actors got
+  one-line definitions; W2 states its cost; the reference number
+  became the one token on-hand-count (a return trip through four
+  frozen sections); possession tags kept P, probes became PL.
+- Outcome: one promise; four possessions, six refusals; twenty-two
+  facts, three trust lines, six fences, five scope verdicts,
+  saturation by two empty lenses; twenty kills into four concerns
+  and three folds; one area, five seams refused; L5 empty with
+  reasons; four slices, SL-1 chosen-next. ADR-0002 adopts it.
+- Two slips, both fixed at the reviewer's reading: the definition
+  was appended in derivation order and had to be reordered L1→L5
+  (the export section's "growing" read as append — hand-off filed
+  in TODO); the registry's opening carried the template's own
+  words — a skill name, a step number, the delegation slot — into
+  a project artifact. The reviewer's rule from that: exports carry
+  no agent language. Hand-off filed for the template's line.
+- Review-driven touch-ups to committed exports each cost a plan
+  revision until a provisional step named them; three plan
+  revisions before that, one after. Worth a retrospective line:
+  the plan wants a "touch-ups on reading" step from the start.
+- DEAD END: none. The near one was concern B — the downward
+  correction looked like a definition until the because was
+  written (naive code accepts the honest request and the promise
+  dies).
+- Version decided: a state of the evidence, 0.N by slices closed,
+  1.0.0 at all closed and released (CHANGELOG header).
+- Resume: land the entry-file row and the plan's close, delete
+  `temp/`, fast-forward `step-1-framing` into main on the word.
+  Then Step 2 (Define): cut its branch, derive its gate into PLAN,
+  decide the public name — safe-reservations to confirm or
+  overturn.
+
 ## 2026-09-09  (pre-briefing: the working arrangement)
 
 - Four arrangement pieces went in before the briefing, all on

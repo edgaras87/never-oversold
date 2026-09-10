@@ -1,7 +1,7 @@
 # 0002. Adopt the framing as the project's truth set
 
 Date: 2026-09-10
-Status: Proposed
+Status: Accepted
 
 ## Context
 
