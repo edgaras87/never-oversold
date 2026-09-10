@@ -109,20 +109,38 @@ it.
 
 ## Fold-reconciliation line
 
-20 kills (L4's 1–20; how each was found is in the derivation
-record's collisions section) ↔ 4 slices + 3 folds + 0 deferrals +
-the fence remainders:
+Every kill the definition's L4 names, accounted for: 20 kills ↔
+4 slices + 3 folds + 0 deferrals + the fence remainders. One row
+per kill; nothing dropped is checked by counting.
 
-- 1, 2, 3, 4, 5, 9, 10 → SL-1 · 6, 7, 8 → SL-2 · 11, 12, 13, 14 →
-  SL-3 · 15 → SL-4 · 16 → SL-3 (our retry) and SL-4 (our silence)
-  · 17 → FC2 in SL-3 · 18 → FC1 in SL-1 · 19 → SL-3 (early) · 20 →
-  fenced (W2, V5).
-- Folds: FC1 → SL-1 · FC3 → SL-1 · FC2 → SL-3.
-- Fence remainders, stopped at L4: the world-truth parts of 7 and
-  8 (W1); the orphan halves of 9 and 16 and the never of 19 (W2,
-  V5); the identity part of 17 (W5).
-- The written zero: no deferrals; no kill dropped; no theorem
-  merged; no rider needed beyond the two flags.
+| Kill | What dies | Lands in |
+|---|---|---|
+| 1 | racing admits both succeed on the last units | SL-1 |
+| 2 | our own instances race, each on its memory | SL-1 |
+| 3 | the store shows both checks the same count | SL-1 |
+| 4 | an admit passes on a stale count | SL-1 |
+| 5 | an admit races a downward adjustment | SL-1 |
+| 6 | an honest correction sets the count under the sum | SL-2 |
+| 7 | a downward correction resent | SL-2; its world-truth part W1 |
+| 8 | corrections reordered | SL-2; its world-truth part W1 |
+| 9 | an admit decided but not yet recorded | SL-1; its orphan half W2, V5 |
+| 10 | instances disagree on what is active | SL-1, flagged |
+| 11 | a consume lands on an ended reservation | SL-3 |
+| 12 | a consume retried | SL-3 |
+| 13 | consume races release, or two consumes race | SL-3 |
+| 14 | consume races expiry | SL-3 |
+| 15 | we die between consume's two moves | SL-4 |
+| 16 | consume's outcome unknowable | SL-3 (our retry); SL-4 (our silence); the orphan W2, V5 |
+| 17 | a consume moves units its reservation does not hold | FC2, folded into SL-3; identity W5 |
+| 18 | a nonsense request reaches the decision | FC1, folded into SL-1 |
+| 19 | time jumps: expiry early, or never | SL-3 (early); V5 (never) |
+| 20 | a retried or abandoned reserve over-holds | fenced: W2, V5 |
+
+Folds: FC1 and FC3 into SL-1, the first door a request reaches;
+FC2 into SL-3, the exit path being its only consumer.
+
+The written zero: no deferrals; no kill dropped; no theorem merged;
+no rider needed beyond the two flags.
 
 ## Ordering expectation (re-decided at each close)
 
