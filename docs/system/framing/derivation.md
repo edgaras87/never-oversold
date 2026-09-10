@@ -249,3 +249,194 @@ reviewer's questions and what they changed:
   under the sum, so that once-ness is ours. Added to the earned
   half: refusal is never by scope, and the promise's enemies are
   everything that can falsify it, contention being the headline.
+
+## Step 2 — Name the enemies (L1)
+
+**Verdict:** open — draft awaiting the reviewer's questions; the
+scope verdicts and the saturation call are the reviewer's.
+
+### Earned
+
+**Actors,** found by following one reservation through its life:
+reserve request → network → our process → store → network → reply;
+later a consume or release by the same or another caller; beside it
+an operator adjusting on hand; underneath, the clock that ends
+reservations by expiry. Everything beyond our control is an actor:
+callers, operators, the network, our own process, the store, the
+clock.
+
+**Facts,** each stated consequence-first — what it leaves us facing:
+
+Callers
+- F1. Many callers send reserve for one item at the same instant,
+  together asking more than on hand → we face the race for the last
+  units: each request fits alone, together they do not.
+- F2. A caller resends reserve after a lost reply → we face the same
+  request twice; a second reservation holds units others need.
+- F3. A caller resends consume after a lost reply → we face lowering
+  on hand twice for one reservation.
+- F4. A caller sends consume and release for one reservation at the
+  same instant, or two consumes → we face two exits racing on one
+  reservation, each moving numbers.
+- F5. A caller consumes or releases a reservation that already ended
+  — expired, consumed, released — including very late → we face a
+  request against a reservation with no active state left.
+- F6. A caller asks for zero, a negative or absurd quantity, or an
+  unknown item → we face nonsense at the door.
+- F7. A caller consumes a reservation that is not theirs, or claims
+  a quantity other than the reservation's → we face a lie at the
+  door.
+- F8. A caller never returns → we face a reservation held forever
+  unless something ends it; holds accumulate.
+
+Operators
+- F9. An operator lowers on hand under the reserved sum — loss,
+  breakage, a recount → we face the promise's negation arriving as
+  a legitimate fact from the world.
+- F10. An operator's adjustment and callers' reservations hit one
+  item at the same instant → we face the race with a different
+  partner: adjust × reserve.
+- F11. An operator's downward adjustment is resent → we face on hand
+  lowered twice for one loss. (An upward one resent overstates on
+  hand: the promise as worded is untouched; the world is lied to —
+  W1.)
+- F13. Two adjustments to one item arrive in the other order than
+  they were made → we face not knowing which value is current.
+
+Network
+- F12. A reply is lost after we admitted a reservation → the caller
+  does not know; they retry (F2) or abandon (F8).
+- (Reorder and lateness of caller requests: F5, F13.)
+
+Our own process
+- F15. We die between admitting a reservation and recording it, or
+  between recording and replying → we face half-done work at every
+  boundary; the caller retries against a state they cannot see.
+- F16. We die between consume's two moves — ending the reservation,
+  lowering on hand → we face one move done: on hand lowered while
+  the reservation still counts (reserved can exceed on hand), or
+  the reservation ended while on hand still counts consumed units.
+- F17. Two of our processes run at once — a deploy overlap, a
+  scale-out → we face the race between our own instances; any
+  belief an instance holds in memory about on hand is a lie.
+- F18. Our instances' clocks disagree → we face a reservation that
+  is expired for one instance and active for another.
+
+Store
+- F19. A write's outcome is unknowable — a timeout after sending →
+  we face not knowing whether the reservation exists.
+- F21. The store answers two concurrent readers with the same count
+  → we face two checks that both pass on units that fit only once.
+  (This is F1 as the store shows it to us.)
+- F22. A read returns a count that is no longer current — a lagging
+  replica, a cache → we face a check passing on a number already
+  gone.
+
+Clock
+- F23. Expiry ends a reservation while a consume for it is in flight
+  → we face two exits racing, time being one partner (F4's shape).
+- F24. Time jumps — a paused machine, a corrected clock → we face
+  expiry firing for everything at once, or never.
+
+**Trust assumptions — accepted deliberately, not defended:**
+- T1. The store durably holds a write it acknowledged. (Its
+  complement, loss below acknowledgment, is fenced: W4.)
+- T2. The store offers at least one way to make two concurrent
+  writers disagree — something to serialize or refuse on.
+- T3. A request's stated caller and operator identity is what it
+  claims to be. (Authentication is outside: W5.)
+
+**Probe log** — how saturation was earned. Stamps: *new* (the
+census grew) · *nothing new* (which line covers it) · *out* (fenced,
+in ink).
+- P0, the enumeration lens (actors × vanishes/duplicates/lies):
+  F1–F7, F9–F12, F15, F16, F19, F21, F23.
+- P1, the assumption hunt. Silent singulars: "our process" → could
+  be two: **new** F17. "The clock" → could disagree: **new** F18.
+  "The adjustment" → could be two, reordered: **new** F13, F11.
+  Silent successes: "the check reads the current count" → the other
+  branch is a stale read: **new** F22. "Expiry fires" → or never, or
+  all at once: **new** F24. "Consume's two moves both happen" →
+  nothing new, F16 covers. Result: five new.
+- P2, the timeline stretched. What accumulates: reservations nobody
+  returns for → **new** F8; records of ended reservations → **out**,
+  W6. What is forgotten: an expired reservation, then its consume
+  arrives → nothing new, F5. What arrives very late: a consume a
+  day later → nothing new, F5; a reply that arrives after the
+  caller retried → nothing new, F2/F12. Result: one new, one out.
+- P3, the resource lens, every quantity at zero / many / huge.
+  Requested quantity: zero → F6; huge → F6 (the door bounds it).
+  On hand: zero → every reservation refused, nothing new, F1's
+  check; huge → nothing new. Callers on one item: many → F1.
+  Active reservations on one item: huge → the reserved sum must be
+  known at every admit — a cost, not an enemy: **out**, W3. Items:
+  many → the race is per item, nothing new. Adjustments: many at
+  once → F10, F13. Instances: many → F17. Result: zero new.
+- P4, the assumption hunt again, over the facts P1–P2 added. F17
+  "two instances" → could be one that restarts mid-work: F15
+  covers. F18 → could a single instance's clock be wrong: F24
+  covers. F22 → could a write go to a lagging place: T1 with W4
+  covers. F8 → could a hold end without anyone asking: that is
+  expiry, F23/F24. Result: zero new.
+
+Two consecutive lenses (P3, P4) with zero new facts → **saturated**,
+pending the reviewer's call.
+
+**Fence list** — exclusions in ink; each earns its place at step 3
+by stopping a fact from colliding:
+- W1. Physical stock truth. The world's count is not ours (L2
+  refusal); it reaches us only as an operator's adjustment at the
+  door.
+- W2. Reserve once-ness. A duplicate reservation over-holds; it
+  cannot oversell (L2 refusal).
+- W3. Throughput, latency, fairness between racers. Who wins a race
+  is not ours; that the losers lose correctly is.
+- W4. Loss below the store's acknowledgment — restores from an older
+  backup, corrupted volumes. T1's complement; the banked "never
+  lost" promise's territory.
+- W5. Who may reserve, consume, adjust. T3's complement.
+- W6. Retention and growth of ended reservations' records.
+
+**Not-probed ledger** — the census's edge, named:
+- Deployment transitions beyond overlap: schema changes, data
+  migrations.
+- Replication topologies beyond "a read can be stale" (F22).
+- A malicious operator or caller, as opposed to a mistaken or
+  retrying one; T3 stands in front of it.
+- The clock beyond skew and jumps (leap seconds, monotonic vs wall).
+
+**Scope verdicts** — boundary questions the census raised, each
+with a recommendation; the reviewer decides:
+- V1. The downward correction under the reserved sum (F9). Recommend
+  **in**: it is the promise's own negation arriving legitimately,
+  the same kind — on hand × reserved — and the reader needs to see
+  the promise survive the world contradicting the ledger.
+- V2. Expiry (F8, F18, F23, F24). Recommend **in**: a timed exit
+  racing a consume is contention with time as the partner, the same
+  class; the duration policy stays refused (L2).
+- V3. Our own instances racing (F17). Recommend **in**: the same
+  class, and the evidence harness will run it.
+- V4. Store loss below acknowledgment (behind F19/F22). Recommend
+  **out**, W4: a new kind of difficulty, recovery, another
+  promise's territory.
+- V5. Over-holding and starvation by duplicates or abandoned
+  reservations (F2, F8). Recommend **censused-and-fenced**: the
+  facts stay because expiry is their exit; the boundary (W2)
+  holds.
+
+**Return trip check:** did the census reveal a missed possession or
+an unwritten refusal? F9 confirms the on-hand number is ours to
+admit or refuse; F16 confirms consume's two moves are one
+possession; F17 adds no possession, only a partner. No L2 revision.
+
+### How it ran
+
+The enumeration lens alone found the caller-shaped facts and the
+store's unknowable write; the assumption hunt found everything with
+a silent "the": our process, the clock, the adjustment, the current
+count. The timeline lens found the abandoned hold and one exclusion.
+The resource lens found nothing, which is the point — every cell
+named its covering line. Numbering skips F14 and F20 — F14 (very
+late requests) folded into F5 and F20 (store loss) into W4 during
+the sort; the gaps are kept so the log's references stay true. The
+reviewer's questions and what they changed: (pending).
