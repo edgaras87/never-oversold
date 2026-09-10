@@ -701,7 +701,11 @@ applied throughout (see step 0's return trip). Wording only.
 
 ## Step 4 — Sort into owners (L3)
 
-**Verdict:** open — draft awaiting the reviewer's questions.
+**Verdict:** taken, 2026-09-10 — the reviewer accepts one area,
+the reservation ledger, with the five seams refused in writing.
+Section frozen; one question ran before the call (below), and one
+return trip to steps 0–3 (the term on-hand-count). Hands down: the
+one owner.
 
 ### Earned
 
