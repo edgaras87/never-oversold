@@ -261,9 +261,22 @@ scope verdicts and the saturation call are the reviewer's.
 reserve request → network → our process → store → network → reply;
 later a consume or release by the same or another caller; beside it
 an operator adjusting on hand; underneath, the clock that ends
-reservations by expiry. Everything beyond our control is an actor:
-callers, operators, the network, our own process, the store, the
-clock.
+reservations by expiry. Everything beyond our control is an actor,
+each named by what it does to us:
+- *Callers* — the services that reserve, consume and release on
+  behalf of a seller's customers; they move the reserved side.
+- *Operators* — whoever changes stock on hand from the world's
+  side: a restock, a loss, a recount; a person at a screen or a
+  stock system, the ledger cannot tell and does not need to — it
+  sees an adjust request at the door. They move the on-hand side.
+- *The network* — carries requests and replies, and loses,
+  duplicates, delays, reorders them.
+- *Our own process* — the ledger's running instances, which die
+  mid-work and can be more than one.
+- *The store* — where the ledger's numbers persist; it answers
+  reads and takes writes, and can be slow, stale, or silent.
+- *The clock* — what ends reservations by expiry; it skews between
+  instances and jumps.
 
 **Facts,** each stated consequence-first — what it leaves us facing:
 
@@ -436,7 +449,9 @@ store's unknowable write; the assumption hunt found everything with
 a silent "the": our process, the clock, the adjustment, the current
 count. The timeline lens found the abandoned hold and one exclusion.
 The resource lens found nothing, which is the point — every cell
-named its covering line. Numbering skips F14 and F20 — F14 (very
+named its covering line. The reviewer asked who the operators
+are (Q1): the word had entered at step 0 undefined; each actor now
+carries a one-line definition. Numbering skips F14 and F20 — F14 (very
 late requests) folded into F5 and F20 (store loss) into W4 during
 the sort; the gaps are kept so the log's references stay true. The
 reviewer's questions and what they changed: (pending).
