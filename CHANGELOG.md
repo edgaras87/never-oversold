@@ -27,6 +27,9 @@ revision, start a new minor.
 
 ### Added
 
+- The infrastructure ground: PostgreSQL 17 under podman compose,
+  governed by a two-role authority split, verified both ways; stood
+  up from a clean machine by the operator manual's commands.
 - The promise, the system definition and the slice registry under
   `docs/system/`: what this ledger will guarantee, what it owns
   and refuses, and the four invariants to be proven — written

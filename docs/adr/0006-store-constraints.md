@@ -1,7 +1,7 @@
 # 0006. Constraints on the store, each enforced by the store itself
 
 Date: 2026-09-11
-Status: Proposed
+Status: Accepted
 
 ## Context
 

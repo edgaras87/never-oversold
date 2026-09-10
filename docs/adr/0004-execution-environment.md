@@ -1,7 +1,7 @@
 # 0004. Execution environment: podman local containers, compose-driven
 
 Date: 2026-09-10
-Status: Proposed
+Status: Accepted
 
 ## Context
 

@@ -6,7 +6,7 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
-## 2026-09-10 →  (Step 3: the ground)
+## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 
 <!-- Grows as the walk runs — the lived-result record: for every
      executing step, the command, what was expected, what actually
@@ -86,6 +86,29 @@
 
   Both verifications passed; the manual's PostgreSQL section
   written from this run.
+- The contract written; then the reviewer asked whether naming the
+  server's serializing faces pre-empts the slice — it read that way
+  in two phrases; both manuals now say inventory, not a choice, and
+  that the advisory-lock probe was picked for needing no schema.
+- Clean re-stand from the operator manual alone, on the reviewer's
+  yes: `down --volumes` removed container, volume, network; `up -d`
+  ran the bootstrap again; honest up after 7 s; all 16 catalog rows
+  as stated; DDL as `runtime` refused; Flyway `<< Empty Schema >>`;
+  witness read from the host `1`. Reproduced.
+- Exit test: the ground runs — yes; every service tied to a stated
+  need and every exclusion to a stated why — ADR-0005; both
+  verifications passed from actual output — this entry; both
+  manuals stand, written from lived work — yes; a stranger could
+  stand it up from the operator manual alone — the re-stand followed
+  it and nothing else. Passed. README gains Prerequisites;
+  ARCHITECTURE names the ground and nothing that does not run.
+- Version: still 0.0 — no slice closed; the ground is not a slice.
+- Resume: the entry file's records rows, the plan's close, then
+  fast-forward into main on the word and the reviewer pushes. Then
+  Step 4 (bootstrap): cut its branch, derive its gate, run
+  cbc-bootstrap — the stack at capability grain, the skeleton as
+  `runtime` on this ground, the harness creating SL-1's adversity
+  across instances (TODO's Step 4 items).
 
 ## 2026-09-10  (Step 2: identity)
 

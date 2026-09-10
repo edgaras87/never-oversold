@@ -165,62 +165,62 @@ the ADR's description, main pushed by the reviewer at 0de75df; the
 step's own commits reach it with the fast-forward. The branch item
 is ticked on the reviewer's word to merge, given at this boundary.
 
-## Step 3: Ground / infrastructure  (infra-establish)    [~]
+## Step 3: Ground / infrastructure  (infra-establish)    [x] 2026-09-11
 
 Goal: services stood up, constrained to need, verified both ways.
 Gate:
-- [ ] Stage 0 passed on the actual repo and recorded: the definition
+- [x] Stage 0 passed on the actual repo and recorded: the definition
       carries the runtime ground the system assumes — one local
       machine, the reviewer's; a stranger's clean machine by the
       README; more than one instance of our process runnable on it —
       added by a dated revision entry, since framing left it
       unstated; the registry's adversities read as the deciding
       constraints.
-- [ ] The environment decision is logged with its why before any
+- [x] The environment decision is logged with its why before any
       ground file exists: the lived default, podman local containers
       compose-driven, checked against the slices' demands (race
       plural instances, kill mid-write, inject an unknowable
       outcome, control a clock) and defeated or kept by name.
-- [ ] The operator manual's environment section is written from
+- [x] The operator manual's environment section is written from
       the lived stand-up, contemporaneously: engine version, the
       compose provider answering `podman compose`, host OS and arch,
       cgroups version, rootless or not with its implications.
-- [ ] One logged evaluation, slice by slice, of what capability each
+- [x] One logged evaluation, slice by slice, of what capability each
       invariant's evidence requires; the service set is what
       survives; the not-provisioned list states each exclusion's
       why.
-- [ ] Every constraint on every service names its enforcement
+- [x] Every constraint on every service names its enforcement
       mechanism — the store's own grants, a config, a structural
       wall — never trust; where standing knowledge exists it is the
       rebuttable default, deviations naming their defeater.
-- [ ] Ground files land under `infrastructure/` as project truth:
+- [x] Ground files land under `infrastructure/` as project truth:
       the compose declaration, bootstrap scripts, the verify suite,
       tool configs; secrets split out — `.env` ignored, `.env.example`
       committed; no ground file older than the decision it realizes.
-- [ ] The services run, and verification ran both ways, recorded
+- [x] The services run, and verification ran both ways, recorded
       from actual output: the catalog check with expected results
       beside each query; the behavioral check with each constraint
       attempted and watched being refused live — among them T2's
       tool, the one way two writers to one item are made to
       disagree, named and its refusal seen.
-- [ ] Both manuals stand: the infrastructure contract (identities to
+- [x] Both manuals stand: the infrastructure contract (identities to
       connect as and never to use, reachability inside and outside
       the network, refusals as contract terms, how schema changes
       are made) and the operator manual; a clean re-stand from the
       manual alone — down, volumes dropped on the reviewer's yes,
       up — reproduces the verified state.
-- [ ] The ground's decisions are ADRs (the environment; the service
+- [x] The ground's decisions are ADRs (the environment; the service
       set with its exclusions), and the establishment log's first
       entry maps the skill's default records to this repo's.
-- [ ] README gains Prerequisites from the skill's template, the
+- [x] README gains Prerequisites from the skill's template, the
       environment lines only; ARCHITECTURE names the ground's
       services and nothing that does not run; the records tables in
       the entry file and README gain rows for the log and the two
       manuals; every commit follows commit-messages, none straddles
       agent and project paths.
-- [ ] The devlog's entry records the walk, its deviations, and the
+- [x] The devlog's entry records the walk, its deviations, and the
       exit test's answers; TODO's T2 item closes here.
-- [ ] The step ran on `step-3-ground`, cut from main, and reached
+- [x] The step ran on `step-3-ground`, cut from main, and reached
       main by fast-forward on the reviewer's word.
 Notes: opened 2026-09-10. Host-level installs are the reviewer's
 own acts; destructive acts — volume drops, resets — on the
@@ -228,6 +228,13 @@ reviewer's explicit yes; every executing step states the command
 and its expected result, runs it, and records what actually
 happened. The host at opening: podman 5.8.2, a compose provider
 answering, Fedora 42, cgroup v2.
+Closed 2026-09-11: PostgreSQL 17 under podman compose, the whole
+service set (ADR-0004–0006); both verifications from actual
+output, T2's facility refused live; the clean re-stand from the
+manual alone reproduced the verified state; the walk lived in the
+devlog, no establishment log (deviation, hand-off filed). The
+branch item is ticked on the reviewer's word to merge, given at
+this boundary.
 
 ## Step 4: Skeleton & bootstrap  (cbc-bootstrap)    [ ]
 
@@ -278,6 +285,9 @@ Notes:
 - ADR-0001: Record architecture decisions (birth)
 - ADR-0002: Adopt the framing as the project's truth set (Step 1)
 - ADR-0003: Name the project (Step 2)
+- ADR-0004: Execution environment: podman local containers (Step 3)
+- ADR-0005: Infrastructure services: PostgreSQL, and nothing else (Step 3)
+- ADR-0006: Constraints on the store, each enforced by the store (Step 3)
 
 ---
 

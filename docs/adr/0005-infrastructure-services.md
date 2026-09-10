@@ -1,7 +1,7 @@
 # 0005. Infrastructure services: PostgreSQL, and nothing else
 
 Date: 2026-09-11
-Status: Proposed
+Status: Accepted
 
 ## Context
 

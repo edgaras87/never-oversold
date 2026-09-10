@@ -38,14 +38,23 @@ Built by correctness-by-construction: what must never happen first,
 features last. The method: [docs/concept/](docs/concept/), start
 with [00-cbc.md](docs/concept/00-cbc.md).
 
-**Status:** framed 2026-09-10, named 2026-09-10. No code, no ground
-yet; next is the ground.
+**Status:** framed and named 2026-09-10; the ground stands,
+verified, 2026-09-11. No code yet; next is the skeleton and the
+evidence harness.
+
+## Prerequisites
+
+- podman with a compose provider (`podman compose` answers) — the
+  infrastructure ground; details in
+  [docs/infrastructure/operator-manual.md](docs/infrastructure/operator-manual.md)
 
 ## Project records
 
 | Record | Where | What it answers |
 |---|---|---|
 | System | [docs/system/](docs/system/) | What it promises, owns, refuses; what to work next |
+| Operator manual | [docs/infrastructure/operator-manual.md](docs/infrastructure/operator-manual.md) | How to stand the ground up, verify it, reset it |
+| Infrastructure contract | [docs/infrastructure/infrastructure-contract.md](docs/infrastructure/infrastructure-contract.md) | What the builder may rely on: identities, reachability, refusals |
 | Plan | [PLAN.md](PLAN.md) | Where are we, what's next, what does *done* mean |
 | Decisions | [docs/adr/](docs/adr/) | Why is it built this way |
 | Architecture | [ARCHITECTURE.md](ARCHITECTURE.md) | What is the current shape of the system |

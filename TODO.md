@@ -8,9 +8,11 @@
 
 ## Now (current plan step)
 
-- [ ] Step 3 (ground, infra-establish): cut its branch from main,
-      derive its gate into PLAN first, then evaluate the ground
-      strictly from the registry's adversity needs.
+- [ ] Step 4 (bootstrap, cbc-bootstrap): cut its branch from main,
+      derive its gate into PLAN first; the stack decided at
+      capability-and-constraint grain, the skeleton wired to the
+      real ground as `runtime`, the harness proving SL-1's adversity
+      end to end across more than one instance.
 
 ## Next (upcoming steps — assign each to a step when triaged)
 
@@ -24,9 +26,6 @@
 - [ ] Step 4 or SL-1: kill 10's evidence shape — clocks disagreeing
       about activeness cannot be hammered; a controlled clock, or
       FC3's one-clock judgment shown to be the one used.
-- [ ] Step 3 (ground): the store must offer a way to make two
-      writers to one item disagree (T2) — the ground's evaluation
-      names which, and verifies it by refusal.
 
 ## Later / someday
 
@@ -61,6 +60,22 @@
       state per commit" while the workflow presents L1→L5; say
       that the file ends in the map's order and the commits carry
       the derivation, so the next run does not append.
+- [ ] Hand-off to the CbC bundle (cbc-framing ↔ infra-establish):
+      the framing's census never asks for the runtime ground —
+      machine, plural instances, the store as a service, the clock —
+      while the ground's readiness check requires the definition to
+      carry it. This run added the block by a dated revision at
+      Step 3's opening; the census (or its export) should ask for it
+      at framing.
+- [ ] Hand-off to the CbC bundle (infra-establish): in a repo with
+      records, the normal shape is no establishment log — decisions
+      as ADRs, the walk as lived in the devlog, expected results in
+      the verify suite and the operator manual — with `compose.yaml`
+      and the env files at the root, the runnable ground under
+      `infrastructure/`, the manuals under `docs/infrastructure/`.
+      This run did it as a logged deviation; the skill's
+      records-and-outputs section should carry it as the default
+      for record-keeping repos, so the next run does not re-decide.
 - [ ] Retrospective: the worked-example twin in cbc-framing and
       cbc-slice claims a byte-identical copy but differs in its
       provenance path line — fold back to the source, never edit
