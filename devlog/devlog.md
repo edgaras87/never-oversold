@@ -65,6 +65,27 @@
   image tag. Names: `migrator`, `runtime`, database and schema
   `never_oversold`. T2's tool goes into the behavioral check as a
   capability shown, not a constraint governed.
+- Ground files filled from the templates, this repo's names, one
+  addition to the verify suite (query 6, the connect privilege,
+  because C3 claims it). `podman compose config` clean; every bind
+  mount labelled Z; Flyway only under its profile.
+- Stand-up and verification, 2026-09-11, each with its expected
+  result, then what happened:
+
+  | Step | Expected | Actual |
+  |---|---|---|
+  | `podman pull postgres:17` | digest, exit 0 | `sha256:67f41722…`, PostgreSQL 17.11 |
+  | `podman compose up -d` | created, started, bootstrap runs | started; log: `running …/bootstrap.sql`, `CREATE ROLE` ×2, `CREATE SCHEMA`; healthy after 6 s |
+  | first query | answers | **failed once**: `the database system is shutting down` — the image's init restarts the server after the bootstrap and the health check saw the temporary one; answered 1 s later. Trap recorded in the manual |
+  | catalog check, 6 queries | as the file's comments | all six as stated |
+  | DDL as `runtime` | refused | `ERROR: permission denied for schema never_oversold` |
+  | ungranted role connects | refused | `FATAL: permission denied for database "never_oversold"`; probe role dropped |
+  | T2's tool: two `runtime` sessions on one advisory lock, `lock_timeout` 1.5 s | second refused | `ERROR: canceling statement due to lock timeout` |
+  | `podman compose run --rm flyway info` | connects as migrator, empty schema, exit 0 | Flyway 11.20.3, `<< Empty Schema >>`, `No migrations found`, exit 0 |
+  | witness read from the host via the published port | `1` | `1`, through a client container on the host network — the host has no `psql` |
+
+  Both verifications passed; the manual's PostgreSQL section
+  written from this run.
 
 ## 2026-09-10  (Step 2: identity)
 
