@@ -236,14 +236,123 @@ devlog, no establishment log (deviation, hand-off filed). The
 branch item is ticked on the reviewer's word to merge, given at
 this boundary.
 
-## Step 4: Skeleton & bootstrap  (cbc-bootstrap)    [ ]
+## Step 4: Skeleton & bootstrap  (cbc-bootstrap)    [~]
+
+<!-- CbC: the seam is WHAT before HOW. Stages 1–2 name capabilities,
+     constraints, identity and evidence owed; no dependency, class
+     or file layout until Stage 4. This gate keeps the seam: it names
+     no stack — the stack is Stage 1's decision, logged before code. -->
 
 Goal: an empty but buildable, testable, runnable system wired to the
 real ground, with the evidence harness proven on one adversity.
-Gate: derived when this step opens — verifiable facts, from the
-goal, the named skill, and the registry; written into this step
-before its work starts.
-Notes:
+Gate:
+- [ ] Stage 0 passed on the actual repo and recorded: the three
+      exports stand; both manuals stand with the identity rule, the
+      reach facts, the refusals and the one DDL path; the stand-up
+      verification is on record; no application code exists. The
+      ground was verified live per the operator manual before any
+      wiring — the catalog check run now, its actual output beside
+      the expected — and the receipt is in the devlog.
+- [ ] The decisions are logged with their why before any code
+      exists, and confirmed by the reviewer before the requirements
+      are composed: the stack, by fluency and audience — the
+      correctness work the visible substance, not stack novelty;
+      the migration tool outside the app; the app knowing one
+      identity, `runtime`; the migrations home confirmed as
+      `infrastructure/flyway/migrations`; the application structure
+      checked against the skill's lived default and kept or
+      deviated by name. The stack is an ADR, listed in this plan's
+      decision index.
+- [ ] The initialization identity is decided, not defaulted: the
+      group asked of the reviewer, never invented; the artifact
+      `never-oversold`; the base package with hyphens dropped; the
+      packaging and language version named.
+- [ ] The harness's one proven adversity is read from the framing's
+      words — contention, in SL-1's shape: concurrent admits on one
+      item's last units — and the machinery is proven on that class
+      alone. It is created from more than one instance of the ledger
+      against the one store (F17; TODO's Step 4 item), the shape
+      decided at Stage 1 with its why; a single-process pass does
+      not close this item.
+- [ ] Kill 10's flag is answered in so many words: the harness gains
+      a controlled clock now, or the shape is deferred to SL-1 by
+      name; either way logged, not left to be met by surprise.
+- [ ] The capability set stands, small and each with its why: an
+      HTTP surface, the adversity arriving through the real door;
+      operational health, a cheap world-is-up check naming the store
+      as a component; connectivity to the ground as `runtime`; the
+      evidence harness — migrations run harness-side from the one
+      home, integration tests under the one standard test command,
+      the migration path proven by a zero-applied assertion.
+- [ ] The constraints are cited against the infrastructure contract,
+      and the exclusions each carry a why: no business behavior (any
+      probe is scaffolding, marked to die at SL-1); no persistence
+      schema — no table before its invariant, the migrations home
+      honestly empty; no other adversity class; no auth unless a
+      slice demands identity at the door; no delivery beyond locally
+      runnable and testable; nothing ahead of need.
+- [ ] The requirements document stands at a path decided for this
+      repo and logged, in the project's language: §1 identity, §2
+      capabilities, §3 constraints, §4 the ground's facts by pointer
+      to the two manuals — only the identity and the endpoint facts
+      in hand, every environment fact stated notation-neutrally
+      ("env var X, default Y") — §5 the evidence owed, §6 the
+      exclusions. It names no dependency, no class, no file layout,
+      and is committed before any implementation commit.
+- [ ] The step plan is confirmed by the reviewer before execution,
+      as this run's change-plan: the stack decision recorded, the
+      skeleton standing, the datasource wired to the real ground as
+      `runtime`, the harness standing with the migration path
+      proven, the harness creating the adversity — in that order;
+      each step verified before its commit, a failed verification
+      reported, never committed. Nothing outside the requirements
+      enters; a missing *what* found while building returns to Stage
+      1 as a logged re-decision, never absorbed.
+- [ ] Every constraint is visible in the delivered files: `runtime`
+      alone in configuration, its password read from
+      `NEVER_OVERSOLD_RUNTIME_PASSWORD` and nowhere else; no
+      `migrator` credential in any profile; nothing on the runtime
+      path controls structure — no in-app migration, no object
+      mapping, no schema generation; migration tooling at test scope
+      only; every dependency entered at the step that earned it with
+      its earning reason beside it, deliberate absences commented.
+- [ ] The run proof is recorded from actual output: the system up on
+      the real ground as `runtime`, health UP with the store's
+      component UP, the runtime's version announced; the one
+      standard test command green, the integration tests shown
+      structurally to run under it — no second command, no test
+      that quietly never runs; the zero-applied migration assertion
+      passing against the empty home.
+- [ ] The exit test answered from the delivered state, member by
+      member against §5, §1, §2, §3, §6 — never from a report alone:
+      the skeleton runs on the real ground as the runtime identity
+      alone, and the harness demonstrably creates SL-1's adversity
+      through the real door, every response asserted.
+- [ ] The repo is grown into, never overwritten: `.gitignore` grown,
+      README kept, `.env` still ignored; the test runtime's
+      once-per-machine setup lives in the operator manual, not the
+      code; host-level installs are the reviewer's own acts, named
+      in README's Prerequisites.
+- [ ] Records: README gains Run and Test and the stack's
+      Prerequisites line from the skill's template, Run ending in the
+      proof of life; ARCHITECTURE shows the ledger as it now runs
+      beside the store; CHANGELOG carries the bootstrap as an Added
+      line under Unreleased, the version still 0.0; the devlog's
+      entry records the walk, its deviations, the certification and
+      the exit test's answers, "no business behavior yet" in so many
+      words, the probe's death scheduled at SL-1; hand-offs filed in
+      TODO; TODO's Step 4 items close here or move to SL-1 by name.
+- [ ] Every commit follows commit-messages, none straddles agent and
+      project paths; no implementation file older than the decision
+      it realizes.
+- [ ] The step ran on `step-4-bootstrap`, cut from main, and reached
+      main by fast-forward on the reviewer's word.
+Notes: opened 2026-09-11. The reviewer confirms at Stage 1 and
+Stage 3; the group namespace is theirs to give. Every executing
+step states the command and its expected result, runs it, and
+records what actually happened. The bootstrap is not a slice: no
+kill closes here, the version stays 0.0. Growth after the exit
+belongs to cbc-slice, SL-1 first.
 
 ## Steps 5..N-1: Invariant slices  (cbc-slice, one step per stage)
 
