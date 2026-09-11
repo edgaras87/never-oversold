@@ -42,6 +42,21 @@
 
   Seven of seven. The ground is up now, which is what the wiring
   needs. Nothing to hand off from Stage 0.
+- Stage 1, decided with the reviewer, before any code: the stack
+  (ADR-0007 — Spring Boot 4, Java 21, Maven; fluency and audience;
+  the host already carries JDK 21.0.11, Maven 3.9.9, the podman
+  socket and a Testcontainers properties file from the earlier
+  project); the group `io.github.edgaras87`, given, not invented;
+  the structure (ADR-0008 — the lived default, after the reviewer
+  asked for the alternatives and their fit: classic layered is the
+  same layering with the compiler removed from the boundary,
+  hexagonal would centre the naive check-then-write shape,
+  Modulith has one module to verify); the harness shape (ADR-0009
+  — plural instances as separate processes, the one place this
+  run leaves the harness reference by decision). Kill 10's clock
+  deferred to SL-1 by name. The requirements document's home:
+  `docs/construction/`, not the skill's `internal/` — hand-off
+  filed in TODO.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

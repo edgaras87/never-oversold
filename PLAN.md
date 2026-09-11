@@ -397,6 +397,9 @@ Notes:
 - ADR-0004: Execution environment: podman local containers (Step 3)
 - ADR-0005: Infrastructure services: PostgreSQL, and nothing else (Step 3)
 - ADR-0006: Constraints on the store, each enforced by the store (Step 3)
+- ADR-0007: Application stack: Spring Boot 4, Java 21, Maven (Step 4)
+- ADR-0008: Application structure: package by feature (Step 4)
+- ADR-0009: The harness drives plural instances as processes (Step 4)
 
 ---
 
