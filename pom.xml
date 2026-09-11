@@ -83,6 +83,40 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- The evidence harness, test scope only: a throwaway store of the
+             ground's major version, one per test JVM, so the suite is
+             self-contained — a clean clone, the ground down, still green. -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Migrations run harness-side against that store, as `migrator`,
+             from the one home on the filesystem — the compose one-shot's
+             role, played in tests. Test scope is load-bearing: at runtime
+             scope the application could migrate, undoing the ground's
+             constraint. Only the engine enters — not Boot's Flyway module —
+             so no auto-configuration can run a migration inside the
+             application context; the harness calls the engine itself. -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Exists only to satisfy the test REST client's auto-configuration:
+             on Boot 4 it introspects a builder from this separate module and
+             the web test context dies without it, naming something else. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-restclient</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -93,6 +127,24 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- Widens the test includes so the integration tests (`*IT`)
+                 run under the one standard test command beside the unit
+                 tests — no second command, no test that quietly never runs.
+                 The first four patterns are Surefire's own defaults, restated
+                 because setting includes replaces them. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/*TestCase.java</include>
+                        <include>**/*IT.java</include>
+                    </includes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

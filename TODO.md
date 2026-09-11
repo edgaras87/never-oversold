@@ -89,6 +89,15 @@
       `docs/construction/`, beside the builder's other manuals.
       The skill should say "at the path the project's records
       choose" and name no directory of its own.
+- [ ] Hand-off to the CbC bundle (cbc-bootstrap): the walkthrough's
+      Ryuk trap and `templates/testcontainers.properties` are stale
+      for Testcontainers 2.x — the `ryuk.disabled` key is not read
+      (the keys are `ryuk.container.image|privileged|timeout`), and
+      Ryuk ran unmodified under rootless podman 5.8 on this host,
+      reaping the throwaways within seconds. The template should
+      carry `docker.host` alone; the trap should say "if Ryuk fails
+      on your host, `TESTCONTAINERS_RYUK_DISABLED=true` in the
+      environment", not a properties line.
 - [ ] Retrospective: the worked-example twin in cbc-framing and
       cbc-slice claims a byte-identical copy but differs in its
       provenance path line — fold back to the source, never edit

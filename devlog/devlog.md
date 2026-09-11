@@ -98,6 +98,35 @@
   profile, and not a default in the config. The companion
   `spring-boot-starter-jdbc-test` enters with its starter under the
   pairing rule; the driver at runtime scope; no object mapping.
+- Commit 4, the harness — each command, expected, actual:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | `podman compose stop`, then `./mvnw -q -B test`, nothing exported | green with the ground down; `*IT` run under the one command | `postgres:17` started in 6.5 s; history table created, `No migrations found`; **1 failure of 5** — mine, see below; `MigrationPathIT` and `HealthThroughTheDoorIT` listed in the surefire reports |
+  | `./mvnw -q -B test` after the fix | 5 green | `MigrationPathIT` 3/3, `HealthThroughTheDoorIT` 1/1, context test 1/1, exit 0 |
+  | `podman ps` ~12 s after the JVM exit | no throwaway left | none running |
+  | `podman compose start` | healthy | healthy after 2 s |
+
+  The failure: a third test I added beyond the reference —
+  `runtime` attempting `CREATE TABLE` in the miniature, the
+  ground's refusal 1 held in evidence runs. It asserted the message
+  on the top-level exception; Spring wraps the driver's error, so
+  the store's `permission denied for schema never_oversold` sits at
+  the root cause. Fixed by asserting on the root cause. Kept: three
+  lines that catch a miniature quietly wired without the split.
+- The walkthrough's Ryuk trap is stale on this line: Testcontainers
+  2.0.5 (Boot-managed) reads no `ryuk.disabled` key — the config
+  keys are image, privileged, timeout — so the line in
+  `~/.testcontainers.properties` is inert; and Ryuk ran fine under
+  rootless podman 5.8, reaping both throwaways within seconds. Kept
+  Ryuk on; the manual says so; hand-off filed.
+- The web base lands here with a user, not as an empty class:
+  `HealthThroughTheDoorIT` takes the world-is-up check through the
+  real door against the harness's store — the check every evidence
+  run gates on — and that is what earns `spring-boot-restclient` at
+  test scope. Boot 4 with only `flyway-core` on the test classpath
+  runs no Flyway auto-configuration (the module split), so the
+  harness's own call is the only migration path in tests.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

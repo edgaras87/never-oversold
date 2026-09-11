@@ -76,6 +76,52 @@ services:
   responding — an in-flight write's outcome becomes unknowable to
   its caller — and `podman unpause` resumes it.
 
+### The test runtime — once per machine
+
+The evidence harness (the application's test code, under the one
+standard test command) starts its own throwaway PostgreSQL through
+Testcontainers, so the compose ground does not need to be up for
+tests. Testcontainers needs a container-runtime socket; on rootless
+podman that is the user's own socket unit.
+
+```sh
+systemctl --user enable --now podman.socket
+ls -l "$XDG_RUNTIME_DIR/podman/podman.sock"     # expected: the socket file exists
+```
+
+Then point the library at it — **in the home directory, never the
+project root**; the file binds only from `$HOME`:
+
+```
+# ~/.testcontainers.properties
+docker.host=unix:///run/user/<uid>/podman/podman.sock
+```
+
+`<uid>` is `id -u`. Check with the standard test command:
+`./mvnw test` — expected: a `postgres:17` container starts, the
+tests run, and within seconds of the JVM's exit `podman ps` shows
+no throwaway left.
+
+Seen here, 2026-09-12: podman 5.8.2 rootless, the socket unit
+`active`, the socket file present; Testcontainers 2.0.5 (the
+version the build manages) started `postgres:17` in 6 s and the
+suite ran green; Ryuk, the library's reaper, ran as a container
+of its own and removed both throwaways within about ten seconds
+of the JVM's exit.
+
+**Traps, lived:**
+
+- The socket unit can report *active* with the socket file
+  missing. Active is not enough: stop socket and service user
+  units, start the socket again, confirm the file exists.
+- Older guidance disables Ryuk under rootless podman with a
+  `ryuk.disabled=true` line in the properties file. Testcontainers
+  2.x does not read that key — it is inert — and Ryuk worked on
+  this host as is. If a hard-killed test JVM ever strands a
+  throwaway, `podman ps` shows it by image (`postgres:17` with a
+  random name, and `testcontainers/ryuk`); remove those and only
+  those with `podman rm -f <name>`.
+
 ## PostgreSQL — the store
 
 **Decided:** PostgreSQL 17, one instance, the whole service set
