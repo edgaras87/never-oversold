@@ -57,6 +57,9 @@
   deferred to SL-1 by name. The requirements document's home:
   `docs/construction/`, not the skill's `internal/` — hand-off
   filed in TODO.
+- Stage 2: `docs/construction/bootstrap-requirements.md` composed —
+  §1–§6, no dependency, class or file layout named; the ground by
+  pointer; the port and password as "env var X, default Y".
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

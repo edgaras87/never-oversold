@@ -23,6 +23,12 @@
       across more than one instance of the ledger (F17), not only
       threads in one process — a single-process pass proves a shape
       nobody runs.
+- [ ] Step 5 (SL-1), at its opening: the door's conventions —
+      resource naming, JSON shape, the error format, how a refusal
+      differs from an invalid request — decided once as a logged
+      decision when the first real endpoint (reserve) is specified;
+      every later slice enters them. Not the bootstrap's: its probe
+      carries no meaning and dies here.
 - [ ] Step 4 or SL-1: kill 10's evidence shape — clocks disagreeing
       about activeness cannot be hammered; a controlled clock, or
       FC3's one-clock judgment shown to be the one used.
@@ -76,6 +82,13 @@
       This run did it as a logged deviation; the skill's
       records-and-outputs section should carry it as the default
       for record-keeping repos, so the next run does not re-decide.
+- [ ] Hand-off to the CbC bundle (cbc-bootstrap): Stage 2 names
+      `internal/construction/bootstrap-requirements.md` as the
+      requirements document's path, a directory a record-keeping
+      repo does not have; this run put it at
+      `docs/construction/`, beside the builder's other manuals.
+      The skill should say "at the path the project's records
+      choose" and name no directory of its own.
 - [ ] Retrospective: the worked-example twin in cbc-framing and
       cbc-slice claims a byte-identical copy but differs in its
       provenance path line — fold back to the source, never edit
