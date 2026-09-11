@@ -141,6 +141,25 @@
   scaffolding and die with SL-1, and the test says what it does not
   prove: overlap in the store, and anything about more than one
   instance.
+- **Correction to commit 3's note, 2026-09-12.** The claim that the
+  context "must resolve the placeholder or refuse to start" was
+  wrong, and I stated it without running the check. Found through
+  the reviewer's own run: `./mvnw spring-boot:run` from a terminal
+  with nothing exported *started*, health `DOWN` with `db` `DOWN`,
+  the probe `500`, the store's log `password authentication failed
+  for user "runtime"` — Boot's configuration binding leaves an
+  unresolvable placeholder as the literal string, so the literal
+  became the password. Verified the other way: the context test
+  with the property removed and the variable unset, exit 0. The
+  test property is dead; removed, with the javadoc corrected. The
+  five options the reviewer chose from rested on a false premise;
+  none was needed.
+- The lived trap that came out of it: **a missing secret does not
+  stop the ledger**. It starts, and only health says the store is
+  down. The README's Run section must say "health `db` DOWN means
+  the environment is not exported"; whether the ledger should
+  refuse to start without its secret is a *what* not in the
+  requirements — filed in TODO for the reviewer, not decided here.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

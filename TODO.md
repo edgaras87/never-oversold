@@ -23,6 +23,14 @@
       across more than one instance of the ledger (F17), not only
       threads in one process — a single-process pass proves a shape
       nobody runs.
+- [ ] Decide: should the ledger refuse to start when its secret is
+      missing? Today it starts with the literal placeholder as its
+      password and only health (`db` DOWN) tells; the store logs
+      `password authentication failed`. A fail-fast check is a small
+      mechanism but a *what* the bootstrap requirements never asked
+      — re-decide at Stage 1's grain (a logged re-decision) or at
+      SL-1's opening. Until then README's Run section names the
+      symptom.
 - [ ] Step 5 (SL-1), at its opening: the door's conventions —
       resource naming, JSON shape, the error format, how a refusal
       differs from an invalid request — decided once as a logged

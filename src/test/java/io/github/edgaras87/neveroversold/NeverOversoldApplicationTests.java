@@ -6,11 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * The application context assembles. No store is involved: this is the
  * cheapest proof that the skeleton is wired, and it stays green with the
- * ground down — the pool connects lazily, so only health would notice.
- * The password placeholder must still resolve for the context to start;
- * the value is unused because nothing here connects.
+ * ground down and nothing exported — the pool connects lazily, and Boot's
+ * configuration binding leaves an unresolvable placeholder as a literal,
+ * so a missing password shows only in health, never here.
  */
-@SpringBootTest(properties = "NEVER_OVERSOLD_RUNTIME_PASSWORD=unused-nothing-connects")
+@SpringBootTest
 class NeverOversoldApplicationTests {
 
     @Test
