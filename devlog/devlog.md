@@ -6,6 +6,43 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-11  (Step 4: skeleton & bootstrap)
+
+<!-- Grows as the stages run — the lived-result record: for every
+     executing step, the command, what was expected, what actually
+     happened. Decisions with their options are ADRs. -->
+
+- Opened on `step-4-bootstrap`, cut from main at `143d00e`; the
+  gate derived from the skill's five stages, the registry's SL-1
+  and TODO's Step 4 items, committed before any work (`b70e792`).
+  The gate names no stack: WHAT before HOW, the stack is Stage 1's.
+- Stage 0, readiness on the actual repo: the three exports stand,
+  exactly one slice `chosen-next` (SL-1); both manuals stand — the
+  contract with the identity table, the reach table, four refusals
+  and the one DDL path, the manual with six "seen here" results
+  from 09-11; no source file, no build file anywhere in the tree;
+  `infrastructure/flyway/migrations/` empty; `.env` present and
+  ignored, `.env.example` committed. Passed.
+- Stage 0, the ground live — found **down** at opening: the
+  container `never-oversold-postgres` was `Exited (0) 18 hours
+  ago`, the volume `never-oversold_postgres-data` in place. An
+  observation, not a blocker: `podman compose up -d` per the
+  manual, healthy after 6 s, data intact (roles, schema, grants as
+  bootstrapped). Then each check, expected, actual:
+
+  | Check | Expected | Actual |
+  |---|---|---|
+  | `pg_isready` | accepting connections, exit 0 | `accepting connections`, exit 0 |
+  | one real query as `runtime` | `runtime`, `never_oversold`, 17.x | `runtime\|never_oversold\|PostgreSQL 17.11` |
+  | catalog check, 6 queries | as the file's comments | all six as stated: two roles, neither super, both login; db owned by `postgres`; schema by `migrator`; `runtime` USAGE t CREATE f; default privileges tables SIUD, sequences US, none grantable; CONNECT `migrator` t, `runtime` t, PUBLIC f |
+  | `podman compose run --rm flyway info` | `No migrations found` | `No migrations found` |
+  | witness read from the host, published port, as `runtime` | `1` | `1` |
+  | C1: `CREATE TABLE` as `runtime` | `permission denied for schema never_oversold` | exactly that |
+  | tables in `never_oversold` | 0 | 0 |
+
+  Seven of seven. The ground is up now, which is what the wiring
+  needs. Nothing to hand off from Stage 0.
+
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 
 <!-- Grows as the walk runs — the lived-result record: for every
