@@ -60,6 +60,29 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Connectivity to the ground as `runtime`: the promise is a
+             property of persisted state, so the system reaches the store
+             — plain SQL inside transactions, at capability grain. No
+             object mapping and no schema generation: nothing persists
+             domain state yet, and structure is never the running
+             application's to control (infrastructure contract). -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- The store's driver: PostgreSQL is the whole service set
+             (ADR-0005). Runtime scope — nothing in the code names it. -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

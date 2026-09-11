@@ -82,6 +82,22 @@
   repo's own `.gitignore` and `.gitattributes`. Boot 4's
   Initializr already names the web starter `webmvc` and pairs the
   `-test` companions — the walkthrough's rename trap did not bite.
+- Commit 3, the datasource as `runtime` — each command, expected,
+  actual:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | `./mvnw -q -B test`, nothing exported, ground up | green — the pool connects lazily | `Tests run: 1, Failures: 0` |
+  | `.env` exported, `./mvnw spring-boot:run`, `curl …/actuator/health` | health UP, `db` UP | `200`, `"db":{"status":"UP"}` among the components, after 8 s |
+  | `pg_stat_activity` while it ran | sessions as `runtime` only | `runtime \| PostgreSQL JDBC Driver \| 4`; none as any other identity |
+
+  One thing the reference leaves open: the plain context test starts
+  a context whose password placeholder has no default, so it must
+  resolve from somewhere. Given as a test property with a value
+  that says what it is (`unused-nothing-connects`) — not a test
+  profile, and not a default in the config. The companion
+  `spring-boot-starter-jdbc-test` enters with its starter under the
+  pairing rule; the driver at runtime scope; no object mapping.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

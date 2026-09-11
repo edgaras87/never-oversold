@@ -1,3 +1,26 @@
 spring:
   application:
     name: never-oversold
+
+  # The one identity this application knows: `runtime` — the data
+  # authority for the running ledger, nothing else (infrastructure
+  # contract, "Which identity to connect as").
+  # Deliberate absences, each a decision:
+  #   - no schema pinning here: the ground pins search_path server-side
+  #     for the runtime role (contract, refusal 3)
+  #   - no migrator credentials in any profile: schema is the Flyway
+  #     one-shot's (ground) and the harness's (tests), never the app's
+  #   - no test profile: the harness overrides the datasource itself
+  datasource:
+    url: jdbc:postgresql://localhost:${POSTGRES_PORT:5432}/never_oversold
+    username: runtime
+    # secrets never default: exported by the operator; the local-dev
+    # value rides in .env (see .env.example)
+    password: ${NEVER_OVERSOLD_RUNTIME_PASSWORD}
+
+management:
+  endpoint:
+    health:
+      # evidence runs gate on "world is up, store included" — the db
+      # component must be visible, not just folded into the status
+      show-components: always
