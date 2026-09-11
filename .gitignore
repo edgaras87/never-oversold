@@ -28,3 +28,13 @@ CLAUDE.local.md
 # ======================================================================
 # stack overlays — appended below this line at app bootstrap
 # ======================================================================
+
+# Maven build output and the wrapper's downloaded jar — reproducible
+# from the pom and the wrapper properties
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE state beyond the base layer (JetBrains project files, VS Code)
+*.iws
+*.ipr
+.vscode/

@@ -8,3 +8,7 @@
 # ======================================================================
 # stack overlays — appended below this line at app bootstrap
 # ======================================================================
+
+# Maven wrapper: the shell script must stay LF, the Windows script CRLF
+/mvnw text eol=lf
+*.cmd text eol=crlf

@@ -60,6 +60,28 @@
 - Stage 2: `docs/construction/bootstrap-requirements.md` composed —
   §1–§6, no dependency, class or file layout named; the ground by
   pointer; the port and password as "env var X, default Y".
+- Stage 3: the step plan as this run's change-plan, confirmed and
+  committed (`ee558e5`); nine commits, the plural-instance race
+  provisional.
+- Commit 2, the skeleton — each command, expected, actual:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | Initializr, `bootVersion=4.1.1`, `web,actuator` | a tarball | first pull truncated (gzip: unexpected end of file); second pull `http 200`, 10 037 bytes, extracted |
+  | `./mvnw -q -B test` | context test green, no store | `Tests run: 1, Failures: 0`, Boot `v4.1.1`, `using Java 21.0.11` |
+  | `./mvnw spring-boot:run`, then `curl localhost:8080/actuator/health` | Java 21 announced, health UP | `Starting … using Java 21.0.11`; `Tomcat started on port 8080`; `HTTP/1.1 200` `{"status":"UP"}` after 9 s |
+
+  Extracted into the root beside `infrastructure/`: wrapper and
+  sources copied; the pom rewritten per the convention — two
+  capability groups, each with its why, the Boot minor pinned
+  once, the plugin commented, the empty metadata blocks gone; the
+  version `0.0-SNAPSHOT` because a version is a state of the
+  evidence; `application.properties` replaced by a YAML carrying
+  the name only; `HELP.md` and Initializr's `.gitignore` dropped,
+  their useful lines merged below the overlay markers in this
+  repo's own `.gitignore` and `.gitattributes`. Boot 4's
+  Initializr already names the web starter `webmvc` and pairs the
+  `-test` companions — the walkthrough's rename trap did not bite.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

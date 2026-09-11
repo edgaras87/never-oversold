@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- The stack line is ADR-0007: Spring Boot 4, Java 21, Maven. The
+         parent manages every version below unless a comment says why
+         an entry pins its own. The Boot minor is pinned here and only
+         here. -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.1</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>io.github.edgaras87</groupId>
+    <artifactId>never-oversold</artifactId>
+    <!-- A version is a state of the evidence (CHANGELOG): 0.N while the
+         registry's slices close, N the slices evidence-closed. No slice
+         has closed. -->
+    <version>0.0-SNAPSHOT</version>
+    <name>never-oversold</name>
+    <description>An inventory-reservation ledger in which the reserved quantity never exceeds the on-hand-count, however many reservations race for the same units.</description>
+
+    <properties>
+        <java.version>21</java.version>
+    </properties>
+
+    <!-- A dependency enters only at the step or slice that earns it, with
+         its earning reason above it; groups are the capability served,
+         runtime dependency first, its test companion right after. Boot 4
+         pairs runtime starters with `-test` companions; where none
+         exists, the runtime dependency stands alone. -->
+    <dependencies>
+
+        <!-- The door: the system answers HTTP, because adversity arrives
+             through the real door — the evidence attacks what a caller
+             reaches, never an inner method. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Operational health: a cheap world-is-up check every evidence run
+             gates on; it names the store as a component once the store is
+             wired. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Repackages the jar as one runnable artifact and provides
+                 `spring-boot:run`: the README's Run section and every
+                 instance the evidence starts run this output. -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
