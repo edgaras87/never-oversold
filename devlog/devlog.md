@@ -127,6 +127,20 @@
   test scope. Boot 4 with only `flyway-core` on the test classpath
   runs no Flyway auto-configuration (the module split), so the
   harness's own call is the only migration path in tests.
+- Commit 5, the probe pair — each command, expected, actual:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | `./mvnw -q -B test` | 6 green, the hundred released at one instant all `200` with `runtime` | `ContentionProbeIT` 1/1 in 18 s, the rest as before, exit 0 |
+  | `.env` exported, run, `curl localhost:8080/probe/ground` | `200`, identity `runtime`, a pid | `200`, `{"identity":"runtime","pid":"…"}` |
+
+  Imitated from the reference, not pasted: the probe answers the
+  identity the store sees and, beyond the reference, the process
+  id — so commit 6 can assert that the race was served by distinct
+  processes. Both files say in their own javadoc that they are
+  scaffolding and die with SL-1, and the test says what it does not
+  prove: overlap in the store, and anything about more than one
+  instance.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 
