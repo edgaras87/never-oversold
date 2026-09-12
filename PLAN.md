@@ -517,6 +517,8 @@ Notes:
 - ADR-0007: Application stack: Spring Boot 4, Java 21, Maven (Step 4)
 - ADR-0008: Application structure: package by feature (Step 4)
 - ADR-0009: The harness drives plural instances as processes (Step 4)
+- ADR-0010: The door's conventions (Step 5)
+- ADR-0011: An item becomes known by its first adjustment (Step 5)
 
 ---
 
