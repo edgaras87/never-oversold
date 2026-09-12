@@ -6,6 +6,37 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-12  (Step 5: SL-1, no over-admission under contention)
+
+<!-- Grows as the stages run — the lived-result record: for every
+     executing step, the command, what was expected, what actually
+     happened. Decisions with their options are ADRs. -->
+
+- Opened on `step-5-sl-1`, cut from main at `be61f60`; the gate
+  derived from the slice skill's five stages, SL-1's registry row
+  and TODO's three Step 5 items, committed before any work
+  (`6d8f373`). The gate names no mechanism: WHAT before HOW, the
+  wall is Stage 2's.
+- Stage 0, readiness on the actual repo, each check, expected,
+  actual:
+
+  | Check | Expected | Actual |
+  |---|---|---|
+  | R1 the three exports | intent, definition, registry under `docs/system/`; SL-1 `chosen-next`; the reconciliation line whole | all three present; SL-1 `chosen-next` (2026-09-10); 20 kills ↔ 4 slices + 3 folds, 20 rows in the table |
+  | R2 the suite | `./mvnw test` green at the branch point | 7 tests, 0 failures, exit 0: context 1, migration path 3, health through the door 1, in-process burst 1, race across 3 instances 1 — nothing exported, the ground down |
+  | R3 the real store from tests | the miniature, not a mock | `ThrowawayStore`: `postgres:17`, the ground's own `bootstrap.sql`, migrated as `migrator`, connected as `runtime` (Step 4) |
+  | R4 contention across instances | the harness creates SL-1's adversity class | `InstancesRaceIT`: 3 forked instances, 120 requests at one instant, every pid among the 3 (34 s) |
+  | R5 the harness can fail | — | not answerable yet: no wall exists to break. Answered in this step's build, the evidence run red against the admit without its wall, before the wall lands (the gate says so) |
+  | R6 the record surfaces | registry writable; a place for deviations and sign-offs | writable; the devlog for deviations and the walk, ADRs for decisions, the entry file's table naming both |
+
+  Observation, not a blocker: the ground's container
+  `never-oversold-postgres` is `Exited (0) 6 hours ago`; the suite
+  needs it down or up alike, and the run proof at close will need
+  it up. The migrations home holds `.gitkeep` alone — the first
+  migration is this slice's.
+- 2026-09-12, ready for SL-1 — the reviewer's sign-off, given in
+  so many words after the table above.
+
 ## 2026-09-11  (Step 4: skeleton & bootstrap)
 
 <!-- Grows as the stages run — the lived-result record: for every
