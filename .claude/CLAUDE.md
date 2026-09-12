@@ -3,8 +3,7 @@
 A backend service built by correctness-by-construction — the
 design derived from one falsifiable promise, what must never
 happen first, features last. The problem: an inventory-reservation
-ledger under contention, framed 2026-09-10; the ground stands,
-no code yet.
+ledger under contention, framed 2026-09-10.
 
 ## Correctness by construction
 
