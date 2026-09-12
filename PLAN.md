@@ -366,11 +366,116 @@ question surfaced by the reviewer's own run, decided "at release",
 filed. The branch item is ticked on the reviewer's word to merge,
 given at this boundary.
 
-## Steps 5..N-1: Invariant slices  (cbc-slice, one step per stage)
+## Step 5: SL-1 — no over-admission under contention  (cbc-slice)    [ ]
 
-Goal: each registry slice closed by evidence that creates its
-adversity; ordering re-decided at each close, never assumed from
-the original expectation.
+<!-- CbC: one invariant × its adversity, carried to evidence that
+     creates the adversity. The seam is WHAT before HOW: the spec
+     names no mechanism; the plan names one owner per guarantee;
+     a wall is real only when the attack-creating test is green
+     against it and was red without it. -->
+
+Goal: SL-1 closed — for every item, in every readable state, the
+sum of active reservations ≤ on-hand-count, shown to survive
+concurrent admits on one item's last units, from many callers and
+from more than one of our own instances.
+Gate:
+- [ ] Stage 0 passed on the actual repo and recorded in the devlog:
+      R1 the three exports stand, SL-1 `chosen-next`, the
+      reconciliation line whole; R2 `./mvnw test` green at the
+      branch point; R3 the store reachable from tests as the
+      miniature; R4 the harness creates contention across instances
+      (Step 4's race); R6 the registry writable, the records scheme
+      in place. R5, the harness can fail, is answered in this
+      step's build: the evidence run red against the admit without
+      its wall, recorded from actual output, before the wall lands.
+      The readiness sign-off is the reviewer's, one dated line.
+- [ ] Two decisions taken at opening as ADRs, options and why,
+      before the specification: the door's conventions — resource
+      naming, the JSON shape, the error format, how a refusal
+      differs from an invalid request — entered by every later
+      slice; and how an item becomes known to the ledger (the
+      catalog refused at L2, yet reserve needs an item with an
+      on-hand-count). If either changes the definition, by a dated
+      revision entry, never in place.
+- [ ] Stage 1: the correctness specification stands at a path this
+      repo chooses, its row in the entry file: the invariant and
+      the adversity taken from SL-1's registry row and the
+      definition's L1 and L4 as written, zero translation; the
+      guarantees derived by attacking the invariant — "what would
+      let this hold on paper yet break in fact" — until the attacks
+      run dry, each strategy-free; an evidence criterion per
+      guarantee naming the adversity its test creates and the
+      witness it reads from the store; FC1 and FC3 folded in as the
+      registry says; kill 10's shape decided in so many words — a
+      controlled clock, or FC3 removing it by one clock with the
+      evidence showing that judgment is the one used; kill 9's
+      shape decided — whether a decision can exist unrecorded, and
+      what shows it cannot. The spec names no lock, constraint,
+      key, queue or technology. Signed off by the reviewer before
+      the plan.
+- [ ] Stage 2: the plan stands beside the spec: one structural
+      owner per guarantee, the strongest wall available, each
+      justified against the named adversity and not in general;
+      the escape hatches hunted — admin paths, scripts, migrations
+      that bypass the owner; the surface the guarantees need in
+      order to live named at its minimum — the first migration from
+      the one home, the door the adversity arrives through, the
+      checks FC1 names — and nothing beyond. No unowned guarantee.
+      Signed off by the reviewer before code.
+- [ ] Stage 3 ran as this run's change-plan, review at every commit
+      boundary; each commit verified before it landed, a failed
+      verification reported, never committed. The first migration
+      lands under `infrastructure/flyway/migrations/` as
+      `migrator`'s; the migration-path assertion turns to "applied
+      ≥ 1, none failed"; the runtime path still controls no
+      structure.
+- [ ] The evidence: for every guarantee a test that creates its
+      adversity through the real door and reads the witness from
+      the store — the race across more than one instance on one
+      item's last units, the storm shown real (more asked than fit,
+      some refused); an adjustment racing the admits (kill 5); the
+      same-count and stale-read cases (kills 3, 4) covered by the
+      wall's evidence, or shown to be the same test with the reason
+      written; the run recorded red without the wall and green with
+      it; all under `./mvnw test`, nothing exported. A green happy
+      path closes nothing.
+- [ ] The probe pair — `probe/`, `ContentionProbeIT`,
+      `InstancesRaceIT` — is deleted when the real door lands; the
+      machinery under `testsupport/` stays and is what the evidence
+      uses.
+- [ ] Every deviation from the spec, the plan or the skill is in
+      the devlog with what was done instead and why; a guarantee
+      found in flight enters the spec with this slice as its
+      provenance.
+- [ ] Stage 4: the spec document closes as invariant → guarantees →
+      owner → evidence, readable by a stranger; the registry flips
+      SL-1 to `closed (date, evidence)` and re-decides the ordering
+      with its reason — whether SL-1's wall already holds SL-2's
+      invariant, said in so many words; the standing guards named
+      at close.
+- [ ] Records: CHANGELOG's first user-visible behaviour under
+      Unreleased, the version's move decided here as a state of the
+      evidence; README shows the door as a stranger would use it;
+      ARCHITECTURE shows the ledger with its first table and its
+      wall; the devlog carries the walk, the red and the green from
+      actual output, the exit; TODO's Step 5 items close here or
+      move by name; hand-offs filed.
+- [ ] Every commit follows commit-messages, none straddles agent and
+      project paths; no implementation file older than the decision
+      it realizes.
+- [ ] The step ran on `step-5-sl-1`, cut from main, and reached
+      main by fast-forward on the reviewer's word.
+Notes: opened 2026-09-12. The reviewer signs at readiness, at the
+spec and at the plan; the door's conventions are theirs to
+confirm. The slice is not a feature: reserve exists because the
+invariant needs a door, and nothing enters the surface the
+guarantees do not need.
+
+## Steps 6..N-1: Invariant slices  (cbc-slice, one step per stage)
+
+Goal: each remaining registry slice closed by evidence that creates
+its adversity; ordering re-decided at each close, never assumed
+from the original expectation.
 Gate: derived when each stage opens — verifiable facts, from the
 goal, the named skill, and the registry; written into the stage
 before its work starts.
