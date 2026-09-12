@@ -8,44 +8,45 @@
 
 ## Now (current plan step)
 
-- [ ] Step 4 (bootstrap, cbc-bootstrap): cut its branch from main,
-      derive its gate into PLAN first; the stack decided at
-      capability-and-constraint grain, the skeleton wired to the
-      real ground as `runtime`, the harness proving SL-1's adversity
-      end to end across more than one instance.
+- [ ] Step 5 (SL-1, cbc-slice): cut its branch from main, derive
+      its gate into PLAN first; the door's conventions decided at
+      its opening; kill 10's clock shape decided in its
+      specification; the probe pair (`probe/`, `ContentionProbeIT`,
+      `InstancesRaceIT`) dies when the real door lands — the
+      machinery under `testsupport/` stays.
 
 ## Next (upcoming steps — assign each to a step when triaged)
 
 - [ ] Each step while the branch trial runs: its gate carries one
       item — the step ran on its own branch cut from main and
       reached main by fast-forward on the reviewer's word.
-- [ ] Step 4 (bootstrap): the harness must create SL-1's adversity
-      across more than one instance of the ledger (F17), not only
-      threads in one process — a single-process pass proves a shape
-      nobody runs.
-- [ ] Decide: should the ledger refuse to start when its secret is
-      missing? Today it starts with the literal placeholder as its
-      password and only health (`db` DOWN) tells; the store logs
-      `password authentication failed`. A fail-fast check is a small
-      mechanism but a *what* the bootstrap requirements never asked
-      — re-decide at Stage 1's grain (a logged re-decision) or at
-      SL-1's opening. Until then README's Run section names the
-      symptom. Reproduced 2026-09-12: boot reports Started in ~2.5s,
-      the probe answers 500 and health 503 on first request, because
+- [ ] Step N (Release): fail fast on a missing secret — decided
+      2026-09-12 as "not at bootstrap, at release": today the ledger
+      starts with the literal placeholder as its password and only
+      health (`db` DOWN) tells; the store logs `password
+      authentication failed`; README's Run section names the
+      symptom. The need becomes real when the README's commands are
+      verified on a clean machine by a stranger, which is the
+      release gate — decide there, with the trigger recorded.
+      Reproduced 2026-09-12: boot reports Started in ~2.5s, the
+      probe answers 500 and health 503 on first request, because
       the pool opens lazily and nothing in the app borrows a
       connection at boot (Flyway is test-scoped). So the check must
       either borrow one connection eagerly at startup (Hikari's own
       fail-fast then fires) or reject the unresolved placeholder at
-      bind time.
+      bind time. Either way the store-free context test then needs
+      the variable supplied, for a true reason this time.
 - [ ] Step 5 (SL-1), at its opening: the door's conventions —
       resource naming, JSON shape, the error format, how a refusal
       differs from an invalid request — decided once as a logged
       decision when the first real endpoint (reserve) is specified;
       every later slice enters them. Not the bootstrap's: its probe
       carries no meaning and dies here.
-- [ ] Step 4 or SL-1: kill 10's evidence shape — clocks disagreeing
-      about activeness cannot be hammered; a controlled clock, or
-      FC3's one-clock judgment shown to be the one used.
+- [ ] Step 5 (SL-1), in its specification: kill 10's evidence shape
+      — clocks disagreeing about activeness cannot be hammered; a
+      controlled clock, or FC3's one-clock judgment shown to be the
+      one used. Deferred here by name at the bootstrap's Stage 1
+      (2026-09-11): nothing entered ahead of that need.
 
 ## Later / someday
 

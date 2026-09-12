@@ -192,6 +192,71 @@
   ports from `ServerSocket(0)` held for the instances without a
   collision across three runs. What it does not prove is written
   in the test: overlap in the store.
+- Commit 7, certification — against the delivered files, never a
+  report. §5's evidence, from actual output:
+
+  | Evidence | Expected | Actual |
+  |---|---|---|
+  | `./mvnw clean test`, nothing exported, ground up but unused | green; `*IT` under the one command | 7 tests, 0 failures: context 1, migration path 3, health through the door 1, in-process burst 1, race across 3 instances 1; exit 0 |
+  | `.env` exported, `./mvnw spring-boot:run`, health, probe | Java 21 announced; UP with `db` UP; the probe as `runtime` | `using Java 21.0.11`; `"db":{"status":"UP"}`; `{"pid":"174077","identity":"runtime"}` |
+  | the commits standing | the plan's 2–6, one fix | `5336563 066c113 53e4f76 49e7453 e5c61dd 0abbcdc`, each verified before it landed |
+
+  §1 identity exact: group `io.github.edgaras87`, artifact
+  `never-oversold`, package `io.github.edgaras87.neveroversold`,
+  jar, Java 21; packages `neveroversold` and `probe` only. §2 all
+  four capabilities present and bounded: the door (webmvc), health
+  naming `db`, connectivity as `runtime`, the harness with every
+  sub-item — throwaway store, harness-side migration, zero-applied
+  assertion, `*IT` under `./mvnw test`, forked instances raced,
+  witness read from the store — proven on contention alone; the
+  probe carries no meaning and says it dies at SL-1. §3 every
+  constraint visible in the files: `runtime` the only identity in
+  `application.yaml`, password `${NEVER_OVERSOLD_RUNTIME_PASSWORD}`
+  with no default; the two mentions of `migrator` under main are
+  the comment lines naming its absence; 0 of flyway, hibernate,
+  jpa, liquibase on the runtime classpath; the migrations home
+  holds `.gitkeep` alone; every dependency with its reason above
+  it; the suite green with the ground stopped (commit 4's run);
+  the forked instances stopped in `finally`. §6 respected: no
+  item, reservation or admit anywhere; no table; no other
+  adversity; no auth; no image, descriptor or pipeline.
+- Exit test: the skeleton runs on the real ground as the runtime
+  identity alone — yes, the store saw sessions as `runtime` and no
+  other; the harness demonstrably creates the chosen adversity
+  through the real door — yes, 120 requests at one instant across
+  three processes, every response asserted. **No business behavior
+  yet.** The probe pair's death is scheduled at SL-1, in their own
+  javadoc and in TODO.
+- Decided with the reviewer, 2026-09-12: the fail-fast question
+  goes to Release, not here — the only operator today is the
+  reviewer, the harness already accepts an instance only on
+  health with `db` UP, and the release gate's stranger test is
+  where a forgotten export becomes a real need. README's Run
+  section names the symptom now. The reviewer's own reproduction
+  notes ride in the TODO item.
+- Records: README gains Run, Test, the JDK line, the requirements
+  row, a two-word vocabulary line (store, door — the reviewer asked
+  whether "store" reads as a shop; it is the definition's word,
+  chosen before any technology, and kept), and a true status;
+  ARCHITECTURE shows the ledger and the harness beside the store;
+  CHANGELOG's two Added lines, the version still 0.0 — no slice
+  closed; TODO triaged — Now points at Step 5, the plural-instance
+  demand closed here, the clock and the fail-fast items moved by
+  name; PLAN's gate ticked. Version: 0.0.
+- Hand-offs filed this step, all in TODO: the requirements
+  document's path (`internal/` → the project's records); the
+  Testcontainers 2.x Ryuk trap and template. Not filed as a
+  hand-off but worth the skill's notice at the retrospective: the
+  reference's concurrency probe is single-process, and this run's
+  gate needed more — `ForkedLedger` and the classpath-file plugin
+  are the shape that answered it.
+- Resume: the entry file's records row (agent-scoped), the
+  change-plan's close, then fast-forward `step-4-bootstrap` into
+  main on the word; the reviewer pushes. Then Step 5 (SL-1, no
+  over-admission under contention): cut its branch, derive its
+  gate, run cbc-slice — the door's conventions at its opening, the
+  probe pair dying when reserve lands, the race machinery aimed at
+  the item's row.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

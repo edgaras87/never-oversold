@@ -19,6 +19,10 @@ what a warehouse actually holds, who may act. The environment it
 stands in, what dies without it, and who owns what:
 [docs/system/definition.md](docs/system/definition.md).
 
+Two words the records use throughout: *the store* is where the
+ledger's numbers persist — PostgreSQL here — and *the door* is
+where every request crosses — HTTP here.
+
 ## The invariants, planned
 
 - No over-admission under contention — the sum of active
@@ -39,14 +43,45 @@ features last. The method: [docs/concept/](docs/concept/), start
 with [00-cbc.md](docs/concept/00-cbc.md).
 
 **Status:** framed and named 2026-09-10; the ground stands,
-verified, 2026-09-11. No code yet; next is the skeleton and the
-evidence harness.
+verified, 2026-09-11; bootstrapped 2026-09-12 — the ledger runs on
+the ground as `runtime`, and its evidence harness is proven able
+to race real instances. No business behavior yet; next is the
+first invariant.
 
 ## Prerequisites
 
 - podman with a compose provider (`podman compose` answers) — the
   infrastructure ground; details in
   [docs/infrastructure/operator-manual.md](docs/infrastructure/operator-manual.md)
+- JDK 21 (Maven rides in via the committed wrapper)
+
+## Run
+
+```bash
+# stand the ground up (first time: creates roles/schema; see the
+# operator manual for the two-way verification)
+cp .env.example .env
+podman compose up -d
+
+# run the ledger against it, as the runtime identity
+set -a; . ./.env; set +a
+./mvnw spring-boot:run
+# proof of life: curl localhost:8080/actuator/health → status UP, db UP
+```
+
+If health answers with `db` DOWN, the environment was not exported:
+the ledger starts anyway and only health tells. Export `.env` in
+the same shell and start again.
+
+## Test
+
+```bash
+# the one standard test command — unit and integration tests together;
+# integration tests drive a real throwaway PostgreSQL (Testcontainers,
+# rootless podman) and fork real instances of the ledger against it,
+# so the ground does not need to be up
+./mvnw test
+```
 
 ## Project records
 
@@ -55,6 +90,7 @@ evidence harness.
 | System | [docs/system/](docs/system/) | What it promises, owns, refuses; what to work next |
 | Operator manual | [docs/infrastructure/operator-manual.md](docs/infrastructure/operator-manual.md) | How to stand the ground up, verify it, reset it |
 | Infrastructure contract | [docs/infrastructure/infrastructure-contract.md](docs/infrastructure/infrastructure-contract.md) | What the builder may rely on: identities, reachability, refusals |
+| Bootstrap requirements | [docs/construction/bootstrap-requirements.md](docs/construction/bootstrap-requirements.md) | What the skeleton delivers and refuses, certified at bootstrap |
 | Plan | [PLAN.md](PLAN.md) | Where are we, what's next, what does *done* mean |
 | Decisions | [docs/adr/](docs/adr/) | Why is it built this way |
 | Architecture | [ARCHITECTURE.md](ARCHITECTURE.md) | What is the current shape of the system |

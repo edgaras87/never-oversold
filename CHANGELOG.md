@@ -27,6 +27,15 @@ revision, start a new minor.
 
 ### Added
 
+- The ledger runs: an empty skeleton on the ground, connecting as
+  the runtime identity alone, with an HTTP door and a health check
+  that names the store. No business behavior yet — one probe,
+  scaffolding that dies at the first slice. Run and test commands
+  in the README.
+- The evidence harness, under the one test command: a throwaway
+  PostgreSQL of the ground's version, migrations proven from the
+  empty home, and a race across three real instances of the
+  ledger — the machinery every invariant's evidence will use.
 - The infrastructure ground: PostgreSQL 17 under podman compose,
   governed by a two-role authority split, verified both ways; stood
   up from a clean machine by the operator manual's commands.
