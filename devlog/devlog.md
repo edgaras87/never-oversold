@@ -257,6 +257,18 @@
   gate, run cbc-slice — the door's conventions at its opening, the
   probe pair dying when reserve lands, the race machinery aimed at
   the item's row.
+- 2026-09-12, after the merge: the skill re-read against the lived
+  step on the reviewer's ask, and four more hand-offs filed in TODO
+  — the plural-instance harness shape (promoted from "notice at the
+  retrospective" above to a filed hand-off, as ADR-0009 already
+  said it should be), the missing-secret trap with its three homes,
+  the port key disagreeing between two templates, and the refusal
+  test in the miniature. Not filed: the walkthrough's rename trap
+  (true, did not bite — Initializr does the pairing) and the
+  reference's prefixed role placeholders (this ground's bare names
+  are ADR-0006's decision). Also found and fixed on main: the
+  entry file's opening paragraph still said "no code yet"; the
+  state clause dropped, the lesson filed for the retrospective.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

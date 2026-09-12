@@ -113,6 +113,53 @@
       carry `docker.host` alone; the trap should say "if Ryuk fails
       on your host, `TESTCONTAINERS_RYUK_DISABLED=true` in the
       environment", not a properties line.
+- [ ] Hand-off to the CbC bundle (cbc-bootstrap): the harness
+      reference's concurrency probe is single-process, and Stage 1
+      never asks whether the definition's ground names more than
+      one instance — this run derived it into its own gate from
+      F17 and left the reference by decision (ADR-0009). The lived
+      shape to harvest: the store singleton lifted out of the
+      database base so a test with no application context shares
+      it; an instance forked from the build's own output with a
+      runtime classpath file the dependency plugin writes before
+      the tests (test-scope code stays out of the instance); the
+      probe answering its process id so served-by is asserted;
+      health with the store's component UP as the up signal; the
+      instances closed in `finally`, destroy then forcibly. Traps
+      met: none bit — free ports from a bound-and-released socket
+      held across runs. Stage 1 should ask the plurality question
+      by name; the reference should carry the shape as the plural
+      variant beside the in-process probe.
+- [ ] Hand-off to the CbC bundle (cbc-bootstrap): the walkthrough's
+      stage 3 records that the suite stays green with the ground
+      down, not the flip side lived here — Boot's binding keeps an
+      unresolvable `${VAR}` as the literal, the application starts
+      with it as its password, and only health (`db` DOWN) tells;
+      the plain context test therefore needs no environment and no
+      test property. Three homes: the stage 3 trap; the README
+      template's Run section carrying the symptom line; Stage 1's
+      exclusions naming "fail fast on a missing secret: not at
+      bootstrap, decided at release", so the next run does not
+      re-decide it mid-set.
+- [ ] Hand-off to the CbC bundle (cbc-bootstrap ↔ infra-establish):
+      the bootstrap's `templates/application.yaml` reads the port
+      from `<PROJECT>_DB_PORT` while infra-establish's
+      `.env.example` and compose template name it `POSTGRES_PORT`.
+      A run copying both gets an application that never reads the
+      port the ground publishes — silent on 5432, wrong on any
+      other. This run used the ground's name. One key, in both.
+- [ ] Hand-off to the CbC bundle (cbc-bootstrap): the harness
+      reference argues the authority split must hold in evidence
+      runs but witnesses it only through `current_user`. Lived
+      here as a third migration-path test: `runtime` attempting
+      `CREATE TABLE` in the miniature, refused with the ground's
+      own message — three lines that catch a miniature quietly
+      wired without the split. Its trap: Spring wraps the driver's
+      error, so the assertion goes on the root cause. Same section
+      could state the Boot 4 fact relied on here: with only
+      `flyway-core` and the database module at test scope, no
+      Flyway auto-configuration runs, so the harness's explicit
+      call is the only migration path in tests.
 - [ ] Retrospective: the entry file's opening paragraph carried a
       state clause from the kit's stub ("nothing to build, no tests,
       no runtime"), rewritten at Step 1 and Step 3's closes and
