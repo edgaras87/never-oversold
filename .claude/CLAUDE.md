@@ -37,6 +37,7 @@ from the source, logged in `.claude/decisions.md`.
 | Asking what the system promises, owns, refuses; what to work next | The truth set: intent, definition, registry | docs/system/ |
 | Standing the ground up, verifying it, resetting it | The operator's stand-up-and-use truth, from lived work | docs/infrastructure/operator-manual.md |
 | Building on the ground: which identity, what is refused, how schema changes | The builder's contract, one section per service | docs/infrastructure/infrastructure-contract.md |
+| Asking what the skeleton delivers and refuses, or what a slice may rely on from the bootstrap | The bootstrap's contract, certified at its close | docs/construction/bootstrap-requirements.md |
 | Starting work, or closing a step's gate | Current state, next steps, gates | PLAN.md |
 | A decision taken, options rejected | Decisions and why | docs/adr/ |
 | Noticed something, not doing it now | Backlog | TODO.md |
