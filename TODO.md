@@ -113,6 +113,16 @@
       carry `docker.host` alone; the trap should say "if Ryuk fails
       on your host, `TESTCONTAINERS_RYUK_DISABLED=true` in the
       environment", not a properties line.
+- [ ] Retrospective: the entry file's opening paragraph carried a
+      state clause from the kit's stub ("nothing to build, no tests,
+      no runtime"), rewritten at Step 1 and Step 3's closes and
+      missed at Step 4's — "no code yet" stood on main with seven
+      tests green until a re-read on 2026-09-12. Dropped here: the
+      paragraph now states only what never changes, the problem and
+      its framing date; current state is PLAN's by the records
+      table. Fold back to the kit's stub, and to agent-arrangement
+      as an instance of its test 2 (a line with a moment goes where
+      the moment is).
 - [ ] Retrospective: the worked-example twin in cbc-framing and
       cbc-slice claims a byte-identical copy but differs in its
       provenance path line — fold back to the source, never edit
