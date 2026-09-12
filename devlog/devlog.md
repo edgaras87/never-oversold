@@ -160,6 +160,38 @@
   the environment is not exported"; whether the ledger should
   refuse to start without its secret is a *what* not in the
   requirements — filed in TODO for the reviewer, not decided here.
+- Commit 6, the race across instances — the realization decided at
+  this boundary, as the plan reserved: **forked JVM processes from
+  the build's own output**, not containers. Why: the test phase
+  runs before packaging, so an image would need a second command,
+  which §3.5 forbids; a fork of `target/classes` with the runtime
+  classpath — written to `target/runtime-classpath.txt` by the
+  dependency plugin at `process-test-classes` — is the real
+  application with no test-scope code inside it, started with the
+  three environment facts a real instance gets and nothing else.
+  Each command, expected, actual:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | `./mvnw -q -B test` | 7 green; 3 instances up, 120 requests at one instant, every pid among the 3 | all green, `InstancesRaceIT` in 33 s, exit 0 |
+  | `pgrep` after the run | no instance left | none |
+  | an instance's log | Java 21, its own port, health UP with `db` UP | `using Java 21.0.11`, `Tomcat started on port 37739`, started in ~3 s |
+  | the forked classpath | no test-scope artifact | 0 matches for flyway, testcontainers, junit, assertj, `-test`; 58 entries |
+
+  Shape: `ThrowawayStore` now holds the container and the migration
+  (lifted out of `DatabaseIT`, which keeps only the datasource
+  override), so tests that boot a context and tests that fork
+  instances share one store; `ForkedLedger` starts an instance on
+  a free port, waits for its door to answer UP with the store UP,
+  and stops it — destroy, then forcibly — in `close()`;
+  `InstancesRaceIT` runs no Spring context of its own. Beyond the
+  reference's shape: the pids served are asserted to be exactly
+  the instances started, and the witness path is exercised — a
+  plain JDBC read of `pg_stat_activity` as `runtime` from outside
+  every instance, while they run. Traps met: none that bit; free
+  ports from `ServerSocket(0)` held for the instances without a
+  collision across three runs. What it does not prove is written
+  in the test: overlap in the store.
 
 ## 2026-09-10 → 2026-09-11  (Step 3: the ground)
 

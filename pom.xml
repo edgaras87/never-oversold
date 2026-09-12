@@ -128,6 +128,29 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- Writes the runtime classpath to a file before the tests run,
+                 so the race evidence can fork real instances of the ledger —
+                 `target/classes` plus exactly the runtime dependencies, no
+                 test-scope code inside an instance — from the one standard
+                 test command, without packaging (ADR-0009). -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>runtime-classpath-for-forked-instances</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>build-classpath</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <outputFile>${project.build.directory}/runtime-classpath.txt</outputFile>
+                            <silent>true</silent>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Widens the test includes so the integration tests (`*IT`)
                  run under the one standard test command beside the unit
                  tests — no second command, no test that quietly never runs.

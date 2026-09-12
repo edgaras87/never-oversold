@@ -30,7 +30,13 @@
       mechanism but a *what* the bootstrap requirements never asked
       — re-decide at Stage 1's grain (a logged re-decision) or at
       SL-1's opening. Until then README's Run section names the
-      symptom.
+      symptom. Reproduced 2026-09-12: boot reports Started in ~2.5s,
+      the probe answers 500 and health 503 on first request, because
+      the pool opens lazily and nothing in the app borrows a
+      connection at boot (Flyway is test-scoped). So the check must
+      either borrow one connection eagerly at startup (Hikari's own
+      fail-fast then fires) or reject the unresolved placeholder at
+      bind time.
 - [ ] Step 5 (SL-1), at its opening: the door's conventions —
       resource naming, JSON shape, the error format, how a refusal
       differs from an invalid request — decided once as a logged
