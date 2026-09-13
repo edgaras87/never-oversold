@@ -176,9 +176,135 @@ the ground not required up.
 - Fairness among racers — W3. Which requests win is not asserted;
   that the losers lose is.
 
-## §7 Sign-offs
+## §7 Plan — one structural owner per guarantee
+
+<!-- The second movement: mechanisms are allowed here and nowhere
+     above. Each guarantee gets exactly one owner from the
+     enforcement hierarchy — database constraint → type system →
+     single validated entry path → runtime check → code review →
+     hope — the strongest available, justified against the named
+     adversity, not in general. The store's facility is chosen by
+     face here, as the infrastructure contract asks of the slice. -->
+
+### The shape the walls need
+
+Two tables in the one schema, born by this slice's migration, V1:
+
+- **`item`** — `id` (the caller's opaque string, the key),
+  `on_hand_count` (whole, ≥ 0), `reserved` (whole, ≥ 0): the units
+  held by reservations not yet ended. One check constraint carries
+  the promise: **`reserved <= on_hand_count`**. The store refuses
+  to hold a row that breaks it, whoever writes it.
+- **`reservation`** — `id` (the ledger's, a UUID), `item_id`,
+  `quantity` (whole, > 0, constraint), `expires_at` (the store's
+  clock plus the hold the caller asked for). No ended state yet:
+  ending a reservation is an exit, SL-3's; here a reservation
+  counts until SL-3 gives it a way to stop.
+
+`reserved` is the sum of not-yet-ended reservations, kept by the
+one entry path in the same transaction as every reservation write.
+It is a superset of the active sum (an expired hold not yet ended
+still counts), so the invariant holds with room to spare: active
+sum ≤ `reserved` ≤ `on_hand_count`. The cost — units held past
+expiry until SL-3's exit ends them — is throughput (W3), not the
+promise, and is named in §6 as provisional.
+
+### Owners
+
+| Guarantee | Owner, wall level | Why it defeats the named adversity |
+|---|---|---|
+| **G1** one act against the truth at recording | **The store: the check constraint** `reserved <= on_hand_count`, with the admit as one conditional statement — `UPDATE item SET reserved = reserved + q WHERE id = ? AND reserved + q <= on_hand_count`, then the reservation's insert, both in one transaction. | Two racers update one row; the store serializes writers to a row and the second re-evaluates the condition against the first's result, so exactly the admits that still fit change a row. Should the condition ever be wrong, the constraint refuses the row at write time: an over-admitted state is physically unwritable, by any path (F1, F21, F22). The store's answer — one row changed or none — *is* the decision. |
+| **G2** across instances as within one | **Single validated entry path: the application holds no item state.** No cache, no counter in memory, no per-instance map; the only state is the row, and every instance reaches it through the same statement. | The serialization in G1 lives in the store, which every instance shares and none owns; an instance's memory cannot take part because nothing is kept there (F17). Structural: a test reads the main source for any in-memory keeping of item numbers and finds none. |
+| **G3** admit and adjustment do not interleave | **The store: the same row, the same constraint.** An adjustment is one conditional statement on the item row — `INSERT … ON CONFLICT (id) DO UPDATE SET on_hand_count = ? WHERE item.reserved <= ?` — creating the item if unknown (ADR-0011), refusing when the new count would sit under `reserved`. | An admit and an adjustment are two writers to one row: serialized by the store, each sees the other's effect (F10). The constraint refuses a count under the held units whichever order they land in; the provisional refusal (§3 G3) is the constraint's own answer, no code of ours decides it. |
+| **G4** a decision exists only as a record | **Single validated entry path: the decision is the transaction's commit.** The admit's two statements run in one transaction; the reply "admitted" is produced only from the committed outcome; there is no decision variable set before the write. | Before commit nothing is visible to any other admit and nothing is replied; after commit the reservation exists. Death before commit rolls the whole back — no decision was taken (F15). Death after commit before the reply is the orphan half, fenced. No interval exists to kill: the spec's trigger (§3 G4) is not pulled. |
+| **G5** active is judged by one clock | **The store's clock: `expires_at` assigned in the insert as `now() + hold`; activeness judged as `expires_at > now()` in the store.** The application declares no `Clock`, calls no `Instant.now()`, and passes no timestamp. | Every instance asks the same clock, the store's, for both the setting and the judging; an instance's skew cannot enter what it never supplies (F18). The witness reads activeness by the same expression. Structural: a test reads the main source and fails on any process-clock call. |
+| **G6** nonsense never reaches the decision | **Type system at the door: a request is parsed into a value that cannot be nonsense** — quantity a whole number in 1..1 000 000, hold a duration in 1 s..7 days, item id non-blank — or it is answered `400` before any statement runs; an unknown item answered `404` (ADR-0010). The store's `quantity > 0` and `>= 0` constraints back it. | A value that cannot exist cannot reach the admit (F6); the constraints make the backstop the store's, so even a bypassed door cannot record an absurd quantity. |
+
+Every guarantee has one owner. None is "all the code being
+careful".
+
+### The faces chosen, and the ones not
+
+From the contract's inventory: **check constraints** (the wall
+itself) and **row-level write serialization** under the default
+isolation (the conditional update's correctness). Not chosen:
+serializable isolation with retry — correct, but it turns the
+decision into a loop and hides the wall in a retry policy;
+`SELECT … FOR UPDATE` then a computed sum — exact about expiry,
+but the wall would be a lock plus a runtime check, and nothing in
+the store would refuse a violating row written by another path;
+advisory locks — the ground's probe, chosen there because it needs
+no schema, not because it fits; a trigger maintaining `reserved`
+from the reservation rows — the strongest keeper of the counter,
+rejected for now because it moves the one entry path's logic into
+structure a reader does not see; if a second write path to
+`reservation` ever appears, this is the first option to revisit.
+
+### Escape hatches hunted
+
+- **A migration writing rows.** `migrator` owns the schema and
+  could insert reservations or set counts without the entry path.
+  Rule, in the migrations home's README line and the contract's
+  spirit: migrations carry structure, never ledger rows; the
+  constraint still refuses an over-held item whatever a migration
+  writes.
+- **The counter drifting from the rows.** `reserved` equal to the
+  sum of not-ended reservations is the entry path's bookkeeping,
+  not the store's. The witness recomputes the sum from the rows on
+  every read and asserts `reserved` ≥ it; SL-3's exits must lower
+  it in the same transaction as they end — the standing guard, and
+  the trigger above is the answer if it ever fails.
+- **A superuser at a console.** The ground's `postgres`; the
+  constraint refuses even it. The counter can be set by hand under
+  the sum — the drift case above.
+- **A second door.** None: the probe dies here; health reads
+  nothing of the ledger's numbers; no admin path exists.
+- **The reply path.** Nothing replies "admitted" except the code
+  that received the committed outcome — one place, package-private.
+
+### The surface, at its minimum
+
+Only what the guarantees need somewhere to live:
+
+- V1, the first migration, as `migrator`'s; the migration-path
+  assertion turns to "applied ≥ 1, none failed".
+- `POST /items/{item}/reservations` — body `{"quantity": n,
+  "hold": "PT15M"}` (ISO-8601 duration); `201` with the record as
+  persisted: `id`, `item`, `quantity`, `expiresAt`. No `Location`
+  yet: a reservation has no reader until a slice needs one, and an
+  address that answers `404` is not an address — a deviation from
+  ADR-0010's letter, logged, lifted when the reader arrives.
+- `POST /items/{item}/adjustments` — body `{"onHandCount": n}`;
+  `200` with the item as persisted: `id`, `onHandCount`,
+  `reserved`; `409` when the count would sit under the held units
+  (provisional, SL-2's).
+- Refusal and invalid as Problem Details per ADR-0010.
+- Package `reservation` under the base package, package-private
+  throughout (ADR-0008); the door, the two statements, the value
+  types. No service layer, no repository interface: the depth is
+  not earned.
+- The evidence: E1–E6 under `src/test`, the witness read as
+  `runtime` through the harness's store from outside every
+  instance; the race across instances reusing `ForkedLedger` and
+  `ThrowawayStore`; the probe pair deleted.
+
+### Deviations and provisionals, so the close can see them
+
+- `reserved` over-approximates the active sum until SL-3 (above).
+- A downward adjustment under the held units is refused by the
+  constraint; SL-2 may choose "end reservations" instead and then
+  lowers `reserved` in the same act.
+- `Location` omitted until a reader exists.
+- The red run for R5: the same tests against the admit written the
+  naive way — a read of the row, a check in code, a plain update —
+  and V1 without its check constraint, on the branch, never
+  committed; the output recorded in the devlog before the wall's
+  commit.
+
+## §8 Sign-offs
 
 <!-- Dated lines, the reviewer's: the specification before the plan,
      the plan before the build. -->
 
 - 2026-09-12 — the specification (§1–§6) signed by the reviewer.
+- 2026-09-13 — the plan (§7) signed by the reviewer.
