@@ -36,6 +36,63 @@
   migration is this slice's.
 - 2026-09-12, ready for SL-1 — the reviewer's sign-off, given in
   so many words after the table above.
+- Two decisions at opening, before the specification: ADR-0010, the
+  door's conventions (resource paths, invalid 400 / unknown 404 /
+  refused 409, Problem Details, the record as persisted); ADR-0011,
+  an item becomes known by its first adjustment, the adjustment
+  stating the count. Both confirmed by the reviewer.
+- Stage 1, the specification at `docs/construction/sl-1-no-over-
+  admission.md`: six guarantees by attack, zero mechanisms
+  (checked by grep for lock, constraint, transaction, row, table,
+  cache, queue: no hit); kill 9 shaped as "no interval to kill",
+  kill 10 as "FC3 removes it". Signed 2026-09-12. Stage 2, the plan
+  as §7 of the same record: the store's check constraint and one
+  conditional statement as the wall; faces not chosen and escape
+  hatches written; three provisionals. Signed 2026-09-13. A
+  numbering slip (the plan landed as §8 before §7) fixed before
+  the plan's commit.
+- Stage 3 as the change-plan (`79a7239`), eight commits. Commit 2,
+  V1 — each command, expected, actual:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | `./mvnw test`, the migration-path tests | V1 applied in the miniature as `migrator`; applied ≥ 1, none failed; the wall in the catalog; `runtime` writes both tables | `Successfully applied 1 migration … now at version v1`; 5 of 5 green; the constraint read back as `CHECK ((reserved <= on_hand_count))` |
+  | the whole suite | green | 9 tests, exit 0 |
+
+- Commit 3, the doors — the reviewer asked for navigation inside
+  the feature package and the layout was decided before the
+  commit: values and answers in public sub-packages, behaviour and
+  writes at the root, package-private; a cycle between the two
+  sub-packages found and removed (`UnknownItem` takes a string);
+  ADR-0008 gains the dated note; the package carries its map in
+  `package-info.java`. The change-plan said "one package-private
+  package" — a divergence for the close. Verified: 22 tests green
+  from clean, the door's fifteen among them, nine nonsense shapes
+  each `400` with the numbers untouched.
+- **The red run**, before commit 4, on the working tree only:
+  V1's `item_never_oversold` constraint removed, the admit still
+  the naive read-check-write of commit 3, E1 and E2 run:
+
+  | Test | Expected | Actual |
+  |---|---|---|
+  | `ReserveStormIT` — 100 requests, one instance, 20 on hand | red: the witness shows an oversell | **active sum 22, on-hand-count 20** — `[active sum ≤ on-hand-count] Expecting 22 to be less than or equal to 20` |
+  | `InstancesStormIT` — 120 requests across 3 instances, 20 on hand | red | **active sum 23, on-hand-count 20** |
+
+  Two of two red; the harness can fail (R5). V1 restored from the
+  index; `git status` showed only the three new test files.
+- Commit 4, the wall — the admit as one conditional `UPDATE`,
+  the store's row count the decision, the reservation inserted in
+  the same transaction; the tests unchanged:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | `./mvnw clean test` | the same two storms green, all else green | 24 tests, 0 failures, exit 0; `ReserveStormIT` 1.5 s, `InstancesStormIT` 23 s |
+
+  Every reply in both storms was `201` or `409` — none of the
+  constraint errors commit 3's naive admit would have produced;
+  the admitted count equalled the units held; every admitted id was
+  in the store; the sampler read the witness throughout and saw no
+  violating state.
 
 ## 2026-09-11  (Step 4: skeleton & bootstrap)
 

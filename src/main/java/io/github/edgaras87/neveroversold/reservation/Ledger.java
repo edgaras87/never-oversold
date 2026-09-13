@@ -33,29 +33,45 @@ class Ledger {
     }
 
     /**
-     * Admits a reservation if its units still fit, else refuses.
+     * Admits a reservation if its units still fit, else refuses — G1's one
+     * act against the truth at the moment of recording.
      *
-     * <p>Written the naive way for now — read the row, check in code,
-     * then write — so the next change is the wall and nothing else. The
-     * store's constraint already forbids an over-held row, so a racer that
-     * loses here meets the constraint's error rather than a refusal.
+     * <p>The check and the write are one statement: the units are added
+     * only where they still fit, and the store's answer — one row changed
+     * or none — is the decision. Two racers update one row; the store
+     * serializes them and the second re-evaluates the condition against
+     * the first's result, so exactly the admits that still fit change a
+     * row (F1, F21, F22, and F17 — the row is the only state, every
+     * instance reaches it the same way). Behind the condition stands the
+     * constraint {@code reserved <= on_hand_count}: an over-held row is
+     * unwritable by any path. The reservation is recorded in the same
+     * transaction; nothing is replied until it commits (G4).
+     *
+     * <p>None changed means either the item is unknown or the units do
+     * not fit; one read tells which. That read decides nothing about
+     * admission — the admission was decided by the store's answer above.
      */
     Reservation reserve(ItemId item, Quantity quantity, Hold hold) {
         return transaction.execute(status -> {
-            Item current = jdbc.sql("SELECT id, on_hand_count, reserved FROM item WHERE id = :id")
+            int admitted = jdbc.sql("""
+                    UPDATE item
+                       SET reserved = reserved + :units
+                     WHERE id = :id
+                       AND reserved + :units <= on_hand_count
+                    """)
+                    .param("units", quantity.units())
                     .param("id", item.value())
-                    .query(Item.class)
-                    .optional()
-                    .orElseThrow(() -> new UnknownItem(item.value()));
-            if (current.reserved() + quantity.units() > current.onHandCount()) {
+                    .update();
+            if (admitted == 0) {
+                Item current = jdbc.sql("SELECT id, on_hand_count, reserved FROM item WHERE id = :id")
+                        .param("id", item.value())
+                        .query(Item.class)
+                        .optional()
+                        .orElseThrow(() -> new UnknownItem(item.value()));
                 throw new Refused(quantity.units() + " units of " + item.value()
                         + " do not fit: " + current.reserved() + " held of "
                         + current.onHandCount() + " on hand");
             }
-            jdbc.sql("UPDATE item SET reserved = reserved + :units WHERE id = :id")
-                    .param("units", quantity.units())
-                    .param("id", item.value())
-                    .update();
             return jdbc.sql("""
                     INSERT INTO reservation (item_id, quantity, expires_at)
                     VALUES (:id, :units, now() + make_interval(secs => :seconds))
