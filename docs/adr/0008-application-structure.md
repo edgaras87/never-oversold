@@ -78,3 +78,17 @@ is restraint — deciding structure as need arrives — which is less
 visible than a pattern's scaffolding; the ADR is the visibility,
 and each slice's own structural choice is written in its
 specification.
+
+## Notes
+
+- 2026-09-13 — inside a feature, sub-packages are allowed for
+  stateless vocabulary — value types and the answers a door gives —
+  which are then public, since a value or an exception makes no
+  promise a future feature could abuse; everything with behaviour or
+  a write stays at the feature's root, package-private, so the
+  compiler still guards the only boundary that matters. Sub-packages
+  must not depend on each other in a cycle. Triggered by SL-1's first
+  thirteen files: the reviewer found a flat feature folder hard to
+  navigate, a legitimate deciding input (the reader's fluency). The
+  default above stands; a sub-package for *behaviour* is still a
+  revision here, since its seam classes become public.
