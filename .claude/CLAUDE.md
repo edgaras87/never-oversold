@@ -37,6 +37,7 @@ from the source, logged in `.claude/decisions.md`.
 | Standing the ground up, verifying it, resetting it | The operator's stand-up-and-use truth, from lived work | docs/infrastructure/operator-manual.md |
 | Building on the ground: which identity, what is refused, how schema changes | The builder's contract, one section per service | docs/infrastructure/infrastructure-contract.md |
 | Asking what the skeleton delivers and refuses, or what a slice may rely on from the bootstrap | The bootstrap's contract, certified at its close | docs/construction/bootstrap-requirements.md |
+| Asking what a slice guarantees, what holds each guarantee, and how it was proven | The slice's specification, plan and evidence, one record per slice | docs/construction/sl-*.md |
 | Starting work, or closing a step's gate | Current state, next steps, gates | PLAN.md |
 | A decision taken, options rejected | Decisions and why | docs/adr/ |
 | Noticed something, not doing it now | Backlog | TODO.md |
