@@ -301,10 +301,82 @@ Only what the guarantees need somewhere to live:
   committed; the output recorded in the devlog before the wall's
   commit.
 
-## §8 Sign-offs
+## §8 Evidence — as delivered
+
+<!-- The third movement: for each guarantee, the test that created
+     its adversity, what it read from the store, and the red that
+     preceded the green. Every number is from actual output
+     (devlog, Step 5). -->
+
+| Guarantee | Owner (§7) | Evidence | What it created, what it read |
+|---|---|---|---|
+| G1 one act against the truth | the check constraint + the conditional `UPDATE` | `ReserveStormIT` (E1) | 100 reserves at one instant on 20 units; witness sampled during, read after: held 20 = admitted 20, 80 refused, no sampled state broken. **Red first:** constraint removed, admit naive — active sum 22 of 20. |
+| G2 across instances as within one | no item state in the application | `InstancesStormIT` (E2); `NoInstanceStateOrClockTest` | 120 reserves across 3 forked processes on 20 units, each answering its share; witness read by none of them: held 20, no sampled state broken. **Red first:** 23 of 20. Structurally: no field of a map, collection or atomic type, no mutable static. |
+| G3 admit and adjustment do not interleave | the same row, the same constraint | `AdjustmentRaceIT` (E3) | 30 reserves + one correction 20→10 at one instant, 5 rounds: correction admitted once (count 10, held 10) and refused four times (count 20, held 20); the answer agreed with the state every round; no sampled state broken. |
+| G4 a decision exists only as a record | the transaction's commit | rides on E1, E2 (E4) | every `201` named an id present in the store; the store held exactly the admitted ids; no interval to kill, none killed. |
+| G5 active is judged by one clock | the store's `now()`, at insert and at read | `OneClockIT`; `NoInstanceStateOrClockTest` (E5) | a 15-minute hold's expiry exactly `00:15:00` from the store-stamped creation; a 1-second hold left the active sum by the store's clock while the counter kept it. Structurally: no access to any `java.time` `now()`, `Clock`, `Date`, `System.currentTimeMillis` or `nanoTime` — as calls or method references. |
+| G6 nonsense never reaches the decision | the value types at the door; the store's constraints behind | `ReservationDoorIT` (E6) | nine shapes — zero, negative, beyond the bound, missing, a non-duration, a non-JSON body, a hold of zero, beyond seven days, a negative count — each `400` Problem Details, the numbers untouched. |
+
+**The harness can fail (R5).** Before the wall: both storms red
+with real oversells, 22 and 23 of 20, on the working tree only;
+the same tests green unchanged once the wall landed. Every
+structural rule shown to fire on its own plant.
+
+**In every readable state.** A reader outside every instance
+sampled the witness throughout E1, E2 and E3; every sample
+satisfied §1.
+
+**The run on the real ground, 2026-09-14.** V1 applied by the
+compose one-shot as `migrator`; the ledger up as `runtime` on Java
+21, health UP with `db` UP; an adjustment created an item at 3; a
+reserve of 2 admitted with the store's expiry; a second reserve of
+2 refused, `409`, "2 held of 3 on hand"; a quantity of 0 answered
+`400`. Read back as `runtime`: `proof-item | 3 | 2`, one
+reservation of 2, V1 in the history as success.
+
+**Under the one standard test command.** 29 tests, `./mvnw test`,
+nothing exported, the ground not required up.
+
+**Assertion convention, for every later slice.** A body's fields
+are asserted by JSON path (`Body` in test support); no substring
+assertion remains. The witness is read from the store by plain
+JDBC as `runtime`, from outside every instance, never through an
+instance's own pool.
+
+**Provisionals carried to the close** (§7): `reserved`
+over-approximates the active sum until SL-3 ends expired holds; a
+downward correction under the held units is refused by the
+constraint until SL-2 decides the correction's shape; `Location`
+omitted on the reserve reply until a reader exists.
+
+## §9 Standing guards
+
+- **Guarantee erosion.** Any later slice touching `item` or
+  `reservation` — SL-2's correction, SL-3's exits, SL-4's consume —
+  re-reads §3 before shipping. New surface is new attack surface
+  against this wall.
+- **Testing theater.** If `item_never_oversold` is ever dropped or
+  weakened, `MigrationPathIT.theWallIsInTheCatalog` goes red before
+  any storm could pass around its absence. A storm green with the
+  constraint gone means the guarantee moved from structure to
+  sampling.
+- **Escape hatch watch.** Every new write path to the two tables —
+  an admin door, a script, a migration carrying rows, a second
+  writer to `reservation` — is checked against the one entry path
+  (`Ledger`) and the counter's bookkeeping; the trigger named in §7
+  is the first option if a second writer ever appears.
+- **The counter and the rows.** `reserved` equals the sum of
+  not-ended reservations by the entry path's discipline, not the
+  store's. The witness recomputes the sum from the rows on every
+  read; SL-3's exits must lower the counter in the same transaction
+  as they end.
+
+## §10 Sign-offs
 
 <!-- Dated lines, the reviewer's: the specification before the plan,
      the plan before the build. -->
 
 - 2026-09-12 — the specification (§1–§6) signed by the reviewer.
 - 2026-09-13 — the plan (§7) signed by the reviewer.
+- 2026-09-14 — the evidence (§8) certified against the delivered
+  files and the run on the real ground; SL-1 closed.

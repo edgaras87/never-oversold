@@ -20,6 +20,30 @@ revision, start a new minor.
 
 ## [Unreleased]
 
+## [0.1] — 2026-09-14
+
+The first invariant evidence-closed: SL-1, no over-admission under
+contention.
+
+### Added
+
+- Reserve: `POST /items/{item}/reservations` with a quantity and a
+  hold admits a reservation if the units still fit and answers the
+  record as stored, or refuses with `409` and says what did not
+  fit. For any item, the units held by reservations never exceed
+  the on-hand-count — held by the store itself, shown to survive a
+  hundred simultaneous requests and three instances of the ledger
+  racing for the same last units.
+- Adjust: `POST /items/{item}/adjustments` with an on-hand-count
+  sets an item's count, creating the item if the ledger did not
+  know it. A count under the units held is refused for now; what a
+  correction should do instead is the next invariant's question.
+- Every request that means nothing — a zero or absurd quantity, a
+  missing field, an unknown item — is answered `400` or `404` as
+  Problem Details and moves no number.
+- A reservation carries an expiry set from the caller's hold by the
+  store's clock, the one clock every instance shares.
+
 ### Changed
 
 - Named `never-oversold`: the name is the promise's negation, ruled

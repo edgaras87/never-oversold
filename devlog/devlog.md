@@ -149,6 +149,64 @@
   tests from clean, exit 0. The convention, for the slice record:
   a shape is a path; a word (an error title) is a path too now, so
   no `contains` remains to make the exception.
+- Commit 8, the records — the run on the real ground first, on the
+  reviewer's word to run the compose commands (2026-09-14), each
+  command, expected, actual:
+
+  | Command | Expected | Actual |
+  |---|---|---|
+  | `podman compose up -d`, wait for healthy | the ground up | `never-oversold-postgres` healthy after 1 s |
+  | `podman compose run --rm flyway migrate` | V1 applied as `migrator` | `Migrating schema "never_oversold" to version "1 - item and reservation"`, `Successfully applied 1 migration … now at version v1` |
+  | `.env` exported, `./mvnw spring-boot:run` | Java 21 announced; UP with `db` UP | `using Java 21.0.11`, `Started … in 3.945 seconds`; health `UP db UP` |
+  | adjust `proof-item` to 3 | `200`, the item as stored | `{"id":"proof-item","onHandCount":3,"reserved":0}` |
+  | reserve 2 for `PT5M` | `201`, the reservation with the store's expiry | `201`, `"expiresAt":"2026-09-14T16:50:12.033145Z"` |
+  | reserve 2 more | `409` refused, the reason | `409`, `"2 units of proof-item do not fit: 2 held of 3 on hand"` |
+  | quantity 0 | `400` invalid | `400`, `"quantity must be a whole number from 1 to 1000000"` |
+  | read as `runtime` (via the container: no `psql` on the host) | count 3, held 2, one reservation of 2, V1 success | `proof-item\|3\|2`; `1\|2`; `1\|item and reservation\|t`; both tables present |
+
+  The ledger stopped; port 8080 free. Then the records: the slice
+  record's §8 evidence (each guarantee, its owner, its test, what
+  it created and read, the red before the green) and §9 standing
+  guards; the registry — SL-1 closed, SL-2 chosen-next, the
+  ordering re-decided and kept by a dated revision with what SL-1
+  leaves to SL-2 and SL-3 by name, kill 10's flag resolved;
+  CHANGELOG `[0.1] — 2026-09-14` with the doors in user-speak, the
+  pom at `0.1-SNAPSHOT` (a version is a state of the evidence; the
+  reviewer confirmed 0.1); README — the invariant closed with its
+  record linked, a Use section with the three curls and their
+  actual answers, the migrate command in Run, the slice-records
+  row; ARCHITECTURE with the wall in the diagram and SL-1 in the
+  invariants; TODO — Now points at Step 6, the two Step 5 items
+  closed, two SL-3 items and five hand-offs filed (cbc-slice ×3,
+  cbc-bootstrap, the handbook's kata skill); PLAN's gate ticked
+  from the delivered state.
+- Certification, member by member against the delivered files:
+  §1–§2 as the registry writes them; §3 six guarantees each with an
+  owner in §7 and evidence in §8; §4 E1–E6 each a test that
+  creates its adversity and reads the store — E4 riding on E1/E2
+  with no interval to kill, E5 in two halves; the red run on
+  record; the sampler's "in every readable state" on E1, E2, E3;
+  §5 FC1 at the door (nine shapes), FC3 by the store's clock; §6
+  respected — no correction shape decided, no exit, no identity,
+  no fairness claimed. Constraints visible: `runtime` alone in
+  configuration; `migrator` only in the harness and the compose
+  one-shot; no ORM, no in-app migration; V1 the only DDL, no
+  GRANT in it; every dependency with its reason. 29 tests under
+  `./mvnw test`, nothing exported, the ground not required up.
+- Exit test: the adversity-creating tests exist and pass — yes,
+  E1 and E2 storms, E3 race, and each was red without the wall.
+  The invariant demonstrably survives concurrent admits from many
+  callers and from three instances — yes, the witness read from
+  the store from outside them all. **The standing guards named at
+  close** (slice record §9): erosion by later slices touching the
+  two tables, the constraint dropped while the storm stays green,
+  a second write path, the counter drifting from the rows.
+- Resume: the change-plan's close (agent-scoped), then fast-forward
+  `step-5-sl-1` into main on the word; the reviewer pushes; the
+  reviewer's questions held back until the merge are due here.
+  Then Step 6 (SL-2, the correction never undercuts the holds):
+  cut its branch, derive its gate, run cbc-slice — its
+  specification decides the correction's shape.
 
 ## 2026-09-11  (Step 4: skeleton & bootstrap)
 

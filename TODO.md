@@ -8,12 +8,15 @@
 
 ## Now (current plan step)
 
-- [ ] Step 5 (SL-1, cbc-slice): cut its branch from main, derive
-      its gate into PLAN first; the door's conventions decided at
-      its opening; kill 10's clock shape decided in its
-      specification; the probe pair (`probe/`, `ContentionProbeIT`,
-      `InstancesRaceIT`) dies when the real door lands — the
-      machinery under `testsupport/` stays.
+- [ ] Step 6 (SL-2, cbc-slice): cut its branch from main, derive
+      its gate into PLAN first. Its specification decides the
+      correction's shape — refuse it, or let it end reservations —
+      which SL-1 left provisional: today a count under the held
+      units is refused by the constraint's own answer
+      (`Ledger.adjust`, `ReservationDoorIT`,
+      `AdjustmentRaceIT`); whichever shape SL-2 chooses keeps
+      SL-1's wall. Its evidence creates the resent (F11) and
+      reordered (F13) corrections, uncreated so far.
 
 ## Next (upcoming steps — assign each to a step when triaged)
 
@@ -36,17 +39,16 @@
       fail-fast then fires) or reject the unresolved placeholder at
       bind time. Either way the store-free context test then needs
       the variable supplied, for a true reason this time.
-- [ ] Step 5 (SL-1), at its opening: the door's conventions —
-      resource naming, JSON shape, the error format, how a refusal
-      differs from an invalid request — decided once as a logged
-      decision when the first real endpoint (reserve) is specified;
-      every later slice enters them. Not the bootstrap's: its probe
-      carries no meaning and dies here.
-- [ ] Step 5 (SL-1), in its specification: kill 10's evidence shape
-      — clocks disagreeing about activeness cannot be hammered; a
-      controlled clock, or FC3's one-clock judgment shown to be the
-      one used. Deferred here by name at the bootstrap's Stage 1
-      (2026-09-11): nothing entered ahead of that need.
+- [ ] Step 7 (SL-3): an expired hold still counts in `reserved`
+      until an exit ends it — SL-1's counter over-approximates on
+      the safe side (slice record §7). SL-3's exits lower the
+      counter in the same transaction as they end a reservation;
+      the trigger-maintained counter named in §7 is the first
+      option if a second writer to `reservation` ever appears.
+- [ ] Step 7 (SL-3): the reserve reply carries no `Location`
+      header until a reservation has a reader — a deviation from
+      ADR-0010's letter, logged in SL-1's plan; lift it when the
+      reader lands.
 
 ## Later / someday
 
@@ -160,6 +162,49 @@
       `flyway-core` and the database module at test scope, no
       Flyway auto-configuration runs, so the harness's explicit
       call is the only migration path in tests.
+- [ ] Hand-off to the CbC bundle (cbc-slice): R5, "the harness can
+      fail", cannot be answered at Stage 0 of the *first* slice —
+      no wall exists to break. Lived answer: the naive version is
+      committed first, the wall is its own diff, and the evidence
+      is run red on the working tree (wall and constraint removed)
+      before the wall's commit, recorded from actual output. The
+      skill should say so for the first slice and make "red before
+      green" the build stage's own gate.
+- [ ] Hand-off to the CbC bundle (cbc-slice): the first slice
+      births far more than its invariant — the schema, the first
+      migration, the door and its conventions, how the aggregate
+      comes to exist at all (here: an item by its first adjustment,
+      ADR-0011). Stage 1 should name the "birth whats" the framing
+      cannot carry, and the plan stage should own "the surface at
+      its minimum". The worked example is duplicate-delivery; a
+      contention twin would show the counter-over-approximation
+      trade this run met.
+- [ ] Hand-off to the CbC bundle (cbc-slice, plan stage): a
+      guarantee held by *absence* — no process clock, no state
+      outside the store — has no runtime evidence; its wall is a
+      rule on the compiled classes (ArchUnit at test scope, each
+      rule with a `because` naming its guarantee, each shown to
+      fire on a plant). A text search over the source was tried
+      first and replaced: it misses a static import, a method
+      reference, a reformat. The enforcement hierarchy should name
+      this rung between "single validated entry path" and "code
+      review".
+- [ ] Hand-off to the CbC bundle (cbc-bootstrap, harness
+      reference): how the evidence asserts on a body is a stack
+      convention the reference leaves unsaid, so each run decides
+      by habit. Lived: substring first, replaced mid-slice by JSON
+      path (a substring cannot tell 3 from 30 or say a field
+      exists). A variation point: by path for a shape, by type
+      when a shared API contract exists; never by substring.
+- [ ] Hand-off to the handbook: a personal `cut-a-kata` skill —
+      practice exercises cut from live work at the moment the
+      learner says "I could not rebuild this": a marker in ten
+      seconds, a card at a boundary (skill, problem, oracle,
+      checkpoints, reference pinned to a commit, comparison
+      questions; the how kept out), done later closed-book, graded
+      against the reference. Lived in this run at SL-1 (three cards
+      cut, none yet done); on trial in the learner's user-level
+      skills; graduates when it has served katas in two projects.
 - [ ] Retrospective: the entry file's opening paragraph carried a
       state clause from the kit's stub ("nothing to build, no tests,
       no runtime"), rewritten at Step 1 and Step 3's closes and

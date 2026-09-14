@@ -24,7 +24,7 @@ Grouping is a heading for the reader, never a boundary: all four
 slices live in one area, the reservation ledger, and share one
 witness — the promise's own.
 
-### SL-1 — no over-admission under contention  `chosen-next`
+### SL-1 — no over-admission under contention  `closed (2026-09-14, evidence)`
 
 - **Invariant:** for every item, in every readable state, the sum
   of active reservations ≤ on-hand-count.
@@ -49,7 +49,7 @@ witness — the promise's own.
   here because a decision invisible to other decisions is
   over-admission from inside.
 
-### SL-2 — the correction never undercuts the holds  `open`
+### SL-2 — the correction never undercuts the holds  `chosen-next`
 
 - **Invariant:** no admitted change to the on-hand-count leaves it
   under the sum of active reservations.
@@ -103,9 +103,9 @@ witness — the promise's own.
 
 ## Registry state
 
-4 slices open, SL-1 chosen-next (2026-09-10). New work enters by
-re-framing or as a new slice through this registry, never around
-it.
+1 slice closed (SL-1, 2026-09-14), 3 open, SL-2 chosen-next
+(2026-09-14). New work enters by re-framing or as a new slice
+through this registry, never around it.
 
 ## Fold-reconciliation line
 
@@ -147,11 +147,18 @@ no rider needed beyond the two flags.
 
 ## Ordering expectation (re-decided at each close)
 
-SL-1 → SL-2 → SL-3 → SL-4. SL-1 is the promise's headline and the
-evidence harness's first adversity (bootstrap proves the harness on
-it); SL-2 stands on SL-1 alone and is the promise's other face, the
-on-hand-count side; SL-3 needs truly admitted reservations to exit;
-SL-4 needs an exit's identity to tell half-done from done.
+SL-1 closed → SL-2 → SL-3 → SL-4, re-decided at SL-1's close
+(2026-09-14) and kept. SL-1's wall already refuses a downward
+correction under the held units, so most of SL-2's invariant holds
+by structure today; SL-2 stays next because its specification must
+decide the correction's *shape* — refuse it, or let it end
+reservations — and a constraint decides no such thing. What SL-1
+leaves for SL-2 by name: a correction under the held units is
+refused, provisionally; the resent and reordered corrections (F11,
+F13) are uncreated. SL-3 next after, needing admitted reservations
+to exit and inheriting from SL-1 that an expired hold still counts
+in the held units until an exit ends it; SL-4 needs an exit's
+identity to tell half-done from done.
 
 ## Divergences from the briefing (derivation wins, recorded)
 
@@ -166,3 +173,10 @@ derivation overriding the briefing.
 
 - 2026-09-10 — the divergences section: the working name's fate
   recorded (ADR-0003). Triggered by PLAN Step 2. No slice changed.
+- 2026-09-14 — SL-1 closed on evidence (its record:
+  `docs/construction/sl-1-no-over-admission.md`); the ordering
+  expectation re-decided and kept, with what SL-1 leaves to SL-2
+  and SL-3 by name. SL-1's flag (kill 10) resolved as FC3 removing
+  it: activeness is judged by the store's clock, shown by evidence
+  and by structure. Triggered by PLAN Step 5's close. No invariant,
+  adversity or fold changed.

@@ -6,28 +6,34 @@
 
 ## Overview
 
-The ledger runs on the ground, empty: instances of one build
-output, each connecting to the store as `runtime` and nothing
-else, each answering HTTP — a health check that names the store
-as a component, and one probe that does a round-trip and dies at
-the first slice. No business behavior, no schema: the promise's
-numbers have no table yet. Beside it, at test scope only, the
-evidence harness: its own throwaway store of the ground's major
-version, migrated from the one home, and the machinery to race
-real instances of the ledger against it.
+The ledger runs on the ground and holds its first invariant:
+instances of one build output, each connecting to the store as
+`runtime` and nothing else, each answering HTTP — reserve, adjust,
+and a health check that names the store. The store holds the two
+numbers the promise is about, per item, and the wall between them:
+a check constraint that no writer can pass, and an admit that is
+one conditional statement against the row. The application keeps
+no item state and reads no clock; expiry is the store's clock.
+Beside it, at test scope only, the evidence harness: its own
+throwaway store of the ground's major version, migrated from the
+one home, the machinery to race real instances, and the witness
+that reads the invariant from the store from outside them all.
 
 ```
 ┌──────────────────────────┐        ┌──────────────────────────────┐
 │  never-oversold-postgres │        │  the ledger                  │
 │  PostgreSQL 17           │ ◀───── │  N instances, one build      │
-│  db never_oversold       │  5432  │  HTTP door · health · probe  │
-│  schema never_oversold   │        │  connects as `runtime` only  │
-└──────────────────────────┘        └──────────────────────────────┘
-        ▲  published ${POSTGRES_PORT}: the witness read, Flyway as `migrator`
+│  db never_oversold       │  5432  │  HTTP door: reserve, adjust  │
+│  item ── the wall ──┐    │        │  health                      │
+│  reservation        │    │        │  connects as `runtime` only  │
+└─────────────────────┼────┘        └──────────────────────────────┘
+        ▲             └ CHECK reserved <= on_hand_count
+        │  published ${POSTGRES_PORT}: the witness read, Flyway as `migrator`
 
   test scope ─ the harness: a throwaway postgres:17 (Testcontainers),
-  migrated harness-side; forked instances of the ledger raced through
-  their doors; the witness read from the store directly
+  migrated harness-side; forked instances raced through their doors;
+  the witness read from the store by plain JDBC; ArchUnit rules on
+  the compiled classes for what the ledger must not contain
 ```
 
 ## Components
@@ -44,14 +50,24 @@ ADR-0004 (the environment it runs in).
 
 ### The ledger — the application
 
-Responsibility: today, nothing of the promise — it starts, connects
-as `runtime`, answers health with the store's state, and answers
-the probe. The reservation ledger, the one area the definition
-names (L3), arrives with SL-1 as a feature package beside the
-probe's grave.
+Responsibility: the reservation ledger, the one area the definition
+names (L3), as one feature package `reservation`: the door
+(`ReservationController`, `DoorProblems`), the one entry path to
+the numbers (`Ledger`), the rows as persisted (`Item`,
+`Reservation`), and the vocabulary in two public sub-packages —
+`values` (what a request may say) and `problems` (the three
+answers besides success). Reserve is one conditional statement
+whose row count is the decision; adjust is one insert-or-update
+that creates an unknown item and refuses a count under the held
+units. No service layer, no repository, no ORM, no clock, no
+in-memory state.
 Why shaped this way: ADR-0007 (the stack; the migration tool
 outside the app; one identity), ADR-0008 (package by feature,
-package-private, depth earned per feature).
+package-private, depth earned per feature; its note on
+vocabulary sub-packages), ADR-0010 (the door's conventions),
+ADR-0011 (an item becomes known by its first adjustment); the
+wall's owners per guarantee in the slice record
+(`docs/construction/sl-1-no-over-admission.md`, §7).
 
 ### The evidence harness — test scope
 
@@ -67,9 +83,20 @@ suite self-contained, the ground not required up).
 
 <!-- What must NEVER happen to the data / system, and where each rule
      is enforced (DB constraint, module boundary, ...). -->
-- The promise's four invariants are the registry's
-  (`docs/system/registry.md`), none yet enforced anywhere — no
-  schema, no business code.
+- **SL-1, closed:** for every item, the sum of active reservations
+  ≤ on-hand-count — enforced by the store: `item_never_oversold`
+  (`CHECK (reserved <= on_hand_count)`) refuses any over-held row
+  by any path, and the admit's conditional `UPDATE` makes the
+  check and the write one act (slice record §7, G1/G3). The
+  application holds no item state (G2) and reads no clock (G5) —
+  enforced by ArchUnit rules on the compiled classes
+  (`NoInstanceStateOrClockTest`). Nonsense never reaches the
+  decision (G6) — enforced by the value types at the door, the
+  store's constraints behind them.
+- The promise's other three invariants are the registry's, not yet
+  enforced: SL-2 partly held today by the same constraint (a
+  correction under the held units is refused, provisionally);
+  SL-3 and SL-4 not at all — a reservation has no exit yet.
 - The running ledger knows one database identity, `runtime`, its
   password from the environment — enforced by the configuration
   carrying no other and the build carrying no migration or
@@ -88,11 +115,11 @@ suite self-contained, the ground not required up).
 |---|---|
 | `compose.yaml`, `.env.example` | the ground's declaration and its secrets' shape |
 | `infrastructure/postgres/` | the bootstrap SQL (runs once) and the verify suite (on demand) |
-| `infrastructure/flyway/` | the only DDL path: config and migrations (none yet) |
+| `infrastructure/flyway/` | the only DDL path: config and migrations — V1, `item` and `reservation` with the wall |
 | `docs/infrastructure/` | the operator manual and the infrastructure contract |
 | `docs/system/` | the truth set: intent, definition, registry |
-| `docs/construction/` | the bootstrap requirements — what the skeleton delivers and refuses |
+| `docs/construction/` | the bootstrap requirements, and one record per slice: specification, plan, evidence |
 | `pom.xml`, `mvnw` | the build: every dependency with its earning reason; the wrapper |
-| `src/main/java/…/neveroversold/` | the entry point; `probe/` is scaffolding that dies at SL-1 |
+| `src/main/java/…/neveroversold/` | the entry point; `reservation/` is the ledger — its `package-info` is the map |
 | `src/main/resources/application.yaml` | the one identity, the password from the environment, the absences commented |
-| `src/test/java/…/neveroversold/` | the evidence: `testsupport/` is the harness (the throwaway store, the test bases, the forked instance); `*IT` are the integration tests |
+| `src/test/java/…/neveroversold/` | the evidence: `testsupport/` is the harness (the throwaway store, the test bases, the forked instance, the witness, the body reader); `*IT` are the integration tests, `*StormIT`/`*RaceIT` the adversity-creating ones; `NoInstanceStateOrClockTest` the structural rules |
