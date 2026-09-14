@@ -225,20 +225,22 @@ careful".
 
 ### The faces chosen, and the ones not
 
-From the contract's inventory: **check constraints** (the wall
-itself) and **row-level write serialization** under the default
-isolation (the conditional update's correctness). Not chosen:
-serializable isolation with retry — correct, but it turns the
-decision into a loop and hides the wall in a retry policy;
-`SELECT … FOR UPDATE` then a computed sum — exact about expiry,
-but the wall would be a lock plus a runtime check, and nothing in
-the store would refuse a violating row written by another path;
-advisory locks — the ground's probe, chosen there because it needs
-no schema, not because it fits; a trigger maintaining `reserved`
-from the reservation rows — the strongest keeper of the counter,
-rejected for now because it moves the one entry path's logic into
-structure a reader does not see; if a second write path to
-`reservation` ever appears, this is the first option to revisit.
+The store offers five ways to make "the check and the write are one
+act" hold (the contract's inventory). Only two make an over-held
+row physically unwritable; the other three defend the path, not the
+state. Compared against the named adversity:
+
+| Face | How it holds G1 | Why not, or why |
+|---|---|---|
+| **Check constraint + conditional `UPDATE`** — chosen | one statement, the row count the decision; the constraint refuses an over-held row by any path | the strongest wall that keeps the decision visible in one SQL sentence. Cost: `reserved` is a counter the entry path must keep true (the drift case, below) |
+| Row lock, then compute — `SELECT … FOR UPDATE`, sum the active rows, decide, insert | serializes writers on the item row | exact about expiry, no counter. But the wall is a lock plus a runtime check; nothing in the store refuses a violating row written by another path; every racer waits for a sum |
+| Serializable isolation with retry | the store aborts one of two conflicting racers; the code retries | correct. But the decision becomes a loop and the wall hides in a retry policy; under a hundred racers the abort rate is high |
+| Advisory lock per item around the naive admit | serializes writers by convention, no schema | forget the lock on one path and the race is back. The ground's probe, chosen there because it needed no table |
+| Trigger maintaining `reserved` from the reservation rows | no code can drift the counter | the strongest keeper of the counter, rejected for now because it moves the entry path's logic into structure a reader does not see in the application. **The first option to revisit** if a second write path to `reservation` ever appears |
+
+Serialization under the default isolation is what makes the
+conditional update's re-evaluation correct: two updates to one row
+are ordered by the store, and the second sees the first's result.
 
 ### Escape hatches hunted
 
@@ -380,3 +382,6 @@ omitted on the reserve reply until a reader exists.
 - 2026-09-13 — the plan (§7) signed by the reviewer.
 - 2026-09-14 — the evidence (§8) certified against the delivered
   files and the run on the real ground; SL-1 closed.
+- 2026-09-14 — §7's "faces chosen, and the ones not" restated as a
+  comparison at the reviewer's ask, after the close; the same five
+  faces, the same reasons, no decision changed.

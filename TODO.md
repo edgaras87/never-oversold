@@ -189,6 +189,15 @@
       reference, a reformat. The enforcement hierarchy should name
       this rung between "single validated entry path" and "code
       review".
+- [ ] Hand-off to the CbC bundle (cbc-slice, Stage 2): the plan
+      presents the owner candidates for a guarantee as a comparison
+      the reviewer can weigh — each face, how it holds the
+      guarantee, its cost — with a recommendation, the way an ADR
+      presents options. Lived: SL-1's plan named four rejected
+      faces in one paragraph after the choice; the reviewer read
+      past it and asked afterwards whether alternatives existed.
+      The sign-off is only real if the alternatives were in front
+      of the signer.
 - [ ] Hand-off to the CbC bundle (cbc-bootstrap, harness
       reference): how the evidence asserts on a body is a stack
       convention the reference leaves unsaid, so each run decides
