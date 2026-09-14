@@ -93,6 +93,25 @@
   the admitted count equalled the units held; every admitted id was
   in the store; the sampler read the witness throughout and saw no
   violating state.
+- Between commits 4 and 5, on the reviewer's questions: the
+  assertion style (substring cannot tell 3 from 30) decided as a
+  step added to the change-plan (`ba227aa`), applied after commit
+  6; the feature's layout question answered at commit 3 (ADR-0008's
+  note). The reviewer's practice notes (kata cards) live outside the
+  project; a hand-off for the handbook rides with commit 8.
+- Commit 5, the adjustment racing the admits — E3, five rounds on
+  fresh items, thirty reserves and one downward correction (20 → 10)
+  released at one instant, the witness sampled during:
+
+  | Round | The correction | Admitted | After |
+  |---|---|---|---|
+  | 1 | `200` admitted | 10 | count 10, held 10 |
+  | 2–5 | `409` refused | 20 | count 20, held 20 |
+
+  Both outcomes seen; in each the correction's answer agreed with
+  the state and no sampled state broke the invariant. The race
+  decided who won (W3); the constraint decided that the loser lost
+  correctly. Whole suite from clean: 25 tests, exit 0.
 
 ## 2026-09-11  (Step 4: skeleton & bootstrap)
 
