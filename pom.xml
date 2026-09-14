@@ -117,6 +117,17 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- The evidence asserts a body's fields by JSON path — $.quantity
+             equal to 3 — never by substring, which cannot tell 3 from 30
+             or say a field exists. Already on the test classpath through
+             the Boot test starter; declared here so the use is visible and
+             survives a starter change. Version Boot-managed. -->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Structural walls for guarantees held by absence (SL-1: no
              process clock, no item state in memory). An absence cannot be
              seen at runtime; the only wall for it is a rule checked against

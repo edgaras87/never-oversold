@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.github.edgaras87.neveroversold.testsupport.WebDatabaseIT;
+import io.github.edgaras87.neveroversold.testsupport.Body;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -43,10 +44,10 @@ class ReservationDoorIT extends WebDatabaseIT {
         ResponseEntity<String> response = adjust(item, Map.of("onHandCount", 10));
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody())
-                .contains("\"id\":\"" + item + "\"")
-                .contains("\"onHandCount\":10")
-                .contains("\"reserved\":0");
+        Body body = Body.of(response.getBody());
+        assertThat(body.stringAt("$.id")).isEqualTo(item);
+        assertThat(body.intAt("$.onHandCount")).isEqualTo(10);
+        assertThat(body.intAt("$.reserved")).isZero();
         assertThat(count(item)).isEqualTo(10);
         assertThat(held(item)).isZero();
     }
@@ -59,11 +60,11 @@ class ReservationDoorIT extends WebDatabaseIT {
         ResponseEntity<String> response = reserve(item, Map.of("quantity", 3, "hold", "PT15M"));
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(response.getBody())
-                .contains("\"item\":\"" + item + "\"")
-                .contains("\"quantity\":3")
-                .contains("\"expiresAt\":")
-                .contains("\"id\":\"");
+        Body body = Body.of(response.getBody());
+        assertThat(body.stringAt("$.item")).isEqualTo(item);
+        assertThat(body.intAt("$.quantity")).isEqualTo(3);
+        assertThat(body.has("$.expiresAt")).as("the persisted expiry is in the answer").isTrue();
+        assertThat(body.uuidAt("$.id")).as("the reservation's identifier is the ledger's own").isNotNull();
         assertThat(held(item)).isEqualTo(3);
         Integer recorded = store.sql(
                         "SELECT count(*) FROM reservation WHERE item_id = :item AND quantity = 3")
@@ -81,7 +82,9 @@ class ReservationDoorIT extends WebDatabaseIT {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
         assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_PROBLEM_JSON);
-        assertThat(response.getBody()).contains("\"title\":\"refused\"").contains("\"status\":409");
+        Body problem = Body.of(response.getBody());
+        assertThat(problem.stringAt("$.title")).isEqualTo("refused");
+        assertThat(problem.intAt("$.status")).isEqualTo(409);
         assertThat(held(item)).isEqualTo(4);
         assertThat(count(item)).isEqualTo(5);
     }
@@ -92,7 +95,7 @@ class ReservationDoorIT extends WebDatabaseIT {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_PROBLEM_JSON);
-        assertThat(response.getBody()).contains("\"title\":\"unknown item\"");
+        assertThat(Body.of(response.getBody()).stringAt("$.title")).isEqualTo("unknown item");
     }
 
     @Test
@@ -106,7 +109,7 @@ class ReservationDoorIT extends WebDatabaseIT {
         ResponseEntity<String> response = adjust(item, Map.of("onHandCount", 6));
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-        assertThat(response.getBody()).contains("\"title\":\"refused\"");
+        assertThat(Body.of(response.getBody()).stringAt("$.title")).isEqualTo("refused");
         assertThat(count(item)).isEqualTo(10);
         assertThat(held(item)).isEqualTo(7);
     }
@@ -134,7 +137,7 @@ class ReservationDoorIT extends WebDatabaseIT {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_PROBLEM_JSON);
-        assertThat(response.getBody()).contains("\"title\":\"invalid request\"");
+        assertThat(Body.of(response.getBody()).stringAt("$.title")).isEqualTo("invalid request");
         assertThat(held(item)).isZero();
         assertThat(count(item)).isEqualTo(10);
     }
@@ -144,7 +147,7 @@ class ReservationDoorIT extends WebDatabaseIT {
         ResponseEntity<String> response = post("/items/" + newItemId() + "/adjustments", "{\"onHandCount\":-1}");
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody()).contains("\"title\":\"invalid request\"");
+        assertThat(Body.of(response.getBody()).stringAt("$.title")).isEqualTo("invalid request");
     }
 
     private ResponseEntity<String> reserve(String item, Map<String, Object> body) {

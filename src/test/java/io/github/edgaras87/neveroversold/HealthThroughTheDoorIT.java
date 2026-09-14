@@ -1,6 +1,7 @@
 package io.github.edgaras87.neveroversold;
 
 import io.github.edgaras87.neveroversold.testsupport.WebDatabaseIT;
+import io.github.edgaras87.neveroversold.testsupport.Body;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.TestRestTemplate;
@@ -23,7 +24,8 @@ class HealthThroughTheDoorIT extends WebDatabaseIT {
     void healthIsUpWithTheStoreUp() {
         ResponseEntity<String> response = door.getForEntity("/actuator/health", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).contains("\"status\":\"UP\"");
-        assertThat(response.getBody()).contains("\"db\":{\"status\":\"UP\"}");
+        Body body = Body.of(response.getBody());
+        assertThat(body.stringAt("$.status")).isEqualTo("UP");
+        assertThat(body.stringAt("$.components.db.status")).isEqualTo("UP");
     }
 }

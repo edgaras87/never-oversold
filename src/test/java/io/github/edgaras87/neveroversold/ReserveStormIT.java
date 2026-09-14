@@ -9,11 +9,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import io.github.edgaras87.neveroversold.testsupport.WebDatabaseIT;
 import io.github.edgaras87.neveroversold.testsupport.Witness;
+import io.github.edgaras87.neveroversold.testsupport.Body;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.TestRestTemplate;
@@ -39,7 +38,6 @@ class ReserveStormIT extends WebDatabaseIT {
 
     private static final int ON_HAND = 20;
     private static final int REQUESTS = 100;
-    private static final Pattern ID = Pattern.compile("\"id\":\"([0-9a-f-]{36})\"");
 
     @Autowired
     private TestRestTemplate door;
@@ -76,9 +74,7 @@ class ReserveStormIT extends WebDatabaseIT {
                 ResponseEntity<String> response = reply.get();
                 if (response.getStatusCode() == HttpStatus.CREATED) {
                     admitted++;
-                    Matcher id = ID.matcher(response.getBody());
-                    assertThat(id.find()).as("an admitted reply names its reservation").isTrue();
-                    admittedIds.add(UUID.fromString(id.group(1)));
+                    admittedIds.add(Body.of(response.getBody()).uuidAt("$.id"));
                 } else if (response.getStatusCode() == HttpStatus.CONFLICT) {
                     refused++;
                 } else {

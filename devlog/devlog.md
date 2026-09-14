@@ -138,6 +138,17 @@
   `Instant::now` reference, a `System.nanoTime()` call, a
   `static int`, a `HashMap` field; plants removed, `src/main` clean.
   Whole suite from clean: 29 tests, exit 0.
+- Commit 7, assert bodies by path — the step added at commit 4's
+  boundary. `json-path` declared at test scope with its reason (it
+  already rode in through the Boot test starter; declared so the
+  use is visible and survives a starter change). A `Body` helper in
+  test support parses once and reads by path; every substring
+  assertion in the door test, the health test and both storms
+  replaced — twelve `contains` and two id regexes gone; the storms
+  take the reservation id from `$.id`. No behaviour change: 29
+  tests from clean, exit 0. The convention, for the slice record:
+  a shape is a path; a word (an error title) is a path too now, so
+  no `contains` remains to make the exception.
 
 ## 2026-09-11  (Step 4: skeleton & bootstrap)
 

@@ -12,12 +12,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import io.github.edgaras87.neveroversold.testsupport.ForkedLedger;
 import io.github.edgaras87.neveroversold.testsupport.ThrowawayStore;
 import io.github.edgaras87.neveroversold.testsupport.Witness;
+import io.github.edgaras87.neveroversold.testsupport.Body;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +39,6 @@ class InstancesStormIT {
     private static final int INSTANCES = 3;
     private static final int ON_HAND = 20;
     private static final int REQUESTS = 120;
-    private static final Pattern ID = Pattern.compile("\"id\":\"([0-9a-f-]{36})\"");
 
     @Test
     void threeInstancesRacingForTheLastUnitsNeverOversell() throws Exception {
@@ -87,9 +85,7 @@ class InstancesStormIT {
                 answeredBy[i % INSTANCES]++;
                 if (response.statusCode() == 201) {
                     admitted++;
-                    Matcher id = ID.matcher(response.body());
-                    assertThat(id.find()).isTrue();
-                    admittedIds.add(UUID.fromString(id.group(1)));
+                    admittedIds.add(Body.of(response.body()).uuidAt("$.id"));
                 } else if (response.statusCode() == 409) {
                     refused++;
                 } else {
