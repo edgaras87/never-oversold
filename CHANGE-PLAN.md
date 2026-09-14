@@ -89,7 +89,19 @@ source and fails on any process-clock call or any in-memory keeping
 of item numbers (G2, G5). Verified: green; the structural test
 shown to fail on a planted `Instant.now()`, then the plant removed.
 
-**7. `docs: records catch up on SL-1`**
+**7. `test: assert bodies by path`**
+The evidence's assertion style, decided with the reviewer at commit
+4's boundary and applied before the slice closes: a body's fields
+are asserted by JSON path (`$.quantity` equal to 3), not by
+substring — `"quantity":3` also matches `"quantity":30`, and a
+substring cannot say "a field exists" without a regex. The door
+tests and both storms switch; the storms' regex for the id goes;
+the storms' proof still comes from the store. One convention,
+project-wide, written in the slice record's evidence movement: a
+word may stay a `contains` (an error title); a shape is a path.
+Verified: green, no behaviour change.
+
+**8. `docs: records catch up on SL-1`**
 The slice record's third movement: §9 evidence as delivered — each
 test, the adversity it created, what it read, the red and the
 green from actual output — and the standing guards. The registry:
@@ -108,7 +120,7 @@ refused. TODO: the Step 5 items closed or moved by name; hand-offs
 filed. Devlog: the walk, the deviations, the exit test's answers.
 PLAN: Step 5's gate ticked from the delivered state.
 
-**8. `docs(agent): close change-plan for SL-1`**
+**9. `docs(agent): close change-plan for SL-1`**
 The plan deleted; the commit body records where the set diverged.
 
 ## Decisions taken inside this plan
@@ -132,12 +144,18 @@ The plan deleted; the commit body records where the set diverged.
   the connection pool stays the default — requests queue at the
   pool and still race at the row, which is the adversity, not the
   pool.
-- **The version moves to 0.1 at commit 7**, because a version is a
+- **The version moves to 0.1 at commit 8**, because a version is a
   state of the evidence and the first invariant is now evidence-
   closed; the reviewer confirms at that boundary.
 - **Applying V1 on the real ground is the reviewer's act**, run at
-  commit 7's proof of life on their word; the miniature proves the
+  commit 8's proof of life on their word; the miniature proves the
   migration on every test run before that.
+- **A step added at commit 4's boundary (revision, not divergence of
+  a firm step):** the assertion style. The door tests landed with
+  substring assertions; the reviewer asked whether that is the way
+  to assert, and it is not the way to keep. Refactored inside this
+  slice rather than at SL-2's opening so the evidence closes in the
+  style every later slice enters.
 - **`Location` omitted** on the reserve reply until a reader exists
   (§7's deviation from ADR-0010's letter), lifted when SL-3 gives a
   reservation a reader.
