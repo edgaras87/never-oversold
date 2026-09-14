@@ -112,6 +112,32 @@
   the state and no sampled state broke the invariant. The race
   decided who won (W3); the constraint decided that the loser lost
   correctly. Whole suite from clean: 25 tests, exit 0.
+- Commit 6, one clock — E5 in two halves. Behavioural,
+  `OneClockIT`: a 15-minute hold's persisted expiry sits exactly
+  `00:15:00` from the store-stamped creation instant (the store's
+  assignment); a one-second hold and a ten-minute hold on one item
+  read as active sum 2, and 1.5 s later as active sum 1 with the
+  counter still 2 — the store's clock judged, the counter over-
+  approximates on the safe side until SL-3 ends the hold.
+  Structural, `NoInstanceStateOrClockTest`, on ArchUnit 1.5.0 at
+  test scope (earning reason in the pom): rules on the compiled
+  application classes — no access to any `now()` in `java.time`, no
+  dependency on `Clock` or `Date`, no `System.currentTimeMillis` or
+  `nanoTime`; no field of a map, collection or atomic type; no
+  mutable static. **A dead end on the way:** the first version was
+  a regex over the source text under `src/main`. It caught a planted
+  `Instant.now()` and missed a planted `HashMap` field (the pattern
+  refused a `(` before the `;`); re-anchored on indentation it caught
+  both, and the reviewer said it did not feel like something
+  developers write. It was not: a text rule misses a static import,
+  a method reference and any reformat. Replaced by ArchUnit before
+  the commit. Its first draft used `callMethodWhere`, which sees
+  calls only — a planted `Instant::now` method reference walked
+  through; switched to `accessTargetWhere`, which sees both. Then
+  four plants one at a time, each caught by its own rule: the
+  `Instant::now` reference, a `System.nanoTime()` call, a
+  `static int`, a `HashMap` field; plants removed, `src/main` clean.
+  Whole suite from clean: 29 tests, exit 0.
 
 ## 2026-09-11  (Step 4: skeleton & bootstrap)
 

@@ -117,6 +117,19 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Structural walls for guarantees held by absence (SL-1: no
+             process clock, no item state in memory). An absence cannot be
+             seen at runtime; the only wall for it is a rule checked against
+             the compiled classes on every build. Reads bytecode, so a
+             static import, a method reference or a reformat cannot slip
+             past it. Version explicit: the parent does not manage it. -->
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>1.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
