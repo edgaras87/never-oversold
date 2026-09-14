@@ -196,6 +196,46 @@
       path (a substring cannot tell 3 from 30 or say a field
       exists). A variation point: by path for a shape, by type
       when a shared API contract exists; never by substring.
+- [ ] Hand-off to the CbC bundle (cbc-slice, Stage 1): a registry
+      row may carry a flag ("named here so the slice inherits the
+      warning") — SL-1's kill 10, and kill 9's process-death shape
+      inside a contention slice. The skill never says what a flag
+      demands. Lived: every flag is answered by name in the
+      specification — staged as its own evidence, or removed by a
+      definition with the removal shown (FC3 removed kill 10; G4
+      showed kill 9 has no interval). Make it a Stage 1 exit item.
+- [ ] Hand-off to the CbC bundle (cbc-slice, Stage 4): the close is
+      more than a status. Lived: the row flips to `in-progress` when
+      the specification lands (the first project-visible work; this
+      run never used the value and went `chosen-next` → `closed` in
+      one commit), and the close names the provisionals and what
+      the slice hands to later slices by name — SL-1's wall
+      pre-decided part of SL-2, its counter left a debt to SL-3.
+      The concept's "a built slice may teach that the next is
+      wrong or split" needs this step to be true in the registry.
+- [ ] Hand-off to the CbC bundle (infra-establish ↔ cbc-slice): the
+      contract template says a slice "chooses its face [of the
+      store's facility] in its own specification, with its why";
+      cbc-slice's specification forbids mechanisms, and the face is
+      one. One word: "in its plan". Found when SL-1's plan chose
+      check constraints and row serialization and the spec could
+      not have.
+- [ ] Hand-off to the CbC bundle (cbc-slice, shape): the skill
+      carries its WHAT/HOW seam in words ("zero mechanisms", then
+      "implementation judgment is yours") but no stack reference
+      beside it, where cbc-bootstrap has three. Not a split into two
+      skills — the unit is one invariant end to end and the
+      completion test is single — but a `references/spring-slice-
+      reference.md` on the bootstrap's model: imitated, never
+      pasted; each artifact stating the outcome it realizes, with
+      variation points, so a reader can reject the artifact and
+      keep the outcome. What this run lived for it: the naive-then-
+      wall commit split and the red run; the witness over plain JDBC
+      from outside every instance, with the sampler for "in every
+      readable state"; the one-statement admit with the row count
+      as the decision; value types at the door; bodies by path; the
+      absence rung as bytecode rules. A run on another stack writes
+      its own reference; the SKILL stays stack-free.
 - [ ] Hand-off to the handbook: a personal `cut-a-kata` skill —
       practice exercises cut from live work at the moment the
       learner says "I could not rebuild this": a marker in ten
