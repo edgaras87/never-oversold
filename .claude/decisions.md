@@ -179,3 +179,28 @@
   citations in the project's records (none cite another repo's
   decision; HANDBOOK ADR-0037 rule 4, records that never leave stay
   bare).
+
+- 2026-09-15 The in-place rule of 2026-09-14 settled as seven rules
+  in .claude/rules/skills-changed-in-place.md, after the bundle and
+  kit re-pins were lived: a skill is a copy pinned at a source
+  commit; edited in place only from lived work, as a question or
+  outcome any project would want, never project-specific, with a
+  header line and a log entry; what the project alone needs goes
+  into its records, never the skill; at every step's close one TODO
+  line per edited skill asks the source to evaluate since the pin;
+  after the reply the source's version is copied whole and the pin
+  moves, a declined edit gone with it and never edited back; a step
+  opening before the reply continues on the edited copy; a finished
+  skill is never edited, its lessons prose hand-offs.
+  Why: not editing costs twice — behind the source and behind this
+  run's own lessons — while editing and re-pinning costs once; the
+  compare stays a diff against one pin because nothing project-
+  specific ever enters the copy; a declined edit kept would make
+  the copy project-specific in fact and compound at every re-pin.
+  Rejected: an overlay file per skill read beside the pinned copy
+  (holds project-specific behaviour and survives a slow source, at
+  a second file per skill and a prune at every re-pin — machinery
+  for a need no step has met; the named fallback if declined-but-
+  needed ever becomes a pattern); keeping declined edits with a
+  logged reason (compounds); the pinned-copy rule as born (twenty
+  cold notes at SL-1's close).
