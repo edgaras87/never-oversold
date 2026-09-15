@@ -204,3 +204,14 @@
   needed ever becomes a pattern); keeping declined edits with a
   logged reason (compounds); the pinned-copy rule as born (twenty
   cold notes at SL-1's close).
+
+- 2026-09-15, later Rule 7 of the seven withdrawn as a prohibition
+  on the reviewer's argument, rewritten as a caveat: a finished
+  skill is edited the same way. Why: leaving it unedited buys a
+  pristine copy the whole re-pin gives anyway; editing buys a
+  possible re-run of a restarted step on the corrected text, an
+  exact hunk for the source to take or decline instead of a
+  translated note, and one process for every skill. What differs
+  is only that the fix's wording is never used by a later step here
+  — the problem was lived either way — said in the rule. Rejected: two processes by kind of skill (a rule people
+  forget).

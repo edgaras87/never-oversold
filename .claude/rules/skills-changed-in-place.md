@@ -51,9 +51,14 @@ paths:
    still lands whole. Behind the source is acceptable; behind this
    run's own lessons is not.
 
-7. **A skill this project has finished with is never edited.** A
-   lesson about it is a prose hand-off in TODO, since an edit would
-   serve nobody here.
+7. **A skill this project has finished with is edited the same
+   way.** A restarted step may re-run on it, the source takes or
+   declines an exact hunk rather than a translated note, and one
+   process serves every skill. The one difference: the problem was
+   lived either way, but the fix's wording is never used by a later
+   step here — a running skill's fix is exercised by the next step,
+   a finished skill's fix is first used by the source. Say so in the
+   header line.
 
 The pin is the truth of origin, the header lines and the log are the
 whole of what this run changed, and the diff between them is what
