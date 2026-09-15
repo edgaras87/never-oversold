@@ -21,9 +21,10 @@ revision entry, never in place.
 
 `docs/concept/` is a pinned copy, never edited in place — a change
 is a new copy from the source, logged in `.claude/decisions.md`.
-The method skills under `.claude/skills/` are copies this run may
-correct from lived work, under the guards in `.claude/rules/`, each
-edit logged and handed to the source as a diff.
+The skills under `.claude/skills/` — the bundle's method skills and
+the kit's conventions alike — are copies this run may correct from
+lived work, under the rules in `.claude/rules/`, each edit logged
+and handed to its source as a diff.
 
 ## Records
 

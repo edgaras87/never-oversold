@@ -215,3 +215,20 @@
   is only that the fix's wording is never used by a later step here
   — the problem was lived either way — said in the rule. Rejected: two processes by kind of skill (a rule people
   forget).
+
+- 2026-09-15, later The in-place rule's scope stated: every copy
+  under .claude/skills/, the kit's four conventions as much as the
+  bundle's five method skills, each against its own source. Outside
+  it: docs/concept/, the stubs and the fills.
+  Why: a convention copy is the same object as a method skill — a
+  pinned copy read at a moment, re-applied or dropped at update by
+  the handbook's own §8 — and two processes by kind of skill is what
+  rule 7 rejected; the concept is theory the skills derive from
+  upstream and nothing here runs it; the stubs and fills are already
+  this run's records under project-recording, folded back by name.
+  Expected: the handbook declines convention edits more often than
+  the bundle declines skill edits — it reads for a rule across runs
+  — and rule 5 absorbs that.
+  Rejected: method skills only (a second process for the
+  conventions); the concept in scope (a fork of the theory the
+  skills come from, exercised by nothing here).

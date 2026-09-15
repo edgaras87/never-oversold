@@ -3,7 +3,7 @@ paths:
   - ".claude/skills/**"
 ---
 
-# The method skills: pinned copies, edited in place, re-pinned
+# The skills — method and convention alike: pinned copies, edited in place, re-pinned
 
 <!-- Arrived 2026-09-14 after SL-1, its seven rules written
      2026-09-15 (decisions.md, both dates). In force here and on
@@ -14,8 +14,16 @@ paths:
      or stands as a logged local layer until the retrospective.
      The source owns these skills; this run may correct them from
      lived work so the next step runs on the correction, and the
-     source evaluates a diff, not a note. `docs/concept/` stays
-     pinned: theory is not a run's to correct. -->
+     source evaluates a diff, not a note.
+     Scope: every copy under .claude/skills/ — the bundle's five
+     method skills with their references and templates, and the
+     kit's four conventions — each against its own source. Outside
+     it: `docs/concept/` (theory; the skills are derived from it
+     upstream, no step here runs a chapter, its lessons are prose
+     hand-offs); the stubs and fills — the entry file, the records'
+     stub comments, the ignore files, PLAN's vendored steps — which
+     are this run's own records, edited under project-recording and
+     folded back by name at the retrospective. -->
 
 1. **Every skill is a copy pinned at a source commit** — the hash in
    the decisions log's last entry for that source. The concept
