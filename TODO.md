@@ -114,7 +114,8 @@
       the pin; after the reply the source's version is copied whole
       and the pin moves, declined edits gone and never edited back;
       a step opening before the reply continues on the edited copy;
-      a finished skill is never edited. The model's flow already
+      a finished skill is edited the same way, its fix's wording
+      first used by the source. The model's flow already
       fits — the layer is a record, harvested by diffing against the
       pin, the run sends nothing — and §8 step 4 already re-applies,
       drops or promotes an edited copy; what neither says is that a
