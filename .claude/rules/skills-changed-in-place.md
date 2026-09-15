@@ -1,25 +1,24 @@
 ---
 paths:
-  - ".claude/skills/**"
+  - ".claude/skills/cbc-*/**"
+  - ".claude/skills/infra-*/**"
 ---
 
-# The skills — method and convention alike: pinned copies, edited in place, re-pinned
+# The bundle's method skills: pinned copies, edited in place, re-pinned
 
 <!-- Arrived 2026-09-14 after SL-1, its seven rules written
-     2026-09-15 (decisions.md, both dates). In force here and on
-     trial: the lifecycle of copies is the handbook's, the rule is
-     handed to it as a proposal (TODO Later), and the handbook's
-     answer governs at the next kit update — taken, this file goes
-     redundant; declined or reshaped, this file follows the answer
-     or stands as a logged local layer until the retrospective.
-     The source owns these skills; this run may correct them from
-     lived work so the next step runs on the correction, and the
-     source evaluates a diff, not a note.
-     Scope: every copy under .claude/skills/ — the bundle's five
-     method skills with their references and templates, and the
-     kit's four conventions — each against its own source. Outside
-     it: `docs/concept/` (theory; the skills are derived from it
-     upstream, no step here runs a chapter, its lessons are prose
+     2026-09-15, narrowed 2026-09-16 (decisions.md, those dates).
+     The kit's four conventions are no longer this file's: the
+     handbook took the rules into convention-lifecycle §8 step 4
+     (HANDBOOK ADR-0038, at kit 9e28143), and that copy governs them
+     — read it there. This file stands only for the bundle's five
+     method skills, which the handbook left to the bundle, until
+     the bundle answers the hand-off in TODO Later; then it follows
+     the answer or goes. In force here and on trial; provisional in
+     the same sense the handbook's text is: no edit has yet gone
+     through a re-pin.
+     Outside it: `docs/concept/` (theory; the skills are derived from
+     it upstream, no step here runs a chapter, its lessons are prose
      hand-offs); the stubs and fills — the entry file, the records'
      stub comments, the ignore files, PLAN's vendored steps — which
      are this run's own records, edited under project-recording and
@@ -44,13 +43,14 @@ paths:
 
 4. **At every step's close, the hand-off.** One TODO line per edited
    skill: "source: evaluate this run's changes to `<skill>` since
-   `<pin>`". The line is the intent — without it the source finds a
-   changed file and must guess; it is the close's checklist of
-   replies owed; and it is done at the re-pin. The edits describe
-   themselves in the header and the log; the line only says evaluate.
-   The source reads this repo read-only, diffs the copy against its
-   own tree at the pin, takes or declines each hunk in its own words,
-   and writes its reply.
+   `<pin>`". The line is the request — without it the source finds a
+   changed file and must guess; the edits describe themselves in the
+   header and the log. The source reads this repo read-only when it
+   reads it — at a hand-off, or at the retrospective — not at every
+   step's close; a faster answer needs a hand-off document. It diffs
+   the copy against its own tree at the pin, takes, reshapes or
+   declines each hunk in its own words, and writes its reply. The
+   line is done at the re-pin.
 
 5. **After the reply, the re-pin.** The source's new version is copied
    whole; one decisions entry carries the new hash; the copy is
@@ -63,7 +63,9 @@ paths:
    copy, and edits keep landing under rule 2. They stack on this side
    only; the source diffs against the pin either way, and the re-pin
    still lands whole. Behind the source is acceptable; behind this
-   run's own lessons is not.
+   run's own lessons is not. The first edit that goes through a
+   re-pin is reported to the handbook as one TODO line — its text is
+   provisional on that report.
 
 7. **A skill this project has finished with is edited the same
    way.** A restarted step may re-run on it, the source takes or
