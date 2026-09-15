@@ -19,9 +19,11 @@ is the registry's chosen-next, and nothing is invented beyond what
 they say. They are living records: changed only by a dated
 revision entry, never in place.
 
-`docs/concept/` and the method skills under `.claude/skills/` are
-pinned copies: never edited in place — a change is a new copy
-from the source, logged in `.claude/decisions.md`.
+`docs/concept/` is a pinned copy, never edited in place — a change
+is a new copy from the source, logged in `.claude/decisions.md`.
+The method skills under `.claude/skills/` are copies this run may
+correct from lived work, under the guards in `.claude/rules/`, each
+edit logged and handed to the source as a diff.
 
 ## Records
 

@@ -96,3 +96,23 @@
   entry above); restating its text in a record (a record that
   quotes it lets one operator's preference into the project's
   truth).
+
+- 2026-09-14 The method skills under .claude/skills/ may be
+  changed in place from lived work, under five guards written in
+  .claude/rules/skills-changed-in-place.md: lived not speculated;
+  a question or outcome, never this run's answer; logged in the
+  skill's header and here; handed to the source as a diff, one
+  TODO line per skill; the source's verdict logged back. The
+  concept chapters stay pinned. Decided with the reviewer after
+  SL-1 closed with twenty prose hand-offs in TODO.
+  Why: a diff is a precise hand-off a source can evaluate, a note
+  is a guess; the next slice runs on the corrected skill instead
+  of the one already known thin; the source may still decline, and
+  the run keeps its local version with the decline recorded.
+  Rejected: the pinned-copy rule as it stood (twenty notes cold by
+  the retrospective, the same thin skill run three more times);
+  folding back per skill as each finishes (keeps the source the
+  only editor, but the slice skill would still run three times
+  unimproved); editing the concept too (theory is not a run's to
+  correct — a chapter wrong in practice is a hand-off, not an
+  edit).
