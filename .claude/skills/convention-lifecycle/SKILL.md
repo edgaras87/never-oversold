@@ -1,6 +1,6 @@
 ---
 name: convention-lifecycle
-description: How conventions themselves are authored, delivered, vendored, and tracked. Use when creating or changing a convention, or when vendoring or injecting one into a project.
+description: How conventions themselves are authored, delivered, vendored, and tracked. Use when creating or changing a convention, when vendoring or injecting one into a project, or when a copy under .claude/skills/ turns out wrong mid-step.
 delivery: pushed
 requires: artifact-kinds, change-plans, agent-arrangement
 ---
@@ -130,6 +130,9 @@ file (HANDBOOK ADR-0022):
   entry that touched it. There are no per-convention version
   numbers: a number needs an ungated bump ritual and can silently
   lie; the hash is minted by git on every commit (HANDBOOK ADR-0022).
+  A copy edited since that entry (§8, step 4) is still at that
+  version; the edits are the diff against it, and the diff is what
+  the handbook reads at the next update (HANDBOOK ADR-0038).
 - **"Is there newer, and what changed"** is answered in the
   handbook: `git diff <hash>..HEAD -- conventions/<name>/`.
 
@@ -164,9 +167,13 @@ project's registry (§7). Written from the first lived injection
    A skill delivery lands entirely agent-side — copy and registry entry
    — and is one commit (step 5). An installed delivery lands in project
    records too — stub comments, template files — and the two sides never
-   share a commit, so that landing runs under a change-plan
-   (change-plans §1). Not by definition: by which sides the delivery
-   touches (HANDBOOK ADR-0030, narrowing HANDBOOK ADR-0022).
+   share a commit. Two commits, one per side, are the line splitting
+   one act and need no change-plan: a plan pays for itself only
+   across a sequence (change-plans §1), so a landing that is one runs
+   under one. Not by definition: by which sides the delivery touches
+   and what they take (HANDBOOK ADR-0030, narrowing HANDBOOK ADR-0022;
+   the two-commit case from the first lived kit update through a
+   receipt, HANDBOOK ADR-0038).
 
 4. **Copy — compare first.** The master is
    `conventions/<name>/CONVENTION.md`; the installed copy is
@@ -178,6 +185,39 @@ project's registry (§7). Written from the first lived injection
    registry entry naming what happened. Nothing is clobbered
    silently. The copy loads as a skill because §2 guarantees the
    shape; there is no per-file check.
+
+   **When the project holds a receipt branch, that is the compare**
+   (HANDBOOK ADR-0038, from its first lived use). A receipt is a
+   branch in the project holding every delivered file as it arrived,
+   named by the handbook commit — `kit-<hash>` — and never edited;
+   the update cuts the next one as a commit on top of it. Then the
+   upstream change is `git diff kit-<old> kit-<new>`, and the local
+   layer is `git diff kit-<old> -- .claude/skills/<name>` on the
+   working branch, for each copy the receipt delivered, empty when
+   nothing was edited — both without a handbook checkout in reach.
+   Cut a receipt only after the project's ignore lines exist: cut
+   earlier, a wholesale add sweeps build output into it.
+
+   **A project may edit its copy between two pins**
+   (HANDBOOK ADR-0038, provisional until one such edit has gone
+   through an update). Only from something that happened in the
+   project — never a speculation — and only as a question or outcome
+   any project would want; what this project alone needs goes into
+   its own records, never the copy. Each edit carries a dated line
+   in the copy's header comment saying what changed and which step
+   found it, and one entry in the decisions log. At the step's close
+   one TODO line per edited copy asks the handbook to evaluate since
+   the pin — the line is the request, the header lines and the log
+   are the content — and a step that opens before the answer runs on
+   the edited copy. The compare above is where the answer lands: the
+   handbook's file at the new pin overwrites the copy whole, each
+   edit having been taken, reshaped or declined in the handbook's
+   own text; a declined edit is gone with the update and is never
+   edited back, and a need it served goes to the project's records,
+   the registry entry saying so. The handbook reads the TODO line
+   when it reads the project — at a handoff, or at the retrospective
+   — not at every step's close; a project that needs a faster answer
+   sends a handoff.
 
    An **installed** convention has no copy in the project to
    compare: what shipped was stub comments and template files, and
@@ -232,9 +272,10 @@ rule.
 ## Delivery
 
 `pushed` — it fires when a convention is authored, changed,
-vendored, or injected; outside those moments it is dead weight. In
-the handbook that means a skill (symlink, like its siblings); in a
-project, the kit's copy at `.claude/skills/convention-lifecycle/`.
+vendored, or injected, and when a copy turns out wrong mid-step;
+outside those moments it is dead weight. In the handbook that means
+a skill (symlink, like its siblings); in a project, the kit's copy
+at `.claude/skills/convention-lifecycle/`.
 
 **It ships in the kit** (HANDBOOK ADR-0030). Its project-side reader is
 the injecting agent running §8 — and the keeper of a project's copies,

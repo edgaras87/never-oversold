@@ -232,3 +232,37 @@
   Rejected: method skills only (a second process for the
   conventions); the concept in scope (a fork of the theory the
   skills come from, exercised by nothing here).
+
+- 2026-09-15 The kit updated @ 9e28143, from 20b1bc8, through the
+  receipt branch kit-9e28143 (one commit over kit-20b1bc8, the
+  upstream change one file). Taken: convention-lifecycle — the
+  copy overwritten whole, compare-first empty (no local edit on any
+  of the four since 20b1bc8); what changed upstream, the handbook's
+  answer to this run's hand-off of 2026-09-15 (HANDBOOK ADR-0038):
+  §8 step 4 gains "a project may edit its copy between two pins" —
+  this run's rules 1–3, 5, 6 and 7 in the handbook's own text,
+  provisional until one such edit has gone through an update; the
+  receipt branch adopted as the compare when a project holds one,
+  with this run's trap; step 3's letter bent for a two-commit
+  landing; the skill's description gains the trigger "when a copy
+  under .claude/skills/ turns out wrong mid-step". Reshaped, not
+  taken: rule 4's cadence — the handbook reads the TODO line at a
+  handoff or the retrospective, not at every step's close; a run
+  that needs a faster answer sends a handoff. The other three
+  conventions unchanged; the installed three verified, no stub
+  changed.
+  The rules file's fate, as the handbook asked: for the four
+  conventions .claude/rules/skills-changed-in-place.md is redundant
+  from this pin — the convention itself governs them, and the
+  handbook ships no rules file (ADR-0038, option 6). The file
+  narrows to the bundle's five method skills, which the handbook
+  left to the bundle, until the bundle answers; its rule 4 reworded
+  to the handbook's cadence so the two do not disagree. Owed to the
+  handbook whenever it happens: the first edit of a copy that goes
+  through a re-pin, one TODO line — ADR-0038's decision 5 waits on
+  it.
+  Why: the answer arrived in the kit, and a pin that stays behind
+  it leaves the registry lying (§8 step 4's own warning).
+  Rejected: keeping the rules file in force for the conventions
+  beside the convention (two texts for one rule); deleting it
+  outright (the bundle's skills still have no source text for it).
