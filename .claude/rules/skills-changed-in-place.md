@@ -5,11 +5,17 @@ paths:
 
 # The method skills: pinned copies, edited in place, re-pinned
 
-<!-- Arrived 2026-09-14 after SL-1, settled 2026-09-15 (decisions.md,
-     both dates). The source owns these skills; this run may correct
-     them from lived work so the next step runs on the correction,
-     and the source evaluates a diff, not a note. `docs/concept/`
-     stays pinned: theory is not a run's to correct. -->
+<!-- Arrived 2026-09-14 after SL-1, its seven rules written
+     2026-09-15 (decisions.md, both dates). In force here and on
+     trial: the lifecycle of copies is the handbook's, the rule is
+     handed to it as a proposal (TODO Later), and the handbook's
+     answer governs at the next kit update — taken, this file goes
+     redundant; declined or reshaped, this file follows the answer
+     or stands as a logged local layer until the retrospective.
+     The source owns these skills; this run may correct them from
+     lived work so the next step runs on the correction, and the
+     source evaluates a diff, not a note. `docs/concept/` stays
+     pinned: theory is not a run's to correct. -->
 
 1. **Every skill is a copy pinned at a source commit** — the hash in
    the decisions log's last entry for that source. The concept
