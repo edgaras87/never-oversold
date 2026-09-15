@@ -131,7 +131,7 @@ cannot yet be released or consumed — that is the next work.
 | Bootstrap requirements | [docs/construction/bootstrap-requirements.md](docs/construction/bootstrap-requirements.md) | What the skeleton delivers and refuses, certified at bootstrap |
 | Slice records | [docs/construction/](docs/construction/) | Per invariant: what it guarantees, what holds each guarantee, how it was proven |
 | Plan | [PLAN.md](PLAN.md) | Where are we, what's next, what does *done* mean |
-| Decisions | [docs/adr/](docs/adr/) | Why is it built this way |
+| Decisions | [docs/adr/](docs/adr/) — cited from other repos as `NEVER-OVERSOLD ADR-nnnn` | Why is it built this way |
 | Architecture | [ARCHITECTURE.md](ARCHITECTURE.md) | What is the current shape of the system |
 | Backlog | [TODO.md](TODO.md) | What's known but not done |
 | Changelog | [CHANGELOG.md](CHANGELOG.md) | What changed per version (for users) |
