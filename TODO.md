@@ -89,6 +89,18 @@
       kit's stub and agent-arrangement's test 2 (a line with a
       moment goes where the moment is) are the handbook's half,
       still open.
+- [ ] Hand-off to the handbook (convention-lifecycle §8), from the
+      kit update @ 20b1bc8 on 2026-09-15: the receipt-branch
+      compare its TODO waits on was used — `kit-20b1bc8` one commit
+      over `kit-af16eb7`, `git diff` between them the upstream
+      change isolated, `git diff kit-af16eb7 -- <copies>` empty for
+      no local edit — and it worked; one trap: a receipt branch cut
+      before the project's ignore lines swallows build output on
+      `git add -A`. And one friction: step 3's letter puts a
+      two-commit landing (skills agent-side, one stub row
+      project-side) under a change-plan, which costs two commits
+      for a set of two; this run landed them as two plain commits
+      and says so in its registry entry.
 - [ ] Hand-off to the handbook: a personal `cut-a-kata` skill —
       practice exercises cut from live work at the moment the
       learner says "I could not rebuild this": a marker in ten
