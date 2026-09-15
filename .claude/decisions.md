@@ -1,6 +1,6 @@
 # Agent decisions
 
-<!-- The working arrangement's decision log (handbook ADR-0020,
+<!-- The working arrangement's decision log (HANDBOOK ADR-0020,
      provisional). Append-only, newest last. One entry per
      arrangement decision — a skill added or changed, a rule tuned,
      a workflow adopted. Three lines: what, why, what was rejected.
@@ -71,7 +71,7 @@
   commit ask rule — the reviewer holds the pace through
   CLAUDE.local.md and the commit-messages rule, and the handbook
   withdrew the same rule in its own checkout for asking a word
-  already given in chat (its ADR-0035, decision 2's note). The
+  already given in chat (HANDBOOK ADR-0035, decision 2's note). The
   receipt branch keeps the file so the compare stays faithful.
 
 - 2026-09-09 The entry file moved to .claude/CLAUDE.md, content
@@ -145,3 +145,37 @@
   mechanism); waiting for the retrospective's re-pin (three more
   slices on a skill already known thin); copying only cbc-slice
   (a partial pin answers "which version" with a list).
+
+- 2026-09-15 The kit updated @ 20b1bc8, from af16eb7, through the
+  receipt branch kit-20b1bc8 (one commit over kit-af16eb7: the kit
+  at 20b1bc8, `git diff kit-af16eb7 kit-20b1bc8` the upstream change
+  isolated — six files). Taken: artifact-kinds, change-plans,
+  commit-messages, convention-lifecycle — copies overwritten,
+  compare-first finding each identical to the kit at af16eb7 (no
+  local edit); what changed upstream: every convention rewritten
+  from the consumer's seat, every citation tagged HANDBOOK ADR-nnnn
+  (HANDBOOK ADR-0037), commit-messages' delivery now `pushed` with
+  the gate withdrawn (HANDBOOK ADR-0035 amended 2026-09-10, on this
+  run's report), artifact-kinds' exemplars by role (this run's
+  finding), convention-lifecycle §8 naming the born-without case.
+  Requires-chains unchanged. Installed conventions —
+  project-recording, repo-hygiene, agent-arrangement — verified:
+  the kit's stubs carry no changed comment since af16eb7; the one
+  stub change is the README's decisions row gaining the tag slot
+  (HANDBOOK ADR-0037), landing project-side in its own commit with
+  this repo's tag. The kit's settings.json deletion lands as
+  nothing: rejected here at af16eb7. Two hand-written citations in
+  this log retagged HANDBOOK, per the convention received.
+  Why: the kit had moved twenty-eight commits past the pin, two of
+  them on this run's own hand-offs, and SL-2 opens on these
+  conventions at every commit; the receipt branch is the compare
+  the handbook asked this run to use once and report on — used,
+  it worked: one diff shows the upstream side, one empty diff shows
+  no local edit.
+  Rejected: copying without the receipt (the handbook's TODO waits
+  on exactly this trial); a change-plan for the two-commit landing
+  (§8 step 3's letter — the plan costs two commits for a set of
+  two; filed as friction for the handbook, not absorbed); retagging
+  citations in the project's records (none cite another repo's
+  decision; HANDBOOK ADR-0037 rule 4, records that never leave stay
+  bare).

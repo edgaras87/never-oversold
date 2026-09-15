@@ -1,7 +1,7 @@
 ---
 name: commit-messages
 description: Conventional Commits format and the 50/72 rules. Use before writing any commit message.
-delivery: pushed + gate
+delivery: pushed
 ---
 
 # Commit Convention
@@ -106,11 +106,11 @@ refresh. Re-land after #58.
 ## Scope note: the agent's own records
 
 The working arrangement's files — `CLAUDE.md`, `.claude/`,
-`CHANGE-PLAN.md` — are not project records (ADR-0019). A commit that
-touches them is scoped `agent` — `chore(agent)` to install or update,
-`feat(agent)` for a new skill, `docs(agent)` for a change-plan's
-lifecycle — and touches nothing else: no commit mixes those paths
-with project changes.
+`CHANGE-PLAN.md` — are not project records (HANDBOOK ADR-0019). A commit
+that touches them is scoped `agent` — `chore(agent)` to install or update,
+`feat(agent)` for a new skill, `docs(agent)` for a change-plan's lifecycle
+— and touches nothing else: no commit mixes those paths with project
+changes.
 
 This is "one logical change per commit" with a reason on top. The two
 sides are two histories sharing one repo, and they stay separable —
@@ -140,17 +140,17 @@ keeps the work — only if no commit ever straddles them.
 
 ## Delivery
 
-`pushed`, with a `gate` for the stop and none yet for the format.
+`pushed`, and gated nowhere — neither the stop nor the format.
 
 Pushed because the rule applies at one moment and is dead weight
 otherwise; in Claude Code that means a skill, which is an ambient
-trigger over a pulled body rather than true pushed (ADR-0015).
+trigger over a pulled body rather than true pushed (HANDBOOK ADR-0015).
 
-**What this constrains.** The entry file gets a path to this file,
-never a summary of it (ADR-0014). And no text channel changes an
-outcome, only the odds. The stop is gated: a permission rule in the
-arrangement's tracked settings file halts every commit at a prompt
-the human answers (ADR-0035) — repo state, not text, so the word is
-asked for even when nobody remembers to. The subject limit is still
-enforced nowhere, which is what 15 of the first 20 commits looked
-like.
+**What this constrains.** The entry file gets a path to this file, never a
+summary of it (HANDBOOK ADR-0014). And no text channel changes an outcome,
+only the odds. The stop is text: this file's one sentence at the commit
+moment, with the odds text gives. A project that wants it as repo state
+adds a permission rule to the arrangement's settings file, which halts
+every commit at a prompt the human answers (HANDBOOK ADR-0035). The
+subject limit is enforced nowhere either; expect it to be broken until
+something outside the text checks it (agent model §7).

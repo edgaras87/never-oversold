@@ -15,7 +15,7 @@ whole project (`project-recording`).
 <!-- The artifact is a change-plan: agreed up front, committed, revised
      only when reality diverges, deleted at the close. Its content
      survives as the commit messages it produced; the file itself is
-     recoverable from history. See ADR-0010. -->
+     recoverable from history. See HANDBOOK ADR-0010. -->
 
 ---
 
@@ -70,7 +70,7 @@ decision horizon — whatever a not-yet-seen result must shape — are
 provisional, and the plan marks them so. A provisional step still
 names its intent; what it defers is the wording and the exact split.
 Refining it is §5's revision commit doing planned work, not a
-recorded failure (ADR-0027).
+recorded failure (HANDBOOK ADR-0027).
 
 **Status is not tracked in the file.** No checkboxes, no `[x]`. Git
 history is the status: the commits that exist are the steps done.
@@ -87,9 +87,9 @@ many steps as it has distinct changes to make.
 The test is **revert**: undo a single step, and the repo must land in a
 coherent state.
 
-- A convention document and the README row listing it are *one* step —
-  reverting the document alone would leave the table pointing at a
-  missing file.
+- A new module and the ARCHITECTURE paragraph that maps it are *one*
+  step — reverting the module alone would leave the map naming code
+  that is not there.
 - Adding a plan, revising it on divergence, and deleting it at the
   close are *three* steps on the same file — three different needs.
 
@@ -99,32 +99,31 @@ prevents is grouping by file type — "all the doc files," "all the
 record files" — which produces commits that look tidy and revert
 incoherently.
 
-**Order follows where the decision lives** (ADR-0027). A decision
-settled in conversation runs decision-first: record it, then
+**Order follows where the decision lives** (HANDBOOK ADR-0027). A
+decision settled in conversation runs decision-first: record it, then
 implement it. A decision only seeable in the material runs
-material-first: touch the artifact, let the shape emerge, and write
-the durable record from what held. One plan may mix both — the
-choice is per-decision, not per-plan. Two constraints bound both
-directions: no commit references what does not yet exist, and
-durable records are caught up before the close — mid-series
-disagreement between artifact and convention is the mode working;
-disagreement at the close is a bug.
+material-first: touch the artifact, let the shape emerge, and write the
+durable record from what held. One plan may mix both — the choice is
+per-decision, not per-plan. Two constraints bound both directions: no
+commit references what does not yet exist, and durable records are
+caught up before the close — mid-series disagreement between the
+artifact and its durable record is the mode working; disagreement at
+the close is a bug.
 
-**The records steps are planned, not remembered.** A change set
-batches record-moments: mid-set, a record's trigger can fire before
-its truth exists — a changelog entry before the shape has held, an
-ADR before the decision is seeable. So when drafting the commit
-list, walk the repo's records table (`project-recording`): every
-record whose moment this set will create gets a planned step,
-placed at the boundary where its truth exists — the same move as a
-gate item on the step that made it true (ADR-0025), at set scope.
-Which records exist and when each fires stays the table's
-knowledge, not this convention's: the walk is the rule here, the
-rows are not, and a repo without some row (no architecture to map,
-say) simply has nothing to walk there. The final records commit
-(§4) is where the last of them usually land. Leaving records to be
-noticed at the close works exactly as long as judgment is present,
-and nothing catches the run where it is not.
+**The records steps are planned, not remembered.** A change set batches
+record-moments: mid-set, a record's trigger can fire before its truth
+exists — a changelog entry before the shape has held, an ADR before the
+decision is seeable. So when drafting the commit list, walk the repo's
+records table (`project-recording`): every record whose moment this set
+will create gets a planned step, placed at the boundary where its truth
+exists — the same move as a gate item on the step that made it true
+(HANDBOOK ADR-0025), at set scope. Which records exist and when each
+fires stays the table's knowledge, not this convention's: the walk is
+the rule here, the rows are not, and a repo without some row (no
+architecture to map, say) simply has nothing to walk there. The final
+records commit (§4) is where the last of them usually land. Leaving
+records to be noticed at the close works exactly as long as judgment is
+present, and nothing catches the run where it is not.
 
 The same walk covers the plan's gate. A change set that will close a
 `PLAN.md` gate item names the commit that closes it — the item is a
@@ -149,15 +148,15 @@ diverged from plan, and why. It is the cheapest retro that exists and
 it is greppable. If nothing diverged, say so — that is information
 too. An abandoned change set closes the same way, with the reason.
 
-**ADRs inside the set default to Status: Proposed** (ADR-0027). A
-Proposed ADR is a living document: it lands early so the options are
+**ADRs inside the set default to Status: Proposed** (HANDBOOK ADR-0027).
+A Proposed ADR is a living document: it lands early so the options are
 on the table before anything is built, gathers evidence at the
-boundaries, and flips to Accepted in the set's final records
-commit — never in the close commit, which is agent-scoped and
-touches nothing else — once the retro is the last evidence in.
-Committing an ADR Accepted early is the marked case: it carries the
-claim that no later boundary can contradict it. An abandoned set
-leaves its ADRs Proposed, with the close commit saying why.
+boundaries, and flips to Accepted in the set's final records commit —
+never in the close commit, which is agent-scoped and touches nothing
+else — once the retro is the last evidence in. Committing an ADR
+Accepted early is the marked case: it carries the claim that no later
+boundary can contradict it. An abandoned set leaves its ADRs Proposed,
+with the close commit saying why.
 
 ## 5. Divergence
 
@@ -184,11 +183,10 @@ commit's body distinguishes the two.
 ## 6. Review protocol
 
 Work stops at every commit boundary. The rule is commit-messages' —
-stage, show the diff, commit only on the reviewer's word — and it
-binds at every commit, not only inside a change set; the arrangement's
-settings file makes the stop a gate (ADR-0035). The reviewer inspects
-the actual diff before it lands, and may ask for an explanation of any
-part of it before agreeing to continue.
+stage, show the diff, commit only on the reviewer's word — and it binds
+at every commit, not only inside a change set (HANDBOOK ADR-0035). The
+reviewer inspects the actual diff before it lands, and may ask for an
+explanation of any part of it before agreeing to continue.
 
 Why it matters most here: when an agent is doing the committing,
 the boundary is the only place where a misunderstanding is cheap to
@@ -225,10 +223,11 @@ lifetime — `PLAN.md` is durable and carries live status; a change-plan
 is ephemeral and carries none — which is a distinction the artifact-
 kinds axes do not currently express.
 
-**Not a record.** It is a scaffold. Everything durable in it survives
-as commit messages; nothing about it is meant to be read a year later
+**Not a record.** It is a scaffold. Everything durable in it survives as
+commit messages; nothing about it is meant to be read a year later
 except through `git log`. That is why it is not part of
-`project-recording`, whose records are all append-or-evolve (ADR-0010).
+`project-recording`, whose records are all append-or-evolve
+(HANDBOOK ADR-0010).
 
 **Feeds the devlog.** A divergence worth remembering beyond the change
 set — a dead end, a wrong assumption about the codebase — gets promoted
@@ -244,7 +243,7 @@ where work is committed directly instead of mailed. What is added here
 is the plan agreed *before* the series is written, and its disposal
 afterwards.
 
-See ADR-0010 for why this is a separate convention, and for the
+See HANDBOOK ADR-0010 for why this is a separate convention, and for the
 options rejected.
 
 ---
@@ -259,15 +258,16 @@ when the judgment fails. Nothing catches the miss, which is why "the
 plan written after the work" is an anti-pattern here (§7) rather than
 a lapse.
 
-**One ambient line softens it.** The entry file's records table
-carries a row for `CHANGE-PLAN.md` — the moment "work needs more than
-one commit", the path — read at the start of every session, before
-the judgment is made (ADR-0018: a row names a moment, not a rule, and
-that is what the table is for). It is not a second copy of this
-convention; it is the trigger placed where the skill's description
-alone did not reach.
+**One ambient line softens it.** The entry file's records table carries
+a row for `CHANGE-PLAN.md` — the moment "work needs more than one
+commit", the path — read at the start of every session, before the
+judgment is made (HANDBOOK ADR-0018: a row names a moment, not a rule,
+and that is what the table is for). It is not a second copy of this
+convention; it is the trigger placed where the skill's description alone
+did not reach.
 
 **What this constrains.** It has to be usable at the moment it fires —
 mid-task, before anything is committed — so a cross-reference is a cost
 paid then, not while studying the document. And any rule here that
-delegates to another convention belongs in `requires` (ADR-0017).
+delegates to another convention belongs in `requires`
+(HANDBOOK ADR-0017).
