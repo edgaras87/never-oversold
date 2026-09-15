@@ -101,6 +101,37 @@
       project-side) under a change-plan, which costs two commits
       for a set of two; this run landed them as two plain commits
       and says so in its registry entry.
+- [ ] Hand-off to the handbook (tiers model §3, convention-lifecycle
+      §8): a copy may carry a local layer between two pins. This run
+      settled it 2026-09-15 as seven rules
+      (.claude/rules/skills-changed-in-place.md, decisions.md
+      2026-09-14 and 2026-09-15): a skill is a copy pinned at a
+      source commit; edited in place only from lived work, as a
+      question or outcome any project would want, never project-
+      specific, with a header line and a log entry; what the project
+      alone needs goes into its records; at every step's close one
+      TODO line per edited skill asks the source to evaluate since
+      the pin; after the reply the source's version is copied whole
+      and the pin moves, declined edits gone and never edited back;
+      a step opening before the reply continues on the edited copy;
+      a finished skill is never edited. The model's flow already
+      fits — the layer is a record, harvested by diffing against the
+      pin, the run sends nothing — and §8 step 4 already re-applies,
+      drops or promotes an edited copy; what neither says is that a
+      run may make the edit on purpose, what it must carry, and that
+      the re-pin lands whole. The concept chapters stay pinned. The
+      overlay-file form was weighed and rejected for now, named as
+      the fallback if declined-but-needed edits ever become a
+      pattern.
+- [ ] Hand-off to the CbC bundle (CBC ADR-0007, the harvest
+      section): a run's copy may already carry the change, with its
+      own dated header line, under the run's in-place rule (above).
+      The harvest then diffs the copy against the pin and keeps the
+      run's provenance in the master's harvest line, taking or
+      declining each hunk; the verdict returns as a document or as
+      the header line the run sees at its next copy. ADR-0007's
+      mechanics already do this — its first lived case was a run
+      editing its local walkthrough — the rule does not yet say so.
 - [ ] Hand-off to the handbook: a personal `cut-a-kata` skill —
       practice exercises cut from live work at the moment the
       learner says "I could not rebuild this": a marker in ten
