@@ -1,17 +1,29 @@
--- Template — master copy in correctness-by-construction (ADR-0008);
--- checked against concept v1 (ADR-0003, ADR-0005 — practice-born).
+-- Template — master copy in correctness-by-construction (CBC ADR-0008);
+-- checked against concept v1 (CBC ADR-0003, CBC ADR-0005 — practice-born).
 -- Extracted 2026-08-28 from checkout-system's lived
 -- infrastructure/postgres/verify-database-model.sql (PLAN Step 6).
 -- Changes on extraction: identities generalized to placeholders
 -- (<project>, <project_db>, <project_schema>, container name).
 -- Copy into a run at the same path and fill; the filled file is the
--- run's own (ADR-0008).
+-- run's own (CBC ADR-0008).
 -- Harvested 2026-08-28: \echo section banners and readable
 -- object-type names in query 5, from safe-reservations' lived
--- verify-database-model.sql (ADR-0007). Its other divergences —
+-- verify-database-model.sql (CBC ADR-0007). Its other divergences —
 -- an explicit role IN list, a row-per-privilege matrix — not
 -- adopted: the prefix LIKE also surfaces stray roles, and the
 -- boolean matrix is more compact.
+-- Harvested 2026-09-11 from never-oversold (run 3) Step 3, read
+-- read-only (CBC ADR-0007): the behavioral half's home named as the
+-- ground's record, which in a repo with records is the devlog, not a
+-- log file.
+-- Harvested 2026-09-11, same run (CBC ADR-0007): query 6 checks the
+-- CONNECT privilege for both roles and PUBLIC — the bootstrap's REVOKE
+-- was a claim the suite never checked; the run added it because its
+-- constraint list claimed it.
+-- Harvested 2026-09-11, same run (CBC ADR-0007): the role filter's
+-- comment names the naming case — prefixed roles, the shared-cluster
+-- case; on a dedicated cluster with bare names the filter becomes an
+-- explicit IN list, the trade the header above once declined.
 
 -- infrastructure/postgres/verify-database-model.sql
 --
@@ -24,10 +36,14 @@
 --
 -- Expected results ride as comments beside each query — this file needs no
 -- other document open. The behavioral half (DDL attempted as runtime and
--- refused) lives in the operator manual and the establishment log.
+-- refused) lives in the operator manual and the ground's record — the
+-- establishment log, or the devlog in a repo with records.
 
 \echo ''
 \echo '=== 1 · Project roles and capabilities ==='
+-- the LIKE filter assumes prefixed roles (the shared-cluster case) and
+-- also surfaces stray roles; on a dedicated cluster with bare names it
+-- becomes an explicit IN list: WHERE rolname IN ('migrator', 'runtime')
 -- expected: exactly <project>_migrator and <project>_runtime; for both:
 --   rolsuper=f, rolcreatedb=f, rolcreaterole=f, rolcanlogin=t
 SELECT rolname, rolsuper, rolcreatedb, rolcreaterole, rolcanlogin
@@ -81,3 +97,12 @@ FROM pg_default_acl d
      JOIN pg_namespace n ON n.oid = d.defaclnamespace
 WHERE n.nspname = '<project_schema>'
 ORDER BY objtype, privilege_type;
+
+\echo ''
+\echo '=== 6 · Connect privilege — access by grant, never by default ==='
+-- expected: <project>_migrator t, <project>_runtime t, and PUBLIC (the
+-- empty-string role, oid 0) f — the bootstrap's REVOKE CONNECT, checked
+SELECT '<project>_migrator' AS who, has_database_privilege('<project>_migrator', '<project_db>', 'CONNECT') AS connect
+UNION ALL SELECT '<project>_runtime',  has_database_privilege('<project>_runtime',  '<project_db>', 'CONNECT')
+UNION ALL SELECT 'PUBLIC',             has_database_privilege(0::oid,               '<project_db>', 'CONNECT')
+ORDER BY who;

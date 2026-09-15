@@ -1,14 +1,19 @@
 <!-- Checked against concept v1 of correctness-by-construction
-     (ADR-0003, ADR-0005 — practice-born). Provenance —
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
      archive/cbc/system-design-method agents-from-practice/
      Infrastructure-establishment/.claude/skills/references/establishment-walk.md
      @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
      import: moved — from .claude/skills/references/, beside rather
      than inside the skill directory (same normalization as the
      SKILL.md). Content verbatim below this header.
-     Changed 2026-09-03 (ADR-0013): step 7 gains the README
+     Changed 2026-09-03 (CBC ADR-0013): step 7 gains the README
      Prerequisites projection — the section arrives when the ground
-     stands, skeleton in templates/readme-prerequisites.md. -->
+     stands, skeleton in templates/readme-prerequisites.md.
+     Harvested 2026-09-11 from never-oversold (run 3 of the pure
+     seed) Step 3, read read-only (CBC ADR-0007): the inputs
+     paragraph names the return trip for missing runtime-ground
+     facts — a dated revision entry in the definition, one commit —
+     as Stage 0 now does; lived by both runs that hit it. -->
 
 # The establishment walk — step by step
 
@@ -23,8 +28,11 @@ The framing's outputs, standing: the definition's environment facts
 (the ground must honor them) and the registry's slices (whose
 adversities are the deciding constraints — **evidence needs drive
 infrastructure, not habit**). The intent is consulted at scope and
-tradeoff questions. If these aren't settled, the step isn't ready —
-stop (Stage 0 in SKILL.md).
+tradeoff questions. If the intent or the registry isn't settled, the
+step isn't ready — stop (Stage 0 in SKILL.md). If only the
+definition's runtime-ground facts are missing, the return trip is the
+move, not the stop: a dated revision entry in the definition's L1,
+one commit, then the walk begins (Stage 0, check 2).
 
 ## 1 · Decide the Execution Environment — demands first, against the lived default
 
@@ -147,9 +155,9 @@ lines a stranger's machine needs before this ground can stand,
 derived from the operator manual, carrying only what a stranger
 needs in hand and linking the manual for the rest. Skeleton:
 `templates/readme-prerequisites.md` in this skill — merge, fill,
-and the section is the run's own (ADR-0008). The stack's own
+and the section is the run's own (CBC ADR-0008). The stack's own
 prerequisite line is **not** written here: its fact is born at
-bootstrap, whose skill carries it (ADR-0013). The kit's README stub
+bootstrap, whose skill carries it (CBC ADR-0013). The kit's README stub
 ships without the section — container stays, direction goes — and
 the section arrives now because this gate made it true.
 

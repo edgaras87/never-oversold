@@ -1,5 +1,5 @@
 <!-- Checked against concept v1 of correctness-by-construction
-     (ADR-0003, ADR-0005 — practice-born). Provenance —
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
      archive/cbc/system-design-method agents-from-practice/
      Infrastructure-establishment/.claude/skills/references/postgres-setup-walkthrough.md
      @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
@@ -9,10 +9,21 @@
      Re-derived 2026-08-28: embedded file bodies (compose, bootstrap
      SQL, flyway.conf) and the verify-suite section list replaced by
      pointers to the templates/ masters beside this skill's
-     references (ADR-0008); whys and traps kept (PLAN Step 6).
+     references (CBC ADR-0008); whys and traps kept (PLAN Step 6).
      Harvested 2026-08-28: .env carries a fourth key — the runtime
      application password the app reads from the environment — from
-     checkout-system's lived .env.example (ADR-0007). -->
+     checkout-system's lived .env.example (CBC ADR-0007).
+     Harvested 2026-09-11 from never-oversold (run 3 of the pure
+     seed) Step 3, read read-only (CBC ADR-0007): two traps — step
+     6, the image's health check reporting healthy during the
+     init-time temporary server, the first query failing with "the
+     database system is shutting down"; step 9, the witness read
+     from a host without a psql client, through a client container
+     on the host network.
+     Harvested 2026-09-11, same run (CBC ADR-0007): step 7's
+     behavioral check gains the ungranted-role probe — created,
+     refused to connect, dropped — the live half of the CONNECT
+     revoke that query 6 now checks in the catalog. -->
 
 # PostgreSQL setup walkthrough — from nothing to a governed, verified ground
 
@@ -28,7 +39,7 @@ Placeholders: `<project>` — underscored in SQL identifiers
 (compose project name).
 
 The files themselves are copy-and-fill masters in `templates/`,
-beside this skill's `references/` (ADR-0008) — this walk carries the
+beside this skill's `references/` (CBC ADR-0008) — this walk carries the
 whys and the order; the templates carry the bodies and their recall
 comments. Fill a template, and the filled file is the run's own.
 The templates implement the assumptions above; if the run's decided
@@ -115,6 +126,12 @@ podman compose up -d       # first start: db created, bootstrap SQL runs
 podman compose ps          # expect: <project>-postgres Up (healthy)
 ```
 
+**A trap, lived:** the image runs the bootstrap against a
+*temporary* server and then restarts. The health check can report
+healthy during that temporary server, and a query in that window
+fails with `the database system is shutting down`. Wait a second and
+retry; `pg_isready` plus one real query is the honest "up".
+
 ## 7 · Verify — both ways, always
 
 **Catalog check:**
@@ -130,6 +147,16 @@ podman exec -i <project>-postgres \
 podman exec -it <project>-postgres \
   psql -U <project>_runtime -d <project_db> -c 'CREATE TABLE t(i int);'
 # expected: ERROR: permission denied for schema <project_schema>
+```
+
+The other refusal worth watching live — an ungranted role cannot
+connect (a probe role, dropped after):
+
+```sh
+podman exec <project>-postgres psql -U postgres -d <project_db> -c "CREATE ROLE probe LOGIN;"
+podman exec <project>-postgres psql -U probe -d <project_db> -c 'select 1'
+# expected: FATAL:  permission denied for database "<project_db>"
+podman exec <project>-postgres psql -U postgres -d <project_db> -c "DROP ROLE probe;"
 ```
 
 **Flyway as migrator** (connects, sees the schema, empty history —
@@ -160,6 +187,18 @@ container-to-container; database `<project_db>`, schema
 and nothing else** — migrator is the migration tool's identity alone;
 the bootstrap identity is an occasional admin lens, never wired in.
 Day-to-day IDE/psql inspection: runtime.
+
+**Reading from outside without a host `psql`.** The witness read —
+persisted state read from the host, as runtime, through the
+published port — needs a client. A host without one uses a client
+container on the host network; with a host `psql`, the same URL
+works directly:
+
+```sh
+podman run --rm --network host docker.io/library/postgres:17 \
+  psql "postgresql://<project>_runtime:<password>@localhost:${POSTGRES_PORT:-5432}/<project_db>" -c 'select 1'
+# expected: 1
+```
 
 These facts land in the project's **living infrastructure contract** —
 one section per service, grown at each later addition, the refusals

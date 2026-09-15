@@ -116,3 +116,32 @@
   unimproved); editing the concept too (theory is not a run's to
   correct — a chapter wrong in practice is a hand-off, not an
   edit).
+
+- 2026-09-15 The correctness-by-construction bundle updated
+  @ 7bbf49a, from 57cf22f, by copying anew from its checkout at
+  ~/PycharmProjects/engineering/concept-garden/correctness-by-
+  construction (starter/bundle/): 28 files across the five method
+  skills — cbc-framing (SKILL, workflow, the-whole-system-in-plain,
+  worked-example, the registry template), cbc-bootstrap (SKILL,
+  app-structure, the walkthrough, the harness reference, the pom
+  convention, the three templates), cbc-slice (SKILL, workflow,
+  system-readiness, worked-example), infra-establish (SKILL, the
+  walk, the role split, the setup walkthrough, the six templates),
+  infra-serve (SKILL). Compare-first: every copy here was
+  byte-identical to the pin, so nothing local is overwritten; no
+  header line of this run's is added — the bundle's own harvest
+  lines, dated 2026-09-07 to 2026-09-15 and naming this run, are
+  the record of what was taken. docs/concept/ untouched: the
+  bundle's concept did not change.
+  Why: the bundle took seventeen of this run's hand-offs and four
+  lessons the run never filed, in twenty-six harvest commits since
+  the pin, and none of it had come back; the in-place rule adopted
+  2026-09-14 would have forked every one of those files at the
+  first edit. The copy lands before any edit, so the run's copies
+  are the bundle's and the next slice runs on the harvested skill.
+  Rejected: applying the bundle's per-step delivery diffs (five,
+  in its temp/, overlapping on the harness reference — each cut
+  from a different base; a whole copy is the convention's own
+  mechanism); waiting for the retrospective's re-pin (three more
+  slices on a skill already known thin); copying only cbc-slice
+  (a partial pin answers "which version" with a list).

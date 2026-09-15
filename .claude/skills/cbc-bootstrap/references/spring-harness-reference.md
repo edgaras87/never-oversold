@@ -1,5 +1,5 @@
 <!-- Checked against concept v1 of correctness-by-construction
-     (ADR-0003, ADR-0005 — practice-born). Provenance — the
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance — the
      workbench-era doc system-bootstrap-spring-harness.reference.md
      (ai-context-system, born from the second lived pass,
      safe-reservations), handed over 2026-08-28 as an uncommitted
@@ -10,14 +10,37 @@
      walkthroughs' placeholder notation.
      Confirmed and corrected 2026-08-28 against the third lived
      pass — checkout-system's bootstrap (commits d732b53, 83262b5),
-     read read-only (ADR-0007). The third pass's corrections, taken:
+     read read-only (CBC ADR-0007). The third pass's corrections, taken:
      the container is a faithful miniature carrying the ground's
      authority split (the second pass ran the harness as the
      Testcontainers superuser); the layering is two bases, not
      three; the migration-path test joins the set; the probe
      round-trips the identity, not `select 1`; the contention pool
      is sized to the count. The second pass's virtual-threads claim
-     and failOnMissingLocations guard demoted to variation points. -->
+     and failOnMissingLocations guard demoted to variation points.
+     Harvested 2026-09-12 from never-oversold (run 3 of the pure
+     seed) Step 4, read read-only (CBC ADR-0007): variation point 8,
+     the plural-instance shape — lived once, carried as prose until
+     a second run lives it. The "two bases, not three" line above
+     holds for the single-process shape; when the definition names
+     plural instances the store leaves the base for a holder of its
+     own, and the layering is the two bases plus the holder.
+     Harvested 2026-09-12, same run (CBC ADR-0007): §1's bound
+     facts state the Boot 4 Flyway split — the engine alone on the
+     test classpath runs no auto-configuration, so the harness's
+     own call is the only migration path in tests.
+     Harvested 2026-09-12, same run (CBC ADR-0007): §3 gains a
+     third test, lived once — the runtime identity attempting DDL
+     in the miniature, refused with the ground's own message; the
+     assertion on the root cause, since Spring wraps the driver's
+     error. Code, not prose: the trap is in the three lines'
+     shape.
+     Harvested 2026-09-14 from never-oversold (run 3 of the pure
+     seed) Step 5, read read-only (CBC ADR-0007): variation point
+     9 states how the evidence asserts on a body — by path for a
+     shape, by type under a shared contract, never by substring;
+     the probe's `.contains` line annotated as the identity
+     witness, not the pattern. -->
 
 # Spring harness reference — the recurring artifacts, as code
 
@@ -43,7 +66,7 @@ which are shaped by the stack and the harness outcomes rather than by
 the problem — three projects produced them near-identically, and each
 executor's only route was reading the previous project's source. This
 file exists to make that read unnecessary. **It is a reference, not a
-template** (ADR-0008): imitated, never pasted-and-filled — copied
+template** (CBC ADR-0008): imitated, never pasted-and-filled — copied
 thoughtlessly it will be wrong in the variation points named at the
 end.
 
@@ -59,7 +82,7 @@ major version.
 |---|---|---|
 | `DatabaseIT` | test | one container per test JVM as a faithful miniature of the ground; migrations harness-side as migrator; the context connects as runtime |
 | `WebDatabaseIT` | test | the evidence tier: random-port HTTP server over the same database |
-| `MigrationPathIT` | test | the migration path proven, not assumed; the connection identity asserted |
+| `MigrationPathIT` | test | the migration path proven, not assumed; the connection identity asserted; the authority split witnessed by a refused DDL |
 | probe endpoint | **main** | one identity round-trip through the real door — scaffolding, dies at the first slice |
 | contention probe | test | many requests released at one instant, all asserted |
 
@@ -169,6 +192,13 @@ public abstract class DatabaseIT {
   different major than the ground's one-shot image — the third pass
   lived 12 against the ground's 11. They never meet: separate
   databases, separate history tables. Noted, accepted.
+- **On Boot 4 the engine enters alone, and that is load-bearing.**
+  Boot 4 moved Flyway's auto-configuration into its own module; with
+  only `flyway-core` and `flyway-database-postgresql` on the test
+  classpath, no auto-configuration runs inside the application
+  context, so the `static` call above is the only migration path in
+  tests — nothing can migrate from inside a context, at any scope.
+  Entering Boot's Flyway module instead would reopen that door.
 - **The filesystem location is deliberate**: `filesystem:` and the
   project's one home, so nothing can drift from a classpath copy.
 
@@ -221,7 +251,9 @@ public abstract class WebDatabaseIT extends DatabaseIT {
 ## 3 · The migration-path test
 
 **Outcome** (stage 4): the migration path **proven, not assumed** —
-and, riding on it, the connection identity asserted.
+and, riding on it, the connection identity asserted and the
+authority split witnessed: the runtime identity cannot change
+structure in the miniature, refused with the ground's own message.
 
 ```java
 package <base-package>;
@@ -232,6 +264,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Proves the migration path rather than assuming it: even a
@@ -267,6 +300,16 @@ class MigrationPathIT extends DatabaseIT {
                 .query(Integer.class).single();
         assertThat(applied).isZero();
     }
+
+    @Test
+    void theRuntimeIdentityCannotChangeStructure() {
+        // the ground's first refusal, held in the miniature; the store's
+        // message sits at the root of Spring's translated exception
+        assertThatThrownBy(() ->
+                jdbc.sql("CREATE TABLE <project_schema>.t (i int)").update())
+                .rootCause()
+                .hasMessageContaining("permission denied for schema <project_schema>");
+    }
 }
 ```
 
@@ -282,6 +325,14 @@ class MigrationPathIT extends DatabaseIT {
   identity. It costs three lines and catches a harness quietly wired
   as the wrong identity — the exact failure the miniature exists to
   prevent.
+- **The refused DDL witnesses the authority, not only the identity**
+  (lived once, run 3): a miniature wired as the right name but
+  without the split — the grants missing, the bootstrap SQL not
+  mounted — passes the identity assertion and fails here, with the
+  ground's own message. Its trap is in the shape: Spring translates
+  the driver's error and wraps it, so the message sits on the **root
+  cause**, not the thrown exception — assert there, or the test is
+  red for the wrong reason.
 
 ## 4 · The probe pair
 
@@ -382,6 +433,9 @@ class ContentionProbeIT extends WebDatabaseIT {
             for (Future<ResponseEntity<String>> response : responses) {
                 ResponseEntity<String> entity = response.get();
                 assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+                // a substring is enough here: the body IS the identity
+                // string, not a shape. A real body is asserted by path
+                // (variation point 9), never by substring.
                 assertThat(entity.getBody()).contains("<project>_runtime");
             }
         } finally {
@@ -466,3 +520,39 @@ class ContentionProbeIT extends WebDatabaseIT {
    together.
 7. **Package layout** (`testsupport/`, `probe/`) is the executor's —
    the layering is the outcome, the names are not.
+8. **Plural instances, when the definition names them.** The shape
+   above stages the race inside one test process. If the framing's
+   runtime ground says the system runs as more than one instance,
+   the machinery proof must cross the process boundary (walkthrough,
+   stage 5): a single-process pass proves a shape nobody runs, and a
+   lock inside the process could make it pass. Lived once (run 3,
+   never-oversold), carried here as prose until a second run lives
+   it: the container and the migration lifted out of the database
+   base into a **store holder** of their own, so a test with no
+   application context shares the store — the base keeps only the
+   datasource override, and the layering is the two bases plus the
+   holder; a **process helper** that starts one instance of the
+   build's own output on a free port against the holder's store,
+   waits for its door to answer UP with the store's component UP,
+   and stops it on close; the **probe answering its process id**
+   beside the identity, so the race asserts the pids served are
+   exactly the instances started; and the **race test running no
+   Spring context of its own**, the requests released at one
+   instant round-robin across the instances, the witness read from
+   the store as the runtime identity while the instances are still
+   up. The in-process burst stays beside it as the cheap first
+   check.
+9. **How the evidence asserts on a body** is a stack convention this
+   file left unsaid, so each run decided by habit. Lived once (run 3,
+   never-oversold): substring first, replaced mid-slice by JSON path
+   — a substring cannot tell `3` from `30`, cannot say a field exists,
+   and cannot say one is absent. The convention, decided before the
+   first slice and held after: **by path for a shape** (a small
+   test-support reader that parses a body once and answers a path —
+   `$.id`, `$.onHandCount` — so a field's value, presence and absence
+   are each one assertion); **by type when a shared API contract
+   exists** (a client type both sides compile against — none exists
+   in a system born from its invariant, so path is the default);
+   **never by substring**, even for a word — an error title is a
+   path too. The probe above is the one exception, and says why in
+   its comment: its body is the identity string itself, not a shape.

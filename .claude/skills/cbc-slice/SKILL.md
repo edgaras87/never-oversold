@@ -4,14 +4,34 @@ description: Work one slice of a correctness-driven backend - take one invariant
 ---
 
 <!-- Derives from concept v1 of correctness-by-construction
-     (ADR-0003). Provenance — archive/cbc/system-design-method
+     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
      birth-materials/.claude/skills/cbc-slice/SKILL.md
      @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
      import: none — verbatim below this header.
      Re-derived 2026-08-29: the framing exports' paths — they live
      under docs/system/ as intent.md, definition.md, registry.md
      (cbc-framing's layout re-derivation); the trigger description
-     and R1 updated to match. -->
+     and R1 updated to match.
+     Harvested 2026-09-14 from never-oversold (run 3 of the pure
+     seed) Step 5, read read-only (CBC ADR-0007): R5 at the first
+     slice is answered in the build, not at Stage 0, when no wall
+     exists yet to break; Stage 3's gate asks that every evidence
+     test was seen red with its wall absent.
+     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 1 names
+     the whats a slice meets that the framing does not carry —
+     decided as records at the opening, never absorbed; Stage 2
+     owns the surface at its minimum.
+     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 2 puts
+     the candidate owners in front of the signer as a comparison,
+     the way an ADR presents options.
+     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 1 exits
+     only when every flag on the registry row is answered by
+     name — staged as its own evidence, or removed by a definition
+     with the removal shown.
+     Harvested 2026-09-14, same run (CBC ADR-0007): the registry
+     row flips to in-progress when the specification lands, and
+     the close names the provisionals and what the slice hands to
+     later slices by name. -->
 
 # CbC slice — one invariant made real
 
@@ -38,7 +58,9 @@ Read `references/system-readiness.md` and verify against the actual repo:
    delivery, process-kill for partial failure. Check only what the slice
    needs.
 5. **R5** — the harness can fail (a deliberately broken invariant turns it
-   red).
+   red). When no wall exists yet to break — the usual first slice — R5 is
+   answered in this slice's Stage 3, the gate saying so, not a blocker
+   here.
 6. **R6** — the registry is writable, and the project has an agreed place
    to record deviations and sign-offs (the project decides its own record
    scheme; this skill only requires that one exists).
@@ -60,21 +82,40 @@ Stage 0: ready?  →  1: specify-correctness  →  2: plan  →  3: build  →  
 
 **Stage 1 — specify-correctness.** Take the invariant and adversity **from
 the registry entry and the L1 census, as written** — never re-invent them.
-Run the guarantee challenge: attack the invariant ("what would let this
+A slice may meet **whats the framing does not carry** — how the thing the
+invariant is about comes to exist at all, the door's conventions the
+adversity arrives through, what the first schema holds; the first slice
+meets most of them. Each is decided at the opening, as a record with its
+options, before the specification that depends on it — never absorbed into
+code, and never a mechanism: it is still a *what*. Then run the guarantee
+challenge: attack the invariant ("what would let this
 hold on paper yet break in fact?") until each distinct answer is a
 strategy-free guarantee. Set evidence criteria per guarantee.
 **Gate: zero mechanisms.** If the spec mentions a lock, constraint, queue,
 key, or any technology — it leaked; park it and restate as a property.
-**Human sign-off on the spec before Stage 2.**
+**And every flag on the registry row answered by name**: a flag says the
+adversity cannot be staged the normal way, so the spec says what its
+evidence is instead — staged as its own evidence, or removed by a
+definition the spec adopts, with the removal shown. A flag left unanswered
+is a warning the slice inherited and dropped. **Human sign-off on the spec
+before Stage 2.**
 
 **Stage 2 — plan.** One structural owner per guarantee, strongest wall
 available: database constraint → type system → single validated entry path
 → runtime check → code review → hope. Justify each against the *named*
 adversity ("a unique constraint defeats duplicate delivery because the
 second insert cannot physically succeed" — not "we use a unique
-constraint"). Hunt escape hatches: admin paths, raw scripts, migrations
-that bypass the wall. **Gate: no unowned guarantee** — "all the code being
-careful" is the absence of an owner. **Human sign-off on the plan before
+constraint"). Where more than one face could hold a guarantee, put the
+candidates in front of the signer as a comparison — each face, how it
+holds the guarantee, its cost — with a recommendation, the way an ADR
+presents options; a rejected face named after the choice is not a
+weighed one, and the sign-off is only real if the alternatives were in
+front of the signer. Hunt escape hatches: admin paths, raw scripts, migrations
+that bypass the wall. Name **the surface at its minimum**: only what the
+guarantees need somewhere to live — the door, the schema, the records —
+and nothing beyond; a slice is not a feature, and what enters here without
+a guarantee needing it is scope. **Gate: no unowned guarantee** — "all the
+code being careful" is the absence of an owner. **Human sign-off on the plan before
 Stage 3.**
 
 **Stage 3 — build.** Implement the enforcement — the code should be boring;
@@ -82,12 +123,26 @@ cleverness here usually means Stage 1 or 2 was skipped. Build the evidence
 tests: tests that **create** the adversity (hammer concurrently, inject the
 duplicate, kill mid-transaction) and show the invariant surviving,
 guarantee by guarantee. **Gate: every guarantee has an adversity-creating
-test, and all pass. A green happy-path suite closes nothing.**
+test, and all pass — and each was seen red with its wall absent, in a
+state that never lands in history, recorded from actual output, then
+green unchanged once the wall stood. A green happy-path suite closes nothing;
+a test never seen red is not known to be watching.** How the wall is made
+absent is the slice's choice: when this slice births the wall, the naive
+version can land first and the wall be its own diff; when the wall
+already stands, remove it on the working tree; when the wall is a rule
+over the code, plant the violation it forbids.
 
 **Stage 4 — document.** Record compactly: invariant → guarantees → each
 one's owner → each one's evidence. Close the slice in the registry as
 evidence-closed; the registry re-decides what's next (ordering is
 re-decided at each close, never assumed from the original expectation).
+The close is more than a status: the row's entry names what this slice
+left provisional and what it hands to later slices by name — a wall that
+already holds part of a later invariant, a debt a later slice must pay —
+so the re-decision has its reasons on the page. And the row goes to
+`in-progress` when the specification lands, the first project-visible
+work, not at the close: a registry that reads `chosen-next` through a
+whole build is not the source of truth for what is being worked.
 
 ## Deviations — legal, never silent
 

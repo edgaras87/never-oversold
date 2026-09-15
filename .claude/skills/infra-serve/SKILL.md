@@ -4,11 +4,16 @@ description: Add, change, or remove an infrastructure service or capability on a
 ---
 
 <!-- Checked against concept v1 of correctness-by-construction
-     (ADR-0003, ADR-0005 — practice-born). Provenance —
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
      archive/cbc/system-design-method agents-from-practice/
      Infrastructure-establishment/.claude/skills/infra-serve/SKILL.md
      @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
-     import: none — verbatim below this header. -->
+     import: none — verbatim below this header.
+     Harvested 2026-09-11 from never-oversold (run 3 of the pure
+     seed) Step 3, read read-only (CBC ADR-0007): the ground's
+     record is read wherever the repo keeps it — the establishment
+     log, or ADRs in a repo with records — so a re-entry does not
+     fail on a log the establishment never wrote. -->
 
 # Infra serve — keeping an established ground
 
@@ -19,8 +24,10 @@ joins the ground because it was easy to add.
 
 ## Stage 0 — the ground stands?
 
-Verify: the establishment log exists with the original service
-evaluation and its not-provisioned list; the infrastructure contract
+Verify: the ground's record exists with the original service
+evaluation and its not-provisioned list — the establishment log, or
+the ADR that holds the evaluation in a repo with records
+(infra-establish's Records and outputs); the infrastructure contract
 and operator manual exist; the ground currently comes up
 (`podman compose ps` or the project's equivalent — read the actual
 output). Any missing → this is not a re-entry; run infra-establish,
@@ -39,7 +46,8 @@ stands and the request is refused with that reasoning.
    not a need; refuse anticipation even when cheap. Removals and
    version changes take the same question in reverse: what need does
    the current shape no longer serve?
-2. **Decision.** One entry in the establishment log: the need, the
+2. **Decision.** One entry in the ground's record — a log entry, or
+   an ADR in a repo with records: the need, the
    service (or change) that answers it, what was considered and
    excluded with each exclusion's why. The user's confirmation is the
    verdict.

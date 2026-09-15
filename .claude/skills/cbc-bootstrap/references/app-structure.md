@@ -1,10 +1,10 @@
 <!-- Checked against concept v1 of correctness-by-construction
-     (ADR-0003, ADR-0005 — practice-born). Provenance — authored in
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance — authored in
      this repo 2026-08-29: the default is harvested from
      checkout-system's lived shape across its nine slices, read
-     read-only (ADR-0007); the alternatives' vocabulary is authored
+     read-only (CBC ADR-0007); the alternatives' vocabulary is authored
      here and lived by no run of this concept — each entry says so.
-     A reference on ADR-0008's imitated side: a decision surface,
+     A reference on CBC ADR-0008's imitated side: a decision surface,
      nothing to paste or fill. -->
 
 # App structure — the decision surface at bootstrap
@@ -92,6 +92,6 @@ endorsement. Deeper trade-off talk is a conversation, not this doc.
 - **Pros/cons essays** — re-derivable in conversation at the moment
   of choice, and they would stale; the two lines above are for
   recall and shared vocabulary only.
-- **Application code** — the executor's, always (ADR-0008); the
+- **Application code** — the executor's, always (CBC ADR-0008); the
   harness reference is the only code-bearing exception, and it
   earned that.

@@ -1,5 +1,5 @@
 <!-- Checked against concept v1 of correctness-by-construction
-     (ADR-0003, ADR-0005 — practice-born). Provenance —
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
      archive/cbc/system-design-method agents-from-practice/
      system-bootstrap/.claude/skills/cbc-bootstrap/references/spring-pom-convention.md
      @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on

@@ -1,5 +1,5 @@
 <!-- Derives from concept v1 of correctness-by-construction
-     (ADR-0003). Provenance — archive/cbc/system-design-method
+     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
      birth-materials/.claude/skills/cbc-framing/references/the-whole-system-in-plain.md
      @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
      import: none — verbatim below this header. -->

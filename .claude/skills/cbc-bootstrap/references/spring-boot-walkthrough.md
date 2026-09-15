@@ -1,5 +1,5 @@
 <!-- Checked against concept v1 of correctness-by-construction
-     (ADR-0003, ADR-0005 — practice-born). Provenance —
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
      archive/cbc/system-design-method agents-from-practice/
      system-bootstrap/.claude/skills/cbc-bootstrap/references/spring-boot-walkthrough.md
      @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
@@ -8,20 +8,42 @@
      (RANDOM_PORT alone provides no bean;
      @AutoConfigureTestRestTemplate required) — from
      checkout-system's decision record of 2026-08-27, in the run's
-     own wording (ADR-0007).
+     own wording (CBC ADR-0007).
      Re-derived 2026-08-28: stage 3's config skeleton and stage 4's
      test-runtime properties now point at copy-and-fill masters in
-     templates/ beside this skill's references (ADR-0008); whys and
+     templates/ beside this skill's references (CBC ADR-0008); whys and
      traps kept (PLAN Step 6).
      Re-derived 2026-08-28: stages 4 and 5 point at
      spring-harness-reference.md — the recurring harness artifacts
      as code, confirmed by the third lived pass; a reference on
-     ADR-0008's imitated side, never pasted. Outcomes and traps
+     CBC ADR-0008's imitated side, never pasted. Outcomes and traps
      stay mastered here.
      Re-derived 2026-08-29: stage 1 carries the application-
      structure decision beside the stack decision, routed to
      app-structure.md — the decision surface: lived default,
-     decision rule, vocabulary of unlived alternatives. -->
+     decision rule, vocabulary of unlived alternatives.
+     Harvested 2026-09-12 from never-oversold (run 3 of the pure
+     seed) Step 4, read read-only (CBC ADR-0007): stage 4's Ryuk
+     trap and recall item 6 rewritten for Testcontainers 2.x — the
+     properties file reads no disable key, Ryuk ran unmodified
+     under rootless podman 5.8, and the switch for a host where it
+     fails is the environment variable.
+     Harvested 2026-09-12, same run (CBC ADR-0007): stage 5 gains
+     the plural-instance condition and the lived realization —
+     when the definition names more than one instance, the proof
+     is N ≥ 2 instances as separate processes, forked from the
+     build's own output with the runtime classpath the dependency
+     plugin writes before the tests.
+     Harvested 2026-09-12, same run (CBC ADR-0007): stage 3's fact
+     gains its flip side — a missing secret does not stop the app;
+     Boot binds the unresolved placeholder as the literal and only
+     health tells. Recall item 11.
+     Harvested 2026-09-12, same run (CBC ADR-0007): stage 4's
+     harness bullet — the Flyway engine enters, not Boot's Flyway
+     module.
+     Harvested 2026-09-12, same run (CBC ADR-0007): stage 2's
+     rename trap says when it bites — Initializr on Boot 4 already
+     emits the new names. -->
 
 # Spring Boot bootstrap walkthrough — outcomes and lived traps
 
@@ -35,7 +57,7 @@ This doc carries **required outcomes** (what must be true, the how is
 yours) and **lived traps** (exact facts about this stack and environment).
 It carries no code to copy. Its config files, though, are
 copy-and-fill masters in `templates/` beside this skill's
-`references/` (ADR-0008); they implement the stack line above, and
+`references/` (CBC ADR-0008); they implement the stack line above, and
 if the run's decided stack differs you are **off-template**: derive
 from the outcomes here, record the deviation in the run's log, and
 expect it to harvest. **The project's requirements document wins over
@@ -76,7 +98,8 @@ announces **Java 21** (align IDE and terminal JDK if not); health UP.
 **Traps:**
 - Boot 4 renames the web starter to the web-MVC name, and pairs runtime
   starters with `-test` companions (state the pairing rule once as a pom
-  comment).
+  comment). Initializr on Boot 4 already emits both, so the trap bites
+  when a pom is written or translated by hand, not when it is generated.
 - A `4.x.y.RELEASE`-style coordinate does not resolve on this line — the
   version is plain `4.x.y`.
 
@@ -103,6 +126,19 @@ grows under its own key, never in the template.
 Fact: the test run stays green with the ground down — the pool connects
 lazily; degradation shows only in health. Correct, not a gap.
 
+**Trap — a missing secret does not stop the app.** The flip side of the
+same fact, lived: started with nothing exported, the app *starts* —
+Boot's configuration binding leaves an unresolvable `${VAR}` as the
+literal string, so the literal becomes the password; the store logs
+`password authentication failed`, health answers DOWN with the db
+component DOWN, and nothing else says so. Consequences: the plain
+context test needs no environment and no test property (a property
+added "so the placeholder resolves" is dead — verify by removing it);
+and the README's Run section names the symptom. Whether the app should
+refuse to start without its secret is a *what*, not a wiring detail —
+decided at Stage 1 by name (run 3: not at bootstrap, at release), never
+absorbed here.
+
 ## 4. Stand up the evidence harness
 
 ### The test runtime (once per machine — operator-manual territory)
@@ -114,9 +150,17 @@ enable the user socket unit, point the library at it.
 1. `~/.testcontainers.properties` binds **only from `$HOME`** — never the
    project root (lived as a long "no valid Docker environment" hunt).
    Copy-and-fill: `templates/testcontainers.properties`.
-2. Ryuk misbehaves under rootless podman; disabling it is the accepted
-   trade — a hard-killed test JVM can strand a throwaway container,
-   cleaned with `podman ps` / `rm -f`.
+2. Ryuk, the library's reaper, runs fine under rootless podman on the
+   Testcontainers 2.x line (lived: podman 5.8, Testcontainers 2.0.5,
+   both throwaways reaped within seconds of the JVM's exit) — keep it
+   on. Older guidance disables it with a `ryuk.disabled=true` line in
+   the properties file; 2.x does not read that key, the line is inert.
+   If Ryuk fails on a host, the switch is
+   `TESTCONTAINERS_RYUK_DISABLED=true` in the environment, never a
+   properties line; a hard-killed test JVM can then strand a
+   throwaway — `podman ps` shows it by image (`postgres:<major>` with
+   a random name, and `testcontainers/ryuk`); remove those and only
+   those with `podman rm -f <name>`.
 3. The socket unit can report *active (listening)* with the socket file
    missing. Active is not enough: stop socket+service user units, start
    the socket again, confirm the file exists.
@@ -127,7 +171,9 @@ enable the user socket unit, point the library at it.
 - **Test-scope capabilities only**: drive a real PostgreSQL container from
   tests; integrate with the Spring test context; run migrations
   **harness-side**. Flyway is a harness tool — at runtime scope it would
-  undo step 3's claim.
+  undo step 3's claim. On Boot 4 the engine enters, not Boot's Flyway
+  module: the engine alone runs no auto-configuration, so the harness's
+  own call is the only migration path (reference, §1).
 - **One container per test JVM**, same major version as the ground,
   started once and shared, lifecycle explicitly the harness's own.
 - **Migration runs immediately after container start, before any app
@@ -184,6 +230,35 @@ never pasted**; read its variation points before writing a line.
 - The probe pair as lived code — endpoint, barrier test, and the
   scheduled-death javadoc — is in `spring-harness-reference.md`, same
   imitate-don't-paste rule.
+- **When the definition's runtime ground names plural instances**, the
+  in-process burst is the cheap first check and does not close the
+  proof: a lock inside the process would make it pass while two real
+  instances still oversell, so it proves a shape nobody runs. The proof
+  is then **N ≥ 2 instances of the system as separate processes** against
+  one store, each addressed through its own door, requests released at
+  one instant across all of them, every response asserted, and the
+  witness read from the store from outside — never through an instance.
+  Only a mechanism in the store, or a protocol every process honours,
+  can pass it. The reference carries the shape as its variation point 8.
+
+**Lived realization (run 3):** the instances are **forked from the
+build's own output** — `target/classes` plus exactly the runtime
+classpath, which the dependency plugin writes to a file at
+`process-test-classes` — because the test phase runs before packaging,
+so an image of the system would need a second command. No test-scope
+code runs inside an instance (verify: the written classpath carries no
+flyway, testcontainers, junit or `-test` artifact). Each instance is
+started with the three environment facts a real instance gets — the
+store's port, the runtime password, its own listen port — and nothing
+else from the harness; its output goes to a log file under `target/`.
+Free ports come from a bound-and-released socket; the up signal is
+health UP with the store's component UP through the instance's own
+door; the harness owns the lifecycle — started before the race,
+closed in `finally`, destroy then forcibly, none left running on a
+failed test. The probe answers its process id beside the identity, so
+the race asserts the pids served are exactly the instances started.
+Traps met: none bit — three instances, 120 requests at one instant,
+no port collision across runs.
 
 **Verified:** the standard test command green.
 
@@ -205,7 +280,8 @@ at the first slice.
 4. `~/.testcontainers.properties` binds only from `$HOME`.
 5. Podman socket can be *active* with the file missing — restart user
    units, confirm the file.
-6. Ryuk off under rootless podman; accept occasional stranded throwaways.
+6. Ryuk stays on under rootless podman on 2.x; `ryuk.disabled` in the
+   properties file is inert — if it fails, the environment variable.
 7. No dummy baseline migration; the history table is born by a
    zero-migration run.
 8. Flyway is harness-only; at runtime scope it undoes the ground's
@@ -214,3 +290,6 @@ at the first slice.
    resolve.
 10. Environment facts notation-neutral — never compose placeholder syntax
     in application config or authored requirement text.
+11. A missing secret does not stop the app — the unresolved placeholder
+    binds as the literal; only health (`db` DOWN) tells. Fail-fast is a
+    *what*, decided by name.

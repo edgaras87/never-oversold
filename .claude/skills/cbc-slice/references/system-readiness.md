@@ -1,11 +1,16 @@
 <!-- Derives from concept v1 of correctness-by-construction
-     (ADR-0003). Provenance — archive/cbc/system-design-method
+     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
      birth-materials/.claude/skills/cbc-slice/references/system-readiness.md
      @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
      import: none — verbatim below this header.
      Re-derived 2026-08-29: the framing exports' paths — they live
      under docs/system/ as intent.md, definition.md, registry.md
-     (cbc-framing's layout re-derivation); R1 updated to match. -->
+     (cbc-framing's layout re-derivation); R1 updated to match.
+     Harvested 2026-09-14 from never-oversold (run 3 of the pure
+     seed) Step 5, read read-only (CBC ADR-0007): R5 says how the
+     first slice answers it — in its build, the evidence seen red
+     with the wall absent — when there is no wall to break at its
+     Stage 0. -->
 
 # System readiness — the contract between framing and slicing
 
@@ -70,6 +75,13 @@ harness can't create it, the completion gate is physically unrunnable and
 Self-test: break an invariant deliberately (drop the constraint, comment
 the guard — on a branch) and confirm the adversity test goes red, then
 restore. A harness that has never failed proves nothing when it passes.
+
+When no wall exists yet to break — the usual first slice, unless the
+bootstrap or an inherited schema already carries one — this check cannot
+be answered at Stage 0. It is answered inside that slice's build instead:
+the evidence is seen red with the wall absent before the wall stands,
+recorded from actual output. The slice's gate says so at its opening;
+readiness is signed with R5 owed there.
 
 ## R6 — The run's record surfaces exist
 

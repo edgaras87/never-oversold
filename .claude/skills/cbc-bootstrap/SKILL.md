@@ -4,15 +4,28 @@ description: Bootstrap a framed project's system on an established ground - deci
 ---
 
 <!-- Checked against concept v1 of correctness-by-construction
-     (ADR-0003, ADR-0005 — practice-born). Provenance —
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
      archive/cbc/system-design-method agents-from-practice/
      system-bootstrap/.claude/skills/cbc-bootstrap/SKILL.md
      @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
      import: none — verbatim below this header.
-     Changed 2026-09-03 (ADR-0013): Stage 5 gains the README Run and
+     Changed 2026-09-03 (CBC ADR-0013): Stage 5 gains the README Run and
      Test projection — the sections (and the stack's Prerequisites
      line) arrive when the harness is real, skeleton in
-     templates/readme-run-test.md. -->
+     templates/readme-run-test.md.
+     Harvested 2026-09-12 from never-oversold (run 3 of the pure
+     seed) Step 4, read read-only (CBC ADR-0007): Stage 2 names no
+     directory for the requirements document — the path is the
+     project's records' to choose; both lived runs used
+     docs/construction/.
+     Harvested 2026-09-12, same run (CBC ADR-0007): Stage 1's
+     proven-adversity bullet reads the instance count from the
+     definition's runtime ground — plural instances there mean the
+     machinery proof crosses the process boundary.
+     Harvested 2026-09-12, same run (CBC ADR-0007): Stage 1's
+     exclusions name fail-fast on a missing secret, decided at
+     release unless the run says otherwise — so it is not
+     re-decided mid-set when the trap is met. -->
 
 # cbc-bootstrap — bring a framed system to life
 
@@ -77,6 +90,11 @@ Reason out and present for confirmation, each with its why:
   words — the promise's named adversity class and the first slice's shape
   (e.g. contention, duplicate delivery). The harness proves the *machinery*
   on that one class alone; every other class is staged at its own slice.
+  Read, too, **from how many instances** the adversity comes: the
+  definition's runtime ground says whether the system runs as more than
+  one instance, and if it does, a single-process pass proves a shape
+  nobody runs — the proof must cross the process boundary (the stack
+  walkthrough's stage 5). Decide it here, by name, with its why.
 - **The initialization identity**: group (the owner's namespace — ask, never
   invent), artifact (the project's name), base package (hyphens dropped),
   packaging, language version.
@@ -97,14 +115,20 @@ Reason out and present for confirmation, each with its why:
   scaffolding, marked to die at the first slice); no persistence schema (no
   table before its invariant); no other adversity classes; no auth unless a
   slice demands identity at the door; no delivery machinery beyond locally
-  runnable and testable.
+  runnable and testable; **no fail-fast on a missing secret** — lived: the
+  app starts with the unresolved placeholder as its password and only
+  health tells; the only operator at bootstrap is the reviewer, the
+  harness accepts an instance only on health with the store UP, and the
+  release gate's clean-machine test is where a forgotten export becomes
+  a real need — decided there, unless this run decides otherwise by name.
 
 **Gate: the human confirms the decisions before Stage 2.**
 
 ## Stage 2 — compose the requirements document
 
-Write `internal/construction/bootstrap-requirements.md` (or the project's
-own equivalent path) in the project's language:
+Write `bootstrap-requirements.md` at the path the project's records
+choose — beside the builder's other manuals; both lived runs put it at
+`docs/construction/` — in the project's language:
 
 - §1 the initialization identity
 - §2 the capabilities, each with its why
@@ -185,7 +209,7 @@ Then write the exit records in the project's own docs: the milestone
 certified, run and test commands, operator manual linked, an honest "no
 business behavior yet", the probe's death scheduled at the first slice.
 
-The certified facts also project into the README (ADR-0013): the
+The certified facts also project into the README (CBC ADR-0013): the
 **Run** and **Test** sections, plus the stack's line joining the
 Prerequisites section the establishment opened — merged and filled
 from `templates/readme-run-test.md`. Run ends in the lived proof of

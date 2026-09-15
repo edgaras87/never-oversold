@@ -1,12 +1,17 @@
--- Template — master copy in correctness-by-construction (ADR-0008);
--- checked against concept v1 (ADR-0003, ADR-0005 — practice-born).
+-- Template — master copy in correctness-by-construction (CBC ADR-0008);
+-- checked against concept v1 (CBC ADR-0003, CBC ADR-0005 — practice-born).
 -- Extracted 2026-08-28 from checkout-system's lived
 -- infrastructure/postgres/init/bootstrap.sql (PLAN Step 6). Changes
 -- on extraction: identities and local-dev passwords generalized to
 -- placeholders (<project>, <project_db>, <project_schema>); the
 -- run-local model path and ADR references generalized to neutral
 -- wording. Copy into a run at the same path and fill; the filled
--- file is the run's own (ADR-0008).
+-- file is the run's own (CBC ADR-0008).
+-- Harvested 2026-09-11 from never-oversold (run 3 of the pure seed)
+-- Step 3, read read-only (CBC ADR-0007): the comment at the role names
+-- says which naming case this template ships — the prefix is the
+-- shared-cluster case; a dedicated cluster takes bare names, as the
+-- run did on the role-split reference's own rule.
 
 -- infrastructure/postgres/init/bootstrap.sql
 --
@@ -36,7 +41,12 @@
 --   Identities, schema, and privilege boundaries only — no tables, no
 --   application objects; those arrive solely through the migration tool.
 
--- the two identities of the authority split
+-- the two identities of the authority split. Prefixed names are the
+-- shared-cluster case the role-split reference describes (roles are
+-- cluster-wide). One dedicated cluster in one container — the lived
+-- normal — takes the model's bare names, migrator and runtime; then
+-- the verify suite's role filter becomes an explicit IN list, and the
+-- other templates' <project>_ role references drop the prefix too.
 CREATE ROLE <project>_migrator LOGIN PASSWORD '<project>_migrator_localdev';
 CREATE ROLE <project>_runtime  LOGIN PASSWORD '<project>_runtime_localdev';
 
