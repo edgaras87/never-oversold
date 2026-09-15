@@ -76,7 +76,7 @@ ground proved the facility refuses — an advisory lock held by one
 session, a second cancelled by `lock_timeout` — and chose that
 probe because it needs no schema, not because it is preferred. No
 face is endorsed here: a slice that needs the facility chooses its
-face in its own specification, with its why. The contract promises
+face in its own plan, with its why. The contract promises
 only that the facility exists and that a refused writer sees an
 error, never a silent success. Multi-statement transactions commit
 atomically; that too is inventory.
