@@ -52,10 +52,12 @@
 
 ## Later / someday
 
-<!-- Hand-offs the bundle has taken are gone from here; the bundle's
-     harvest lines in each skill's header and this repo's decisions
-     log (2026-09-15, @ 7bbf49a) are the record. What stays is for
-     the playbook, the handbook, the kit, or a later trigger. -->
+<!-- Hand-offs the bundle has taken are gone from here; this repo's
+     decisions log is the record (2026-09-15 @ 7bbf49a for the SL-1
+     harvest, 2026-09-17 for the in-place answer) — the bundle's
+     harvest lines in each skill's header end with the next copy,
+     which opens on instruction only. What stays is for the
+     playbook, the handbook, the kit, or a later trigger. -->
 
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
@@ -75,8 +77,10 @@
       ADR-0035 waits on this run's report). The fifth, skills
       edited between two pins (2026-09-14), the handbook took for
       its conventions 2026-09-15 (HANDBOOK ADR-0038, provisional on
-      the first edit through a re-pin); the bundle's answer for the
-      method skills is still owed.
+      the first edit through a re-pin); the bundle answered for the
+      method skills 2026-09-17, taking the seven rules as this run
+      wrote them, so the rules file stays as the text that governs
+      them (decisions.md, that date).
 - [ ] Retrospective (cbc-framing, change-plans): framing steps ran
       as commit series — draft, one revision per reviewer question,
       verdict — so each question's effect is a diff. If it held,
@@ -91,15 +95,6 @@
       kit's stub and agent-arrangement's test 2 (a line with a
       moment goes where the moment is) are the handbook's half,
       still open.
-- [ ] Hand-off to the CbC bundle (CBC ADR-0007, the harvest
-      section): a run's copy may already carry the change, with its
-      own dated header line, under the run's in-place rule (above).
-      The harvest then diffs the copy against the pin and keeps the
-      run's provenance in the master's harvest line, taking or
-      declining each hunk; the verdict returns as a document or as
-      the header line the run sees at its next copy. ADR-0007's
-      mechanics already do this — its first lived case was a run
-      editing its local walkthrough — the rule does not yet say so.
 - [ ] Owed to the handbook, whenever it happens: the first edit of a
       skill copy that goes through a re-pin, reported as one TODO
       line per convention-lifecycle §8 step 4 — HANDBOOK ADR-0038 is
@@ -127,7 +122,12 @@
       specification"; a face is a mechanism and belongs to the
       slice's plan (fixed here, 6c986bd). If the contract should
       carry a facility paragraph, the skill says so and where the
-      face is chosen.
+      face is chosen. Bundle's answer 2026-09-17: held, not
+      declined — the wording fix was this run's and correct, but one
+      instance is not a shape; it watches for a second run reaching
+      the same gap unprompted, and reads SL-2 leaning on this
+      paragraph as evidence the first slice needed it. Say so if
+      SL-2 does.
 - [ ] Held at the bundle, not here — recorded so the trail is
       whole: the absence rung in the enforcement hierarchy (a
       concept question, in the bundle's Later with a trigger: a
