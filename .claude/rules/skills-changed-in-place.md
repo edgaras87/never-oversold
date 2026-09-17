@@ -12,11 +12,12 @@ paths:
      handbook took the rules into convention-lifecycle §8 step 4
      (HANDBOOK ADR-0038, at kit 9e28143), and that copy governs them
      — read it there. This file stands only for the bundle's five
-     method skills, which the handbook left to the bundle, until
-     the bundle answers the hand-off in TODO Later; then it follows
-     the answer or goes. In force here and on trial; provisional in
-     the same sense the handbook's text is: no edit has yet gone
-     through a re-pin.
+     method skills, which the handbook left to the bundle; the
+     bundle answered 2026-09-17 (decisions.md, that date) by taking
+     these seven rules as they stand here, so the file stays and
+     this text is the one that governs them. In force here and on
+     trial; provisional in the same sense the handbook's text is:
+     no edit has yet gone through a re-pin.
      Outside it: `docs/concept/` (theory; the skills are derived from
      it upstream, no step here runs a chapter, its lessons are prose
      hand-offs); the stubs and fills — the entry file, the records'
@@ -33,8 +34,12 @@ paths:
    foresee — never a speculation. The edit asks a question or demands
    an outcome any project would want — never this project's answer,
    never anything project-specific. A dated line in the skill's own
-   header comment says what changed and which step found it. One
-   entry in `.claude/decisions.md` per edit, or per skill per step.
+   header comment says what changed and which step found it — from
+   the next copy on there is no header block to join, the bundle
+   having deleted its own (2026-09-17), so the block is this run's
+   alone with no counterpart upstream, and rule 5 takes it away as
+   it always did. One entry in `.claude/decisions.md` per edit, or
+   per skill per step.
 
 3. **What this project needs that no skill should carry goes into
    the project's records** where that kind of thing already lives —
@@ -52,10 +57,13 @@ paths:
    declines each hunk in its own words, and writes its reply. The
    line is done at the re-pin.
 
-5. **After the reply, the re-pin.** The source's new version is copied
-   whole; one decisions entry carries the new hash; the copy is
-   pristine again; the TODO line leaves with the hash. A declined
-   edit is gone with the re-pin — never edited back in. If the
+5. **After the reply, the re-pin.** The source's new version arrives
+   staged in this repo's own `temp/` — a directory named for the
+   hash, the reply beside it — is read and diffed there against
+   this run's own delivery commit, then copied whole and the
+   staging deleted; one decisions entry carries the new hash; the
+   copy is pristine again; the TODO line leaves with the hash. A
+   declined edit is gone with the re-pin — never edited back in. If the
    project still needs what was declined, that need goes into
    records per rule 3, and the decisions entry says so.
 

@@ -266,3 +266,44 @@
   Rejected: keeping the rules file in force for the conventions
   beside the convention (two texts for one rule); deleting it
   outright (the bundle's skills still have no source text for it).
+
+- 2026-09-17 The bundle answered this run's in-place hand-off (CBC
+  ADR-0007, the harvest section), read against the pin this run
+  still holds @ 7bbf49a. Taken as written: the seven rules of
+  .claude/rules/skills-changed-in-place.md stand in this run's own
+  words, rule 7's reversal included, and the bundle's harvest now
+  says a change may arrive already made — it diffs the copy against
+  the pin and takes, reshapes or declines each hunk. Nothing this
+  run holds changes; no edit has fired yet.
+  Declined, and replaced: half the channel this run offered — the
+  verdict as the header line the run sees at its next copy. Every
+  provenance and harvest header in the bundle's skills, references
+  and templates is deleted; from the next copy on a file opens on
+  instruction only. The verdict arrives instead as a document,
+  written after reading this repo and staged beside the files it
+  governs: not a path into the bundle's tree — this run cannot read
+  it and should not, since it holds the bundle's readings of this
+  run's work — but the next version staged in this repo's own
+  temp/, in a directory named for the hash, with the note beside
+  it; read and diffed there against this run's delivery commit,
+  then taken whole and the staging deleted.
+  Held, not declined: the infra-establish facility paragraph (TODO
+  Later). One instance is not a shape; the trigger the bundle
+  watches for is a second run reaching the same gap unprompted, and
+  SL-2 leaning on this one counts as evidence.
+  This run's own two calls: the rules file keeps its seven rules
+  unreworded, gaining only what the answer made true — the file's
+  fate settled, rule 2's line now having no counterpart upstream,
+  rule 5's copy arriving staged; and the note itself stays out of
+  history (temp/ is ignored), its verdict carried here and in TODO.
+  Why: the bundle took the rules because they were the clearer
+  statement, so restating them in the answer's words would trade an
+  exact text for a translation — the same argument rule 7 was
+  reversed on; and a verdict absorbed into the records it changes
+  is read, while a verdict filed whole is a second text that ages.
+  Rejected: rewriting the rules file now for the header-less master
+  (that copy has not arrived — the pin is still 7bbf49a, and a rule
+  describing files this run does not hold would lie until the
+  re-pin); committing the note under docs/ as the record (a second
+  text for a verdict already absorbed, and the bundle's own record
+  of it is better).
