@@ -141,21 +141,30 @@
       SL-2 does.
 - [ ] Hand-off to the CbC bundle: they asked to hear where the
       update procedure of 2026-09-18 fell short, it being the first
-      run of it as a note and a copy together. Two places, both of
-      them things no diff could have told us. The note named two
-      citations of convention-lifecycle §8 step 4 going stale and
-      there were three — it did not see this repo's own CLAUDE.md,
-      which carries the same pointer in its own prose. And moving
-      the conventions onto the bundle's channel makes the receipt
-      branch a live question the note leaves unasked: the kit's
-      `kit-<hash>` receipt was the compare for those four files.
-      This run answered it for itself — no receipt for a pristine
-      copy, its compare being the delivery commit, and the kit's
-      next receipt simply carrying four fewer files (decisions.md,
-      2026-09-18) — and says so in case the bundle wants an answer
-      of its own in the procedure. Everything else in the note held:
-      the strip was the strip, and the one structural change was
-      called out exactly where a diff would have hidden it.
+      run of it as a note and a copy together. Three places, none of
+      them reachable by a diff — which is the point: the note was
+      the only thing that could have carried them.
+      The stale citations were miscounted. The note named two and
+      there were four: it did not see this repo's own CLAUDE.md,
+      which carries the same pointer in its prose, nor decisions.md's
+      header, which cites the registry section by its old number and
+      so escapes a search for §8 as well (§7, now §2).
+      Moving the four conventions onto the bundle's channel makes
+      the receipt branch a live question the note leaves unasked:
+      the kit's `kit-<hash>` receipt was the compare for those
+      files. This run answered it for itself — no receipt for a
+      pristine copy, its compare being the delivery commit, and the
+      kit's next receipt simply carrying four fewer files
+      (decisions.md, 2026-09-18) — and says so in case the bundle
+      wants an answer of its own in the procedure.
+      The same move reaches inside the convention's own text, which
+      the note does not work through: §2's last bullet answers "is
+      there newer, and what changed" with a diff of the handbook's
+      kit, no longer where this project would look.
+      Everything else held. The strip was the strip — checked here
+      by stripping comments from both sides, not taken on trust —
+      and the renumbering was called out exactly where a diff would
+      have hidden it.
 - [ ] Held at the bundle, not here — recorded so the trail is
       whole: the absence rung in the enforcement hierarchy (a
       concept question, in the bundle's Later with a trigger: a
