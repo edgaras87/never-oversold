@@ -75,7 +75,14 @@ and the note was the only thing that could have. Its own step, not
 folded into 4: a stale citation is bookkeeping this delivery forced, a
 hand-off is a request outward.
 
-**6. `docs(agent): close change-plan for the re-pin`**
+**6. `docs: TODO carries the subject-style deviation`**
+The decision below says this set matches the repo's declarative
+subjects rather than the convention's imperative test. Added as a
+step, not left in this file, because this file is deleted at the
+close and the retrospective reads `TODO.md`. One line in Later, where
+the other retrospective items are.
+
+**7. `docs(agent): close change-plan for the re-pin`**
 Deletes this file. Body records what diverged.
 
 Then the branch `housekeeping-bundle-c3a3d97` fast-forwards into main,
@@ -121,4 +128,7 @@ commit in this log since Step 1 is declarative instead ("the bundle
 takes the in-place rule"). The deviation is the repo's, not this
 set's, and this set matches it rather than leaving six commits that
 read unlike their neighbours. Worth a retrospective line — either the
-convention bends or the log does — but not worth opening here.
+convention bends or the log does — and step 6 is that line. Judged
+the other way when this plan was written, and reversed at the close:
+a note that lives only in a deleted file's history is a note nobody
+finds.
