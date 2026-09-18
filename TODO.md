@@ -97,7 +97,7 @@
       still open.
 - [ ] Owed to the handbook, whenever it happens: the first edit of a
       skill copy that goes through a re-pin, reported as one TODO
-      line per convention-lifecycle §8 step 4 — HANDBOOK ADR-0038 is
+      line per convention-lifecycle §3 step 4 — HANDBOOK ADR-0038 is
       provisional on that report (its decision 5), and names beside
       it as open: work done by a step that ran on an edit the source
       later declined.
