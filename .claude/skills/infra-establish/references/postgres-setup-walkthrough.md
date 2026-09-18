@@ -1,30 +1,3 @@
-<!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
-     archive/cbc/system-design-method agents-from-practice/
-     Infrastructure-establishment/.claude/skills/references/postgres-setup-walkthrough.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
-     import: moved — from .claude/skills/references/, beside rather
-     than inside the skill directory (same normalization as the
-     SKILL.md). Content verbatim below this header.
-     Re-derived 2026-08-28: embedded file bodies (compose, bootstrap
-     SQL, flyway.conf) and the verify-suite section list replaced by
-     pointers to the templates/ masters beside this skill's
-     references (CBC ADR-0008); whys and traps kept (PLAN Step 6).
-     Harvested 2026-08-28: .env carries a fourth key — the runtime
-     application password the app reads from the environment — from
-     checkout-system's lived .env.example (CBC ADR-0007).
-     Harvested 2026-09-11 from never-oversold (run 3 of the pure
-     seed) Step 3, read read-only (CBC ADR-0007): two traps — step
-     6, the image's health check reporting healthy during the
-     init-time temporary server, the first query failing with "the
-     database system is shutting down"; step 9, the witness read
-     from a host without a psql client, through a client container
-     on the host network.
-     Harvested 2026-09-11, same run (CBC ADR-0007): step 7's
-     behavioral check gains the ungranted-role probe — created,
-     refused to connect, dropped — the live half of the CONNECT
-     revoke that query 6 now checks in the catalog. -->
-
 # PostgreSQL setup walkthrough — from nothing to a governed, verified ground
 
 The end-to-end *do this* for one service, lived by two projects.

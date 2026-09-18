@@ -4,38 +4,7 @@ description: Establish a framed backend project's infrastructure ground - decide
 ---
 
 <!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
-     archive/cbc/system-design-method agents-from-practice/
-     Infrastructure-establishment/.claude/skills/SKILL.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
-     import: moved — the archive keeps this file at
-     .claude/skills/SKILL.md, disagreeing with its own STATUS.md
-     layout diagram and unregisterable as a named skill; normalized
-     to the diagram's layout. One addition: the Records-and-outputs
-     defaults section at the end, absorbed from the
-     agents/groundskeeper.md file left behind (CBC ADR-0006). Content
-     otherwise verbatim below this header.
-     Re-derived 2026-08-29: the framing exports' paths — they live
-     under docs/system/ as intent.md, definition.md, registry.md
-     (cbc-framing's layout re-derivation); Stage 0 updated to
-     match.
-     Changed 2026-09-03 (CBC ADR-0013): records-and-outputs gains the
-     README Prerequisites projection — fired at the exit, skeleton
-     in templates/readme-prerequisites.md; the walk's step 7 carries
-     the direction.
-     Harvested 2026-09-11 from never-oversold (run 3 of the pure
-     seed) Step 3, read read-only (CBC ADR-0007): the records
-     section states the record-keeping-repo shape — no
-     establishment log; decisions as ADRs, the walk in the devlog,
-     expected results in the verify suite and the operator manual,
-     the mapping note in the environment ADR — and the layout both
-     lived runs used: compose and env files at the root, the
-     runnable ground under infrastructure/, the manuals under
-     docs/. The log stays for a repo without records.
-     Harvested 2026-09-11, same run (CBC ADR-0007): Stage 0's check
-     2 names the return trip — a definition without runtime-ground
-     facts gains them by a dated revision entry in L1, one commit —
-     instead of "stop"; lived by both runs that hit it. -->
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). -->
 
 # Infra establish — from no infrastructure to a governed, verified ground
 

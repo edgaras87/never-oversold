@@ -1,10 +1,4 @@
-<!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance — authored in
-     this repo 2026-08-29: the default is harvested from
-     checkout-system's lived shape across its nine slices, read
-     read-only (CBC ADR-0007); the alternatives' vocabulary is authored
-     here and lived by no run of this concept — each entry says so.
-     A reference on CBC ADR-0008's imitated side: a decision surface,
+<!-- A reference on CBC ADR-0008's imitated side: a decision surface,
      nothing to paste or fill. -->
 
 # App structure — the decision surface at bootstrap

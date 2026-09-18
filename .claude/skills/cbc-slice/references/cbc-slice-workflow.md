@@ -1,25 +1,3 @@
-<!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
-     birth-materials/.claude/skills/cbc-slice/references/cbc-slice-workflow.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
-     import: none — verbatim below this header.
-     Harvested 2026-09-14 from never-oversold (run 3 of the pure
-     seed) Step 5, read read-only (CBC ADR-0007): Stage 3's gate
-     asks that every evidence test was seen red with its wall
-     absent, recorded from actual output, before it counts.
-     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 1 gains
-     the whats the framing does not carry, decided as records at
-     the opening; Stage 2 gains the surface at its minimum.
-     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 2's
-     justification puts the candidate owners in front of the
-     signer as a comparison, the way an ADR presents options.
-     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 1's exit
-     asks that every flag on the registry row is answered by name.
-     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 4's exit
-     is more than a status — the row went to in-progress at the
-     specification, and the close names the provisionals and the
-     hand-ons to later slices. -->
-
 # CbC slice workflow
 
 *The core loop for one slice: **one invariant made real**. Input: one local

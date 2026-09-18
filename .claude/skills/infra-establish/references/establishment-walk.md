@@ -1,20 +1,3 @@
-<!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
-     archive/cbc/system-design-method agents-from-practice/
-     Infrastructure-establishment/.claude/skills/references/establishment-walk.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
-     import: moved — from .claude/skills/references/, beside rather
-     than inside the skill directory (same normalization as the
-     SKILL.md). Content verbatim below this header.
-     Changed 2026-09-03 (CBC ADR-0013): step 7 gains the README
-     Prerequisites projection — the section arrives when the ground
-     stands, skeleton in templates/readme-prerequisites.md.
-     Harvested 2026-09-11 from never-oversold (run 3 of the pure
-     seed) Step 3, read read-only (CBC ADR-0007): the inputs
-     paragraph names the return trip for missing runtime-ground
-     facts — a dated revision entry in the definition, one commit —
-     as Stage 0 now does; lived by both runs that hit it. -->
-
 # The establishment walk — step by step
 
 The method, end to end. Generic throughout; the walking project's

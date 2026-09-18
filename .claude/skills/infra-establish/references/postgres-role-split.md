@@ -1,12 +1,3 @@
-<!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
-     archive/cbc/system-design-method agents-from-practice/
-     Infrastructure-establishment/.claude/skills/references/postgres-role-split.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
-     import: moved — from .claude/skills/references/, beside rather
-     than inside the skill directory (same normalization as the
-     SKILL.md). Content verbatim below this header. -->
-
 # PostgreSQL role split — database authority as a grant-enforced property
 
 How database authority is split into roles on PostgreSQL. Generic

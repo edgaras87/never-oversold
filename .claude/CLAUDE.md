@@ -23,8 +23,8 @@ revision entry, never in place.
 is a new copy from the source, logged in `.claude/decisions.md`.
 The skills under `.claude/skills/` are copies this run may correct
 from lived work between two pins, each edit logged and handed to
-its source as a diff: the kit's conventions under convention-
-lifecycle §8, the bundle's method skills under `.claude/rules/`.
+its source as a diff: the conventions under convention-lifecycle
+§3, the bundle's method skills under `.claude/rules/`.
 
 ## Records
 

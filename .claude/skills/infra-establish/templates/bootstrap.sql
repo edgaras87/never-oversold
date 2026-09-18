@@ -1,17 +1,7 @@
 -- Template — master copy in correctness-by-construction (CBC ADR-0008);
 -- checked against concept v1 (CBC ADR-0003, CBC ADR-0005 — practice-born).
--- Extracted 2026-08-28 from checkout-system's lived
--- infrastructure/postgres/init/bootstrap.sql (PLAN Step 6). Changes
--- on extraction: identities and local-dev passwords generalized to
--- placeholders (<project>, <project_db>, <project_schema>); the
--- run-local model path and ADR references generalized to neutral
--- wording. Copy into a run at the same path and fill; the filled
+-- Copy into a run at the same path and fill; the filled
 -- file is the run's own (CBC ADR-0008).
--- Harvested 2026-09-11 from never-oversold (run 3 of the pure seed)
--- Step 3, read read-only (CBC ADR-0007): the comment at the role names
--- says which naming case this template ships — the prefix is the
--- shared-cluster case; a dedicated cluster takes bare names, as the
--- run did on the role-split reference's own rule.
 
 -- infrastructure/postgres/init/bootstrap.sql
 --

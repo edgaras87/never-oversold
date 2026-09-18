@@ -8,13 +8,14 @@ paths:
 
 <!-- Arrived 2026-09-14 after SL-1, its seven rules written
      2026-09-15, narrowed 2026-09-16 (decisions.md, those dates).
-     The kit's four conventions are no longer this file's: the
-     handbook took the rules into convention-lifecycle §8 step 4
-     (HANDBOOK ADR-0038, at kit 9e28143), and that copy governs them
-     — read it there. This file stands only for the bundle's five
-     method skills, which the handbook left to the bundle; the
-     bundle answered 2026-09-17 (decisions.md, that date) by taking
-     these seven rules as they stand here, so the file stays and
+     The four conventions are no longer this file's: the handbook
+     took the rules into convention-lifecycle §3 step 4 (HANDBOOK
+     ADR-0038, at handbook ba7eaa4, delivered here by the bundle
+     @ c3a3d97), and that copy governs them — read it there. This
+     file stands only for the bundle's five method skills, which
+     the handbook left to the bundle; the bundle answered
+     2026-09-17 (decisions.md, that date) by taking these seven
+     rules as they stand here, so the file stays and
      this text is the one that governs them. In force here and on
      trial; provisional in the same sense the handbook's text is:
      no edit has yet gone through a re-pin.

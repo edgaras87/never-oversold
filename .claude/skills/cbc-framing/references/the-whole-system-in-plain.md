@@ -1,9 +1,3 @@
-<!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
-     birth-materials/.claude/skills/cbc-framing/references/the-whole-system-in-plain.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
-     import: none — verbatim below this header. -->
-
 # The whole system in plain words
 
 *One page. No jargon. If this page and the detailed docs ever disagree, one

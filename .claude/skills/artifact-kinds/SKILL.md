@@ -1,189 +1,103 @@
 ---
 name: artifact-kinds
 description: Vocabulary of document kinds — convention, model, guide, playbook. Use when writing or requesting a document whose kind must be named.
-delivery: pushed
 ---
 
-# Artifact Kinds Convention
+# Artifact Kinds
 
-A shared vocabulary for the *kinds* of artifacts we create and request —
-so that "draft a guide", "this needs a playbook", or "is this a
-convention or a model?" resolves the same way for everyone (humans and
-AI agents alike). Kinds are defined loosely, by position on a few axes
-and by exemplar — never by strict membership criteria.
+A shared vocabulary for the kinds of documents we create and
+request, so that "draft a guide" or "is this a convention or a
+model?" resolves the same way for everyone. Kinds are located by
+axes and anchored by exemplars, never by membership tests.
 
-<!-- This convention is itself a metamodel: a convention about what
-     conventions (and their sibling kinds) are. Specific contexts may
-     specialize a kind — e.g. the handbook specializes "convention" as
-     "a directory under conventions/<name>/ with a CONVENTION.md". -->
+## 1. The axes
 
----
+1. **Force** — what it does to the reader: *describes* (says what
+   is), *advises* (recommends; deviation needs no reason), *binds*
+   (agreed practice; deviation needs a reason), *executes* (walks
+   you through doing).
+2. **Reuse** — a *template*, copied per instance, or the *instance
+   itself*, one per project or case, carrying live state.
+3. **Reader mode** (optional) — *studied* once to understand, or
+   *consulted* repeatedly mid-work.
 
-## 1. The axes (the compass, not a cage)
-
-Every kind is located by its answers to two questions; a third helps
-when shaping a document. When a word is in doubt, ask the questions —
-the answers point at the word.
-
-1. **Force** — what does it do to the reader?
-   - *describes* — says what is; claims nothing about what you must do.
-   - *advises* — recommends; deviation needs no justification.
-   - *binds* — agreed practice; deviation needs a reason.
-   - *executes* — walks you through doing; steps, not statements.
-
-2. **Reuse** — is it a *template* (copied per instance) or the
-   *instance itself* (one per project/case, carries live state)?
-
-3. **Reader mode** (optional, from Diátaxis) — is it *studied* once to
-   understand, or *consulted* repeatedly mid-work to look things up?
-
-These axes are stolen deliberately: force from the governance hierarchy
-(policy → standard → guideline → procedure, RFC 2119's MUST/SHOULD/MAY),
-reader mode from Diátaxis. We keep our own kind names and use the
-frameworks only as definition machinery (HANDBOOK ADR-0009).
+When a word is in doubt, ask the questions; the answers point at
+the word.
 
 ## 2. The kinds
 
-Each entry: function, coordinates, the distinguishing question, and an
-exemplar named by the role it holds for the reader — the same words
-point at the right document from the handbook's seat and from a born
-project's. Exemplars are prototypes — "a playbook is like *this*" —
-not boundaries.
+**concept** — an idea, pre-artifact; lives inside documents, never
+a document kind itself. Describes; no home of its own. *Is it a
+thing you could hand someone as a file?* No → concept. Exemplar:
+"the distillation pipeline" in project-recording.
 
-### concept
+**model** — a structured description of how things relate; says
+what is, demands nothing. Describes; studied. *Could you disagree
+with it and violate nothing?* Yes → model. Exemplar: the
+record-system diagram in project-recording.
 
-An idea, pre-artifact. Concepts live *inside* documents (usually as
-explanation); a concept is never a document kind itself.
-Coordinates: describes; no home of its own.
-Question: *is it a thing you could hand someone as a file?* No → concept.
-Exemplar: "the distillation pipeline" (project-recording §11).
+**convention** — a normative agreement about how we do things;
+deviation is allowed but needs a reason. Binds; consulted. *If
+someone ignores it, do they owe an explanation?* Yes → convention.
+Exemplar: the commit-messages convention, wherever this repo holds
+it.
 
-### model
+**guide** — an advisory how-to; teaches a good path without binding
+to it. Advises; studied or consulted. *If someone ignores it, is
+that fine?* Yes → guide. Exemplar: none named yet.
 
-A structured description of how things relate — components, records,
-flows. Says what *is*, demands nothing.
-Coordinates: describes; studied.
-Question: *could you disagree with it and violate nothing?* Yes → model.
-Exemplar: the record-system diagram (project-recording §1).
+**playbook** — a reusable script for a type of undertaking: step
+sequence, gates, accumulated warnings; copied per instance, never
+executed in place. Executes; template. *Do you copy it to use it?*
+Yes → playbook. Exemplar: the playbook this repo's PLAN names in
+its Steps-from line.
 
-### convention
+**plan** — the live instance of an undertaking: statuses, gates
+being closed, notes on divergence; one per project. Executes;
+instance. *Does it lie if not kept current?* Yes → plan. Exemplar:
+this repo's PLAN.md.
 
-A normative agreement about how we do things. Deviation is allowed but
-needs a reason.
-Coordinates: binds; consulted.
-Question: *if someone ignores it, do they owe an explanation?*
-Yes → convention.
-Exemplar: the commit-messages convention, wherever this repo holds it.
+**reference doc** — the shape optimised for looking things up:
+complete on its subject, structured for random access. A shape,
+not a force. Any force; consulted. *Do readers jump to a section
+rather than read it through?* Yes → reference doc. Exemplar: any
+skill copy under `.claude/skills/`.
 
-### guide
-
-An advisory how-to: teaches a good path without binding to it.
-Coordinates: advises; studied or consulted.
-Question: *if someone ignores it, is that fine?* Yes → guide.
-Exemplar: none named yet.
-
-### playbook
-
-A reusable script for a *type* of undertaking: step sequence, gates,
-accumulated warnings. Copied per instance, never executed in place.
-Coordinates: executes; template.
-Question: *do you copy it to use it?* Yes → playbook.
-Exemplar: the playbook this repo's PLAN names in its Steps-from
-line.
-
-### plan
-
-The live instance of an undertaking: current statuses, gates being
-closed, notes on divergence. One per project.
-Coordinates: executes; instance (carries live state).
-Question: *does it lie if not kept current?* Yes → plan.
-Exemplar: this repo's PLAN.md.
-
-### reference doc
-
-The document *shape* optimized for looking things up: complete on its
-subject, structured for random access, not read cover to cover. A
-reference doc is a shape, not a force — a convention's CONVENTION.md
-*is* a reference doc carrying binding content; a model can be one too.
-Coordinates: any force; consulted.
-Question: *do readers jump to a section rather than read it through?*
-Yes → reference doc.
-Exemplar: any convention's reference document — a skill copy under
-`.claude/skills/`, or a master under `conventions/`.
-
-### template / stub
-
-A document whose content is holes: structure provided, specifics
-awaited. The degenerate case of "reusable".
-Coordinates: force of whatever it will become; template.
-Question: *is it full of `<placeholders>`?* Yes → template.
+**template / stub** — a document whose content is holes: structure
+provided, specifics awaited. Force of whatever it will become;
+template. *Is it full of `<placeholders>`?* Yes → template.
 Exemplar: the stubs this repo's records were born from.
 
-### specification
+**specification** — a precise, testable description of what
+something must be. Binds; consulted. *Could a test verify
+conformance to it?* Yes → specification. Exemplar: none named yet
+(external: Conventional Commits, Keep a Changelog).
 
-A precise, testable description of what something *must be* — complete
-enough that conformance can be checked.
-Coordinates: binds; consulted.
-Question: *could a test verify conformance to it?* Yes → specification.
-Exemplar: none named yet (external: Conventional Commits spec, Keep a
-Changelog).
-
-### checklist
-
-A procedure reduced to its verifications: no narrative, just the items
-that must be true.
-Coordinates: executes; consulted.
-Question: *is it only boxes to tick?* Yes → checklist.
-Exemplar: the gate lists inside PLAN.md steps.
+**checklist** — a procedure reduced to its verifications. Executes;
+consulted. *Is it only boxes to tick?* Yes → checklist. Exemplar:
+the gate lists inside PLAN.md steps.
 
 ## 3. Rules
 
-- **Definitions are prototypes, not membership tests.** When an
-  artifact doesn't fit cleanly, that's a finding to note, not a
-  violation to fix. Hybrids are normal — a convention's reference
-  document, this one included, is reference doc (shape) + model (§1)
-  + convention (rules) at once; name it by its dominant force.
-- **Coordinates live here only.** Actual artifacts carry just the kind
-  word (in a request, a filename, a table row) — never a metadata
-  block of axis values. This file is the lookup table behind the word,
-  the way the commit-type table stands behind `feat:`.
-- **New kind = new entry, placed by the axes.** If something's axis
-  answers land where no existing word sits, add an entry with the four
-  fields above and a changelog line. Prefer reusing an existing word
-  with a specialization note over coining a near-synonym.
-- **Contexts may specialize, not contradict.** A specific context
-  (the handbook, a project type) may narrow a kind ("in the handbook,
-  a convention is a directory with a CONVENTION.md") but not move it
-  on the axes.
-- **Scope stays minimal.** A kind earns an entry only if its absence
-  has caused, or plausibly will cause, someone to reach for the wrong
-  word. The long tail (runbook, RFC, catalog, glossary, …) gets
-  entries when first actually needed.
-
-## 4. Origin
-
-Distilled from: the governance document hierarchy
-(policy/standard/guideline/procedure), RFC 2119, Diátaxis (Procida —
-tutorial/how-to/reference/explanation, kinds-by-function), DDD's
-ubiquitous language (formalize the words actually spoken, don't import a
-foreign register), and prototype theory for why loose definitions survive
-edge cases. See HANDBOOK ADR-0009 for why the axes were adopted and the
-frameworks' own word lists were not.
+- **Definitions are prototypes, not membership tests.** An artifact
+  that does not fit cleanly is a finding to note, not a violation.
+  Hybrids are normal; name one by its dominant force.
+- **Coordinates live here only.** An artifact carries just the kind
+  word, in a request, a filename, a table row, never a block of
+  axis values.
+- **New kind = new entry, placed by the axes**, with a changelog
+  line. Prefer an existing word with a specialisation note over a
+  near-synonym.
+- **Contexts may specialise, not contradict.** A context may narrow
+  a kind but not move it on the axes.
+- **Scope stays minimal.** A kind earns an entry only when its
+  absence has caused, or plausibly will cause, someone to reach for
+  the wrong word.
 
 ---
 
-## Delivery
+## Decisions
 
-`pushed` — it fires when a document is written or requested and its
-kind has to be named.
-
-A rarer trigger than the others, and one that often passes unnoticed:
-the kind is usually settled in a single word early in a conversation,
-before anyone thinks to check it.
-
-**What this constrains.** Every kind is anchored by an `Exemplar:`
-naming a document by its role, and in a project that vendored this
-convention alone some roles are empty. They are illustration, not
-dependency (HANDBOOK ADR-0017), so each definition has to stand without
-its exemplar. A kind that only makes sense with the example in hand is
-under-defined.
+- HANDBOOK ADR-0009 — own words, stolen axes: the kinds are located
+  by force and reuse, and the frameworks' word lists are not
+  imported

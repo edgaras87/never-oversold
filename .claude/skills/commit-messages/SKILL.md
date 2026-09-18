@@ -1,15 +1,9 @@
 ---
 name: commit-messages
 description: Conventional Commits format and the 50/72 rules. Use before writing any commit message.
-delivery: pushed
 ---
 
-# Commit Convention
-
-<!-- Format: Conventional Commits (conventionalcommits.org) on top of the
-     classic 50/72 rules. Enforceable later with a commitlint hook.
-     A good commit body is a micro-ADR: the diff shows WHAT, the body
-     preserves WHY. -->
+# Commit Messages
 
 ## Format
 
@@ -21,9 +15,8 @@ delivery: pushed
 <footer>                                ← issue refs, breaking changes, optional
 ```
 
-**Imperative test:** the subject must complete the sentence
-*"If applied, this commit will …"* — "…Fix race in order creation" ✓,
-"…Fixed race" ✗.
+The subject completes the sentence *"If applied, this commit will …"*:
+"…Fix race in order creation" passes, "…Fixed race" fails.
 
 ## Types
 
@@ -41,13 +34,13 @@ delivery: pushed
 | `chore` | Maintenance that fits nowhere above | — |
 | `revert` | Reverts a previous commit (name it in body) | — |
 
-**Scope** is optional: the module/area touched — `feat(auth):`,
-`fix(orders):`. Use it when the repo has more than one area; skip it while
-everything is one area.
+Use a scope, the module or area touched, once the repo has more
+than one area: `feat(auth):`, `fix(orders):`.
 
 ## Breaking changes
 
-Flag with `!` after the type, and explain in a footer:
+Flag with `!` after the type and explain in a footer; SemVer effect
+is major.
 
 ```
 feat(api)!: rename fields in /orders response
@@ -55,8 +48,6 @@ feat(api)!: rename fields in /orders response
 BREAKING CHANGE: `created` is now `created_at` (ISO 8601).
 Clients must update field names.
 ```
-
-SemVer effect: major.
 
 ## Footers
 
@@ -66,8 +57,8 @@ Refs #17, TODO.md     ← relates without closing
 See ADR-0006          ← link the decision behind the change
 ```
 
-<!-- Connect the trails: a commit that implements a decision links the ADR;
-     a commit that resolves a TODO item names it. -->
+A commit that implements a decision links the ADR; a commit that
+resolves a TODO item names it.
 
 ## Examples
 
@@ -103,54 +94,36 @@ Reverts commit abc1234 — expiry broke the mobile client's silent
 refresh. Re-land after #58.
 ```
 
-## Scope note: the agent's own records
+## The agent's own files
 
-The working arrangement's files — `CLAUDE.md`, `.claude/`,
-`CHANGE-PLAN.md` — are not project records (HANDBOOK ADR-0019). A commit
-that touches them is scoped `agent` — `chore(agent)` to install or update,
-`feat(agent)` for a new skill, `docs(agent)` for a change-plan's lifecycle
-— and touches nothing else: no commit mixes those paths with project
-changes.
+`CLAUDE.md`, `.claude/` and `CHANGE-PLAN.md` are the working
+arrangement, not project records. A commit that touches them is
+scoped `agent` — `chore(agent)` to install or update, `feat(agent)`
+for a new skill, `docs(agent)` for a change-plan's lifecycle — and
+touches nothing else.
 
-This is "one logical change per commit" with a reason on top. The two
-sides are two histories sharing one repo, and they stay separable —
-a filtered log, a portfolio export that drops the arrangement and
-keeps the work — only if no commit ever straddles them.
-
-## Rules of thumb
+## Rules
 
 - **Commit on the word.** Stage, show the reviewer the diff, and
-  commit only when they have said so — one commit at a time, and no
-  push without the same word. The boundary is the one place a wrong
-  assumption is cheap to catch (change-plans §6), and it is every
-  commit's boundary, not only a change set's.
-- **Atomic commits.** One logical change per commit. "Fix X and update
-  deps and rename file" is three commits wearing a trenchcoat — split it.
-- **Subject alone must make sense** in `git log --oneline`. That listing
-  is the index of the project's history; keep it readable.
-- **Body answers why**, and anything the diff can't say: rejected
-  alternatives, non-obvious constraints, "looks wrong but is right
-  because…".
-- **No `wip` / `fixes` / `asdf`** on the shared branch — squash locally
-  first. (Fine on private branches; they're your devlog's scratch space.)
-- When a change is too small for an ADR but the reasoning matters, the
-  commit body IS the record — spend the two sentences.
+  commit only when they have said so; one commit at a time, and no
+  push without the same word.
+- **One logical change per commit.** "Fix X and update deps and
+  rename file" is three commits.
+- **The subject alone makes sense** in `git log --oneline`.
+- **The body answers why**, and anything the diff cannot say:
+  rejected alternatives, non-obvious constraints, "looks wrong but
+  is right because…".
+- **No `wip` / `fixes` / `asdf`** on the shared branch; squash
+  locally first. Fine on a private branch.
+- **Too small for an ADR but the reasoning matters:** the commit
+  body is the record. Spend the two sentences.
 
 ---
 
-## Delivery
+## Decisions
 
-`pushed`, and gated nowhere — neither the stop nor the format.
-
-Pushed because the rule applies at one moment and is dead weight
-otherwise; in Claude Code that means a skill, which is an ambient
-trigger over a pulled body rather than true pushed (HANDBOOK ADR-0015).
-
-**What this constrains.** The entry file gets a path to this file, never a
-summary of it (HANDBOOK ADR-0014). And no text channel changes an outcome,
-only the odds. The stop is text: this file's one sentence at the commit
-moment, with the odds text gives. A project that wants it as repo state
-adds a permission rule to the arrangement's settings file, which halts
-every commit at a prompt the human answers (HANDBOOK ADR-0035). The
-subject limit is enforced nowhere either; expect it to be broken until
-something outside the text checks it (agent model §7).
+- HANDBOOK ADR-0005 — Conventional Commits over plain 50/72
+- HANDBOOK ADR-0019 — the agent's files and the project's records
+  never share a commit
+- HANDBOOK ADR-0035 — the stop is this file's sentence, gated
+  nowhere

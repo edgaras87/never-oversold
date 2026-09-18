@@ -1,17 +1,3 @@
-<!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
-     birth-materials/.claude/skills/cbc-slice/references/system-readiness.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
-     import: none — verbatim below this header.
-     Re-derived 2026-08-29: the framing exports' paths — they live
-     under docs/system/ as intent.md, definition.md, registry.md
-     (cbc-framing's layout re-derivation); R1 updated to match.
-     Harvested 2026-09-14 from never-oversold (run 3 of the pure
-     seed) Step 5, read read-only (CBC ADR-0007): R5 says how the
-     first slice answers it — in its build, the evidence seen red
-     with the wall absent — when there is no wall to break at its
-     Stage 0. -->
-
 # System readiness — the contract between framing and slicing
 
 *What must exist before the first slice can be worked. The framing hands off

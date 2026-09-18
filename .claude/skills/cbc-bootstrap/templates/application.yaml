@@ -1,25 +1,7 @@
 # Template — master copy in correctness-by-construction (CBC ADR-0008);
 # checked against concept v1 (CBC ADR-0003, CBC ADR-0005 — practice-born).
-# Extracted 2026-08-28 from checkout-system's lived
-# src/main/resources/application.yaml (PLAN Step 6). Changes on
-# extraction: identities generalized to placeholders (<project>,
-# <project_db>, uppercase <PROJECT> in env keys); the run's
-# business-config section removed — a run grows its own under its
-# own project key; run-local ADR references generalized to neutral
-# wording. Copy into a run and fill; the filled file is the run's
+# Copy into a run and fill; the filled file is the run's
 # own (CBC ADR-0008).
-# Harvested 2026-08-28: the password key renamed
-# <PROJECT>_DB_PASSWORD → <PROJECT>_RUNTIME_PASSWORD, together with
-# the .env shape it must match (infra-establish
-# templates/.env.example) — from safe-reservations' lived key
-# (CBC ADR-0007).
-# Harvested 2026-09-12 from never-oversold (run 3 of the pure seed)
-# Step 4, read read-only (CBC ADR-0007): the port key is
-# POSTGRES_PORT — the key infra-establish's .env.example and
-# compose.yaml templates name — in place of <PROJECT>_DB_PORT, which
-# neither carried; shipped as they were, the application never read
-# the port the ground publishes, silent on 5432 and wrong on any
-# other. The two templates now share both keys.
 
 spring:
   application:

@@ -1,10 +1,3 @@
-<!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
-     archive/cbc/system-design-method agents-from-practice/
-     system-bootstrap/.claude/skills/cbc-bootstrap/references/spring-pom-convention.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
-     import: none — verbatim below this header. -->
-
 # Spring pom convention — how the pom is written and kept
 
 Scope: Spring Boot on Maven, the Boot 4 line. Governs the pom's **shape**

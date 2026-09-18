@@ -307,3 +307,47 @@
   re-pin); committing the note under docs/ as the record (a second
   text for a verdict already absorbed, and the bundle's own record
   of it is better).
+
+- 2026-09-18 The bundle updated @ c3a3d97, from 7bbf49a — both
+  halves in one copy, the four conventions now arriving through this
+  channel rather than the handbook's, at handbook ba7eaa4. Staged in
+  temp/ with its note per rule 5, read and diffed there against the
+  delivery commit 0e3ea72, then taken whole and the staging deleted.
+  Compare-first empty on both halves: no local edit on any of the
+  nine copies since its pin, so nothing here was overwritten.
+  The method half: 28 files, every provenance and harvest header
+  deleted, a file now opening on its first instruction. No rule
+  changed — checked rather than taken on the note's word, by
+  stripping comments from both sides: every non-comment line in the
+  five skills is identical. docs/concept/ is unchanged and was not
+  re-copied.
+  The convention half: rules kept, the explanation behind each moved
+  into a manual that never ships to a project; four files, each about
+  a third shorter. convention-lifecycle is renumbered from nine
+  numbered sections to three, its step numbers unchanged, so the
+  procedure this repo cites as §8 step 4 is §3 step 4 — the
+  handbook-authoring sections are the ones gone, and its description
+  and requires narrow with them. Three citations went stale, not the
+  two the note named: the rules file's header, this repo's CLAUDE.md,
+  and a TODO line.
+  Byte-identity to the handbook @ ba7eaa4 is the bundle's claim and
+  is not checked here — this repo holds no handbook checkout, and the
+  receipt kit-9e28143 proves only that this repo has not edited its
+  copies. The entry names both hashes so the claim is attributed.
+  No receipt branch cut for this delivery. The receipt exists for the
+  kit, which ships stubs whose local content is the record and cannot
+  be diffed against a master; a skill copy is pristine by rule 1 and
+  its compare is the delivery commit, which is what rule 5 names and
+  what was used here. The kit's next receipt carries four fewer
+  files — the conventions having moved channel, not been deleted.
+  Why: one source, one procedure and one hash to carry, which the
+  four conventions' own convention already permits — the handbook may
+  be "a checkout on disk or the payload a handoff carries", and this
+  is that payload. And a pin that stays behind leaves the registry
+  lying (§3 step 4's own warning).
+  Rejected: keeping the conventions on the handbook's channel (two
+  channels, two procedures and two hashes for files that arrive in
+  one directory); cutting a bundle-c3a3d97 receipt (a compare this
+  repo already has in its own history, and a second receipt line to
+  keep); re-copying docs/concept/ unchanged (five files in the diff
+  that the delivery did not change).

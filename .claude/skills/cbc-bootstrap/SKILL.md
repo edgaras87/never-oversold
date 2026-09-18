@@ -4,28 +4,7 @@ description: Bootstrap a framed project's system on an established ground - deci
 ---
 
 <!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
-     archive/cbc/system-design-method agents-from-practice/
-     system-bootstrap/.claude/skills/cbc-bootstrap/SKILL.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
-     import: none — verbatim below this header.
-     Changed 2026-09-03 (CBC ADR-0013): Stage 5 gains the README Run and
-     Test projection — the sections (and the stack's Prerequisites
-     line) arrive when the harness is real, skeleton in
-     templates/readme-run-test.md.
-     Harvested 2026-09-12 from never-oversold (run 3 of the pure
-     seed) Step 4, read read-only (CBC ADR-0007): Stage 2 names no
-     directory for the requirements document — the path is the
-     project's records' to choose; both lived runs used
-     docs/construction/.
-     Harvested 2026-09-12, same run (CBC ADR-0007): Stage 1's
-     proven-adversity bullet reads the instance count from the
-     definition's runtime ground — plural instances there mean the
-     machinery proof crosses the process boundary.
-     Harvested 2026-09-12, same run (CBC ADR-0007): Stage 1's
-     exclusions name fail-fast on a missing secret, decided at
-     release unless the run says otherwise — so it is not
-     re-decided mid-set when the trap is met. -->
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). -->
 
 # cbc-bootstrap — bring a framed system to life
 

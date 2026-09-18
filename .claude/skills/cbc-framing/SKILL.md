@@ -4,56 +4,7 @@ description: Frame a new backend system with correctness-driven design - turn a 
 ---
 
 <!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
-     birth-materials/.claude/skills/cbc-framing/SKILL.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
-     import: none — verbatim below this header.
-     Harvested 2026-08-29: the registry export's lived format from
-     checkout-system's nine-slice run, read read-only (CBC ADR-0007) —
-     outcomes stated in the export section, copy-and-fill master in
-     templates/registry.md (CBC ADR-0008).
-     Harvested 2026-08-29, same run: the exports are living records
-     — post-close changes only as logged revision entries (the run
-     updated its intent at a breach's close and revised its system
-     definition by logged return trips from downstream stages).
-     Harvested 2026-08-29, same run: step 2's gate names the
-     recorded probe log (details in the workflow's step 2).
-     Harvested 2026-08-29, same run: the mode section names the
-     delegated-verdict mode — human default unchanged, delegation
-     only by a decision recorded in the run's own records.
-     Re-derived 2026-08-29: the record shape decided — one
-     derivation doc as the framing's working record, composed at
-     close into the three exports under a residue filter, committed
-     in derivation order; harvested from the safe-reservations
-     framing node read read-only (CBC ADR-0007), its own vocabulary
-     never adopted; the shape's one-doc form is this repo's
-     decision, both lived runs its evidence.
-     Harvested 2026-08-29, same node: step 0's gate names the
-     audience and done-means (details in the workflow's step 0).
-     Harvested 2026-08-29, same node: the registry outcomes gain
-     riders, flags, headings-never-boundaries, the written zero.
-     Re-derived 2026-08-29: the run-repo doc layout — the three
-     exports live under docs/system/ as intent.md, definition.md,
-     registry.md; the derivation record nests beside them at
-     docs/system/framing/. Root placement was an auto run's
-     unverdicted default, never a decision; the directory makes the
-     truth set one nameable path and dissolves the prefix-carried
-     names (the dotted exports, the framing- appendix prefix).
-     Harvested 2026-08-30: the README projection law — the export
-     section's projected-surface block — from the safe-reservations
-     node's projection model and guide, read read-only (CBC ADR-0007),
-     their vocabulary never adopted; the lived core only, the
-     deeper lifecycle left unharvested until a run lives it.
-     Harvested 2026-09-10 from run 3 (cbc-pure-run-3, its Step 1
-     change-plan and TODO), read read-only (CBC ADR-0007): "growing
-     L2 → L1 → L4 → L3 → L5, one lived state per commit" was read
-     as append, and the definition had to be reordered after —
-     the export section now says the order is the commits', the
-     file ends L1 → L5.
-     Harvested 2026-09-10, same run: the residue filter refuses
-     agent language — the run's rule, made when the filled registry
-     template named the skill, a step and the delegation slot; it
-     stands in the run's entry file as a local rule. -->
+     (CBC ADR-0003). -->
 
 # CbC framing — one promise worked into a slice surface
 

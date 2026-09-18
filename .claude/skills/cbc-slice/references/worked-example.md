@@ -1,16 +1,3 @@
-<!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
-     birth-materials/.claude/skills/cbc-slice/references/worked-example.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
-     import: none — verbatim below this header.
-     Twin: a copy in both skills' references/, identical below
-     this header — the bundle duplicates it so each installed skill
-     is self-contained; a change to one lands in both. Only this
-     header's provenance path differs between the two.
-     Harvested 2026-09-07 from run 3 (cbc-pure-run-3, TODO Later),
-     read-only: the note claimed byte-identical and the path line
-     already differed; the claim is narrowed, the files untouched. -->
-
 # Worked example: a tiny order service through both workflows
 
 *A demonstration run, invented for teaching — not a lived framing. It shows

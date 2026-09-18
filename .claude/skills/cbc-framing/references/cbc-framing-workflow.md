@@ -1,36 +1,3 @@
-<!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
-     birth-materials/.claude/skills/cbc-framing/references/cbc-framing-workflow.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
-     import: none — verbatim below this header.
-     Harvested 2026-08-29 from checkout-system's lived framing,
-     read read-only (CBC ADR-0007): step 2 records its saturation
-     probe log in L1 — saturation checkable, not just claimed.
-     Harvested 2026-08-29, same run: the census may carry a short
-     labeled trust-assumptions list beside the facts, never
-     instead of them.
-     Harvested 2026-08-29 from the safe-reservations framing node,
-     read read-only (CBC ADR-0007), its vocabulary never adopted:
-     step 0 carries the audience distinction, worth-proving, and
-     what done demonstrably means.
-     Harvested 2026-08-29, same node: step 2 carries the probe
-     machinery as runnable procedure — the three lenses, the
-     three-stamp rule, the audit checklist — taught in the lived
-     walk at the human's own demand.
-     Harvested 2026-08-29, same node: step 2's exit leaves three
-     ledgers — the numbered fence list, the not-probed ledger,
-     and scope verdicts with recommendation and reason.
-     Harvested 2026-08-29, same node: step 6 named as three
-     passes — sort, dedupe, folds — each with its test and its
-     record.
-     Harvested 2026-09-11 from never-oversold (run 3 of the pure
-     seed) Step 3, read read-only (CBC ADR-0007): step 2's census
-     states the runtime ground under its own label beside the trust
-     list — the machine, a stranger's clean machine, plural
-     instances, the store as a service, the clock — so the ground's
-     readiness check reads it at framing; both runs that hit the
-     check wrote the block later by a dated revision. -->
-
 # CbC framing workflow — layering the system
 
 *The first part of the method: how a raw idea becomes a layered system

@@ -4,34 +4,7 @@ description: Work one slice of a correctness-driven backend - take one invariant
 ---
 
 <!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). Provenance — archive/cbc/system-design-method
-     birth-materials/.claude/skills/cbc-slice/SKILL.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 3). Changes on
-     import: none — verbatim below this header.
-     Re-derived 2026-08-29: the framing exports' paths — they live
-     under docs/system/ as intent.md, definition.md, registry.md
-     (cbc-framing's layout re-derivation); the trigger description
-     and R1 updated to match.
-     Harvested 2026-09-14 from never-oversold (run 3 of the pure
-     seed) Step 5, read read-only (CBC ADR-0007): R5 at the first
-     slice is answered in the build, not at Stage 0, when no wall
-     exists yet to break; Stage 3's gate asks that every evidence
-     test was seen red with its wall absent.
-     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 1 names
-     the whats a slice meets that the framing does not carry —
-     decided as records at the opening, never absorbed; Stage 2
-     owns the surface at its minimum.
-     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 2 puts
-     the candidate owners in front of the signer as a comparison,
-     the way an ADR presents options.
-     Harvested 2026-09-14, same run (CBC ADR-0007): Stage 1 exits
-     only when every flag on the registry row is answered by
-     name — staged as its own evidence, or removed by a definition
-     with the removal shown.
-     Harvested 2026-09-14, same run (CBC ADR-0007): the registry
-     row flips to in-progress when the specification lands, and
-     the close names the provisionals and what the slice hands to
-     later slices by name. -->
+     (CBC ADR-0003). -->
 
 # CbC slice — one invariant made real
 

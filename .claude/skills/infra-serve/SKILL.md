@@ -4,16 +4,7 @@ description: Add, change, or remove an infrastructure service or capability on a
 ---
 
 <!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). Provenance —
-     archive/cbc/system-design-method agents-from-practice/
-     Infrastructure-establishment/.claude/skills/infra-serve/SKILL.md
-     @ fe0075d (imported 2026-08-28, PLAN Step 4). Changes on
-     import: none — verbatim below this header.
-     Harvested 2026-09-11 from never-oversold (run 3 of the pure
-     seed) Step 3, read read-only (CBC ADR-0007): the ground's
-     record is read wherever the repo keeps it — the establishment
-     log, or ADRs in a repo with records — so a re-entry does not
-     fail on a log the establishment never wrote. -->
+     (CBC ADR-0003, CBC ADR-0005 — practice-born). -->
 
 # Infra serve — keeping an established ground
 
