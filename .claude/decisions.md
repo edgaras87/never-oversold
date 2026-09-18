@@ -21,7 +21,7 @@
      the "@" hash — are replaced at copy time by the install block
      in the handbook's manual. The hash pins which handbook state —
      and so which version of every convention — this project was
-     born from (convention-lifecycle §7). If either still shows a
+     born from (convention-lifecycle §2). If either still shows a
      placeholder, the install block was not run from the handbook;
      fix it before the bootstrap commit. -->
 
