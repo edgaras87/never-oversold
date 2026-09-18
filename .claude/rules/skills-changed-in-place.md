@@ -35,12 +35,12 @@ paths:
    foresee — never a speculation. The edit asks a question or demands
    an outcome any project would want — never this project's answer,
    never anything project-specific. A dated line in the skill's own
-   header comment says what changed and which step found it — from
-   the next copy on there is no header block to join, the bundle
-   having deleted its own (2026-09-17), so the block is this run's
-   alone with no counterpart upstream, and rule 5 takes it away as
-   it always did. One entry in `.claude/decisions.md` per edit, or
-   per skill per step.
+   header comment says what changed and which step found it. There
+   is no header block to join: the bundle deleted its own, and the
+   copy without them is the one this run holds (taken 2026-09-18).
+   So the block is this run's alone, with no counterpart upstream,
+   and rule 5 takes it away as it always did. One entry in
+   `.claude/decisions.md` per edit, or per skill per step.
 
 3. **What this project needs that no skill should carry goes into
    the project's records** where that kind of thing already lives —
