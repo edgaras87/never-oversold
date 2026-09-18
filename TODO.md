@@ -128,6 +128,23 @@
       the same gap unprompted, and reads SL-2 leaning on this
       paragraph as evidence the first slice needed it. Say so if
       SL-2 does.
+- [ ] Hand-off to the CbC bundle: they asked to hear where the
+      update procedure of 2026-09-18 fell short, it being the first
+      run of it as a note and a copy together. Two places, both of
+      them things no diff could have told us. The note named two
+      citations of convention-lifecycle §8 step 4 going stale and
+      there were three — it did not see this repo's own CLAUDE.md,
+      which carries the same pointer in its own prose. And moving
+      the conventions onto the bundle's channel makes the receipt
+      branch a live question the note leaves unasked: the kit's
+      `kit-<hash>` receipt was the compare for those four files.
+      This run answered it for itself — no receipt for a pristine
+      copy, its compare being the delivery commit, and the kit's
+      next receipt simply carrying four fewer files (decisions.md,
+      2026-09-18) — and says so in case the bundle wants an answer
+      of its own in the procedure. Everything else in the note held:
+      the strip was the strip, and the one structural change was
+      called out exactly where a diff would have hidden it.
 - [ ] Held at the bundle, not here — recorded so the trail is
       whole: the absence rung in the enforcement hierarchy (a
       concept question, in the bundle's Later with a trigger: a
