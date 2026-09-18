@@ -95,6 +95,17 @@
       kit's stub and agent-arrangement's test 2 (a line with a
       moment goes where the moment is) are the handbook's half,
       still open.
+- [ ] Retrospective (commit-messages): the convention's imperative
+      test ("if applied, this commit will …") has not been followed
+      here since Step 1. Record commits are written as statements
+      instead — "the bundle takes the in-place rule", "the rules
+      file narrows to the bundle's skills" — and read better that
+      way, a record commit reporting what became true rather than
+      ordering it. Work commits stayed imperative ("update the
+      bundle's skills"). Nobody decided this; it settled. Either
+      the convention names the split or the log gives it up —
+      noticed at the re-pin of 2026-09-18, where six more commits
+      followed the log rather than the text.
 - [ ] Owed to the handbook, whenever it happens: the first edit of a
       skill copy that goes through a re-pin, reported as one TODO
       line per convention-lifecycle §3 step 4 — HANDBOOK ADR-0038 is
