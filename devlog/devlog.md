@@ -6,6 +6,55 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-20  (Step 6 opens: SL-2, Stage 0)
+
+- Step 6 opened on `step-6-sl-2`, cut from main at adc90f6. The
+  gate was derived and committed (ccf7b6a) before any work, from
+  the slice skill's stages, SL-2's registry row and TODO's Step 6
+  item. Three things make it unlike Step 5's: R5 is answered here
+  rather than deferred, a wall already standing; the row's flip to
+  `in-progress` at the specification is a gate item, the rule this
+  run harvested from SL-1 and the bundle wrote back at 7bbf49a;
+  and no ADR is owed at the opening, because the registry says the
+  correction's shape is the specify step's to decide.
+- Stage 0, against the actual repo, not recall. R1: the three
+  exports stand, SL-2 the only `chosen-next` row, the
+  reconciliation line whole — 20 kill rows for the 20 it claims.
+  R2: `./mvnw test` at the branch point, BUILD SUCCESS, exit 0, 29
+  tests, 0 failures, 0 errors, 0 skipped — the same 29 SL-1 closed
+  on. R3: the suite's store is `ThrowawayStore`, a real postgres:17
+  per JVM off the ground's own bootstrap.sql, migrated as
+  `migrator` from the one migrations home; no mock. R4: the door
+  already carries `POST /items/{item}/adjustments`, driven
+  sequentially by `ReservationDoorIT` with `Witness.read` reading
+  the persisted numbers — F9 is one call, F11 the same bytes twice,
+  F13 two calls in a chosen order, no harness work owed; SL-1's
+  instance-forking machinery is not what this slice needs. R6: the
+  registry writable, the record scheme in place.
+- The ground was down when the session opened — the container
+  stopped, the named volume intact. Brought up per the operator
+  manual: healthy, `select 1` as `runtime`, `flyway info` showing
+  V1 applied 2026-09-14. The suite never needed it; it is up so the
+  door can be met the manual's way.
+- What Stage 0 surfaced for Stage 1, not for the harness: an
+  adjustment carries no identity — `AdjustRequest(Integer
+  onHandCount)` and nothing else — so nothing at the door tells a
+  resent correction from two honest corrections that agree. That
+  is F11's question itself, and the specification owes the answer.
+- R5 is owed to the build, the wall named: `item_never_oversold
+  CHECK (reserved <= on_hand_count)` in V1, with
+  `ReservationDoorIT.anAdjustmentUnderTheHeldUnitsIsRefused` the
+  provisional refusal SL-1 left. Each evidence test is seen red
+  with it absent on the throwaway store, from actual output, and
+  that state never lands in history.
+- Readiness signed by the reviewer: *2026-09-20 — ready for SL-2,
+  signed off.*
+- Resume: Stage 1 — the correctness specification for SL-2, its
+  invariant and adversity taken from the registry row and L4's
+  kills 6, 7 and 8 as written; the correction's shape decided
+  there, both parked shapes weighed; the row to `in-progress` when
+  it lands; the reviewer signs the spec before the plan.
+
 ## 2026-09-20  (housekeeping: the conventions re-pin @ 6f2be1d)
 
 <!-- Between steps: SL-1 closed 2026-09-14, SL-2's branch not cut.
