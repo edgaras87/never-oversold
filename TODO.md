@@ -39,6 +39,17 @@
       fail-fast then fires) or reject the unresolved placeholder at
       bind time. Either way the store-free context test then needs
       the variable supplied, for a true reason this time.
+- [ ] Step N (Release): README names each refusal but not what it
+      costs — a stranger reads that how long a hold lasts is
+      refused without learning that a retried reserve therefore
+      double-holds (W2's accepted cost), or that a refused
+      correction leaves the count knowingly wrong about the shelf
+      (W1's). The costs are written, in the definition's fences and
+      in each slice's "does not claim"; the question is whether the
+      front door owes a stranger a line of them. Decide in the same
+      pass that fills this file's Known issues section, still the
+      empty template, which the Release gate already asks for.
+
 - [ ] Step 7 (SL-3): an expired hold still counts in `reserved`
       until an exit ends it — SL-1's counter over-approximates on
       the safe side (slice record §7). SL-3's exits lower the
