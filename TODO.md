@@ -82,12 +82,18 @@
       bundle answered for the method skills 2026-09-17, taking the
       seven rules as this run wrote them, so the rules file stays as
       the text that governs them (decisions.md, that date).
-- [ ] Owed to the handbook, whenever it happens: the first edit of a
+- [ ] Owed to the handbook, at the next re-pin: the first edit of a
       skill copy that goes through a re-pin, reported as one TODO
       line per convention-lifecycle §3 step 4 — HANDBOOK ADR-0038 is
       provisional on that report (its decision 5), and names beside
       it as open: work done by a step that ran on an edit the source
-      later declined.
+      later declined. The edit now exists: 67e913e, 2026-09-20, five
+      lines in four convention copies (the hand-off below). The
+      report fires when that edit goes through a re-pin, and carries
+      one finding from the first run: the dated header line the rule
+      asks for was not written, on the argument that a comment in an
+      artifact says how to use it or what a part is, never what
+      changed.
 - [ ] Hand-off to the handbook: a personal `cut-a-kata` skill —
       practice exercises cut from live work at the moment the
       learner says "I could not rebuild this": a marker in ten
@@ -115,6 +121,27 @@
       the same gap unprompted, and reads SL-2 leaning on this
       paragraph as evidence the first slice needed it. Say so if
       SL-2 does.
+- [ ] Hand-off to the CbC bundle: evaluate this run's edits to
+      commit-plan, commit-messages, convention-lifecycle and
+      option-comparison since 6f2be1d — `git diff 1b0859a --
+      .claude/skills/<name>`, one hunk each, five lines in all,
+      landed in 67e913e. The rename to commit-plan left "change-plan"
+      standing in the §2 template heading, the agent-files sentence,
+      §3 step 3 and the ADR-0038 line, and §4's first entry; each
+      now says "commit plan". Nouns, not rules — the very span the
+      note's §4 says to grep for every name a rename moved, and this
+      is where the delivery of 2026-09-20 fell short, since they
+      asked. Two asks ride with it. First, take the five lines or
+      decline them. Second, drop the dated header line from §3 step
+      4 and from rule 2 of the rules file they took from this run:
+      a comment in an artifact says how to use it or what a part
+      is, never what changed — that is history, held already by the
+      diff against the pin and the decisions entry, and a third
+      copy in the file is the explanation-in-the-artifact both
+      sources stripped out on 2026-09-17. This run wrote none, and
+      its rule 2 no longer asks for one (3a31bda). The handbook's
+      ADR-0038 is provisional on exactly this first run, so the
+      finding reaches it through the line above.
 - [ ] Held at the bundle, not here — recorded so the trail is
       whole, each verdict in the bundle's note of 2026-09-20 being
       the whole of the event, nothing behind it to check.
