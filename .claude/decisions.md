@@ -453,3 +453,25 @@
   identical copies cost nothing in the diff); keeping the rules
   file's "provisional" (the trial it waited on has run, and its
   finding is in the rule).
+
+- 2026-09-20 Second standing rule added to PLAN, beside the branch
+  rule: a gate item is ticked the moment it is verifiably true, the
+  step's marker stands at `[~]` from the first tick to the last,
+  and a tick records a verification rather than a finality — an
+  item rewritten mid-step keeps its tick only if what was verified
+  still satisfies the new words, and loses it in the devlog's words
+  if not. On trial from Step 6; fold-back filed in TODO Later.
+  Why: through SL-1 the gate read all-unticked while the step ran,
+  which is the same lie the registry told by reading `chosen-next`
+  through that whole build — the lesson this run harvested and the
+  bundle wrote back into the slice skill at 7bbf49a. A record that
+  cannot say where the work is, is not the source of truth for it.
+  The clause exists because ticking invites "settled, don't
+  reopen": it names the tick as a record of one verification, so
+  rewriting an item stays ordinary and unticking stays sayable.
+  Rejected: ticking at the close as Steps 1-5 did (the gate is then
+  a record of the past and never of the present); ticking with a
+  date per item (the devlog carries when, and the step's own date
+  is the one that matters); leaving the rule unwritten and just
+  doing it (an arrangement nobody can read is not on trial, it is a
+  habit).
