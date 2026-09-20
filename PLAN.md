@@ -521,7 +521,7 @@ Gate:
       absent on the working tree — a state that never lands in
       history — before it is seen green. The readiness sign-off is
       the reviewer's, one dated line.
-- [ ] The registry row goes to `in-progress` when the specification
+- [x] The registry row goes to `in-progress` when the specification
       lands — the first project-visible work, not at this opening
       and not at the close.
 - [ ] Stage 1: the correctness specification stands beside SL-1's,

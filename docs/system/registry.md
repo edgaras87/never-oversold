@@ -49,7 +49,7 @@ witness — the promise's own.
   here because a decision invisible to other decisions is
   over-admission from inside.
 
-### SL-2 — the correction never undercuts the holds  `chosen-next`
+### SL-2 — the correction never undercuts the holds  `in-progress`
 
 - **Invariant:** no admitted change to the on-hand-count leaves it
   under the sum of active reservations.
@@ -103,9 +103,10 @@ witness — the promise's own.
 
 ## Registry state
 
-1 slice closed (SL-1, 2026-09-14), 3 open, SL-2 chosen-next
-(2026-09-14). New work enters by re-framing or as a new slice
-through this registry, never around it.
+1 slice closed (SL-1, 2026-09-14), 1 in progress (SL-2, its
+specification landed 2026-09-20), 2 open. New work enters by
+re-framing or as a new slice through this registry, never around
+it.
 
 ## Fold-reconciliation line
 
