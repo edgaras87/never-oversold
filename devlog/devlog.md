@@ -63,13 +63,39 @@
   not the change — was exactly this set's case: everything settled
   in the note and the conversation before the plan opened, and the
   one thing that was not settled forced the one revision.
-- Resume: Step 6 (SL-2, the correction never undercuts the holds):
-  cut `step-6-sl-2` from main at `ff46362`, derive its gate into
-  PLAN first, run cbc-slice on the conventions now held — its
-  specification decides the correction's shape, refuse or let end,
-  which SL-1 left provisional. No reference in hand, as SL-1. Say
-  in TODO if SL-2 leans on the facility paragraph. The reviewer
-  pushes main when wanted.
+- Same day, later: a second note and a bundle at 4c3ac99, a few
+  hours after the first, answering the morning's hand-off. Checked
+  before taken: one file differs, convention-lifecycle, as the note
+  said — the header-line clause gone, this run's argument in the
+  rule as its reason; the five-noun edit in the masters in our
+  wording, the three other edited copies byte-identical to the
+  staging. So this run's first in-place edit went through a re-pin
+  and was taken whole, the trial both texts were provisional on.
+  Taken on `housekeeping-bundle-4c3ac99` as two commits, agent and
+  project, no plan: the take with the rules file's header and rule
+  6 corrected, then the TODO.
+- The note's other half, a map correction: the handbook has not
+  been this project's upstream since 2026-09-18 — the bundle owns
+  the kit and the conventions, told the handbook, and nothing here
+  reaches it any more. Unverifiable from here, and the note says
+  so; the bundle is the only party this repo can reach, so its word
+  on the channel is what the records now hold. Cleared: the report
+  owed on ADR-0038 (discharged — the edit was the report), the
+  cut-a-kata debt (kept, as the learner's own, same trigger), the
+  morning's hand-off (both asks taken). The note named two items
+  and there were three — the four-pieces item still folded three
+  trials back to the handbook; re-addressed to the bundle, and one
+  line back says so. Third time the whole-span lesson has fired on
+  a note from them; each time the missed one was in our prose, not
+  their files.
+- Resume: fast-forward `housekeeping-bundle-4c3ac99` into main on
+  the word, delete the staging. Then Step 6 (SL-2, the correction
+  never undercuts the holds): cut `step-6-sl-2` from main, derive
+  its gate into PLAN first, run cbc-slice on the conventions now
+  held — its specification decides the correction's shape, refuse
+  or let end, which SL-1 left provisional. No reference in hand, as
+  SL-1. Say in TODO if SL-2 leans on the facility paragraph. The
+  reviewer pushes main when wanted.
 
 ## 2026-09-12  (Step 5: SL-1, no over-admission under contention)
 
