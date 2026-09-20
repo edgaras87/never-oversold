@@ -30,17 +30,17 @@ paths:
    the decisions log's last entry for that source. The concept
    chapters are copies too, and are never edited here.
 
-2. **A skill may be edited in place during a step when all four
+2. **A skill may be edited in place during a step when all three
    hold.** Something happened in this project that the skill did not
    foresee — never a speculation. The edit asks a question or demands
    an outcome any project would want — never this project's answer,
-   never anything project-specific. A dated line in the skill's own
-   header comment says what changed and which step found it. There
-   is no header block to join: the bundle deleted its own, and the
-   copy without them is the one this run holds (taken 2026-09-18).
-   So the block is this run's alone, with no counterpart upstream,
-   and rule 5 takes it away as it always did. One entry in
-   `.claude/decisions.md` per edit, or per skill per step.
+   never anything project-specific. One entry in
+   `.claude/decisions.md` per edit, or per skill per step, saying
+   what changed, which step found it, and why. Nothing is written
+   into the skill but the edit itself: a comment in an artifact says
+   how to use it or what a part is, never what changed — that is
+   history, and the diff against the pin and the log already hold it
+   (decided 2026-09-20, on the first edit).
 
 3. **What this project needs that no skill should carry goes into
    the project's records** where that kind of thing already lives —
@@ -51,7 +51,7 @@ paths:
    skill: "source: evaluate this run's changes to `<skill>` since
    `<pin>`". The line is the request — without it the source finds a
    changed file and must guess; the edits describe themselves in the
-   header and the log. The source reads this repo read-only when it
+   diff and the log. The source reads this repo read-only when it
    reads it — at a hand-off, or at the retrospective — not at every
    step's close; a faster answer needs a hand-off document. It diffs
    the copy against its own tree at the pin, takes, reshapes or
@@ -83,8 +83,8 @@ paths:
    lived either way, but the fix's wording is never used by a later
    step here — a running skill's fix is exercised by the next step,
    a finished skill's fix is first used by the source. Say so in the
-   header line.
+   log entry.
 
-The pin is the truth of origin, the header lines and the log are the
-whole of what this run changed, and the diff between them is what
-the source reads.
+The pin is the truth of origin, the log is the why, and the diff
+between the pin and the copy is the whole of what this run changed
+— which is what the source reads.
