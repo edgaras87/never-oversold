@@ -99,7 +99,7 @@ refresh. Re-land after #58.
 `CLAUDE.md`, `.claude/` and `COMMIT-PLAN.md` are the working
 arrangement, not project records. A commit that touches them is
 scoped `agent` — `chore(agent)` to install or update, `feat(agent)`
-for a new skill, `docs(agent)` for a change-plan's lifecycle — and
+for a new skill, `docs(agent)` for a commit plan's lifecycle — and
 touches nothing else.
 
 ## Rules

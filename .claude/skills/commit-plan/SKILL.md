@@ -28,7 +28,7 @@ when someone other than the author reviews as it lands.
 One file, `COMMIT-PLAN.md`, at the repo root, one at a time:
 
 ```markdown
-# Change-plan: <what this change set does>
+# Commit plan: <what this change set does>
 
 ## Summary — the state after all commits
 <Prose. The end state, not the steps. What the repo looks like once

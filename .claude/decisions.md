@@ -388,3 +388,36 @@
   loads whichever it meets first); keeping the in-flight plan under
   the old artifact name until its close (four boundaries where the
   convention in force names a file the root does not hold).
+
+- 2026-09-20 Four convention copies edited in place, this run's
+  first: commit-plan, commit-messages, convention-lifecycle,
+  option-comparison, five lines saying "change-plan" after the
+  rename to commit-plan — the template heading, the agent-files
+  section, §3 step 3 and the ADR-0038 line, §4's first entry. One
+  TODO line asks the bundle to evaluate since 6f2be1d. Under
+  convention-lifecycle §3 step 4 as received, provisional until it
+  has gone through an update; the report owed to the handbook
+  (ADR-0038, decision 5) is armed by this edit and fires at the next
+  re-pin. Decided with the reviewer.
+  The dated header line the rule asks for is not written, on the
+  reviewer's argument: a comment in an artifact carries how to use
+  it or what a part is, never what changed — that is history, and
+  history here has two homes already, `git diff 1b0859a --
+  .claude/skills/<name>` for the exact hunks and this entry for the
+  why. A third copy in the file is the explanation-in-the-artifact
+  both sources have been stripping out since 2026-09-17. The same
+  line in rule 2 of .claude/rules/skills-changed-in-place.md, this
+  run's own text, is dropped in the same set so one process serves
+  every skill; the hand-off asks the bundle to drop it from both.
+  Why: a copy that contradicts its own rename is an outcome any
+  project would want fixed, and five words are the cheapest first
+  run of the machinery the rule is provisional on. The edit lands
+  after the take so the delivery commit stays the pristine compare
+  and each file's edit is one exact hunk.
+  Rejected: sending the line without the edit (leaves the copies
+  contradicting the convention's own table until the next re-pin, a
+  cost the reviewer chose not to carry); folding the edit into the
+  take (the compare would then never be empty against a pristine
+  delivery); writing the header line as the rule says and reporting
+  it as noise afterwards (a deviation lived is a finding, a rule
+  followed against the reviewer's argument is not).

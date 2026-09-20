@@ -65,7 +65,7 @@ update, is done by the project's agent against the registry.
 3. **Vehicle.** A skill lands entirely agent-side, copy and registry
    entry, in one commit. Stubs land in project records too, and the
    two sides never share a commit. Two commits, one per side, need
-   no change-plan; a landing that is a sequence runs under one
+   no commit plan; a landing that is a sequence runs under one
    (never-oversold, 2026-09-15).
 
 4. **Copy, compare first.** The master is the deliverer's kit
@@ -145,6 +145,6 @@ update, is done by the project's agent against the registry.
 - HANDBOOK ADR-0030 — §3, written from the first lived injection
 - HANDBOOK ADR-0034 — the registry is the only list of conventions
 - HANDBOOK ADR-0038 — a copy edited between two pins; the receipt
-  compare; a two-commit landing without a change-plan
+  compare; a two-commit landing without a commit plan
 - HANDBOOK ADR-0040 — a convention is a manual and its artifacts;
   this skill is the receiver's half of the kit's protocol

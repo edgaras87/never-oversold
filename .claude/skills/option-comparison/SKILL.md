@@ -82,7 +82,7 @@ name the case, it is not an entry yet.
 
 - **A candidate can contain something the others cannot express,
   not merely arrange the same parts differently.** Comparing the
-  shapes a change-plan's step list could take, the cascade held a
+  shapes a commit plan's step list could take, the cascade held a
   question none of the other three could ask — and it was the
   question whose absence had cost the set being replanned. Look for
   what a candidate makes *askable*, not only for what it shows
