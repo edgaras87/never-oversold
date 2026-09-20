@@ -246,9 +246,130 @@ give.
 - **That a reply reaches the operator.** The caller's view, refused
   at L2.
 
-## §8 Sign-offs
+## §8 Plan — one structural owner per guarantee
+
+<!-- The second movement: mechanisms are allowed here and nowhere
+     above. Each guarantee gets exactly one owner from the
+     enforcement hierarchy — database constraint → type system →
+     single validated entry path → runtime check → code review →
+     hope — the strongest available, justified against the named
+     adversity, not in general. -->
+
+### The shape the walls need
+
+Nothing new. SL-1's V1 migration already carries both tables and
+the check constraint `reserved <= on_hand_count`, and ADR-0011
+already fixed the adjustment as a value at the door. This slice
+adds no table, no column and no migration; what it adds is
+evidence, and two structural tests where a guarantee is held by an
+absence that nothing today would notice disappearing.
+
+That is the honest headline of this plan: **the walls this slice
+needs are standing, built by SL-1 against a different adversity.**
+The registry predicted it at SL-1's close — "most of SL-2's
+invariant holds by structure today" — and the work here is to
+justify each wall against *this* adversity, to prove it against
+the two corrections nothing has ever sent, and to stop the
+absences from being silently filled in later.
+
+### Owners
+
+| Guarantee | Owner, wall level | Why it defeats *this* adversity |
+|---|---|---|
+| **G1** an admitted change is compared at the moment of recording | **The store: the check constraint `reserved <= on_hand_count`, with the adjustment as one conditional statement** — `INSERT … ON CONFLICT (id) DO UPDATE SET on_hand_count = :count WHERE item.reserved <= :count`. Built by SL-1 (its G3); adopted here as this guarantee's owner. | SL-1 justified it against a race; F9 needs no race, and the same statement answers it for a different reason. The `WHERE` is evaluated against the row's committed state at the instant of writing, so an honest correction under the held units changes no row, and the door's answer is the store's answer — no code of ours decides it. Should the condition ever be wrong, the constraint refuses the row at write time: a count under the held units is physically unwritable, by any path. |
+| **G2** taken whole or not at all | **The store's own assignment, in the same statement:** `SET on_hand_count = :count`, the operator's asserted value verbatim. No arithmetic, no `LEAST`, no clamp — the statement has nowhere to compute a different number. | Clamping is not refused by a check at runtime; it is impossible to express in the one statement that writes the count. The count after an adjustment is the asserted value or the old one, and nothing else can be written. |
+| **G3** a refused change moves nothing | **The store: one statement, and no second write on the path.** The adjust path writes once; a `WHERE` that does not match writes nothing and returns no row, which is what the door turns into a refusal (ADR-0010's `409`). | There is no interval in which something is moved and then undone, and no reservation write on this path at all — so "refused" and "unchanged" are the same event, not two that must agree. |
+| **G4** effect depends only on the number asserted | **The door's contract (ADR-0011): an adjustment asserts a value, never a difference** — backed by G2's assignment. | A resend cannot lower the count twice for one loss because no statement on this path adds or subtracts: the second assertion assigns the same number to the same row. Kill 7 dies of the door's shape, not of a duplicate check — which is why no request identity is needed and none is claimed (W2 stays fenced, the idempotency claim stays banked). |
+| **G5** no decision depends on position in a sequence | **Absence, made structural: no ordering state exists on the adjust path** — no version, no sequence number, no supplied or stored "as of" instant, nothing consulted but the row as found. Held by a test that reads the main source and fails if any appears. | Kill 8 arrives as two assertions in the wrong order; each is judged alone against the state it meets, so no order can put the count under the held units. The danger is not today's code but tomorrow's: an absence nothing enforces is one helpful commit from being filled. The structural test is the enforcement, in the spirit of SL-1's no-process-clock test. |
+| **G6** every change faces the rule, by whatever path | **The store's check constraint as the backstop; a structural test that the count has one writing path.** | The constraint refuses an under-held row whoever writes it — a script, a migration, a console, a future feature — so the *state* is safe by structure. The structural test guards the other half, the *decision*: a second path that writes the count without the conditional statement would refuse nothing, and the constraint would turn its mistake into an error rather than a refusal. |
+
+Every guarantee has one owner, and the two absences (G5, G6) are
+each held by a test that reads the code rather than by a habit.
+
+### The faces chosen, and the ones not
+
+G1, G2 and G3 inherit SL-1's face comparison (its §7, five faces
+against one adversity); nothing in this slice's adversity changes
+that verdict, and re-running it would be ceremony. Two guarantees
+here do have a real choice, and both are put in front of the
+reviewer before the choice is taken:
+
+**G4 — how a resend is made harmless.**
+
+| Face | How it holds G4 | Cost |
+|---|---|---|
+| **Value semantics at the door** — chosen | a second assertion of the same number assigns the same number; nothing accumulates | none new: ADR-0011 already decided values over deltas, and this slice consumes that decision rather than taking one. Does not tell a resend from two honest corrections that agree — and does not need to |
+| A request identity per adjustment — an idempotency key, stored and refused on repeat | the ledger recognises the resend as *the same request* and answers the first outcome again | a second claim, not this promise's: the intent banked "a retried request creates at most one" and fenced it as W2. It buys the operator a truthful "you already sent this", which nobody has asked for, at the cost of a key, a store of keys, and their expiry |
+| Deltas with identity — `{"delta": -3}` plus a key | the count moves once per identified request | strictly worse here: it needs the key *and* re-opens the reordering question, since deltas do not commute with a refusal. ADR-0011 rejected deltas already |
+
+**G5 — whether the ledger should know the order.**
+
+| Face | How it holds G5 | Cost |
+|---|---|---|
+| **No ordering at all** — chosen | each assertion judged alone against the state it meets; no order can break §1 | the count can end at the older value, which is W1's remainder in ink. The ledger claims nothing about which correction was made last |
+| An operator-supplied instant, last-write-wins | a late-arriving older correction is ignored, so the count tends to the operator's latest truth | it trusts the operator's clock — T3 trusts their *identity*, not their timekeeping — and it is a claim about the world, which L2 refuses and W1 fences. Shrinking W1 takes a dated revision of the definition, not a slice's plan |
+| A ledger-assigned sequence per item | the ledger orders what it received | orders *arrival*, which is exactly what F13 scrambles; it would answer a question nobody asked while leaving the real one untouched |
+
+### Escape hatches hunted, afresh
+
+- **A migration or a console writing the count.** The constraint
+  refuses an under-held row from any of them; the rule that
+  migrations carry structure and never ledger rows stands from
+  SL-1 and is unchanged here.
+- **The counter drifting from the rows.** `reserved` is the entry
+  path's bookkeeping (SL-1's standing guard). A drift low would let
+  a correction be admitted that should be refused — so this slice's
+  witness recomputes the active sum from the reservation rows and
+  never trusts `reserved` alone, exactly as SL-1's witness does.
+- **A second decision path for the count.** None today; G6's
+  structural test is what keeps it that way.
+- **A "force" flag or an admin correction.** None exists, and none
+  is added: it would be §3's rejected shape arriving through the
+  back door, since forcing the count under the holds is precisely
+  what ending reservations was proposed to make possible.
+- **The refusal turned into a clamp by a later hand.** G2's owner
+  is the statement's shape; the evidence pins it with the mirror
+  case (a correction that fits is taken exactly).
+
+### The surface, at its minimum
+
+Nothing is added to the application. The door already carries
+`POST /items/{item}/adjustments` with its value body (ADR-0011),
+the refusal already answers `409` distinct from `400` (ADR-0010),
+and the store already carries the constraint. What this slice adds
+lives entirely under test: the evidence for E1–E4, the two
+structural tests for E5 (G5's no-ordering-state, G6's one-writing-
+path), and nothing else. A slice is not a feature, and this one
+delivers no feature at all.
+
+### Deviations and provisionals, so the close can see them
+
+- SL-1's provisional refusal is no longer provisional (§3). SL-1's
+  own record still calls it so; its §3 G3 and §6 are corrected at
+  this slice's close, not before, so the correction is one act with
+  its reason.
+- G5 and G6 are guarantees held by an absence plus a test that the
+  absence persists. This run has now met that shape twice — SL-1's
+  no-process-clock and no-instance-state tests, and these two. The
+  hand-off already filed with the bundle (the absence rung in the
+  enforcement hierarchy) gains a second instance; it is named here
+  so the close can carry it.
+
+## §9 Evidence — as delivered
+
+<!-- Filled at the build's end: which test creates which adversity,
+     what it read from the store, and the red-before-green from
+     actual output. -->
+
+## §10 Standing guards
+
+<!-- Filled at the close: what would rot this slice, and what
+     watches for it. -->
+
+## §11 Sign-offs
 
 <!-- Dated lines, the reviewer's: the specification before the plan,
      the plan before the build. -->
 
 - 2026-09-20 — the specification (§1–§7) signed by the reviewer.
+- <pending> — the plan (§8).
