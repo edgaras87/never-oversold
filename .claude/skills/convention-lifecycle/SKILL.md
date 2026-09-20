@@ -1,7 +1,7 @@
 ---
 name: convention-lifecycle
 description: How a project holds its conventions — what requires means, the registry, and updating a copy. Use when a convention is injected or updated, or when a copy under .claude/skills/ turns out wrong mid-step.
-requires: change-plans, agent-arrangement
+requires: commit-plan, agent-arrangement
 ---
 
 # Convention Lifecycle
@@ -24,16 +24,20 @@ A project's convention registry is its agent decisions log,
 `.claude/decisions.md`, as entries:
 
 - The birth entry names the conventions the project was born with
-  and the copy-time handbook commit.
+  and the deliverer's commit at copy time. Where the deliverer
+  composed its delivery from another source, the entry names that
+  hash too: one hash standing for two states would lie.
 - Every later injection or update appends an entry with its own
   hash (§3, step 5).
 - A convention's version in a project is the hash of the last entry
   that touched it. There are no per-convention version numbers.
 - A copy edited since that entry (§3, step 4) is still at that
   version; the edits are the diff against it.
-- "Is there newer, and what changed" is answered in the handbook,
-  where the kit is the master of every shipped file:
-  `git diff <hash>..HEAD -- starter/kit/`.
+- "Is there newer, and what changed" is answered at the deliverer,
+  whose kit is the master of every shipped file:
+  `git diff <hash>..HEAD -- <its kit path>`. A project holding no
+  checkout of its deliverer reads that diff from the delivery it is
+  handed instead (§3, step 1).
 
 ## 3. Updating a copy
 
@@ -41,11 +45,11 @@ Injecting a convention into a live project, as a first copy or an
 update, is done by the project's agent against the registry.
 
 1. **Position.** Read the registry for the hash the project holds
-   the convention at. `git diff <hash>..HEAD -- starter/kit/` in the
-   handbook, and the ADRs since, say what changed. A first
+   the convention at. `git diff <hash>..HEAD -- <its kit path>` at
+   the deliverer, and the ADRs since, say what changed. A first
    injection has no position and takes the whole convention. The
-   handbook is a checkout on disk or the payload a handoff carries;
-   the protocol is git either way.
+   deliverer is a checkout on disk or the payload a handoff
+   carries; the protocol is git either way.
 
 2. **Evaluate.** Read the incoming frontmatter. `requires` names the
    chain that must be present and current (§1), including a line
@@ -64,11 +68,11 @@ update, is done by the project's agent against the registry.
    no change-plan; a landing that is a sequence runs under one
    (never-oversold, 2026-09-15).
 
-4. **Copy, compare first.** The master is the kit's file,
-   `starter/kit/.claude/skills/<name>/SKILL.md` in the handbook, at
-   the same path the project holds it. Before overwriting,
-   diff the project's current copy against the handbook's file at
-   the project's pinned hash. Identical: overwrite. Different: the
+4. **Copy, compare first.** The master is the deliverer's kit
+   file, `<its kit path>/.claude/skills/<name>/SKILL.md`, at the
+   same path the project holds it. Before overwriting, diff the
+   project's current copy against the deliverer's file at the
+   project's pinned hash. Identical: overwrite. Different: the
    project edited its copy, and each edit is re-applied, dropped or
    promoted by decision, with the registry entry naming what
    happened (the CbC repo's copy was nearly overwritten unread,
@@ -76,7 +80,7 @@ update, is done by the project's agent against the registry.
 
    **A receipt branch, when the project holds one, is the compare.**
    A receipt holds every delivered file as it arrived, named by the
-   handbook commit, `kit-<hash>`, and is never edited; the update
+   deliverer's commit, `kit-<hash>`, and is never edited; the update
    cuts the next one as a commit on top of it. The upstream change
    is `git diff kit-<old> kit-<new>`. The local layer is `git diff
    kit-<old> -- .claude/skills/<name>` on the working branch, for
@@ -92,22 +96,23 @@ update, is done by the project's agent against the registry.
    goes into its own records. Give each edit a dated line in the
    copy's header comment, saying what changed and which step found
    it, and one entry in the decisions log. At the step's close, add
-   one TODO line per edited copy asking the handbook to evaluate
+   one TODO line per edited copy asking the deliverer to evaluate
    since the pin. A step that opens before the answer runs on the
-   edited copy. At the update the handbook's file at the new pin
+   edited copy. At the update the deliverer's file at the new pin
    overwrites the copy whole; a declined edit is gone with it and is
    never edited back, and a need it served goes to the project's
-   records, with the registry entry saying so. The handbook reads
+   records, with the registry entry saying so. The deliverer reads
    the TODO line when it reads the project, at a handoff or at the
    retrospective; a project that needs a faster answer sends a
    handoff.
 
    **A convention delivered as stubs** has no copy to compare. Diff
    the kit's stubs at the two hashes, `git diff <hash>..HEAD --
-   starter/kit/<stub>`, for each stub the convention ships through;
-   the list of stubs is the "Shipped conventions" table in the
-   handbook's `starter/README.md`. Carry the changed comment text
-   into the project's record; diff a template file as a file. The
+   <its kit path>/<stub>`, for each stub the convention ships
+   through; the list of stubs is the deliverer's
+   shipped-conventions table, named in step 2. Carry the changed
+   comment text into the project's record; diff a template file as
+   a file. The
    project's content around the comments is the record, never a
    local edit.
 

@@ -351,3 +351,40 @@
   repo already has in its own history, and a second receipt line to
   keep); re-copying docs/concept/ unchanged (five files in the diff
   that the delivery did not change).
+
+- 2026-09-20 The bundle updated @ 6f2be1d, from c3a3d97 — the
+  convention half only. Staged in temp/ with its note, read and
+  diffed there against the delivery commit aeef417, then taken whole
+  and the staging deleted at the set's close. Compare-first empty:
+  `git diff aeef417 -- .claude/skills` returns nothing, so no local
+  edit is overwritten. The method half and docs/concept/ are
+  byte-identical to the staging and are not re-copied.
+  Taken: seven conventions. Four held before — artifact-kinds
+  unchanged; commit-messages one line, the plan artifact's name;
+  convention-lifecycle's requires line, §2's registry bullets and
+  six places in §3 saying "the deliverer" where they said "the
+  handbook" — this run's third gap of 2026-09-18 answered, and the
+  birth-entry bullet now asking for a composing source's hash, this
+  run's practice made rule; change-plans renamed commit-plan, its
+  artifact COMMIT-PLAN.md, and a new opening paragraph: it plans the
+  commits, not the change, the what settled before the plan opens.
+  Three new, the bundle's own with no handbook ancestor: decide-
+  first, option-comparison, visual-comparison — methods, not rules
+  over anything held here. The change-plans directory deleted by
+  name in the same commit, the one step a copy cannot do. The plan
+  in flight renamed with its convention; the entry file's records
+  table names the new artifact.
+  The pin is the bundle's 6f2be1d, one hash for the seven. The
+  handbook's ba7eaa4 stands as provenance for the four that came
+  from there, in words, not as a second pin: three of the seven have
+  no handbook ancestor, and the bundle owns all seven now.
+  Why: two channels and two hashes cannot name a set that one
+  deliverer composes; and a pin that stays behind leaves the registry
+  lying (§3 step 4's own warning). SL-2 opens on these conventions at
+  every commit.
+  Rejected: recording ba7eaa4 as a second pin (a hash for four files
+  standing beside a hash for seven, with three files under neither);
+  leaving change-plans in place for the harness to disambiguate (it
+  loads whichever it meets first); keeping the in-flight plan under
+  the old artifact name until its close (four boundaries where the
+  convention in force names a file the root does not hold).

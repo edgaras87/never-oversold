@@ -49,7 +49,7 @@ its source as a diff: the conventions under convention-lifecycle
 | The system's shape changed | Shape of the system | ARCHITECTURE.md |
 | Something became true the outside should see | The front door: what this is, how to use it | README.md |
 | Agent setup changed, or a convention arrives | Decision, why, rejected options; the conventions held, with versions | .claude/decisions.md |
-| Work needs more than one commit | In-flight change set | CHANGE-PLAN.md (when present) |
+| Work needs more than one commit | In-flight change set | COMMIT-PLAN.md (when present) |
 
 <!-- This file is loaded in full on every task, relevant or not, so
      every line below passes three tests or leaves (agent-arrangement):

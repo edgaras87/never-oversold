@@ -1,15 +1,21 @@
 ---
-name: change-plans
-description: How work larger than one commit is planned, reviewed at each boundary, and closed. Use before starting a change set that needs more than one commit.
+name: commit-plan
+description: How work larger than one commit is sequenced into commits, reviewed at each boundary, and closed. Use before starting a change set that needs more than one commit.
 requires: commit-messages, artifact-kinds, project-recording
 ---
 
-# Change Plans
+# Commit Plan
 
 A **change set** is a body of work that needs more than one commit.
-It is planned before it starts, reviewed as it lands, and closed.
+Its commits are planned before it starts, reviewed as they land,
+and the plan is closed.
 
-## 1. When a change-plan is needed
+**It plans the commits, not the change.** What is being changed is
+settled before the plan is opened — in discussion, or in a record.
+When it turns out not to have been, §5 revises the plan and the
+set's ADR is still Proposed.
+
+## 1. When a commit plan is needed
 
 Write one when the work is worth splitting into more than one
 commit. A single-commit change gets none: the plan costs two extra
@@ -19,7 +25,7 @@ when someone other than the author reviews as it lands.
 
 ## 2. The artifact
 
-One file, `CHANGE-PLAN.md`, at the repo root, one at a time:
+One file, `COMMIT-PLAN.md`, at the repo root, one at a time:
 
 ```markdown
 # Change-plan: <what this change set does>
@@ -77,10 +83,10 @@ section.>
 
 | Step | Commit | Contents |
 |---|---|---|
-| Open | `docs(agent): add change-plan for <X>` | the approved plan |
+| Open | `docs(agent): add commit plan for <X>` | the approved plan |
 | Work | the steps themselves | as planned; stop at each boundary |
-| Diverge | `docs(agent): revise change-plan — <what changed>` | only when reality diverged; body says why |
-| Close | `docs(agent): close change-plan for <X>` | deletes the file; **body records what diverged** |
+| Diverge | `docs(agent): revise commit plan — <what changed>` | only when reality diverged; body says why |
+| Close | `docs(agent): close commit plan for <X>` | deletes the file; **body records what diverged** |
 
 - Commit the plan after it is agreed and before any of the work.
 - The close commit's body is the set's retrospective: what diverged
@@ -97,7 +103,7 @@ When a step needs something other than what was planned:
 
 1. Stop before committing it.
 2. Re-evaluate the remaining steps.
-3. Revise `CHANGE-PLAN.md` and commit the revision on its own, with
+3. Revise `COMMIT-PLAN.md` and commit the revision on its own, with
    a body saying what forced it.
 4. Continue.
 
