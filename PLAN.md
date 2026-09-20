@@ -484,7 +484,114 @@ reader exists; `reserved` over-approximates until SL-3. The
 branch item is ticked on the reviewer's word to merge, given at
 this boundary.
 
-## Steps 6..N-1: Invariant slices  (cbc-slice, one step per stage)
+## Step 6: SL-2 — the correction never undercuts the holds  (cbc-slice)    [ ]
+
+<!-- The second slice on one witness. SL-1's wall already refuses a
+     correction under the held units, so what is unproven here is
+     the shape of that refusal and the two corrections nothing has
+     yet created — resent, and out of order. -->
+
+Goal: SL-2 closed — no admitted change to the on-hand-count leaves
+it under the sum of active reservations, shown against an honest
+downward correction under the reserved sum, that same correction
+resent, and corrections arriving out of order.
+Gate:
+- [ ] Stage 0 passed on the actual repo and recorded in the devlog:
+      R1 the three exports stand, SL-2 `chosen-next`, the
+      reconciliation line whole; R2 `./mvnw test` green at the
+      branch point, from actual output; R3 the store reachable from
+      tests as the miniature; R4 the harness creates *this* slice's
+      adversity class — an honest request replayed and a pair
+      reordered at the real door, sequential, not contention; the
+      instance-forking machinery SL-1 built is not what this slice
+      needs, and saying so is part of the check; R6 the registry
+      writable, the records scheme in place. R5, the harness can
+      fail, is answered here and not deferred: a wall already
+      stands, so each evidence test is seen red with its wall made
+      absent on the working tree — a state that never lands in
+      history — before it is seen green. The readiness sign-off is
+      the reviewer's, one dated line.
+- [ ] The registry row goes to `in-progress` when the specification
+      lands — the first project-visible work, not at this opening
+      and not at the close.
+- [ ] Stage 1: the correctness specification stands beside SL-1's,
+      its row in the entry file: the invariant and the adversity
+      taken from SL-2's registry row and the definition's L1 and L4
+      (kills 6, 7, 8) as written, zero translation; the guarantees
+      derived by attacking the invariant — "what would let this
+      hold on paper yet break in fact" — until the attacks run dry,
+      each strategy-free; an evidence criterion per guarantee naming
+      the adversity its test creates and the witness it reads from
+      the store, the same witness as SL-1 and said so. The
+      correction's shape is decided here — the two shapes framing
+      parked, refuse the correction or let it end reservations,
+      both weighed, the loser named with why; if the choice changes
+      the door's contract it is an ADR before the spec closes, and
+      if it changes the definition, a dated revision entry, never
+      in place. The row carries no flag — the written zero, said in
+      so many words. The W1 remainder of kills 7 and 8 stays
+      fenced: what a resent or reordered correction leaves wrong
+      about the world is not this slice's to fix, and the spec says
+      which part it owns. The spec names no lock, constraint, key,
+      queue or technology. Signed off by the reviewer before the
+      plan.
+- [ ] Stage 2: the plan stands beside the spec: one structural
+      owner per guarantee, the strongest wall available, each
+      justified against the named adversity and not in general;
+      where more than one face could hold a guarantee, the
+      candidates in front of the reviewer — each face, how it holds
+      the guarantee, its cost, a recommendation — before the
+      choice, never a loser named after it; what SL-1's constraint
+      already owns said by name, so this slice claims no wall it
+      did not build; the escape hatches hunted afresh against the
+      owners this slice adds — admin paths, scripts, migrations;
+      the surface at its minimum, nothing entering that a guarantee
+      does not need. No unowned guarantee. Signed off by the
+      reviewer before code.
+- [ ] Stage 3 ran as a commit plan, the boundary shown at every
+      commit and committed on the reviewer's word; each commit
+      verified before it landed, a failed verification reported,
+      never committed.
+- [ ] The evidence: for every guarantee a test that creates its
+      adversity through the real door and reads the witness from
+      the store — the honest correction under the reserved sum
+      (F9), that correction resent (F11), two corrections out of
+      order (F13); each run red with its wall absent, recorded from
+      actual output, then green unchanged with the wall standing;
+      all under `./mvnw test`, nothing exported. A green happy path
+      closes nothing.
+- [ ] Every deviation from the spec, the plan or the skill is in
+      the devlog with what was done instead and why; a guarantee
+      found in flight enters the spec with this slice as its
+      provenance.
+- [ ] Stage 4: the spec document closes as invariant → guarantees →
+      owner → evidence, readable by a stranger; the registry flips
+      SL-2 to `closed (date, evidence)` by a dated revision entry
+      and re-decides the ordering with its reason, naming what this
+      slice leaves provisional and what it hands to SL-3 by name;
+      the standing guards named at close.
+- [ ] Records: CHANGELOG carries what a user can now see, the
+      version's move decided here as a state of the evidence;
+      README true for the correction's shape as a stranger meets
+      it; ARCHITECTURE shows any wall this slice adds; the devlog
+      carries the walk, the red and the green from actual output,
+      the exit; TODO's Step 6 items close here or move by name;
+      hand-offs filed — among them the bundle's open question,
+      answered by name if this slice's plan leans on the
+      infrastructure contract's facility paragraph, and answered
+      just as plainly if it does not.
+- [ ] Every commit follows commit-messages, none straddles agent and
+      project paths; no implementation file older than the decision
+      it realizes.
+- [ ] The step ran on `step-6-sl-2`, cut from main, and reached
+      main by fast-forward on the reviewer's word.
+Notes: opened 2026-09-20. The reviewer signs at readiness, at the
+spec and at the plan. SL-1 is presumed — the reserved sum this
+invariant is checked against is the one SL-1 keeps true — and its
+refusal of a correction under the held units is provisional until
+this slice's specification says what the shape is.
+
+## Steps 7..N-1: Invariant slices  (cbc-slice, one step per stage)
 
 Goal: each remaining registry slice closed by evidence that creates
 its adversity; ordering re-decided at each close, never assumed
