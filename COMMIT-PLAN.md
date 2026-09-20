@@ -16,8 +16,10 @@ chapters are byte-identical to the staging and are not re-copied.
 
 Four of the seven copies carry this run's first in-place edit: the
 five lines where the delivered files still say "change-plan" after
-the rename, each file with a dated header line, one decisions entry
-for the edit, and one TODO line asking the bundle to evaluate it.
+the rename, one decisions entry for the edit, and one TODO line
+asking the bundle to evaluate it. No header line is written in any
+file: the diff against the take and the decisions entry are the
+record, and the rules file's rule 2 no longer asks for one either.
 This is the first edit that will go through a re-pin, so the report
 owed to the handbook is armed, not fired.
 
@@ -65,14 +67,22 @@ The in-place edit, under `convention-lifecycle` §3 step 4 as
 received: five lines in four files — the template heading inside
 `commit-plan`, one line in `commit-messages`, two in
 `convention-lifecycle`, one in `option-comparison` — say
-"commit plan" where they still said "change-plan". Each file gains
-a dated header line naming the change and this step; one decisions
+"commit plan" where they still said "change-plan". One decisions
 entry records the edit as this run's first, provisional in the
-convention's own word until it has gone through an update. Its own
-step so the take stays the pristine compare and the edit is one
-exact hunk per file for the bundle to take or decline.
+convention's own word until it has gone through an update, and
+records that the dated header line the rule asks for is not
+written, with the reviewer's argument. Its own step so the take
+stays the pristine compare and the edit is one exact hunk per file
+for the bundle to take or decline.
 
-**4. `docs: TODO carries the note's verdicts on the Later list`**
+**4. `docs(agent): rule 2 drops the header line`**
+The rules file's rule 2 asks the same dated header line of an
+edited method skill. Dropped here, this run's own text, so that one
+process serves every copy: the diff against the pin and the log are
+the whole of what changed. Its own step because it is a rule of
+ours changed by decision, not a consequence of the take.
+
+**5. `docs: TODO carries the note's verdicts on the Later list`**
 Project-side, one change: the Later list read against section 5,
 which is a set of decisions the bundle takes in the note itself,
 with nothing behind them to check — so each TODO entry states the
@@ -89,18 +99,22 @@ convention's file is opened for any reason, or a retrospective. The
 first names `commit-plan` now, which is the citation the note asked
 us to fix. `cut-a-kata` and the facility paragraph are untouched.
 
-**5. `docs: hand the four edited copies to the bundle`**
+**6. `docs: hand the four edited copies to the bundle`**
 The convention's own hand-off form: one TODO line asking the bundle
 to evaluate this run's edits to the four copies since `6f2be1d`,
 naming the five lines and why — nouns the rename left behind, missed
-by the very lesson section 4 records from our first gap. The line
-also answers their closing ask, since this is where the delivery
-fell short. Beside it, the line owed to the handbook is updated: the
-first edit of a copy now exists, and its report fires at the next
-re-pin. Its own step, not folded into 4: triage is bookkeeping, a
-hand-off is a request outward.
+by the very lesson section 4 records from our first gap — and
+asking it to drop the header-line requirement from §3 step 4 and
+from rule 2, which it took from us: a comment in an artifact says
+how to use it or what a part is, not what changed. The line also
+answers their closing ask, since this is where the delivery fell
+short. Beside it, the line owed to the handbook is updated: the
+first edit of a copy now exists, its report fires at the next
+re-pin, and the report carries the header-line finding. Its own
+step, not folded into 5: triage is bookkeeping, a hand-off is a
+request outward.
 
-**6. `docs(agent): close commit plan for the convention take`**
+**7. `docs(agent): close commit plan for the convention take`**
 Deletes `COMMIT-PLAN.md`. Body records what diverged. The subject
 follows the new convention's table, since that is the one in force
 at the close.
@@ -130,13 +144,26 @@ permits an edit only from something that happened in the project
 and only as an outcome any project would want; reading the
 delivered files and finding them contradict their own rename is the
 happening, and a copy that agrees with its own name is what any
-project wants. The cost is the convention's full machinery for five
-words — a header line per file, a decisions entry, a hand-off line
-— and the arming of the report owed to the handbook. Accepted
-because the machinery is the trial the handbook's rule is
-provisional on, and five words are the cheapest possible first run
-of it. One TODO line names all four copies rather than one line per
-copy; the deliverer evaluates each hunk either way.
+project wants. The cost is the convention's machinery for five
+words — a decisions entry, a hand-off line — and the arming of the
+report owed to the handbook. Accepted because the machinery is the
+trial the handbook's rule is provisional on, and five words are the
+cheapest possible first run of it. One TODO line names all four
+copies rather than one line per copy; the deliverer evaluates each
+hunk either way.
+
+**No header line in the edited copies, and rule 2 loses its own.**
+The reviewer's argument, taken: a comment in an artifact carries
+how to use it or what a part is, and a line saying what changed is
+history, which already has two homes — the diff against the take
+for the hunks, the decisions entry for the why. A third copy inside
+the file is the explanation-in-the-artifact both sources have been
+stripping out since 2026-09-17. The rule was this run's, written
+2026-09-15 and never lived until today; deviating on its first run
+and reporting the deviation is a finding, following it against the
+argument is not. Rejected: dropping it for the conventions only
+(two texts, one process, which rule 7 refused); writing the line
+and reporting it as noise afterwards.
 
 **The method half and `docs/concept/` are not re-copied.** `diff
 -rq` is empty on both, verified rather than taken on the note's
@@ -147,7 +174,8 @@ pristine copy is the delivery commit, and the delivery commit is
 step 2.
 
 **`decide-first` does not fire for this set.** Its diagnostic is
-whether the commit count is sayable, and it is: six. The set is
+whether the commit count is sayable, and it is: seven after the
+revision at step 3, six before it. The set is
 decision-first throughout, the what settled in the note and this
 conversation before the plan opened, which is exactly the case the
 renamed convention's new opening paragraph names.
