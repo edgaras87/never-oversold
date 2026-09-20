@@ -86,6 +86,16 @@
       method skills 2026-09-17, and the first edit went through a
       re-pin 2026-09-20 and was taken (decisions.md, that date) —
       no longer provisional on either side.
+- [ ] Retrospective (playbook): a fifth arrangement piece on trial,
+      from Step 6 — gate items ticked as they come true, the step's
+      marker at `[~]` while it runs, a tick recording a verification
+      and never that the item is final (PLAN, Standing rules; the
+      why and the rejected option in `.claude/decisions.md`). It
+      came from SL-1's registry lesson, one step out: a record that
+      reads unchanged through a whole step is not the source of
+      truth for where the step is. If it holds, the fold-back is the
+      run playbook's step form, which the bundle owns.
+
 - [ ] Own, no creditor (was a hand-off to the handbook, which the
       bundle's second note of 2026-09-20 says is no longer
       reachable from here; kept as the learner's own item, same

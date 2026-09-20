@@ -33,6 +33,16 @@ the run's records — and written in before the step's work starts.
   into main, on the reviewer's word. A restarted step keeps its
   old branch renamed and cuts a new one.
 
+- **Gate items ticked as they come true.** An item is ticked the
+  moment it is verifiably true, not at the step's close, and the
+  step's own marker stands at `[~]` from its first tick until its
+  last. A gate that reads all-unticked through a step is not
+  telling the truth about where the step is. A tick records a
+  verification, never that the item is final: an item rewritten
+  mid-step keeps its tick only if what was verified still
+  satisfies the new words, and loses it in the devlog's words if
+  not. On trial from Step 6.
+
 ---
 
 <!-- STEPS-BEGIN — steps between the markers; the markers stay -->
@@ -484,7 +494,7 @@ reader exists; `reserved` over-approximates until SL-3. The
 branch item is ticked on the reviewer's word to merge, given at
 this boundary.
 
-## Step 6: SL-2 — the correction never undercuts the holds  (cbc-slice)    [ ]
+## Step 6: SL-2 — the correction never undercuts the holds  (cbc-slice)    [~]
 
 <!-- The second slice on one witness. SL-1's wall already refuses a
      correction under the held units, so what is unproven here is
@@ -496,7 +506,7 @@ it under the sum of active reservations, shown against an honest
 downward correction under the reserved sum, that same correction
 resent, and corrections arriving out of order.
 Gate:
-- [ ] Stage 0 passed on the actual repo and recorded in the devlog:
+- [x] Stage 0 passed on the actual repo and recorded in the devlog:
       R1 the three exports stand, SL-2 `chosen-next`, the
       reconciliation line whole; R2 `./mvnw test` green at the
       branch point, from actual output; R3 the store reachable from
