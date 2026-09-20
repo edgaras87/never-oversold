@@ -421,3 +421,35 @@
   delivery); writing the header line as the rule says and reporting
   it as noise afterwards (a deviation lived is a finding, a rule
   followed against the reviewer's argument is not).
+
+- 2026-09-20, later The bundle updated @ 4c3ac99, from 6f2be1d —
+  one file, convention-lifecycle, its §3 step 4 paragraph on editing
+  a copy: the dated header line gone, this run's argument written in
+  as the rule's reason (CBC ADR-0034), the three records that remain
+  named — the decisions entry, the TODO line, the diff against the
+  delivery commit. Staged whole in temp/ with its note; checked, not
+  taken: the method half, docs/concept/ and six conventions are
+  byte-identical to what main held, so `diff -rq` returned that one
+  file, as the note said it would. The five-noun edit of 67e913e is
+  in the bundle's masters in this run's wording — the three other
+  edited copies match the staging byte for byte — so this run's
+  first in-place edit went through a re-pin and was taken whole,
+  which is the trial both texts were provisional on. All seven
+  copied whole; git shows one.
+  The map corrected, on the bundle's word, which this repo cannot
+  check: the handbook has not been this project's upstream since
+  2026-09-18 — the bundle owns the kit, the conventions and the
+  models, and nothing here tracks the handbook by reference, pin or
+  owed report. The rules file's header and rule 6 said otherwise
+  and now do not; the TODO's three handbook items are cleared in
+  the project-side commit. Nothing changes in practice: no file
+  here came from the handbook after the birth kit, and the
+  conventions have come through the bundle since 2026-09-18.
+  Why: a copy carrying a clause this run refused, beside a master
+  that dropped it on this run's argument, is the pin lying in the
+  other direction; and a record that names a channel that no
+  longer exists sends the next report nowhere.
+  Rejected: taking only the one file (rule 5 copies whole; the six
+  identical copies cost nothing in the diff); keeping the rules
+  file's "provisional" (the trial it waited on has run, and its
+  finding is in the rule).

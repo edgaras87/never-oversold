@@ -8,17 +8,17 @@ paths:
 
 <!-- Arrived 2026-09-14 after SL-1, its seven rules written
      2026-09-15, narrowed 2026-09-16 (decisions.md, those dates).
-     The four conventions are no longer this file's: the handbook
-     took the rules into convention-lifecycle §3 step 4 (HANDBOOK
-     ADR-0038, at handbook ba7eaa4, delivered here by the bundle
-     @ c3a3d97), and that copy governs them — read it there. This
-     file stands only for the bundle's five method skills, which
-     the handbook left to the bundle; the bundle answered
-     2026-09-17 (decisions.md, that date) by taking these seven
-     rules as they stand here, so the file stays and
-     this text is the one that governs them. In force here and on
-     trial; provisional in the same sense the handbook's text is:
-     no edit has yet gone through a re-pin.
+     The four conventions are no longer this file's: the rules
+     went into convention-lifecycle §3 step 4 (HANDBOOK ADR-0038,
+     delivered here by the bundle @ c3a3d97, the bundle owning that
+     convention since 2026-09-18), and that copy governs them —
+     read it there. This file stands only for the bundle's five
+     method skills; the bundle answered 2026-09-17 (decisions.md,
+     that date) by taking these seven rules as they stand here, so
+     the file stays and this text is the one that governs them. In
+     force here, no longer provisional: the first edit of a copy
+     went through a re-pin on 2026-09-20 and was taken whole, with
+     its one finding — no header line — written into both texts.
      Outside it: `docs/concept/` (theory; the skills are derived from
      it upstream, no step here runs a chapter, its lessons are prose
      hand-offs); the stubs and fills — the entry file, the records'
@@ -72,9 +72,7 @@ paths:
    copy, and edits keep landing under rule 2. They stack on this side
    only; the source diffs against the pin either way, and the re-pin
    still lands whole. Behind the source is acceptable; behind this
-   run's own lessons is not. The first edit that goes through a
-   re-pin is reported to the handbook as one TODO line — its text is
-   provisional on that report.
+   run's own lessons is not.
 
 7. **A skill this project has finished with is edited the same
    way.** A restarted step may re-run on it, the source takes or

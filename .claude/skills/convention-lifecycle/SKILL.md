@@ -93,18 +93,22 @@ update, is done by the project's agent against the registry.
    until one such edit has gone through an update. Edit only from
    something that happened in the project, and only as a question
    or outcome any project would want; what this project alone needs
-   goes into its own records. Give each edit a dated line in the
-   copy's header comment, saying what changed and which step found
-   it, and one entry in the decisions log. At the step's close, add
-   one TODO line per edited copy asking the deliverer to evaluate
-   since the pin. A step that opens before the answer runs on the
-   edited copy. At the update the deliverer's file at the new pin
-   overwrites the copy whole; a declined edit is gone with it and is
-   never edited back, and a need it served goes to the project's
-   records, with the registry entry saying so. The deliverer reads
-   the TODO line when it reads the project, at a handoff or at the
-   retrospective; a project that needs a faster answer sends a
-   handoff.
+   goes into its own records. An edit has three records and none of
+   them is in the file: one entry in the decisions log; one TODO
+   line per edited copy, at the step's close, asking the deliverer
+   to evaluate since the pin; and the diff of the copy against the
+   delivery commit, which exists whether or not anyone writes
+   anything. **No dated line in the copy's header comment** — a
+   comment in an artifact carries how to use it and what a part is,
+   never what changed (CBC ADR-0034, on never-oversold's argument
+   at the first edit, 2026-09-20). A step that opens before the
+   answer runs on the edited copy. At the update the deliverer's
+   file at the new pin overwrites the copy whole; a declined edit is
+   gone with it and is never edited back, and a need it served goes
+   to the project's records, with the registry entry saying so. The
+   deliverer reads the TODO line when it reads the project, at a
+   handoff or at the retrospective; a project that needs a faster
+   answer sends a handoff.
 
    **A convention delivered as stubs** has no copy to compare. Diff
    the kit's stubs at the two hashes, `git diff <hash>..HEAD --
