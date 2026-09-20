@@ -61,51 +61,27 @@
 
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
-      `(CbC)` items no longer naming another run's exclusions — and
-      Step 2 was retitled from "Define (naming)" to "Identity (name,
-      description, remote)" when it opened, the remote being part
-      of a public identity. Fold both back to the cbc-run-pure
-      playbook (its v5 already derives Release's gate; check the
-      rest).
+      `(CbC)` items no longer naming another run's exclusions. Fold
+      back to the cbc-run-pure playbook (its v5 already derives
+      Release's gate; check the rest). The other half this item
+      carried, Step 2's retitle to "Identity (name, description,
+      remote)", the bundle discharged 2026-09-20 in its note: taken,
+      nothing further owed.
 - [ ] Retrospective (handbook, playbook): four arrangement pieces
       are on trial from Step 1 — the one-branch-per-step rule
       (PLAN, Standing rules), the kit @ af16eb7 with its
       settings-file gate rejected, the operator's CLAUDE.local.md
       holding the pace, the entry file under .claude/. Each that
-      held folds back to its source: the rule to the playbook the
-      steps came from, the other three to the handbook (its
-      ADR-0035 waits on this run's report). The fifth, skills
-      edited between two pins (2026-09-14), the handbook took for
-      its conventions 2026-09-15 (HANDBOOK ADR-0038, provisional on
-      the first edit through a re-pin); the bundle answered for the
-      method skills 2026-09-17, taking the seven rules as this run
-      wrote them, so the rules file stays as the text that governs
-      them (decisions.md, that date).
-- [ ] Retrospective (cbc-framing, change-plans): framing steps ran
-      as commit series — draft, one revision per reviewer question,
-      verdict — so each question's effect is a diff. If it held,
-      fold back to the source: cbc-framing's record section (the
-      mode), and change-plans if the series-per-step shape wants
-      naming there.
-- [ ] Retrospective (kit): the entry file's opening paragraph
-      carried a state clause from the kit's stub ("nothing to
-      build, no tests, no runtime") and staled at Step 4's close;
-      dropped here 2026-09-12, the paragraph now stating only what
-      never changes. The bundle fixed its own fill (cde0e97); the
-      kit's stub and agent-arrangement's test 2 (a line with a
-      moment goes where the moment is) are the handbook's half,
-      still open.
-- [ ] Retrospective (commit-messages): the convention's imperative
-      test ("if applied, this commit will …") has not been followed
-      here since Step 1. Record commits are written as statements
-      instead — "the bundle takes the in-place rule", "the rules
-      file narrows to the bundle's skills" — and read better that
-      way, a record commit reporting what became true rather than
-      ordering it. Work commits stayed imperative ("update the
-      bundle's skills"). Nobody decided this; it settled. Either
-      the convention names the split or the log gives it up —
-      noticed at the re-pin of 2026-09-18, where six more commits
-      followed the log rather than the text.
+      held folds back to its source: the other three to the handbook
+      (its ADR-0035 waits on this run's report); the rule's
+      fold-back to the playbook the bundle discharged 2026-09-20 in
+      its note — taken, nothing further owed, the trial here runs
+      on. The fifth, skills edited between two pins (2026-09-14),
+      the handbook took for its conventions 2026-09-15 (HANDBOOK
+      ADR-0038, provisional on the first edit through a re-pin); the
+      bundle answered for the method skills 2026-09-17, taking the
+      seven rules as this run wrote them, so the rules file stays as
+      the text that governs them (decisions.md, that date).
 - [ ] Owed to the handbook, whenever it happens: the first edit of a
       skill copy that goes through a re-pin, reported as one TODO
       line per convention-lifecycle §3 step 4 — HANDBOOK ADR-0038 is
@@ -139,40 +115,41 @@
       the same gap unprompted, and reads SL-2 leaning on this
       paragraph as evidence the first slice needed it. Say so if
       SL-2 does.
-- [ ] Hand-off to the CbC bundle: they asked to hear where the
-      update procedure of 2026-09-18 fell short, it being the first
-      run of it as a note and a copy together. Three places, none of
-      them reachable by a diff — which is the point: the note was
-      the only thing that could have carried them.
-      The stale citations were miscounted. The note named two and
-      there were four: it did not see this repo's own CLAUDE.md,
-      which carries the same pointer in its prose, nor decisions.md's
-      header, which cites the registry section by its old number and
-      so escapes a search for §8 as well (§7, now §2).
-      Moving the four conventions onto the bundle's channel makes
-      the receipt branch a live question the note leaves unasked:
-      the kit's `kit-<hash>` receipt was the compare for those
-      files. This run answered it for itself — no receipt for a
-      pristine copy, its compare being the delivery commit, and the
-      kit's next receipt simply carrying four fewer files
-      (decisions.md, 2026-09-18) — and says so in case the bundle
-      wants an answer of its own in the procedure.
-      The same move reaches inside the convention's own text, which
-      the note does not work through: §2's last bullet answers "is
-      there newer, and what changed" with a diff of the handbook's
-      kit, no longer where this project would look.
-      Everything else held. The strip was the strip — checked here
-      by stripping comments from both sides, not taken on trust —
-      and the renumbering was called out exactly where a diff would
-      have hidden it.
 - [ ] Held at the bundle, not here — recorded so the trail is
-      whole: the absence rung in the enforcement hierarchy (a
-      concept question, in the bundle's Later with a trigger: a
-      second run meeting a guarantee held by absence); the Spring
-      slice reference (the bundle keeps it as a baseline design
-      under its docs/baselines/, handed to a run after its build is
-      on record; the skill carries no pointer). Nothing to do here
-      unless SL-2 meets either.
+      whole, each verdict in the bundle's note of 2026-09-20 being
+      the whole of the event, nothing behind it to check.
+      The absence rung in the enforcement hierarchy: a concept
+      question, in the bundle's Later with a trigger, a second run
+      meeting a guarantee held by absence. Unchanged.
+      The Spring slice reference: the bundle keeps it as a baseline
+      design under its docs/baselines/, the skill carries no
+      pointer. Its rule "handed to a run after its build is on
+      record" the bundle withdrew 2026-09-20 — it never fired, it
+      generalised from one slice, and a shape adopted from a
+      reference is inherited by the next slice rather than derived.
+      Nothing is handed at a slice close, ever; SL-2 and everything
+      after it is derived with no reference in hand, as SL-1 was.
+      Framing steps as commit series (cbc-framing, commit-plan):
+      draft, one commit per reviewer question, verdict — each
+      question's effect a diff. Asked whether commit-plan should
+      name the shape. Held 2026-09-20, not decided: it collides with
+      that skill's own assertion that the commits which exist are
+      the steps done, so naming it means saying what a step is — a
+      change to the convention, not a sentence added. cbc-framing's
+      record section (the mode) is still this run's to fold back at
+      the retrospective.
+      The imperative test (commit-messages): not followed here since
+      Step 1 — record commits are statements ("the bundle takes the
+      in-place rule"), work commits imperative ("update the bundle's
+      skills"); nobody decided it, it settled, and the re-pin of
+      2026-09-18 followed the log rather than the text. Asked
+      whether the convention names the split. Held 2026-09-20, not
+      decided; this run's reading of where the line falls is the
+      one the bundle starts from.
+      Trigger for the two held items: the next time that file is
+      opened for any reason, or a retrospective, whichever first.
+      Nothing owed meanwhile; either moves sooner on request.
+      Nothing to do here unless SL-2 meets the first two.
 
 ## Known issues (deferred deliberately — each entry: what, why accepted, when to revisit)
 
