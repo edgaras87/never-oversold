@@ -6,6 +6,71 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-20  (housekeeping: the conventions re-pin @ 6f2be1d)
+
+<!-- Between steps: SL-1 closed 2026-09-14, SL-2's branch not cut.
+     The three housekeeping sessions before this one — the bundle
+     re-pin of 2026-09-15, the in-place answer of 2026-09-17, the
+     re-pin of 2026-09-18 — have no entry here; the decisions log
+     is their record, and the gap is noted rather than back-filled. -->
+
+- The bundle's second delivery as a note and a copy, staged in
+  `temp/`. Read the note, then checked its claims rather than took
+  them: `diff -rq` on the five method skills and `docs/concept/`
+  empty, as it said; the four held conventions diffed against the
+  staging, as it said — one line in commit-messages, "the
+  deliverer" through convention-lifecycle §2 and §3, change-plans
+  renamed commit-plan with a new opening paragraph; three new,
+  decide-first, option-comparison, visual-comparison. Found what
+  the note had not: five lines in four delivered files still saying
+  "change-plan" — the very grep-the-whole-span lesson its §4
+  records from our first gap.
+- The note's first §5 read as claims about the bundle's records —
+  "already in the playbook", "we hold the same finding" — none
+  checkable here. Said so; the reviewer sent it back; the note came
+  again with §5 as verdicts, each line a decision taken in the
+  note itself with nothing behind it to verify, and the staging
+  re-hashed 9041d00 → 6f2be1d with every file byte-identical. The
+  branch renamed to match before anything committed.
+- Ran as a commit plan on `housekeeping-bundle-6f2be1d`, eight
+  commits, one revision, each boundary shown and committed on the
+  word: the plan; the take (seven copies, change-plans deleted by
+  name, the in-flight plan file renamed with its convention, the
+  records-table row, the pin entry — 6f2be1d, ba7eaa4 as
+  provenance in words); the five-noun edit; rule 2; the TODO's
+  verdicts; the hand-off; the close. Fast-forwarded into main.
+- The revision, reversed before the step committed: step 3 had
+  each edited copy gaining a dated header comment, as the received
+  convention and our own rule 2 ask. The reviewer: a comment in an
+  artifact says how to use it or what a part is, never what changed
+  — that is history, and the diff against the take and the
+  decisions entry already hold it. Taken. The comments were written,
+  looked at, and removed unstaged; rule 2 dropped its line in a
+  step of its own so one process serves every copy; the hand-off
+  asks the bundle to drop it from both texts. This run's first
+  in-place edit of a copy, and the first finding it produces is
+  against the rule it runs under — the report owed to the handbook
+  is armed on it.
+- What the note's §5 did to the Later list, in its own words there:
+  three gaps and the playbook fold-back discharged; the entry-file
+  half accepted by the bundle; the Spring reference's
+  hand-after-the-build rule withdrawn, nothing handed at a slice
+  close, ever; framing-as-commit-series and the imperative test
+  held at the bundle with one trigger, the next time that file is
+  opened or a retrospective.
+- `decide-first` did not fire: the commit count was sayable, six
+  then seven. `commit-plan`'s new paragraph — it plans the commits,
+  not the change — was exactly this set's case: everything settled
+  in the note and the conversation before the plan opened, and the
+  one thing that was not settled forced the one revision.
+- Resume: Step 6 (SL-2, the correction never undercuts the holds):
+  cut `step-6-sl-2` from main at `ff46362`, derive its gate into
+  PLAN first, run cbc-slice on the conventions now held — its
+  specification decides the correction's shape, refuse or let end,
+  which SL-1 left provisional. No reference in hand, as SL-1. Say
+  in TODO if SL-2 leans on the facility paragraph. The reviewer
+  pushes main when wanted.
+
 ## 2026-09-12  (Step 5: SL-1, no over-admission under contention)
 
 <!-- Grows as the stages run — the lived-result record: for every
