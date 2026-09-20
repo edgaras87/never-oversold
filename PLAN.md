@@ -524,7 +524,7 @@ Gate:
 - [x] The registry row goes to `in-progress` when the specification
       lands — the first project-visible work, not at this opening
       and not at the close.
-- [ ] Stage 1: the correctness specification stands beside SL-1's,
+- [x] Stage 1: the correctness specification stands beside SL-1's,
       its row in the entry file: the invariant and the adversity
       taken from SL-2's registry row and the definition's L1 and L4
       (kills 6, 7, 8) as written, zero translation; the guarantees

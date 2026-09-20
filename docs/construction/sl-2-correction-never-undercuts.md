@@ -205,11 +205,20 @@ same witness SL-1 read, a different adversity creating it.
 All of it under the one standard test command, nothing exported,
 the ground not required up.
 
-## §6 Folds, consumed here
+## §6 Folds and flags — the written zeros
 
-None. SL-2's registry row names no fold, and the three the framing
-cut — FC1, FC2, FC3 — are consumed elsewhere: FC1 and FC3 by SL-1,
-FC2 by SL-3. The written zero, so the count is checkable.
+**Folds: none.** SL-2's registry row names no fold, and the three
+the framing cut — FC1, FC2, FC3 — are consumed elsewhere: FC1 and
+FC3 by SL-1, FC2 by SL-3. The count stays checkable.
+
+**Flags: none.** SL-1's row carried one — kill 10, an adversity no
+hammering could stage — and its specification owed an answer.
+SL-2's row carries none, and it is worth saying why rather than
+passing over it: every adversity here stages the normal way, as an
+honest request at the door, the same request sent twice, and a
+pair delivered in the other order. Nothing is inherited as a
+warning, and nothing is owed an answer this specification does not
+give.
 
 ## §7 What this slice does not claim
 
@@ -242,4 +251,4 @@ FC2 by SL-3. The written zero, so the count is checkable.
 <!-- Dated lines, the reviewer's: the specification before the plan,
      the plan before the build. -->
 
-- <pending> — the specification (§1–§7).
+- 2026-09-20 — the specification (§1–§7) signed by the reviewer.
