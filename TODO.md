@@ -57,7 +57,8 @@
      harvest, 2026-09-17 for the in-place answer) — the bundle's
      harvest lines in each skill's header end with the next copy,
      which opens on instruction only. What stays is for the
-     playbook, the handbook, the kit, or a later trigger. -->
+     playbook, the bundle — which owns the kit — or a later
+     trigger. -->
 
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
@@ -67,34 +68,28 @@
       carried, Step 2's retitle to "Identity (name, description,
       remote)", the bundle discharged 2026-09-20 in its note: taken,
       nothing further owed.
-- [ ] Retrospective (handbook, playbook): four arrangement pieces
+- [ ] Retrospective (bundle, playbook): four arrangement pieces
       are on trial from Step 1 — the one-branch-per-step rule
       (PLAN, Standing rules), the kit @ af16eb7 with its
       settings-file gate rejected, the operator's CLAUDE.local.md
       holding the pace, the entry file under .claude/. Each that
-      held folds back to its source: the other three to the handbook
-      (its ADR-0035 waits on this run's report); the rule's
-      fold-back to the playbook the bundle discharged 2026-09-20 in
-      its note — taken, nothing further owed, the trial here runs
+      held folds back to its source, and the source of the kit is
+      the bundle since 2026-09-18 (its second note of 2026-09-20:
+      the handbook is no longer this project's upstream, its kit
+      and conventions the bundle's; HANDBOOK ADR-0035 waited on
+      this run's report, and the report goes where the kit went).
+      The rule's fold-back to the playbook the bundle discharged
+      2026-09-20 — taken, nothing further owed, the trial here runs
       on. The fifth, skills edited between two pins (2026-09-14),
-      the handbook took for its conventions 2026-09-15 (HANDBOOK
-      ADR-0038, provisional on the first edit through a re-pin); the
-      bundle answered for the method skills 2026-09-17, taking the
-      seven rules as this run wrote them, so the rules file stays as
-      the text that governs them (decisions.md, that date).
-- [ ] Owed to the handbook, at the next re-pin: the first edit of a
-      skill copy that goes through a re-pin, reported as one TODO
-      line per convention-lifecycle §3 step 4 — HANDBOOK ADR-0038 is
-      provisional on that report (its decision 5), and names beside
-      it as open: work done by a step that ran on an edit the source
-      later declined. The edit now exists: 67e913e, 2026-09-20, five
-      lines in four convention copies (the hand-off below). The
-      report fires when that edit goes through a re-pin, and carries
-      one finding from the first run: the dated header line the rule
-      asks for was not written, on the argument that a comment in an
-      artifact says how to use it or what a part is, never what
-      changed.
-- [ ] Hand-off to the handbook: a personal `cut-a-kata` skill —
+      is settled: it went into convention-lifecycle §3 step 4
+      (HANDBOOK ADR-0038), the bundle took the seven rules for the
+      method skills 2026-09-17, and the first edit went through a
+      re-pin 2026-09-20 and was taken (decisions.md, that date) —
+      no longer provisional on either side.
+- [ ] Own, no creditor (was a hand-off to the handbook, which the
+      bundle's second note of 2026-09-20 says is no longer
+      reachable from here; kept as the learner's own item, same
+      trigger): a personal `cut-a-kata` skill —
       practice exercises cut from live work at the moment the
       learner says "I could not rebuild this": a marker in ten
       seconds, a card at a boundary (skill, problem, oracle,
@@ -121,27 +116,18 @@
       the same gap unprompted, and reads SL-2 leaning on this
       paragraph as evidence the first slice needed it. Say so if
       SL-2 does.
-- [ ] Hand-off to the CbC bundle: evaluate this run's edits to
-      commit-plan, commit-messages, convention-lifecycle and
-      option-comparison since 6f2be1d — `git diff 1b0859a --
-      .claude/skills/<name>`, one hunk each, five lines in all,
-      landed in 67e913e. The rename to commit-plan left "change-plan"
-      standing in the §2 template heading, the agent-files sentence,
-      §3 step 3 and the ADR-0038 line, and §4's first entry; each
-      now says "commit plan". Nouns, not rules — the very span the
-      note's §4 says to grep for every name a rename moved, and this
-      is where the delivery of 2026-09-20 fell short, since they
-      asked. Two asks ride with it. First, take the five lines or
-      decline them. Second, drop the dated header line from §3 step
-      4 and from rule 2 of the rules file they took from this run:
-      a comment in an artifact says how to use it or what a part
-      is, never what changed — that is history, held already by the
-      diff against the pin and the decisions entry, and a third
-      copy in the file is the explanation-in-the-artifact both
-      sources stripped out on 2026-09-17. This run wrote none, and
-      its rule 2 no longer asks for one (3a31bda). The handbook's
-      ADR-0038 is provisional on exactly this first run, so the
-      finding reaches it through the line above.
+- [ ] Hand-off to the CbC bundle: where the second note of
+      2026-09-20 fell short, since they asked. Its map correction
+      named two Later items that pointed at the handbook and there
+      were three: the four-arrangement-pieces item folded three
+      pieces back "to the handbook" and called ADR-0038 provisional
+      — re-addressed here to the bundle, as the kit's owner, and
+      the provisional mark dropped. The same grep-the-whole-span
+      lesson, third time: a map correction moves every arrow that
+      pointed at the old party, not the two the sender has in mind.
+      Both asks of the morning's hand-off were taken and that line
+      is closed; the five-noun edit is in the masters, and the
+      header-line clause is gone from §3 step 4.
 - [ ] Held at the bundle, not here — recorded so the trail is
       whole, each verdict in the bundle's note of 2026-09-20 being
       the whole of the event, nothing behind it to check.
