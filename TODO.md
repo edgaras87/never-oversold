@@ -84,6 +84,44 @@
       plus updates to what it touches. Detail in this session's
       devlog entry.
 
+- [ ] Seeing what changed between versions, not between commits.
+      While one commit's worth of work is being polished, each new
+      version can only be diffed against the last commit, so the
+      reviewer must re-read the whole thing to find the part that
+      answers their last clarification. Worse where a paragraph is
+      rewritten and reflows: a line diff marks every line changed
+      when three words moved.
+      Turned down, with reasons, so the pass need not re-run them:
+      a branch per iteration (switching branches to read a
+      paragraph); a commit per iteration, squashed or merged at the
+      end (it fights two rules already held — the reviewer's word
+      before any commit, and the commit-plan convention's "the
+      commits that exist are the steps done", so draft commits make
+      the history lie about what was finished).
+      The working answer, in use from 2026-09-21 and needing no
+      decision: the index is the checkpoint. The agent stages each
+      version it shows and says which version is staged; the next
+      edit then reads as a diff against the version the reviewer
+      last read, however many rounds it takes; one commit at the
+      end. The reflow problem is answered by word-level diffing —
+      `git diff --word-diff`, or the IDE's own word or character
+      highlighting inside a changed line.
+      In the reviewer's IntelliJ: Settings → Version Control → Git
+      → Enable staging area, which splits the Commit window into
+      Staged (the version read) and Unstaged (what changed since),
+      with the diff of an unstaged file taken against the staged
+      one. Clicking the staged entry still shows the whole change
+      against the last commit, so the full picture stays one click
+      away. Fallback if that feels wrong in practice: the IDE's
+      Local History, which records every save without git and can
+      be labelled at the moment a version is shown.
+      For the pass to decide: whether this becomes a written rule
+      here or a note handed to the bundle, the commit-plan
+      convention being theirs; and whether a rejected draft ever
+      needs keeping beyond the devlog line that says what it said
+      and why it went — the pattern used for the writing rule
+      drafted and reverted on 2026-09-21.
+
 ## Later / someday
 
 <!-- Hand-offs the bundle has taken are gone from here; this repo's
