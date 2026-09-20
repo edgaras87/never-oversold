@@ -372,4 +372,4 @@ delivers no feature at all.
      the plan before the build. -->
 
 - 2026-09-20 — the specification (§1–§7) signed by the reviewer.
-- <pending> — the plan (§8).
+- 2026-09-21 — the plan (§8) signed by the reviewer.
