@@ -6,6 +6,91 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-21  (Step 6: SL-2 specified and planned; the language finding)
+
+- The slice moved: the specification written and committed unsigned
+  first, so any change would read as a diff (662e97d); the registry
+  row flipped to `in-progress` the moment it landed, the first time
+  in this project's life a row has said so (7f3860d); the flag zero
+  added — SL-2's row carries none, said out loud because the gate
+  asks for it and the first draft passed over it — and the
+  specification signed 2026-09-20 (60291b4); the plan written and
+  committed unsigned (be14e7c), its sign-off still open.
+- What the plan found: SL-2 adds no production code. The
+  conditional statement and the check constraint stand from SL-1,
+  built against a race and justified here against an honest
+  request; ADR-0011's value-not-delta door kills the resend with no
+  duplicate check anywhere. What the slice adds is evidence, plus
+  two structural tests where a guarantee is held by an absence —
+  no ordering state, one writing path — that nothing today would
+  notice disappearing. Two faces were put up before the choice, as
+  the skill asks: how a resend is made harmless (value semantics,
+  an idempotency key, deltas-plus-key) and whether the ledger
+  should know the order (no ordering, an operator-supplied instant,
+  a ledger-assigned sequence).
+
+### The language finding, and what is deferred
+
+- The finding has two faces and they are one problem. First, the
+  records: the reviewer could not read the owners table without
+  decoding it. Second, this session's chat: the answers that
+  explain the records need decoding too, and the reviewer has had
+  to ask for a simpler version of nearly every one. An artifact a
+  reader must decipher and a reply a reader must decipher are the
+  same defect in two places, so the pass decides the rule for
+  both — the written records and how the work is explained while
+  it happens. The diagnosis, from looking at the cells: three
+  causes, stacked. One, the house voice
+  this run has written in since SL-1 — terse and literary, em-dashes
+  for connectives, abstract nouns as subjects — which reads well in
+  the intent's short standalone sentences and badly in a dense
+  table. Two, every cell argues three things at once (what the wall
+  is, why it beats this adversity, what happens if the wall is
+  wrong) with no separator, so the reader must split before they
+  can read. Three, every noun is definite and assumes the reader is
+  holding it in memory — "the statement", "the row", "the held
+  units" — three per sentence, with no numbers anywhere to anchor.
+- Asked whether plainer records would cost the agent anything. The
+  answer given: no. Precision lives in the vocabulary and the
+  references, not in sentence length; three claims in one sentence
+  let a qualifier attach to the wrong claim for any reader. What
+  would cost something is deleting the defined terms, the fence and
+  kill numbers, or the reasons — that is not simplification.
+- Turned down, so the pass need not re-run them: a second, plainer
+  set of records beside these (two masters for one fact drift, and
+  the project holds one master per fact); marking these as
+  agent-only and writing a human version (there is no dialect the
+  agent reads better). The argument that settled it: the intent
+  names a human reader as this system's audience, so a record that
+  must be deciphered fails the job it was written for.
+- A writing rule was drafted into the entry file's local rules and
+  a decisions entry written for it, then reverted unstaged on the
+  reviewer's call: nothing changes mid-slice, or SL-2 ends half in
+  one voice and half in the other, and the decision deserves its
+  own pass rather than a stopgap written in the very voice it is
+  trying to fix. The draft's own text proved the point — "never
+  stacked into one period" needs decoding.
+- What the rule would have said, kept here so the pass starts from
+  something: one idea per sentence; the parts of an argument
+  labelled (what the wall is, why it beats this attack, what
+  happens if it fails) rather than joined; every defined term and
+  every reference kept whole; one worked example with real numbers
+  per mechanism; argument prose and argument-carrying tables
+  governed, lookup tables — kill ↔ slice, a records index — left
+  alone.
+- Where recall lives, since the question was asked: TODO's item
+  under "Next (after SL-2 closes)" is the index and this entry is
+  the detail. `temp/` was considered and refused — it is untracked
+  rather than ignored, it has been deleted at step boundaries
+  before, and a bare `git add -A` has nearly swept it into a commit
+  once already.
+- Resume: the plan's sign-off (§8) is the only thing between here
+  and Stage 3. Then the build: no production code expected, the
+  evidence for E1-E4 each seen red with the wall made absent on the
+  throwaway store before green, and the two structural tests for
+  the absences. The writing pass comes after the slice closes, not
+  during it.
+
 ## 2026-09-20  (Step 6 opens: SL-2, Stage 0)
 
 - Step 6 opened on `step-6-sl-2`, cut from main at adc90f6. The

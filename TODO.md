@@ -61,6 +61,29 @@
       ADR-0010's letter, logged in SL-1's plan; lift it when the
       reader lands.
 
+## Next (after SL-2 closes)
+
+- [ ] Two faces, one problem: the records read as if they must be
+      decoded — SL-2's owners table was the case that showed it,
+      and it is not alone — and so do the chat answers explaining
+      them, which the reviewer has had to ask to have said again
+      more simply nearly every time. The pass covers both.
+      Nothing was changed mid-slice on purpose, so this slice's
+      record stays in one voice. The pass decides a writing rule
+      for the records and for how the work is explained while it
+      happens, and sweeps what it touches — SL-1's record, the
+      argument-carrying tables, README, the manuals —
+      and asks whether different artifact kinds want different
+      rules. Already turned down once, so the pass need not
+      re-run them: a second plainer set of records beside these;
+      marking these as agent-only and writing a human version.
+      The reviewer's sketch, an idea and not a decision:
+      decide-first for the questions, option-comparison on real
+      examples, a picture only if visual-comparison earns it, then
+      a commit plan — the output may be a writing-guide artifact
+      plus updates to what it touches. Detail in this session's
+      devlog entry.
+
 ## Later / someday
 
 <!-- Hand-offs the bundle has taken are gone from here; this repo's
