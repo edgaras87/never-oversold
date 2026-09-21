@@ -88,6 +88,37 @@ class CorrectionIT extends WebDatabaseIT {
                 .isEqualTo(before);
     }
 
+    @Test
+    void aCorrectionThatFitsResentAssertsTheSameState() {
+        String item = anItemHolding(10, 4);
+        Map<String, Object> correction = Map.of("onHandCount", 9);
+
+        assertThat(adjust(item, correction).getStatusCode()).isEqualTo(HttpStatus.OK);
+        Witness.Numbers afterFirst = Witness.read(item);
+
+        // the same body at the same door, not a second request made to look alike
+        assertThat(adjust(item, correction).getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        assertThat(afterFirst.onHandCount()).as("the count moved once: %s", afterFirst).isEqualTo(9);
+        assertThat(Witness.read(item))
+                .as("an adjustment asserts a state, so twice is the same as once")
+                .isEqualTo(afterFirst);
+    }
+
+    @Test
+    void aCorrectionThatDoesNotFitResentIsRefusedTwiceAndMovesNothing() {
+        String item = anItemHolding(10, 8);
+        Map<String, Object> correction = Map.of("onHandCount", 7);
+        Witness.Numbers before = Witness.read(item);
+
+        assertThat(adjust(item, correction).getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+        assertThat(adjust(item, correction).getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+
+        assertThat(Witness.read(item))
+                .as("a refusal resent is still a refusal, and still moves nothing")
+                .isEqualTo(before);
+    }
+
     /** An item known to the ledger at {@code onHand}, with {@code held} units under reservation. */
     private String anItemHolding(int onHand, int held) {
         String item = "correction-" + UUID.randomUUID();
@@ -98,7 +129,10 @@ class CorrectionIT extends WebDatabaseIT {
     }
 
     private ResponseEntity<String> adjust(String item, int onHandCount) {
-        return door.postForEntity("/items/" + item + "/adjustments",
-                Map.of("onHandCount", onHandCount), String.class);
+        return adjust(item, Map.of("onHandCount", onHandCount));
+    }
+
+    private ResponseEntity<String> adjust(String item, Map<String, Object> body) {
+        return door.postForEntity("/items/" + item + "/adjustments", body, String.class);
     }
 }
