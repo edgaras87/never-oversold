@@ -117,4 +117,22 @@ here.
 
 ## Answers
 
-<!-- Filled as each is settled, top first. -->
+**Q1 — the shape, not the voice.** Settled 2026-09-21 by the
+reviewer, against the two passages: the fences read fine, the
+guarantee had to be worked at. So the project's voice stays, and
+what gets fixed is any passage that packs a whole argument into one
+block — the parts get labelled and a worked example with real
+numbers is added where a mechanism is involved.
+
+Revisit trigger, the reviewer's own: if something else turns out
+hard to read, this question runs again rather than being argued
+around. A second passage of the short-claim kind failing the test
+is what would overturn it.
+
+What this does to the questions below. Q5's measurement is no
+longer "count the records" but "find the passages that pack an
+argument", which is a much smaller number and changes Q4's answer
+with it. Q3 gets simpler: if the fault is packing rather than
+style, the chat has the same fault and wants the same rule, not a
+different one. Q2 is untouched — where the rule lives does not
+depend on what it says.
