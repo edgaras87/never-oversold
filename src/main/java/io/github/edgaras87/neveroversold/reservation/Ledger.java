@@ -90,8 +90,8 @@ class Ledger {
      * the item if the ledger did not know it (ADR-0011). One conditional
      * statement on the item's row: the store serializes it against any
      * admit on the same row (G3), and a count that would sit under the
-     * units held changes nothing — refused, provisionally, until SL-2
-     * decides the correction's shape.
+     * units held changes nothing — refused, which is the shape SL-2
+     * decided and proved (its record, §3).
      */
     Item adjust(ItemId item, OnHandCount count) {
         return transaction.execute(status -> jdbc.sql("""

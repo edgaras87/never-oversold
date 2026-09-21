@@ -100,8 +100,9 @@ class ReservationDoorIT extends WebDatabaseIT {
 
     @Test
     void anAdjustmentUnderTheHeldUnitsIsRefused() {
-        // provisional: SL-2 decides the correction's shape; until then the
-        // count never drops under what reservations hold
+        // the shape SL-2 decided: the count never drops under what
+        // reservations hold, and the correction is refused rather than
+        // ending holds to fit. Its own evidence is in CorrectionIT.
         String item = newItemId();
         adjust(item, Map.of("onHandCount", 10));
         reserve(item, Map.of("quantity", 7, "hold", "PT15M"));

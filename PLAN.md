@@ -494,7 +494,7 @@ reader exists; `reserved` over-approximates until SL-3. The
 branch item is ticked on the reviewer's word to merge, given at
 this boundary.
 
-## Step 6: SL-2 — the correction never undercuts the holds  (cbc-slice)    [~]
+## Step 6: SL-2 — the correction never undercuts the holds  (cbc-slice)    [x] 2026-09-21
 
 <!-- The second slice on one witness. SL-1's wall already refuses a
      correction under the held units, so what is unproven here is
@@ -558,11 +558,11 @@ Gate:
       the surface at its minimum, nothing entering that a guarantee
       does not need. No unowned guarantee. Signed off by the
       reviewer before code.
-- [ ] Stage 3 ran as a commit plan, the boundary shown at every
+- [x] Stage 3 ran as a commit plan, the boundary shown at every
       commit and committed on the reviewer's word; each commit
       verified before it landed, a failed verification reported,
       never committed.
-- [ ] The evidence: for every guarantee a test that creates its
+- [x] The evidence: for every guarantee a test that creates its
       adversity through the real door and reads the witness from
       the store — the honest correction under the reserved sum
       (F9), that correction resent (F11), two corrections out of
@@ -570,17 +570,17 @@ Gate:
       actual output, then green unchanged with the wall standing;
       all under `./mvnw test`, nothing exported. A green happy path
       closes nothing.
-- [ ] Every deviation from the spec, the plan or the skill is in
+- [x] Every deviation from the spec, the plan or the skill is in
       the devlog with what was done instead and why; a guarantee
       found in flight enters the spec with this slice as its
       provenance.
-- [ ] Stage 4: the spec document closes as invariant → guarantees →
+- [x] Stage 4: the spec document closes as invariant → guarantees →
       owner → evidence, readable by a stranger; the registry flips
       SL-2 to `closed (date, evidence)` by a dated revision entry
       and re-decides the ordering with its reason, naming what this
       slice leaves provisional and what it hands to SL-3 by name;
       the standing guards named at close.
-- [ ] Records: CHANGELOG carries what a user can now see, the
+- [x] Records: CHANGELOG carries what a user can now see, the
       version's move decided here as a state of the evidence;
       README true for the correction's shape as a stranger meets
       it; ARCHITECTURE shows any wall this slice adds; the devlog
@@ -590,7 +590,7 @@ Gate:
       answered by name if this slice's plan leans on the
       infrastructure contract's facility paragraph, and answered
       just as plainly if it does not.
-- [ ] Every commit follows commit-messages, none straddles agent and
+- [x] Every commit follows commit-messages, none straddles agent and
       project paths; no implementation file older than the decision
       it realizes.
 - [ ] The step ran on `step-6-sl-2`, cut from main, and reached
@@ -600,6 +600,24 @@ spec and at the plan. SL-1 is presumed — the reserved sum this
 invariant is checked against is the one SL-1 keeps true — and its
 refusal of a correction under the held units is provisional until
 this slice's specification says what the shape is.
+Closed 2026-09-21: the shape decided — refuse the correction, the
+losing shape and its three reasons in the record's §3 — and no
+production code added, the wall standing from SL-1 and justified
+here against an honest request rather than a race. Nine commits
+against eight planned, one revision at commit 4's boundary adding
+the skill's correction. 39 tests from 29; every red recorded from
+actual output, the witness reading onHandCount=7 against
+activeSum=8 with the wall absent, 19 where 9 was asserted under
+delta semantics, and three planted violations for the structural
+guards. Deviations: E3's red came from the door's shape rather
+than the guard, which could not redden a resend; the hand-off line
+moved to the records commit, TODO being a project path. One
+finding the specification had not carried: E4 was two things
+wearing one name, and the red run separated them — the half that
+cannot kill is now a tripwire that says so, and the skill was
+corrected in place for the general lesson. Version 0.2. The branch
+item is ticked on the reviewer's word to merge, given at this
+boundary.
 
 ## Steps 7..N-1: Invariant slices  (cbc-slice, one step per stage)
 

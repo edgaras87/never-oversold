@@ -19,7 +19,7 @@
     <!-- A version is a state of the evidence (CHANGELOG): 0.N while the
          registry's slices close, N the slices evidence-closed. No slice
          has closed. -->
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <name>never-oversold</name>
     <description>An inventory-reservation ledger in which the reserved quantity never exceeds the on-hand-count, however many reservations race for the same units.</description>
 

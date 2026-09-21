@@ -49,7 +49,7 @@ witness — the promise's own.
   here because a decision invisible to other decisions is
   over-admission from inside.
 
-### SL-2 — the correction never undercuts the holds  `in-progress`
+### SL-2 — the correction never undercuts the holds  `closed (2026-09-21, evidence)`
 
 - **Invariant:** no admitted change to the on-hand-count leaves it
   under the sum of active reservations.
@@ -67,7 +67,7 @@ witness — the promise's own.
   different adversity: hammering never sends an honest correction,
   and a correction never creates a race — hence two slices.
 
-### SL-3 — a reservation exits once  `open`
+### SL-3 — a reservation exits once  `chosen-next`
 
 - **Invariant:** a reservation moves its item's numbers at most
   once on exit, and never after it has ended.
@@ -103,10 +103,9 @@ witness — the promise's own.
 
 ## Registry state
 
-1 slice closed (SL-1, 2026-09-14), 1 in progress (SL-2, its
-specification landed 2026-09-20), 2 open. New work enters by
-re-framing or as a new slice through this registry, never around
-it.
+2 slices closed (SL-1, 2026-09-14; SL-2, 2026-09-21), 2 open, SL-3
+chosen-next (2026-09-21). New work enters by re-framing or as a new
+slice through this registry, never around it.
 
 ## Fold-reconciliation line
 
@@ -148,18 +147,32 @@ no rider needed beyond the two flags.
 
 ## Ordering expectation (re-decided at each close)
 
-SL-1 closed → SL-2 → SL-3 → SL-4, re-decided at SL-1's close
-(2026-09-14) and kept. SL-1's wall already refuses a downward
-correction under the held units, so most of SL-2's invariant holds
-by structure today; SL-2 stays next because its specification must
-decide the correction's *shape* — refuse it, or let it end
-reservations — and a constraint decides no such thing. What SL-1
-leaves for SL-2 by name: a correction under the held units is
-refused, provisionally; the resent and reordered corrections (F11,
-F13) are uncreated. SL-3 next after, needing admitted reservations
-to exit and inheriting from SL-1 that an expired hold still counts
-in the held units until an exit ends it; SL-4 needs an exit's
-identity to tell half-done from done.
+SL-1 closed → SL-2 closed → SL-3 → SL-4, re-decided at SL-2's
+close (2026-09-21) and kept. SL-2 confirmed what SL-1's close
+expected: its invariant was already held by structure, and the
+slice's work was the decision its specification owed — refuse the
+correction, not let it end reservations — and the evidence for the
+resent and reordered corrections, which nothing had created. No
+production code was added.
+
+What SL-2 leaves by name. To SL-3: an operator who has counted the
+shelf and found fewer units than are held has no recourse in this
+system — the correction is refused, and the surface has no
+operator-side exit, so they wait for expiry or for the callers'
+releases. Whether an exit should exist for them is SL-3's
+territory, exits being what it owns; SL-2 refused to invent one.
+SL-3 also inherits from SL-1, unchanged by this slice, that an
+expired hold still counts in the held units until an exit ends it —
+which is what makes a refusal here conservative, refusing against
+holds the clock has already killed. Left provisional: nothing. The
+word *provisional* is gone from SL-1's G3 with this close.
+Unchanged and fenced: what a refused or reordered correction leaves
+wrong about the world is W1's, and no slice takes it without a
+dated revision of the definition.
+
+SL-3 is next because the exits it owns are what every remaining
+question waits on, its own and the one SL-2 hands it; SL-4 needs an
+exit's identity to tell half-done from done.
 
 ## Divergences from the briefing (derivation wins, recorded)
 
@@ -174,6 +187,15 @@ derivation overriding the briefing.
 
 - 2026-09-10 — the divergences section: the working name's fate
   recorded (ADR-0003). Triggered by PLAN Step 2. No slice changed.
+- 2026-09-21 — SL-2 closed on evidence (its record:
+  `docs/construction/sl-2-correction-never-undercuts.md`); the
+  ordering expectation re-decided and kept, with what SL-2 leaves
+  to SL-3 by name. The correction's shape, parked at framing as two
+  and left to this slice's specification, is decided: refuse it.
+  The row's judgment-logged line stands as the record of the
+  parking; the choice itself lives in the slice record's §3, with
+  the losing shape and its three reasons. Triggered by PLAN Step
+  6's close. No invariant, adversity or fold changed.
 - 2026-09-14 — SL-1 closed on evidence (its record:
   `docs/construction/sl-1-no-over-admission.md`); the ordering
   expectation re-decided and kept, with what SL-1 leaves to SL-2

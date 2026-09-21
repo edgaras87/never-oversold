@@ -20,6 +20,33 @@ revision, start a new minor.
 
 ## [Unreleased]
 
+## [0.2] — 2026-09-21
+
+The second invariant evidence-closed: SL-2, the correction never
+undercuts the holds. Nothing you can do with the service changed;
+what changed is that the behaviour is now decided, and proven
+against the three ways it could have gone wrong.
+
+### Changed
+
+- Adjust: a count under the units held is refused — settled now,
+  not "for now". The alternative, letting a correction end
+  reservations until the number fits, was weighed and rejected:
+  deciding whose hold dies is the seller's policy, not this
+  ledger's. What it costs you, said plainly: an operator who counts
+  the shelf and finds fewer units than customers hold cannot make
+  the ledger agree with the shelf. They wait for holds to expire or
+  be released.
+- Adjust, resent: sending the same correction twice does exactly
+  what sending it once does. The count is a number you assert, not
+  an amount to subtract, so a retry after a lost reply cannot lower
+  it twice.
+- Adjust, out of order: when two corrections arrive swapped, the
+  count can keep the older number, and the ledger does not fix
+  that. What it does guarantee is that neither one can drop the
+  count under the units held — your count may disagree with the
+  shelf, never with your customers' holds.
+
 ## [0.1] — 2026-09-14
 
 The first invariant evidence-closed: SL-1, no over-admission under

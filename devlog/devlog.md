@@ -6,6 +6,79 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-21  (Step 6: SL-2 built and closed)
+
+- The build ran as a commit plan on `step-6-sl-2`, eight commits
+  planned and one revision at commit 4's boundary. What it proved:
+  nothing in the application changed. The conditional statement and
+  the `item_never_oversold` constraint stand from SL-1, built there
+  against a race and justified here against an honest request; the
+  door's value shape (ADR-0011) kills the resend with no duplicate
+  check anywhere. The slice's whole delivery is evidence and two
+  structural guards. 29 tests at the branch point, 39 at the close.
+- The reds, from actual output. E1, E2 and E4's evidence half: with
+  the `WHERE` guard out of `Ledger.adjust` and the constraint out
+  of V1, the witness read `Numbers[onHandCount=7, held=8,
+  activeSum=8, reservations=1]` — eight held against seven on hand,
+  the negation created. E3: its wall is the door's shape, not a
+  guard, so the absence was delta semantics — the statement made to
+  add rather than assign — and the count read 19 where 9 was
+  asserted. E5: nothing to remove, so each forbidden thing was
+  planted — an `asOf` at the door gave `["onHandCount", "asOf"]`, a
+  second method taking a count gave "expected size 1 but was 2", a
+  `JdbcClient` on the controller was named by the rule itself.
+  Every removal and plant lived on the working tree for one run.
+- E1's first red was worthless and was thrown away: it failed on
+  the status code, *expected 409 CONFLICT but was 200 OK*, and
+  stopped before reading the store. A red that proves the test
+  reads status codes is not a red that proves it watches the
+  promise. The assertions were reordered — witness first, door's
+  answer after — and the second red carried the numbers. The order
+  of assertions turned out to be part of the evidence.
+- E4 was two things wearing one name, and the red run is what
+  separated them: with the wall absent, the late-correction case
+  reddened and the either-order case could not. L4 had said so
+  already — kill 8 is "kill 6 if the older is lower; otherwise W1"
+  — and the signed specification's E4 had not carried the split.
+  The half that cannot kill is now a tripwire that says so on
+  itself. Nothing in §4 or §5 was changed: the guarantee and the
+  criterion stand as signed, and this is how the criterion divided
+  when it met the code.
+- The reviewer could not tell what that test was for, and the
+  answer took several rounds of chat. Two lessons, both taken. In
+  this repo: every test in both files now carries what it means in
+  plain words beside its reference — the id line points at the why,
+  the prose says what it checks and what would trip it, and the why
+  itself stays in the record so the two cannot drift. In the skill:
+  `cbc-slice` corrected in place under rule 2 (decisions log, this
+  date), with the counting rule that keeps the second lesson from
+  being a hole — a tripwire never discharges a kill, every kill
+  still owes a test seen red, and the red run decides which kind a
+  test is rather than its author.
+- The plan's one revision: a commit added for that skill edit. The
+  first pass had filed the finding as a prose hand-off in TODO's
+  Later, which rule 4 forbids — the hand-off is one line, and the
+  diff and the log are what the source reads. The prose was removed
+  before the commit it sat in landed.
+- Deviations from the spec and the plan: none in substance. The
+  plan said the red for E3 would come from the guard's absence;
+  it could not, the guard having nothing to do with a resend, and
+  delta semantics was the honest absence instead. The plan said
+  commit 6 would carry the TODO hand-off line; it could not, TODO
+  being a project path and that commit agent-scoped, so the line
+  went with the records.
+- Version 0.2, two of four invariants evidence-closed. The registry
+  re-decided the ordering and kept it: SL-3 next, carrying what
+  SL-2 hands it by name — an operator who has counted the shelf and
+  found fewer units than are held has no recourse in this system,
+  and whether an exit should exist for them is the exits slice's
+  question, not one this slice would invent.
+- Resume: Step 6's gate is closed but for its branch item, which is
+  ticked on the reviewer's word to merge. After the merge, two
+  passes wait in TODO before SL-3 — the writing one and the
+  review-between-versions one — and their order is the reviewer's
+  to set when Step 7 opens.
+
 ## 2026-09-21  (Step 6: SL-2 specified and planned; the language finding)
 
 - The slice moved: the specification written and committed unsigned

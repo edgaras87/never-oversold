@@ -93,10 +93,21 @@ suite self-contained, the ground not required up).
   (`NoInstanceStateOrClockTest`). Nonsense never reaches the
   decision (G6) — enforced by the value types at the door, the
   store's constraints behind them.
-- The promise's other three invariants are the registry's, not yet
-  enforced: SL-2 partly held today by the same constraint (a
-  correction under the held units is refused, provisionally);
-  SL-3 and SL-4 not at all — a reservation has no exit yet.
+- **SL-2, closed:** no admitted change to the on-hand-count leaves
+  it under the sum of active reservations — enforced by the same
+  two owners SL-1 built, justified here against a different
+  adversity: an honest request, no race. The conditional statement
+  assigns the asserted value or writes nothing, so a correction
+  that does not fit is refused and nothing is clamped; the door's
+  value shape (ADR-0011) makes a resend assert the same state
+  rather than move the count again. Two guarantees are held by an
+  absence — no ordering state at the door, one writing path for the
+  count — and enforced by rules on the compiled code
+  (`NoOrderingStateOrSecondWriterTest`). No structure was added:
+  the slice's record §8 says why.
+- The promise's other two invariants are the registry's, not yet
+  enforced: SL-3 and SL-4 not at all — a reservation has no exit
+  yet.
 - The running ledger knows one database identity, `runtime`, its
   password from the environment — enforced by the configuration
   carrying no other and the build carrying no migration or

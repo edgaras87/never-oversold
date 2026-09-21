@@ -31,9 +31,13 @@ where every request crosses — HTTP here.
   and the storms that proved it, in
   [docs/construction/sl-1-no-over-admission.md](docs/construction/sl-1-no-over-admission.md))*
 - The correction never undercuts the holds — no admitted change to
-  the on-hand-count leaves it under the reserved sum. *(chosen next)*
+  the on-hand-count leaves it under the reserved sum. *(closed
+  2026-09-21 on evidence: the shape decided — a correction that
+  does not fit is refused — and the resent and reordered
+  corrections proved, in
+  [docs/construction/sl-2-correction-never-undercuts.md](docs/construction/sl-2-correction-never-undercuts.md))*
 - A reservation exits once — its numbers move at most once on
-  exit, and never after it has ended.
+  exit, and never after it has ended. *(chosen next)*
 - Consume's two moves hold together — no readable state has the
   reservation ended without the count lowered, or the reverse.
 
@@ -47,9 +51,12 @@ with [00-cbc.md](docs/concept/00-cbc.md).
 **Status:** framed and named 2026-09-10; the ground stands,
 verified, 2026-09-11; bootstrapped 2026-09-12; the first invariant
 closed 2026-09-14 — the ledger admits and refuses reservations,
-and cannot oversell under contention, shown by evidence. Version
-0.1: one of four invariants evidence-closed. Next is the
-correction's shape.
+and cannot oversell under contention, shown by evidence; the
+second closed 2026-09-21 — an operator's correction that would
+leave the count under the units held is refused, and survives
+being resent and arriving out of order. Version 0.2: two of four
+invariants evidence-closed. Next is the exit: a reservation's
+numbers move at most once.
 
 ## Prerequisites
 

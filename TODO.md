@@ -8,15 +8,23 @@
 
 ## Now (current plan step)
 
-- [ ] Step 6 (SL-2, cbc-slice): cut its branch from main, derive
-      its gate into PLAN first. Its specification decides the
-      correction's shape — refuse it, or let it end reservations —
-      which SL-1 left provisional: today a count under the held
-      units is refused by the constraint's own answer
-      (`Ledger.adjust`, `ReservationDoorIT`,
-      `AdjustmentRaceIT`); whichever shape SL-2 chooses keeps
-      SL-1's wall. Its evidence creates the resent (F11) and
-      reordered (F13) corrections, uncreated so far.
+- [ ] Between steps. Step 6 closed SL-2 on 2026-09-21 — the
+      correction's shape decided (refuse it), the resent and
+      reordered corrections created, no production code added.
+      Waiting on the merge of `step-6-sl-2` into main on the
+      reviewer's word, which is the gate's last item.
+- [ ] Before Step 7 opens, two passes wait below under "Next": the
+      writing one and the review-between-versions one. Both were
+      deliberately held off mid-slice so SL-2's record stayed in one
+      voice. Their order, and whether either precedes SL-3, is the
+      reviewer's to set when the step opens.
+- [ ] Step 7 (SL-3, cbc-slice): a reservation exits once, the
+      registry's chosen-next since 2026-09-21. It inherits by name:
+      an expired hold still counts in the held units until an exit
+      ends it (SL-1 §7), and an operator who has counted the shelf
+      and found fewer units than are held has no recourse — whether
+      an operator-side exit should exist is this slice's question,
+      handed over by SL-2 §7 rather than invented there.
 
 ## Next (upcoming steps — assign each to a step when triaged)
 
@@ -177,6 +185,10 @@
       reads unchanged through a whole step is not the source of
       truth for where the step is. If it holds, the fold-back is the
       run playbook's step form, which the bundle owns.
+
+- [ ] source: evaluate this run's changes to `cbc-slice` since
+      `4c3ac99` (rule 4; the edit is in the diff, its why in
+      `.claude/decisions.md` at 2026-09-21).
 
 - [ ] Own, no creditor (was a hand-off to the handbook, which the
       bundle's second note of 2026-09-20 says is no longer

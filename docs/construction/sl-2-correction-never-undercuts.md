@@ -357,14 +357,108 @@ delivers no feature at all.
 
 ## §9 Evidence — as delivered
 
-<!-- Filled at the build's end: which test creates which adversity,
-     what it read from the store, and the red-before-green from
-     actual output. -->
+All of it under `./mvnw test`: 39 tests, 0 failures, nothing
+exported, the ground not required up. The adversity is sequential
+throughout — an honest operator at the real door — and the witness
+is read from the store as `runtime`, from outside the application.
+
+| Criterion | Test | The adversity it creates |
+|---|---|---|
+| E1 · G1 | `CorrectionIT.anHonestCorrectionUnderTheHoldsIsRefused` | 10 on hand, 8 held, the operator asserts 7 (F9, kill 6) |
+| E1 · G1 | `CorrectionIT.aRefusalIsNotAnInvalidRequest` | the same, beside a nonsense count, to keep `409` and `400` apart (ADR-0010) |
+| E1 · G2 | `CorrectionIT.aCorrectionThatFitsIsTakenAtExactlyTheNumberAsserted` | 8 asserted against 8 held: it fits, so it is taken — at 8, never clamped |
+| E2 · G3 | `CorrectionIT.aRefusedCorrectionMovesNothing` | the refusal of E1, with every number the store keeps compared before and after |
+| E3 · G4 | `CorrectionIT.aCorrectionThatFitsResentAssertsTheSameState` | the same body sent twice at the same door (F11, kill 7) |
+| E3 · G4 | `CorrectionIT.aCorrectionThatDoesNotFitResentIsRefusedTwiceAndMovesNothing` | the refused correction resent |
+| E4 · G5 | `CorrectionIT.aLateOlderCorrectionUnderTheHoldsIsRefused` | 9 then 7 swapped in delivery, the late 7 arriving against 8 held (F13, kill 8) |
+| E5 · G5 | `NoOrderingStateOrSecondWriterTest.anAdjustmentCarriesNothingButTheAssertedCount` | the code read, not run: the door carries one field |
+| E5 · G6 | `NoOrderingStateOrSecondWriterTest.theCountHasOneWritingPath` | the code read: one class reaches the store, one method takes a count |
+
+Beside them, and not evidence:
+`CorrectionIT.theArrivalOrderDecidesWhichNumberSurvives`, which says
+so on itself — a tripwire on the decision to keep no ordering. §9's
+own finding, below, is how it came to be marked.
+
+### Red before green, from actual output
+
+- **E1, E2 and E4's evidence half.** The wall made absent on the
+  working tree — the `WHERE` guard out of `Ledger.adjust`, the
+  `item_never_oversold` constraint out of V1 — and the witness read
+  `Numbers[onHandCount=7, held=8, activeSum=8, reservations=1]`:
+  eight units held against seven on hand, the promise's negation,
+  created. Restored, and the same tests green unchanged.
+- **E3.** Its wall is not a guard but the door's shape, so the
+  absence to create is delta semantics: the statement made to add
+  the asserted number rather than assign it. The count read 19
+  where 9 was asserted — F11's own shape, the count moving twice
+  for one loss. Restored, green.
+- **E5.** No wall to remove, so each forbidden thing was planted in
+  turn: an `asOf` beside the count at the door, which gave
+  `["onHandCount", "asOf"]` where exactly `["onHandCount"]` is
+  required; a second method taking an `OnHandCount`, which gave
+  "expected size 1 but was 2"; and a `JdbcClient` field on the
+  controller, which the rule named — *Field
+  `ReservationController.store` has type `JdbcClient`*. All three
+  restored.
+
+No removal or plant ever landed in history; each lived on the
+working tree for one run, and `git status` showed only the new test
+file afterwards.
+
+### What the build found that the specification had not
+
+- **E1's first red was worthless.** It failed on the status code —
+  *expected 409 CONFLICT but was 200 OK* — and stopped before
+  reading the store at all. That red proves the test reads status
+  codes, not that it watches the promise. The test was reordered to
+  assert the witness first, and its second red carried the numbers
+  above. The order of assertions is part of the evidence, not a
+  matter of taste.
+- **E4 was two things wearing one name.** With the wall absent the
+  late-correction case reddened and the either-order case could
+  not: with 4 units held, both corrections sit above the holds, so
+  no implementation could break §1 there. L4 had already said as
+  much — kill 8 is *"kill 6 if the older is lower; otherwise W1"* —
+  and the specification's E4 did not carry the split. The half that
+  can kill is the evidence; the half that cannot is a tripwire and
+  now says so. Nothing in §4 or §5 changed: the guarantee and the
+  criterion stand as signed, and this is how the criterion divided
+  when it met the code.
+- **The skill had no name for the second kind.** Corrected in place
+  at `cbc-slice` (decisions log, 2026-09-21), with the counting
+  rule that keeps it honest: a tripwire never discharges a kill,
+  and the red run — not the author — decides which kind a test is.
 
 ## §10 Standing guards
 
-<!-- Filled at the close: what would rot this slice, and what
-     watches for it. -->
+What would rot this slice, and what watches:
+
+- **A later feature touching the count.** Any new path that writes
+  `on_hand_count` re-reads this specification first. `E5 · G6`
+  fails the moment a second writing path appears, which is the
+  reminder rather than the rule; the rule is that the comparison
+  and the write stay one act.
+- **The refusal turned helpful.** A later hand may decide that
+  clamping the count down to the held units is kinder than
+  refusing. `E1 · G2` is what fails; §3 is why it must not be
+  reopened lightly — the ledger would then assert a number no
+  operator sent.
+- **Ordering arriving quietly.** A timestamp on the request, a
+  sequence, a last-write-wins rule: `E5 · G5` fails, and the
+  tripwire beside it fails too. Both are pointing at §8's G5 face
+  comparison and at W1's fence, which needs a dated revision to
+  move.
+- **The held-units counter drifting.** Inherited from SL-1's own
+  guard: `reserved` is the entry path's bookkeeping, and a drift
+  upward starts refusing honest corrections for units nobody holds.
+  This slice's witness recomputes the active sum from the
+  reservation rows rather than trusting the counter, and `E2 · G3`
+  compares both.
+- **The door growing a force flag.** An admin correction that
+  bypasses the comparison is §3's rejected shape arriving by the
+  back door, and nothing structural stops a new endpoint from being
+  written — only `E5 · G6`'s one-writing-path rule and this
+  paragraph.
 
 ## §11 Sign-offs
 

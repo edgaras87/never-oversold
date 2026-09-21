@@ -71,8 +71,9 @@ guarantee is a property; none names how it is held.
   against a count a concurrent change has already replaced; no
   change to the count is recorded under a sum an admit has already
   raised. A downward change that would set the count under the
-  reserved sum is not admitted in this slice (provisional, per
-  ADR-0011; SL-2 decides its shape). Kill 5.
+  reserved sum is not admitted in this slice (per ADR-0011; SL-2
+  decided the shape on 2026-09-21 — refuse it — and this wall is
+  the answer, no longer provisional). Kill 5.
 - **G4. A decision exists only as a record.** Attack: an instance
   decides "admitted" and dies before recording, or records later —
   a decision no other admit can see (F15). Guarantee: there is no
@@ -169,7 +170,8 @@ the ground not required up.
 ## §6 What this slice does not claim
 
 - What the ledger does with an honest downward correction under the
-  sum, absent a race — SL-2. G3's refusal is provisional.
+  sum, absent a race — SL-2, closed 2026-09-21: refuse it. G3's
+  refusal was provisional until then and is now the decided shape.
 - That a retried reserve makes one hold — W2, refused.
 - That a reply reaches the caller — the caller's view, refused.
 - Who may reserve or adjust — W5, T3.
@@ -215,7 +217,7 @@ promise, and is named in §6 as provisional.
 |---|---|---|
 | **G1** one act against the truth at recording | **The store: the check constraint** `reserved <= on_hand_count`, with the admit as one conditional statement — `UPDATE item SET reserved = reserved + q WHERE id = ? AND reserved + q <= on_hand_count`, then the reservation's insert, both in one transaction. | Two racers update one row; the store serializes writers to a row and the second re-evaluates the condition against the first's result, so exactly the admits that still fit change a row. Should the condition ever be wrong, the constraint refuses the row at write time: an over-admitted state is physically unwritable, by any path (F1, F21, F22). The store's answer — one row changed or none — *is* the decision. |
 | **G2** across instances as within one | **Single validated entry path: the application holds no item state.** No cache, no counter in memory, no per-instance map; the only state is the row, and every instance reaches it through the same statement. | The serialization in G1 lives in the store, which every instance shares and none owns; an instance's memory cannot take part because nothing is kept there (F17). Structural: a test reads the main source for any in-memory keeping of item numbers and finds none. |
-| **G3** admit and adjustment do not interleave | **The store: the same row, the same constraint.** An adjustment is one conditional statement on the item row — `INSERT … ON CONFLICT (id) DO UPDATE SET on_hand_count = ? WHERE item.reserved <= ?` — creating the item if unknown (ADR-0011), refusing when the new count would sit under `reserved`. | An admit and an adjustment are two writers to one row: serialized by the store, each sees the other's effect (F10). The constraint refuses a count under the held units whichever order they land in; the provisional refusal (§3 G3) is the constraint's own answer, no code of ours decides it. |
+| **G3** admit and adjustment do not interleave | **The store: the same row, the same constraint.** An adjustment is one conditional statement on the item row — `INSERT … ON CONFLICT (id) DO UPDATE SET on_hand_count = ? WHERE item.reserved <= ?` — creating the item if unknown (ADR-0011), refusing when the new count would sit under `reserved`. | An admit and an adjustment are two writers to one row: serialized by the store, each sees the other's effect (F10). The constraint refuses a count under the held units whichever order they land in; the refusal (§3 G3) is the constraint's own answer, no code of ours decides it — provisional when this slice closed, decided by SL-2 on 2026-09-21. |
 | **G4** a decision exists only as a record | **Single validated entry path: the decision is the transaction's commit.** The admit's two statements run in one transaction; the reply "admitted" is produced only from the committed outcome; there is no decision variable set before the write. | Before commit nothing is visible to any other admit and nothing is replied; after commit the reservation exists. Death before commit rolls the whole back — no decision was taken (F15). Death after commit before the reply is the orphan half, fenced. No interval exists to kill: the spec's trigger (§3 G4) is not pulled. |
 | **G5** active is judged by one clock | **The store's clock: `expires_at` assigned in the insert as `now() + hold`; activeness judged as `expires_at > now()` in the store.** The application declares no `Clock`, calls no `Instant.now()`, and passes no timestamp. | Every instance asks the same clock, the store's, for both the setting and the judging; an instance's skew cannot enter what it never supplies (F18). The witness reads activeness by the same expression. Structural: a test reads the main source and fails on any process-clock call. |
 | **G6** nonsense never reaches the decision | **Type system at the door: a request is parsed into a value that cannot be nonsense** — quantity a whole number in 1..1 000 000, hold a duration in 1 s..7 days, item id non-blank — or it is answered `400` before any statement runs; an unknown item answered `404` (ADR-0010). The store's `quantity > 0` and `>= 0` constraints back it. | A value that cannot exist cannot reach the admit (F6); the constraints make the backstop the store's, so even a bypassed door cannot record an absurd quantity. |
@@ -279,7 +281,7 @@ Only what the guarantees need somewhere to live:
 - `POST /items/{item}/adjustments` — body `{"onHandCount": n}`;
   `200` with the item as persisted: `id`, `onHandCount`,
   `reserved`; `409` when the count would sit under the held units
-  (provisional, SL-2's).
+  (SL-2's, decided and proved 2026-09-21).
 - Refusal and invalid as Problem Details per ADR-0010.
 - Package `reservation` under the base package, package-private
   throughout (ADR-0008); the door, the two statements, the value
@@ -294,8 +296,8 @@ Only what the guarantees need somewhere to live:
 
 - `reserved` over-approximates the active sum until SL-3 (above).
 - A downward adjustment under the held units is refused by the
-  constraint; SL-2 may choose "end reservations" instead and then
-  lowers `reserved` in the same act.
+  constraint. Closed: SL-2 weighed "end reservations" and rejected
+  it (its record, §3), so this wall stands as the decided shape.
 - `Location` omitted until a reader exists.
 - The red run for R5: the same tests against the admit written the
   naive way — a read of the row, a check in code, a plain update —
