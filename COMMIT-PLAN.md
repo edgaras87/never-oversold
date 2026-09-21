@@ -68,7 +68,22 @@ of its methods takes an `OnHandCount`, so a second writing path for
 the count cannot appear quietly. Red by planting the violation each
 rule forbids, not by removing a wall.
 
-**6. `docs: records catch up on SL-2`**
+**6. `chore(agent): correct the slice skill from SL-2's lived work`**
+Rule 2's three conditions hold, so the copy is edited rather than
+described: the skill asks for a test that creates each adversity and
+says nothing about the test saying so on itself, which cost this
+step several rounds of the reviewer asking what a test was for. The
+edit asks for the outcome any project would want — each evidence
+test naming its criterion, guarantee and kill; a test that is not
+evidence saying so briefly, with what it guards and where the
+reasons live; and the counting rule that keeps the second from being
+a hole, a tripwire never discharging a kill, the red run deciding
+which a test is rather than its author. One decisions entry with
+what changed, which step found it and why. TODO's prose hand-off is
+replaced by rule 4's one line, the diff and the log being what the
+source reads. Agent paths only, as the entry file requires.
+
+**7. `docs: records catch up on SL-2`**
 The slice record's §9 evidence as delivered and §10 standing guards;
 the registry closing SL-2 with the ordering re-decided and what it
 leaves to SL-3 by name; SL-1's record losing the word *provisional*
@@ -79,7 +94,7 @@ the devlog with the red and the green from actual output; TODO's
 Step 6 items closed or moved by name; PLAN's remaining gate items
 ticked.
 
-**7. `docs(agent): close the commit plan for SL-2's build`**
+**8. `docs(agent): close the commit plan for SL-2's build`**
 Deletes this file, the convention's own close.
 
 ## Decisions taken inside this plan
@@ -97,3 +112,16 @@ Deletes this file, the convention's own close.
 - **No production code.** If a commit turns out to need any, the
   plan is wrong and §8 is re-opened before the code is written, not
   after.
+
+## Revision — 2026-09-21, at commit 4's boundary
+
+A commit added, now 6 of 8: the slice skill corrected in place.
+What forced it: the reviewer asked why a test that cannot fail was
+kept, and the answer took several rounds that one line in the file
+would have saved — a gap in `cbc-slice`, lived here, not
+speculated. The first pass filed it as a prose hand-off in TODO's
+Later, which rule 4 of `.claude/rules/skills-changed-in-place.md`
+forbids: the hand-off is one line, and the edit itself is what the
+source reads. The prose item was removed before commit 4 landed;
+the edit takes its place. The remaining commits are unchanged in
+content and shift by one.
