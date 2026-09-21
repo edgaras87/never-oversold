@@ -122,6 +122,16 @@
       and why it went — the pattern used for the writing rule
       drafted and reverted on 2026-09-21.
 
+- [ ] SL-1's tests carry no per-test reference. SL-2's carry a
+      one-line header each — the evidence criterion, the guarantee,
+      the kill, and for the one that is not evidence, that it is a
+      tripwire on a decision (`CorrectionIT`, 2026-09-21). SL-1's
+      say it at class level only, as `AdjustmentRaceIT` does, so a
+      reader landing on a method cannot see what it is for. Add the
+      headers there, and decide in the same pass whether the
+      convention is written down or left as a habit — it belongs
+      with the writing pass above, being the same kind of question.
+
 ## Later / someday
 
 <!-- Hand-offs the bundle has taken are gone from here; this repo's

@@ -25,6 +25,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * (F9, kill 6). Sequential, one request at a time, through the real
  * door, with the witness read from the store from outside.
  *
+ * <p>What is here: E1 and E2 (the refusal, its mirror, and nothing moved),
+ * E3 (the resend, in both worlds), and E4's evidence half (a late older
+ * correction under the holds). One method is not evidence at all and says
+ * so on itself — the arrival-order tripwire.
+ *
  * <p>E1 holds G1 and G2: the correction is refused, and its mirror — a
  * correction that fits — is taken at exactly the number asserted, which
  * is what says the ledger never clamps the count down to the held units
@@ -36,6 +41,7 @@ class CorrectionIT extends WebDatabaseIT {
     @Autowired
     private TestRestTemplate door;
 
+    /** E1 · G1 — kill 6: the honest correction that does not fit, refused. */
     @Test
     void anHonestCorrectionUnderTheHoldsIsRefused() {
         String item = anItemHolding(10, 8);
@@ -54,6 +60,7 @@ class CorrectionIT extends WebDatabaseIT {
         assertThat(Body.of(answer.getBody()).stringAt("$.title")).isEqualTo("refused");
     }
 
+    /** E1 · G1 — ADR-0010: a refusal and an invalid request are different answers. */
     @Test
     void aRefusalIsNotAnInvalidRequest() {
         String item = anItemHolding(10, 8);
@@ -62,6 +69,7 @@ class CorrectionIT extends WebDatabaseIT {
         assertThat(adjust(item, -1).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    /** E1 · G2 — the mirror: taken whole, never clamped down to the held units. */
     @Test
     void aCorrectionThatFitsIsTakenAtExactlyTheNumberAsserted() {
         String item = anItemHolding(10, 8);
@@ -76,6 +84,7 @@ class CorrectionIT extends WebDatabaseIT {
         assertThat(after.holds()).isTrue();
     }
 
+    /** E2 · G3 — every number the store holds is what it was before the refusal. */
     @Test
     void aRefusedCorrectionMovesNothing() {
         String item = anItemHolding(10, 8);
@@ -88,6 +97,7 @@ class CorrectionIT extends WebDatabaseIT {
                 .isEqualTo(before);
     }
 
+    /** E3 · G4 — kill 7: a resent correction asserts a state, so twice is once. */
     @Test
     void aCorrectionThatFitsResentAssertsTheSameState() {
         String item = anItemHolding(10, 4);
@@ -105,6 +115,7 @@ class CorrectionIT extends WebDatabaseIT {
                 .isEqualTo(afterFirst);
     }
 
+    /** E3 · G4 — kill 7 in the refused world: refused twice, nothing moved twice. */
     @Test
     void aCorrectionThatDoesNotFitResentIsRefusedTwiceAndMovesNothing() {
         String item = anItemHolding(10, 8);
@@ -117,6 +128,60 @@ class CorrectionIT extends WebDatabaseIT {
         assertThat(Witness.read(item))
                 .as("a refusal resent is still a refusal, and still moves nothing")
                 .isEqualTo(before);
+    }
+
+    /**
+     * Not evidence — a tripwire: the invariant cannot fail here, both
+     * corrections sitting above the held units. It pins a decision, that the
+     * ledger keeps no order of its own, so adding any goes red on purpose.
+     * Why that was chosen, and why the older number surviving is W1's
+     * remainder rather than a broken promise: §3 and §8's G5 in the slice
+     * record. Kill 8's evidence is {@link #aLateOlderCorrectionUnderTheHoldsIsRefused}.
+     */
+    @Test
+    void theArrivalOrderDecidesWhichNumberSurvives() {
+        // the operator makes 9 first, then 7; the network delivers one item's
+        // pair as made and the other's the other way round (F13, kill 8)
+        String asMade = anItemHolding(10, 4);
+        String reordered = anItemHolding(10, 4);
+
+        assertThat(adjust(asMade, 9).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(Witness.read(asMade).holds()).isTrue();
+        assertThat(adjust(asMade, 7).getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        assertThat(adjust(reordered, 7).getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(Witness.read(reordered).holds()).isTrue();
+        assertThat(adjust(reordered, 9).getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        Witness.Numbers madeOrder = Witness.read(asMade);
+        Witness.Numbers swappedOrder = Witness.read(reordered);
+        assertThat(madeOrder.holds()).as("delivered as made: %s", madeOrder).isTrue();
+        assertThat(swappedOrder.holds()).as("delivered reordered: %s", swappedOrder).isTrue();
+
+        // the swap changed the outcome, and what survives is the older
+        // correction's number: the count is then wrong about the world —
+        // W1's remainder, not a broken promise. This slice claims no
+        // ordering and fixes none.
+        assertThat(madeOrder.onHandCount()).isEqualTo(7);
+        assertThat(swappedOrder.onHandCount()).isEqualTo(9);
+    }
+
+    /** E4 · G5 — kill 8's evidence half: the late older correction, refused as kill 6. */
+    @Test
+    void aLateOlderCorrectionUnderTheHoldsIsRefused() {
+        // kill 8 collapsing into kill 6: the operator makes 7 first, then 9;
+        // the swap lands 9 first, so 7 arrives late against units it no
+        // longer fits under
+        String item = anItemHolding(10, 8);
+
+        assertThat(adjust(item, 9).getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        ResponseEntity<String> late = adjust(item, 7);
+
+        Witness.Numbers after = Witness.read(item);
+        assertThat(after.holds()).as("the invariant after the late correction: %s", after).isTrue();
+        assertThat(after.onHandCount()).as("the late correction moved nothing: %s", after).isEqualTo(9);
+        assertThat(late.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
 
     /** An item known to the ledger at {@code onHand}, with {@code held} units under reservation. */
