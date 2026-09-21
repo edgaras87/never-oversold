@@ -1,26 +1,19 @@
-# Decide first — the writing and review pass
+# Decide first — the writing pass
 
 Draft, `temp/`, deleted when the answers are in their records.
 
 ## What this is about
 
-**The work.** Three things were queued while SL-2 was being built
-and deliberately not done during it, so the slice's record stayed
-in one voice. They now run as one housekeeping branch, before SL-3:
+**The work.** The writing pass, one of three things queued while
+SL-2 was being built and deliberately not done during it, so the
+slice's record stayed in one voice. They now run as one
+housekeeping branch, before SL-3.
 
-1. **The writing pass.** The records read as if they must be
-   decoded, and so do the chat answers explaining them. The case
-   that showed it: SL-2's owners table, where each cell argued
-   three things at once and the reviewer could not read it without
-   unpacking it aloud. It is not the only one.
-2. **Review between versions.** While one commit's worth of work is
-   polished, each new version can only be diffed against the last
-   commit, so the reviewer re-reads the whole thing to find the
-   part that answers their last question. A working answer is
-   already in use — stage each version shown, word-diff the next —
-   and what is open is only whether it is written down, and where.
-3. **SL-1's per-test references.** SL-2's tests now say what each
-   one is for beside it; SL-1's say it only at class level.
+The records read as if they must be decoded, and so do the chat
+answers explaining them. The case that showed it: SL-2's owners
+table, where each cell argued three things at once and the reviewer
+could not read it without unpacking it aloud. It is not the only
+one.
 
 **Why this draft exists.** The commit count is not sayable. Item 1
 could be one commit or fifteen depending on answers nobody has
@@ -29,9 +22,18 @@ governs the chat at all, and whether the records already written
 are swept now or fixed when next opened. That is the sign a shape
 question is still open, so the questions come before the plan.
 
-**Which questions belong to which item.** Q1–Q5 are item 1. Q6 is
-item 2. Q7 is item 3. Items 2 and 3 are cheap and independent, and
-sit at the bottom of the order for that reason.
+**What this draft does not cover, checked rather than forgotten.**
+The other two queued items were held against this method's own
+trigger and do not meet it — the commit count is sayable for both,
+so their shape is not in question and a draft would be ceremony.
+*Review between versions*: the practice is already in use and
+works — stage each version shown, word-diff the next — and the one
+open question, whether it is written down here or handed to the
+bundle whose `commit-plan` convention it touches, is a plain ask at
+planning time. *SL-1's per-test references*: no decision at all,
+only work; SL-2's tests say what each is for beside it, SL-1's say
+it at class level, and the count is taken when the work starts.
+One draft per unsettled shape, never per pile of queued work.
 
 **What is already decided and is not re-opened here.** Two options
 were weighed and rejected during SL-2, with reasons in the devlog:
@@ -44,19 +46,24 @@ starts from something rather than from nothing.
 
 ## The questions, written before any is answered
 
-**Q1. Which reader is "readable" about?** The word reads two ways
-and the whole pass rests on which. The intent names the audience as
-a portfolio reader judging whether the author can build
-correctness-first — that reader wants the argument tight and wants
-to be impressed by its density. The reviewer mid-work wants to read
-a paragraph once, at speed, without decoding. A third exists: a
-maintainer six months out, who wants to find one fact fast. The
-three want different things from the same sentence.
-*What would make this wrong:* if all three turn out to want the
-same thing, the question is empty and the pass is just "write
-better".
-*Settled by:* **ask**. The answer is in the reviewer's head and one
-sentence gets it.
+**Q1. Is the fault the voice, or the shape of certain passages?**
+Asked first as "which reader", and that was the wrong cut. The
+evidence says the dense voice works in some places and collapses in
+others: `intent.md`, the fences and the registry are the same voice
+and read fine, because each sentence is short and stands alone;
+SL-2's owners table is that voice with three claims packed into one
+cell and no separators, and it failed every reader including the
+portfolio one the intent names. So the two answers are:
+*the voice* — every record is rewritten plainer, for a named
+reader, and the project's style changes;
+*the shape* — the voice stays, and any passage carrying a
+multi-part argument is unpacked into labelled parts with a worked
+example, wherever it appears.
+*What would make the second wrong:* if the reviewer finds
+`intent.md` hard as well. Then it is the voice, the sample below is
+not a fair test, and the pass is much larger.
+*Settled by:* **ask**, against two real passages — one short-claim,
+one argument-carrying — rather than in the abstract.
 
 **Q2. Whose rule is it, and where does it live?** Three homes, and
 they are not interchangeable. A project-local rule in the entry
@@ -97,27 +104,16 @@ tables are not.
 paragraphs across `docs/`, README and the manuals; write the count
 here.
 
-**Q6. Is the review-between-versions item a rule at all?** The
-working answer is already in use and needed no decision: stage each
-version shown, word-diff or the IDE's staging area for the next.
-What is open is only whether it is written down, and where — here,
-or handed to the bundle, whose `commit-plan` convention it touches.
-*What would make this wrong:* if it turns out the practice fails in
-use, in which case it is not a rule but a problem.
-*Settled by:* **ask**.
-
-**Q7. How many tests need SL-1's headers?**
-*Settled by:* **measure**.
-
 ## Order, by what rests on each
 
-1. **Q1** — every other answer changes with it.
+1. **Q1** — every other answer changes with it. If the fault is the
+   voice, Q5's measurement is a different count and Q4 has a
+   different answer.
 2. **Q2** — decides which files the pass touches at all.
 3. **Q3** — may split the rule in two, which changes Q2's answer
    for one half.
 4. **Q5** — a measurement, cheap, and Q4 cannot be asked without it.
 5. **Q4** — the commit count.
-6. **Q6**, **Q7** — independent of the rest, cheap, settle last.
 
 ## Answers
 
