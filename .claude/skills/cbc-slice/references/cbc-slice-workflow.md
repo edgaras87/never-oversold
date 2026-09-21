@@ -136,6 +136,24 @@ unowned guarantees.**
    is also how a slice answers R5 when readiness had no wall to break —
    the usual first slice.
 
+5. **Say on each test what it is for.** Beside the test, not only in the
+   record: which evidence criterion, which guarantee, which kill, and then
+   in plain words what it checks and what would trip it. The reasons —
+   why this face, why this shape — stay in the slice record, or the two
+   drift apart and neither can be trusted. A reader who lands on a test
+   should not have to reconstruct its purpose from its assertions.
+6. **A test that is not evidence says so.** A slice may leave behind a
+   test that cannot fail for the invariant, because what it guards is a
+   decided face: it goes red only when someone changes, by hand, something
+   the slice chose on purpose. That is worth keeping — it speaks to
+   whoever stands over it when it reddens — but it says on itself that it
+   is a tripwire, which decision it pins, and where the reasons live. And
+   the counting rule that keeps this from becoming a hole: **a tripwire
+   never discharges a kill.** Every kill still owes a test that was seen
+   red, and the red run decides which kind a test is, not its author — a
+   test that cannot be reddened by removing the wall it claims to guard is
+   not evidence, whatever it is called.
+
 **Exit:** all evidence tests pass. **Gate: every guarantee has a test that
 creates its adversity, and was red without the wall — a green suite of
 happy-path tests closes nothing, and a test never seen red proves only

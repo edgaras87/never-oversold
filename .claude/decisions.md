@@ -475,3 +475,33 @@
   is the one that matters); leaving the rule unwritten and just
   doing it (an arrangement nobody can read is not on trial, it is a
   habit).
+
+- 2026-09-21 `cbc-slice` edited in place, pinned @ 4c3ac99: Stage 3
+  gains two demands, in SKILL.md and as items 5 and 6 of the
+  workflow reference's Stage 3. One, each test says beside itself
+  what it is for — its evidence criterion, its guarantee, its kill,
+  and in plain words what it checks and what would trip it, the
+  reasons staying in the slice record so the two cannot drift. Two,
+  a test that cannot fail for the invariant says on itself that it
+  is a tripwire on a decided face, with the counting rule that
+  keeps that from being a hole: a tripwire never discharges a kill,
+  every kill still owes a test seen red, and the red run decides
+  which kind a test is rather than its author.
+  Found at Step 6, SL-2. The reviewer asked what one test was for
+  and could not tell from the file; the answer took several rounds
+  of conversation that a few lines beside the test would have
+  saved. The same run then found the skill has no notion that a
+  test which cannot fail may still be worth keeping — so such a
+  test is either mislabelled as evidence, which is what happened
+  here until the red run exposed it, or deleted. The red run is
+  also the mechanical part of the fix: with the wall absent one
+  test reddened at onHandCount=7 against activeSum=8 and the other
+  stayed green, and that is what told them apart, not a reading.
+  Rejected: a prose hand-off describing the gap in TODO (rule 4 —
+  the hand-off is one line, the diff and this entry are what the
+  source reads, and prose makes it read a translation); a single
+  reference line per test, tried first and found insufficient —
+  `E5 · G5 — kill 8` says where to look, not what the test means,
+  and the reviewer still had to ask; putting any of it in the
+  project's own records instead (rule 3 — the demand is one any
+  project would want, and nothing in it is this project's answer).

@@ -104,6 +104,13 @@ absent is the slice's choice: when this slice births the wall, the naive
 version can land first and the wall be its own diff; when the wall
 already stands, remove it on the working tree; when the wall is a rule
 over the code, plant the violation it forbids.
+Each test says beside itself what it is for — its evidence criterion, its
+guarantee, its kill, and in plain words what it checks and what would trip
+it, the reasons staying in the record. A test that cannot fail for the
+invariant, because it guards a decided face rather than the promise, says
+on itself that it is a tripwire and which decision it pins; **a tripwire
+never discharges a kill**, every kill still owes a test seen red, and the
+red run decides which kind a test is rather than its author.
 
 **Stage 4 — document.** Record compactly: invariant → guarantees → each
 one's owner → each one's evidence. Close the slice in the registry as
