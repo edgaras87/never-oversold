@@ -41,7 +41,16 @@ class CorrectionIT extends WebDatabaseIT {
     @Autowired
     private TestRestTemplate door;
 
-    /** E1 · G1 — kill 6: the honest correction that does not fit, refused. */
+    /**
+     * E1 · G1 — kill 6.
+     *
+     * <p>Ten on hand, eight held by customers, and the operator counts the
+     * shelf and finds seven. The ledger says no: the count keeps its old
+     * value, every hold stands, and the answer is a refusal. The store's
+     * numbers are asserted before the door's answer, because the promise
+     * is a property of the state and the status code is only what the
+     * door says about it.
+     */
     @Test
     void anHonestCorrectionUnderTheHoldsIsRefused() {
         String item = anItemHolding(10, 8);
@@ -60,7 +69,14 @@ class CorrectionIT extends WebDatabaseIT {
         assertThat(Body.of(answer.getBody()).stringAt("$.title")).isEqualTo("refused");
     }
 
-    /** E1 · G1 — ADR-0010: a refusal and an invalid request are different answers. */
+    /**
+     * E1 · G1 — ADR-0010's two answers.
+     *
+     * <p>"Your correction does not fit" and "your request is nonsense" are
+     * not the same thing, and an operator must be able to tell them apart:
+     * the first means recount or release holds, the second means fix the
+     * request. Different statuses, and this fails if they ever merge.
+     */
     @Test
     void aRefusalIsNotAnInvalidRequest() {
         String item = anItemHolding(10, 8);
@@ -69,7 +85,14 @@ class CorrectionIT extends WebDatabaseIT {
         assertThat(adjust(item, -1).getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
-    /** E1 · G2 — the mirror: taken whole, never clamped down to the held units. */
+    /**
+     * E1 · G2 — the mirror of the refusal.
+     *
+     * <p>Eight held, and the operator asserts eight: it fits, so it is
+     * taken — and taken at exactly eight. The ledger never writes a number
+     * nobody sent, which is what would happen if a refusal were ever
+     * "helpfully" turned into a clamp down to the held units.
+     */
     @Test
     void aCorrectionThatFitsIsTakenAtExactlyTheNumberAsserted() {
         String item = anItemHolding(10, 8);
@@ -84,7 +107,16 @@ class CorrectionIT extends WebDatabaseIT {
         assertThat(after.holds()).isTrue();
     }
 
-    /** E2 · G3 — every number the store holds is what it was before the refusal. */
+    /**
+     * E2 · G3 — a refusal moves nothing.
+     *
+     * <p>Stricter than the test above, which looks only at the count and
+     * the active holds. This compares every number the store keeps for the
+     * item, before and after. A bug that refused correctly but nudged the
+     * held-units counter on its way out would pass there and fail here —
+     * and that counter creeping upward would start refusing honest
+     * corrections for units nobody holds.
+     */
     @Test
     void aRefusedCorrectionMovesNothing() {
         String item = anItemHolding(10, 8);
@@ -97,7 +129,15 @@ class CorrectionIT extends WebDatabaseIT {
                 .isEqualTo(before);
     }
 
-    /** E3 · G4 — kill 7: a resent correction asserts a state, so twice is once. */
+    /**
+     * E3 · G4 — kill 7, the correction that fits.
+     *
+     * <p>The same request body sent twice at the same door. Because an
+     * adjustment asserts a state rather than a movement, the second send
+     * lands on the same number and the state after it is the state after
+     * the first. This fails the day the door starts carrying a difference
+     * — "subtract one" — instead of a count.
+     */
     @Test
     void aCorrectionThatFitsResentAssertsTheSameState() {
         String item = anItemHolding(10, 4);
@@ -115,7 +155,13 @@ class CorrectionIT extends WebDatabaseIT {
                 .isEqualTo(afterFirst);
     }
 
-    /** E3 · G4 — kill 7 in the refused world: refused twice, nothing moved twice. */
+    /**
+     * E3 · G4 — kill 7, the correction that does not fit.
+     *
+     * <p>The other half of the resend: a correction the ledger cannot
+     * honour is refused both times, and moves nothing either time. A
+     * refusal that left a trace would show up here on the second send.
+     */
     @Test
     void aCorrectionThatDoesNotFitResentIsRefusedTwiceAndMovesNothing() {
         String item = anItemHolding(10, 8);
@@ -166,7 +212,16 @@ class CorrectionIT extends WebDatabaseIT {
         assertThat(swappedOrder.onHandCount()).isEqualTo(9);
     }
 
-    /** E4 · G5 — kill 8's evidence half: the late older correction, refused as kill 6. */
+    /**
+     * E4 · G5 — kill 8's evidence half.
+     *
+     * <p>The operator counts seven, then recounts and sends nine; the
+     * network swaps them, so nine lands first and seven arrives late —
+     * against eight units now held. The late one no longer fits and is
+     * refused. This is where reordering can actually kill the promise, and
+     * it dies at the same wall as any correction that does not fit, which
+     * is why L4 wrote kill 8 as "kill 6 if the older is lower".
+     */
     @Test
     void aLateOlderCorrectionUnderTheHoldsIsRefused() {
         // kill 8 collapsing into kill 6: the operator makes 7 first, then 9;
