@@ -593,7 +593,7 @@ Gate:
 - [x] Every commit follows commit-messages, none straddles agent and
       project paths; no implementation file older than the decision
       it realizes.
-- [ ] The step ran on `step-6-sl-2`, cut from main, and reached
+- [x] The step ran on `step-6-sl-2`, cut from main, and reached
       main by fast-forward on the reviewer's word.
 Notes: opened 2026-09-20. The reviewer signs at readiness, at the
 spec and at the plan. SL-1 is presumed — the reserved sum this
