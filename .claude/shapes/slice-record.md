@@ -6,17 +6,13 @@ name what holds each guarantee. Their form, never their content:
 what a guarantee says comes from the attack, and what holds it
 comes from the plan.
 
-<!-- Kind: model (artifact-kinds). It describes how a finished slice
-     record is put together; it demands nothing while a slice is
-     being worked. The hybrid, noted rather than forced: at one
-     moment — the slice's close — it does bind, in that a record
-     that diverges is either corrected or its divergence recorded.
-     That is convention force at a single point, which the kinds
-     vocabulary has no word for.
-
-     Derived 2026-09-22 from SL-2's record after it was written,
-     read and corrected; not from a guess about what would read
-     well. What it is not: an instruction to the next slice. -->
+<!-- Kind: shape (artifact-kinds): what a kind of output looks
+     like here, its form and never its content. Where a shape sits,
+     what that place does, who moves it between places and what a
+     gate does with one: .claude/rules/shapes-lifecycle.md.
+     What this is not: an instruction to the next slice. A record is
+     written from its own material and read against this at the
+     close. -->
 
 ## How this is used
 

@@ -68,6 +68,15 @@ provided, specifics awaited. Force of whatever it will become;
 template. *Is it full of `<placeholders>`?* Yes → template.
 Exemplar: the stubs this repo's records were born from.
 
+**shape** — what a kind of output looks like here: its form, never
+its content. Force is positional, which no other kind's is: it
+binds where the project puts it in front of the writer, and
+describes where it does not. Instance, one per kind of output;
+consulted. *Does it say how an output should look, and leave what
+it says to someone else?* Yes → shape. Exemplar: never-oversold's
+`.claude/shapes/slice-record.md`, the form of a slice record's
+guarantees and owners.
+
 **specification** — a precise, testable description of what
 something must be. Binds; consulted. *Could a test verify
 conformance to it?* Yes → specification. Exemplar: none named yet

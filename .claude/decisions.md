@@ -547,3 +547,33 @@
   because a person asked for it there, so the gate's act is to look
   in `temp/` and to say in a line what it found, including
   nothing).
+
+- 2026-09-22 `artifact-kinds` edited in place, pinned @ 4c3ac99:
+  a **shape** entry added beside specification — what a kind of
+  output looks like here, its form and never its content, written
+  from work that exists and never designed in advance. Its force is
+  positional rather than fixed: it binds while it is exposed, which
+  is a placement decision, and describes while it is not; who
+  consults it follows the same placement.
+  Found in the housekeeping branch after Step 6, by the symptom the
+  convention itself names as earning an entry. Naming this
+  project's first shape took "model" plus a paragraph saying model
+  is wrong — a model demands nothing, and this one binds at the
+  close — and that paragraph stood in the file for a day. The
+  vocabulary has "binds" and "describes" and nothing for a document
+  whose force depends on where it is put.
+  Why an entry rather than the paragraph: the paragraph would have
+  been copied into the second shape and the third, each explaining
+  the same gap in its own words, and the vocabulary exists so that
+  "is this a convention or a model?" resolves the same way for
+  everyone.
+  Rejected: model with the misfit noted (it is the symptom, not a
+  resolution); specification (a test can verify conformance to one,
+  and nothing can test that a passage reads well); template (its
+  content is holes awaiting specifics, and a shape is read against
+  finished work rather than filled in); convention (deviation from
+  one owes an explanation, and a shape wants divergence — that is
+  how it learns).
+  The three records convention-lifecycle §3 asks for: this entry,
+  the TODO line asking the bundle to evaluate the copy since the
+  pin, and the diff itself.
