@@ -8,66 +8,36 @@
 
 ## Now (current plan step)
 
-- [ ] Between steps. Step 6 closed SL-2 on 2026-09-21 — the
-      correction's shape decided (refuse it), the resent and
-      reordered corrections created, no production code added.
-      Waiting on the merge of `step-6-sl-2` into main on the
-      reviewer's word, which is the gate's last item.
-- [ ] Before Step 7 opens, two passes wait below under "Next": the
-      writing one and the review-between-versions one. Both were
-      deliberately held off mid-slice so SL-2's record stayed in one
-      voice. Their order, and whether either precedes SL-3, is the
-      reviewer's to set when the step opens.
+- [ ] Between steps, and three things stand before Step 7 opens.
+      Step 6 closed SL-2 on 2026-09-21 and reached main; the
+      writing pass ran 2026-09-21..23 on
+      `housekeeping-writing-and-review` and reached main too. Each
+      of the three below is its own branch cut from main, and their
+      order is the reviewer's.
+- [ ] 1 of 3 — the writing sweep's remainder. The pass produced the
+      rule and applied it to one record: SL-2's guarantees and its
+      owners. Untouched: SL-1's record, README, the manuals, and
+      the two comparison tables in SL-2's §8, which the shape marks
+      as undecided rather than exempt. The rule is
+      `.claude/shapes/slice-record.md`; how shapes live is
+      `.claude/rules/shapes-lifecycle.md`.
+- [ ] 2 of 3 — seeing what changed between versions, not between
+      commits. The practice is in use and works: stage each version
+      shown, word-diff the next, or the IDE's staging area. What is
+      open is only whether it is written down here or handed to the
+      bundle, whose `commit-plan` convention it touches. The item
+      below under "Next" carries the detail.
+- [ ] 3 of 3 — SL-1's tests carry no per-test reference, where
+      SL-2's carry one each. Detail in the item below.
 - [ ] Step 7 (SL-3, cbc-slice): a reservation exits once, the
       registry's chosen-next since 2026-09-21. It inherits by name:
       an expired hold still counts in the held units until an exit
       ends it (SL-1 §7), and an operator who has counted the shelf
       and found fewer units than are held has no recourse — whether
       an operator-side exit should exist is this slice's question,
-      handed over by SL-2 §7 rather than invented there.
-
-## Next (upcoming steps — assign each to a step when triaged)
-
-- [ ] Each step while the branch trial runs: its gate carries one
-      item — the step ran on its own branch cut from main and
-      reached main by fast-forward on the reviewer's word.
-- [ ] Step N (Release): fail fast on a missing secret — decided
-      2026-09-12 as "not at bootstrap, at release": today the ledger
-      starts with the literal placeholder as its password and only
-      health (`db` DOWN) tells; the store logs `password
-      authentication failed`; README's Run section names the
-      symptom. The need becomes real when the README's commands are
-      verified on a clean machine by a stranger, which is the
-      release gate — decide there, with the trigger recorded.
-      Reproduced 2026-09-12: boot reports Started in ~2.5s, the
-      probe answers 500 and health 503 on first request, because
-      the pool opens lazily and nothing in the app borrows a
-      connection at boot (Flyway is test-scoped). So the check must
-      either borrow one connection eagerly at startup (Hikari's own
-      fail-fast then fires) or reject the unresolved placeholder at
-      bind time. Either way the store-free context test then needs
-      the variable supplied, for a true reason this time.
-- [ ] Step N (Release): README names each refusal but not what it
-      costs — a stranger reads that how long a hold lasts is
-      refused without learning that a retried reserve therefore
-      double-holds (W2's accepted cost), or that a refused
-      correction leaves the count knowingly wrong about the shelf
-      (W1's). The costs are written, in the definition's fences and
-      in each slice's "does not claim"; the question is whether the
-      front door owes a stranger a line of them. Decide in the same
-      pass that fills this file's Known issues section, still the
-      empty template, which the Release gate already asks for.
-
-- [ ] Step 7 (SL-3): an expired hold still counts in `reserved`
-      until an exit ends it — SL-1's counter over-approximates on
-      the safe side (slice record §7). SL-3's exits lower the
-      counter in the same transaction as they end a reservation;
-      the trigger-maintained counter named in §7 is the first
-      option if a second writer to `reservation` ever appears.
-- [ ] Step 7 (SL-3): the reserve reply carries no `Location`
-      header until a reservation has a reader — a deviation from
-      ADR-0010's letter, logged in SL-1's plan; lift it when the
-      reader lands.
+      handed over by SL-2 §7 rather than invented there. It is also
+      the first slice to meet the close-time shape check, and its
+      gate is the first derived from PLAN's step form.
 
 ## Next (after SL-2 closes)
 
