@@ -37,16 +37,25 @@ owners and says why only those two — they are the two that were
 written, read, found wanting and rebuilt. Carries the two
 comparisons and the baseline lifecycle.
 
-**3. `docs: gate the shape check at every slice close`**
-PLAN: the gate item that every slice step from Step 7 carries, and
-the retrospective item narrowed to the giving-back direction, since
-reading other projects' baselines happens after the first slice
-rather than at the end.
+**3. `docs: gate the shape check, and default the gate items`**
+PLAN, twice. The gate item that every slice step from Step 7
+carries, and the retrospective item narrowed to the giving-back
+direction, since reading other projects' baselines happens after
+the first slice rather than at the end. And a block of default gate
+items beside the standing rules — the lines that have appeared in
+every step's gate written by hand, now with their placeholders, to
+be copied into each step when it opens. Copied, not shared: a step
+needs its own checkbox or there is nothing to tick.
 
-**4. `docs: offer the shape as a baseline, ask for gate delivery`**
-TODO's two hand-offs. Provisional in one respect: the reviewer has
-not yet agreed every line of the lifecycle, and this step's wording
-may change at its boundary.
+**4. `docs: hand the baseline lifecycle and the gates to the bundle`**
+TODO's hand-offs, now three. The shape offered as a baseline. The
+request that baselines be delivered at a gate rather than shipped.
+And the larger one this set has been circling: where all of it
+should live — the baseline lifecycle as something a project can
+work to rather than invent, the default gate items as the
+playbook's, and the second baseline kind nobody has written yet,
+the test machinery a project derives once and every slice after
+leans on.
 
 **5. `chore(agent): check a slice record against its project's shape`**
 The skill edit, the decisions entry, and the records-table row.
@@ -62,6 +71,20 @@ that the choices were built rather than argued.
 
 **7. `docs(agent): close the commit plan for the writing pass`**
 Deletes this file; the body records what diverged.
+
+## Revision — 2026-09-22, at step 3's boundary
+
+Steps 3 and 4 grow; the count is unchanged. What forced it: the
+reviewer, reading step 3's gate item, saw that the lines it sits
+beside — the branch pair, the commit hygiene line — are written by
+hand in every step and should be defaults with placeholders. That
+is the same shape of finding as the slice record's, one level up:
+the thing that recurs belongs to whatever defines the steps, which
+is the playbook PLAN names at its top. Adopted here first, on
+trial, as the branch rule was, rather than proposed upward from an
+idea. Step 4 grows with it, since where the lifecycle and the
+defaults should land is one question for the bundle rather than
+three.
 
 ## Decisions taken inside this plan
 
