@@ -123,6 +123,15 @@ so the re-decision has its reasons on the page. And the row goes to
 `in-progress` when the specification lands, the first project-visible
 work, not at the close: a registry that reads `chosen-next` through a
 whole build is not the source of truth for what is being worked.
+Last, what the slice made is read against the project's own shapes —
+the project's, never this skill's, which carries none. Differences are
+**proposed as a diff, never corrected**: each ends one of three ways
+and the human says which, the shape being wrong here, the output
+having drifted, or each having something. Where no shape governs what
+the slice made, nothing is checked. This runs at the close and not
+before: what is written from a shape follows the shape, and what is
+written from the slice follows the material, so where the material
+does not fit, only the second shows it.
 
 ## Deviations — legal, never silent
 

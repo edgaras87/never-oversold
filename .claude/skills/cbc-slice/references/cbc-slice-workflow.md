@@ -178,8 +178,39 @@ re-decided with its reason written. This is the step that lets a built
 slice teach that the next expected slice is wrong, split, or unnecessary
 — the registry can only re-decide on what the close wrote down.
 
+**Last, read what the slice made against the project's own shapes.** A
+project may hold a record of what a kind of its output looks like —
+the form of a slice record's sections, of the machinery the evidence
+leans on. One may govern each thing this slice produced, or none may.
+They are the project's, never this skill's: a shape handed down is an
+answer a project did not earn, and one adopted from elsewhere hides
+what this project would have arrived at on its own.
+
+- **None for what this slice made?** Nothing is checked, and that is
+  correct. Whether this output is worth writing a shape from is a
+  judgement the project makes when it makes it, not a step of this
+  close.
+- **One exists?** Read what the slice made against it and propose, as
+  a diff, every place they differ. **Propose, never correct.** Each
+  difference ends one of three ways and the human says which: the
+  shape was wrong here, so it changes and the output stands; the
+  output drifted, so it is brought to the shape; or each has
+  something, and both move.
+
+This runs at the close and not before, and the reason is not
+independence — inside one project the records inherit from each other
+anyway, the writer having read the last one. It is that a record
+written from the shape follows the shape, and a record written from
+the slice follows the material. Where this slice's material does not
+fit — a guarantee with a part the shape has no line for, an owner that
+is an absence rather than a thing — writing from the material shows
+it, and writing into the shape hides it as a filled-in form. A shape
+record that never changes is either finished or unread.
+
 **Exit:** the slice closes in the registry as evidence-closed, with its
-provisionals and hand-ons named and the ordering re-decided in writing.
+provisionals and hand-ons named and the ordering re-decided in writing;
+and its record has been read against the project's shape, with each
+difference either corrected or taken up into the shape.
 
 ---
 

@@ -577,3 +577,40 @@
   The three records convention-lifecycle §3 asks for: this entry,
   the TODO line asking the bundle to evaluate the copy since the
   pin, and the diff itself.
+
+- 2026-09-22 `cbc-slice` edited in place, pinned @ 4c3ac99: Stage 4
+  gains a last step, in SKILL.md and in the workflow reference. At a
+  slice's close, what the slice made is read against the project's
+  own shapes, and every difference is **proposed as a diff, never
+  corrected** — each ending one of three ways, the human saying
+  which: the shape was wrong here and changes, the output drifted
+  and is brought to the shape, or each has something and both move.
+  Where no shape governs what the slice made, nothing is checked;
+  whether that output is worth a shape is the project's judgement
+  and not a step of the close.
+  Found in the housekeeping branch after Step 6. SL-2's record was
+  written, read, found unreadable in two sections and rebuilt; the
+  rebuild produced a shape worth keeping, and every question after
+  it was about where such a thing lives and when it may be seen.
+  Why the skill carries the step and not the shape: the demand —
+  that a project's outputs of a kind read alike, and that a
+  divergence is a question rather than a fault — is one any project
+  would want, while a shape shipped with the skill would be
+  inherited rather than derived and would make the step it belongs
+  to decorative.
+  One correction before it landed, the reviewer's: the step's first
+  wording said it runs at the close so the output is written
+  independently of the shape. That reason is wrong inside a project
+  — the writer reads the previous output anyway, so SL-2 inherited
+  SL-1's form and was never an independent sample. The reason that
+  survives: what is written from a shape follows the shape, and what
+  is written from the slice follows the material, so only the second
+  shows where this slice's material does not fit.
+  Rejected: the skill carrying a shape of its own (`cbc-slice` ships
+  no template today, and `cbc-framing`'s one template is a registry,
+  whose form is the method's rather than a project's); the check as
+  a gate that corrects rather than proposes (a divergence would
+  become a fault, and the loop only works while the shape can lose);
+  the close writing a shape when none exists (a shape is born from
+  work judged worth keeping, which is the project's call and not a
+  thing a close does by rote).
