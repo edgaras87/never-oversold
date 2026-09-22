@@ -19,9 +19,9 @@
 **Gate** = exit criteria: verifiable facts, not intentions. A step is done only when every gate item is true.
 Detail only the next 1–2 steps finely; keep later steps coarse (rolling wave).
 
-Each step carries Goal · Gate · Notes. A gate is derived when the
-step opens — verifiable facts from the goal, the named skill, and
-the run's records — and written in before the step's work starts.
+Each step carries Goal · Gate · Notes, and a gate is derived when
+the step opens, never at its close. The form and the items every
+step's gate starts from are below, under "The step form".
 
 ## Standing rules
 
@@ -42,6 +42,70 @@ the run's records — and written in before the step's work starts.
   mid-step keeps its tick only if what was verified still
   satisfies the new words, and loses it in the devlog's words if
   not. On trial from Step 6.
+
+## The step form, and the gate items every step starts from
+
+<!-- Copied into a step when it opens, and filled in.
+     Copied, never shared: a step's gate item carries that step's
+     own tick, so one checkbox cannot serve six steps. On trial
+     from Step 7; earlier steps wrote these lines by hand and are
+     not reworded, their ticks being a record of what was verified
+     in the words the reviewer approved. Why and rejected options:
+     .claude/decisions.md -->
+
+```markdown
+## Step <n>: <title>  (<the skill it runs, if any>)    [ ]
+
+Goal: <one sentence: the state that is true when this step is done>
+Gate:
+<the opening items below, filled in>
+<this step's own items, derived from the goal, the named skill and
+ the registry>
+<the closing items below, filled in>
+Notes: <opened <date>; what the reviewer signs and when; what the
+step presumes from the steps before it>
+```
+
+**At the opening, before any of the step's work.** These are
+cheap to satisfy then and impossible to satisfy later — a branch
+not cut cannot be cut afterwards, and a gate derived at the close
+is a description of what happened rather than a standard the work
+was held to.
+
+- [ ] The step's branch `<branch>` is cut from main, and the step
+      has not been worked anywhere else.
+- [ ] This gate was written before the work started, not
+      reconstructed from it afterwards.
+
+**At the close.**
+
+- [ ] *(one pair per shape that governs what this step produced;
+      the lifecycle says where shapes live, how to find which ones
+      govern this, and what to request from elsewhere)* What the
+      step produced is read against `<shape>`.
+- [ ] Every difference that reading found is settled: corrected in
+      the output, taken up into the shape with a dated line, or
+      both.
+- [ ] Every commit on `<branch>` follows commit-messages.
+- [ ] No commit straddles agent and project paths, so the
+      arrangement's history stays separable from the project's.
+- [ ] No implementation file is older than the decision it
+      realizes: the log reads decision, then code.
+- [ ] The step reached main by fast-forward from `<branch>`, on the
+      reviewer's word.
+
+A step's own gate is these, filled, plus whatever its goal, its
+named skill and the registry demand — derived as they always were.
+
+Shapes are not described here. When a shape is written, what
+settling a difference does to it, when it is promoted, and how one
+moves between repositories are the shape lifecycle's, in
+`.claude/rules/`. This section is the gate: which items a step
+starts from, and how they are used.
+
+**A default does not fit this step at all.** It is struck there
+with its reason, which is a finding about the default rather than a
+step cutting a corner.
 
 ---
 
@@ -626,7 +690,12 @@ its adversity; ordering re-decided at each close, never assumed
 from the original expectation.
 Gate: derived when each stage opens — verifiable facts, from the
 goal, the named skill, and the registry; written into the stage
-before its work starts.
+before its work starts. One item is the same in every slice step
+from Step 7 on: the record is read against
+`docs/construction/slice-record-shape.md` after it is written and
+before the merge, and each difference is either corrected in the
+record or taken up into the shape with a dated line — never left
+unremarked.
 Notes:
 
 ## Step N: Release                                  [ ]
@@ -681,6 +750,15 @@ Ran: <start> → <end>
 5. Useless gates — ceremony that caught nothing.
 6. The entry file — read CLAUDE.md top to bottom; every line still
    passes its three tests, or leaves (agent-arrangement §2).
+7. What this project gives back — whether
+   `docs/construction/slice-record-shape.md` has held across every
+   slice, and whether it is worth offering as a baseline to the
+   bundle. Reading *their* baselines does not wait for here: that
+   happens once, after the first slice closes, because the first
+   slice record is the only independent sample a project produces
+   and everything after it inherits anyway (the shape document says
+   why). What waits for the retrospective is the other direction —
+   what this project found that no other has.
 
 Then fold lessons into the playbook the steps came from — the
 "Steps from" line at the top names it — in the repo that owns it,

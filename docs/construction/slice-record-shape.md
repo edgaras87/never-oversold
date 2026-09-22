@@ -1,5 +1,8 @@
 # The shape of a slice record
 
+**Governs:** a slice record's guarantees derived by attack, and its
+plan's owners. Nothing else in the record, and nothing outside it.
+
 <!-- Kind: model (artifact-kinds). It describes how a finished slice
      record is put together; it demands nothing while a slice is
      being worked. The hybrid, noted rather than forced: at one
