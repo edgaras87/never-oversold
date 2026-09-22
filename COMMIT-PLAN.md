@@ -57,19 +57,64 @@ playbook's, and the second baseline kind nobody has written yet,
 the test machinery a project derives once and every slice after
 leans on.
 
-**5. `chore(agent): check a slice record against its project's shape`**
+**5. `chore(agent): move the shapes under .claude/, as workshop`**
+Steps 2 and 3 landed the shape record under `docs/` and the glob
+with it, and both were wrong about where this belongs. Its
+vocabulary gives it away — it says "the bundle" and "the reviewer",
+which a reader of `docs/` cannot decode — and its reader is
+whoever writes the next record, not whoever judges the system. So
+`docs/construction/slice-record-shape.md` becomes
+`.claude/shapes/slice-record.md`, the gate item's glob follows, and
+the entry file's records-table row moves with it.
+
+`.claude/shapes/` and not `.claude/rules/` **while the shape is
+still provisional**, and the difference is mechanical rather than a
+note anyone must remember: a file under `rules/` with `paths:`
+frontmatter loads whenever a matching path is touched, and one
+under `shapes/` is inert until someone opens it. A provisional
+shape must not be in front of the writer, because what the writer
+invents without it is the only thing that can still change it.
+
+A fixed shape is the opposite and moves to `rules/` for exactly
+that reason. Once it has stopped changing there is nothing left to
+learn from divergence, conformance is what is wanted, and hiding it
+only makes the next record re-derive it badly. The gate survives
+the move and asks a different question: not "did this find
+something better" but "did this drift".
+
+So the lifecycle is renamed and given its stages, each with a
+place: **provisional** in `.claude/shapes/`, inert; **offered as a
+baseline**, held at the bundle and requested into `temp/` at the
+one moment a shape is first written, deleted after; **fixed** in
+`.claude/rules/` with its `paths:`, loading while the matching
+artifact is written, and shipping with the bundle — which ships
+fixed shapes only, those being the ones meant to be in front of a
+writer. The promotion is countable: a shape is fixed once two
+closes in a row take nothing up into it.
+
+**6. `chore(agent): add the shape kind to artifact-kinds`**
+The kinds vocabulary has no word for a document that describes
+while the work happens and binds at one moment, so naming this one
+took "model" plus a paragraph saying model is wrong — which is the
+symptom artifact-kinds names as earning an entry. Edited in our
+copy under convention-lifecycle §3: the entry, its axes, and the
+exemplar. The decisions entry and the TODO line asking the bundle
+to evaluate ride with it; the `Governs:` line stays prose, since
+nothing parses it and no record under `docs/` carries frontmatter.
+
+**7. `chore(agent): check a slice record against its project's shape`**
 The skill edit, the decisions entry, and the records-table row.
 Agent paths only. The step the skill gains is general; the shape it
 compares against is the project's own, which is what lets this
 travel upstream without handing anyone an answer.
 
-**6. `docs(agent): the drafts behind the writing pass`**
+**8. `docs(agent): the drafts behind the writing pass`**
 `temp/`: the decide-first questions, the option comparison on the
 rule's wording, the visual comparison on the Owners shape, and the
 four rendered shapes. Kept because the reasoning is the evidence
 that the choices were built rather than argued.
 
-**7. `docs(agent): close the commit plan for the writing pass`**
+**9. `docs(agent): close the commit plan for the writing pass`**
 Deletes this file; the body records what diverged.
 
 ## Revision — 2026-09-22, at step 3's boundary
@@ -85,6 +130,42 @@ trial, as the branch rule was, rather than proposed upward from an
 idea. Step 4 grows with it, since where the lifecycle and the
 defaults should land is one question for the bundle rather than
 three.
+
+## Revision — 2026-09-22, at step 3's boundary, second
+
+A step added, now nine with the close. What forced it: naming the
+shape document's kind needed a word the vocabulary does not have,
+and the file says so in its own header — "model" plus a paragraph
+explaining that model is wrong. artifact-kinds calls that the
+symptom that earns an entry, so the entry is written rather than
+the misfit left standing. Step 3 also grew inside its own boundary
+while the reviewer read it: the gate item split in three, the
+shape check made one pair per shape, the shapes found by a
+`docs/**/*-shape.md` glob and a `Governs:` line rather than a list,
+and a condition added for when the bundle's baselines are asked
+for — once, when a shape is first written.
+
+## Revision — 2026-09-22, at step 3's boundary, third
+
+A step added, ten with the close, and two landed steps corrected by
+it rather than rewritten. The reviewer asked why shapes live under
+`docs/` at all, and the answer is that they should not: the shape
+record is workshop furniture, written for whoever writes the next
+record, and it reads as such — it uses arrangement words a `docs/`
+reader cannot decode. Step 5 moves it, moves the glob and the
+records-table row with it, and renames the lifecycle from the
+middle stage it was named after.
+
+Also settled there, and recorded because it is the kind of thing a
+later hand undoes: not `.claude/rules/`, whose files load whenever
+a matching path is touched. That would hand the shape to whoever is
+writing a record, which is exactly what the close-only rule exists
+to prevent.
+
+Left as it is: step 4's hand-off grows one line, asking the bundle
+whether the arrangement convention should learn about shapes, since
+this project holds that convention as stubs and has no copy to
+edit.
 
 ## Decisions taken inside this plan
 
