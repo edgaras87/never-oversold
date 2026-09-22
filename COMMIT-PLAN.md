@@ -121,7 +121,22 @@ Agent paths only. The step the skill gains is general; the shape it
 compares against is the project's own, which is what lets this
 travel upstream without handing anyone an answer.
 
-**8. `docs: hand the shapes and their lifecycle to the bundle`**
+**8. `docs: split the close's shape check, and fix its verb`**
+PLAN, twice, both found by reading the finished lifecycle back
+against the gate. The close carries one pair for shapes and
+silently assumes every shape is already here; a delivery sitting in
+`temp/` is a different act, and the only one that can stop a step —
+it waits on a person having asked the collector. So the close gets
+three items: `temp/` checked and what was found said in a line,
+including nothing; what the step made read against every shape that
+governs it, delivered or already here; every difference settled.
+Neither new item names a directory, so `rules/` and `shapes/` are
+both covered without PLAN learning where shapes live. And the gate
+item's pointer says the lifecycle covers "what to request from
+elsewhere", which is the verb this project cannot perform: it looks
+in `temp/` for what was staged.
+
+**9. `docs: hand the shapes and their lifecycle to the bundle`**
 TODO's hand-offs, written last because two of the three describe
 what step 5 defines and would otherwise be written twice. Three of
 them. One: this project's slice-record shape offered — as a
@@ -136,13 +151,13 @@ ones. Three: the lifecycle itself offered as a convention
 candidate, carrying the question of whether the arrangement
 convention should learn about shapes at all.
 
-**9. `docs(agent): the drafts behind the writing pass`**
+**10. `docs(agent): the drafts behind the writing pass`**
 `temp/`: the decide-first questions, the option comparison on the
 rule's wording, the visual comparison on the Owners shape, and the
 four rendered shapes. Kept because the reasoning is the evidence
 that the choices were built rather than argued.
 
-**10. `docs(agent): close the commit plan for the writing pass`**
+**11. `docs(agent): close the commit plan for the writing pass`**
 Deletes this file; the body records what diverged.
 
 ## Revision — 2026-09-22, at step 3's boundary
@@ -229,6 +244,27 @@ reviewer's argument for keeping it is that by then this project's
 later records are already influenced by its own earlier ones, so
 hiding it buys little — which the lifecycle is the right place to
 weigh.
+
+## Revision — 2026-09-23, at step 7's boundary
+
+A step added, eleven with the close. Reading the finished lifecycle
+back against PLAN's gate turned up two things the gate could not
+do. It had one pair for shapes, written when every shape was
+assumed to be in the repository already; a shape delivered into
+`temp/` is a separate act and the only one that can stop a step,
+since it waits on a person having asked the collector, and nothing
+in the gate mentioned it. And its pointer used the verb this
+project cannot perform — requesting — where the act is looking in a
+folder.
+
+Also settled at this boundary, and recorded because it looked like
+duplication: the skill's Stage 4 step and PLAN's gate items are not
+two copies of one rule. PLAN derives its gate "from the goal, the
+named skill, and the registry", so the skill states the demand and
+the gate is this project's instance of it — the same relationship
+every other gate item has. Without the skill's step the gate would
+be inventing a demand rather than deriving one, and a project using
+the skill without this project's conventions would get nothing.
 
 ## Decisions taken inside this plan
 
