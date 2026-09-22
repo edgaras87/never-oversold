@@ -92,7 +92,30 @@ fixed shapes only, those being the ones meant to be in front of a
 writer. The promotion is countable: a shape is fixed once two
 closes in a row take nothing up into it.
 
-**6. `chore(agent): add the shape kind to artifact-kinds`**
+**6. `chore(agent): write the shape lifecycle as a rule`**
+The lifecycle currently sits inside `slice-record-shape.md`, in
+three sections. That was tolerable with one shape and is wrong
+now: it governs every shape, and burying it in one of them leaves
+the second shape either duplicating it or silently lacking it.
+Worse, it does not describe `.claude/shapes/` — it describes
+movement between three places, `shapes/`, the bundle, and
+`rules/`, so no file inside one of them has the right scope.
+
+It becomes `.claude/rules/shapes-lifecycle.md`, path-scoped to
+`.claude/shapes/**` so it loads exactly when a shape is opened and
+never while a record is being written. The precedent is this
+project's own `skills-changed-in-place.md`: a rule about how a
+class of artifact is handled, scoped to the paths it governs,
+written here from lived work.
+
+What it carries: the three stages and their places; that the place
+decides whether a shape loads during the work; the promotion
+counter, two closes taking nothing up; that a fixed shape which
+changes is not fixed any more and the counter resets; how a
+provisional baseline is requested into `temp/` and deleted; and
+that the bundle ships fixed shapes only.
+
+**7. `chore(agent): add the shape kind to artifact-kinds`**
 The kinds vocabulary has no word for a document that describes
 while the work happens and binds at one moment, so naming this one
 took "model" plus a paragraph saying model is wrong — which is the
@@ -102,19 +125,19 @@ exemplar. The decisions entry and the TODO line asking the bundle
 to evaluate ride with it; the `Governs:` line stays prose, since
 nothing parses it and no record under `docs/` carries frontmatter.
 
-**7. `chore(agent): check a slice record against its project's shape`**
+**8. `chore(agent): check a slice record against its project's shape`**
 The skill edit, the decisions entry, and the records-table row.
 Agent paths only. The step the skill gains is general; the shape it
 compares against is the project's own, which is what lets this
 travel upstream without handing anyone an answer.
 
-**8. `docs(agent): the drafts behind the writing pass`**
+**9. `docs(agent): the drafts behind the writing pass`**
 `temp/`: the decide-first questions, the option comparison on the
 rule's wording, the visual comparison on the Owners shape, and the
 four rendered shapes. Kept because the reasoning is the evidence
 that the choices were built rather than argued.
 
-**9. `docs(agent): close the commit plan for the writing pass`**
+**10. `docs(agent): close the commit plan for the writing pass`**
 Deletes this file; the body records what diverged.
 
 ## Revision — 2026-09-22, at step 3's boundary
@@ -166,6 +189,22 @@ Left as it is: step 4's hand-off grows one line, asking the bundle
 whether the arrangement convention should learn about shapes, since
 this project holds that convention as stubs and has no copy to
 edit.
+
+## Revision — 2026-09-22, at step 3's boundary, fourth
+
+A step added, eleven with the close. The lifecycle was written
+inside the one shape that exists, and the reviewer asked where it
+would live once a second shape appeared — and further, whether it
+is a `.claude/shapes/` matter at all, since a shape ends its life
+in `rules/` and passes through the bundle on the way. It is not:
+it governs movement between three places, so it becomes a rule
+scoped to the shapes it governs, on the model of this project's
+`skills-changed-in-place.md`.
+
+Step 4's hand-off grows again with it: the lifecycle offered to
+the bundle as a convention candidate, by the same route those
+seven rules took — written here from lived work, handed up after,
+theirs to take, reshape or decline.
 
 ## Decisions taken inside this plan
 
