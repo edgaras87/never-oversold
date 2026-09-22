@@ -186,9 +186,64 @@
       truth for where the step is. If it holds, the fold-back is the
       run playbook's step form, which the bundle owns.
 
-- [ ] source: evaluate this run's changes to `cbc-slice` since
-      `4c3ac99` (rule 4; the edit is in the diff, its why in
-      `.claude/decisions.md` at 2026-09-21).
+- [ ] source: evaluate this run's changes to `cbc-slice` and
+      `artifact-kinds` since `4c3ac99` (convention-lifecycle §3 and
+      the rules file; the edits are in the diff, their why in
+      `.claude/decisions.md` at 2026-09-21 and 2026-09-22).
+
+- [ ] Offered to the CbC bundle, not asked of it: this project's
+      shape for a slice record — the form of its guarantees and its
+      owners, `.claude/shapes/slice-record.md`. Unexposed here, and
+      offered as a finding rather than a proposal: it says what one
+      project arrived at after SL-2's record turned out unreadable
+      in those two sections. It travels in two layers, and only one
+      of them is anyone else's business — the skeleton and what it
+      encodes are general by construction, the illustrations
+      filling the placeholders are this project's and marked so.
+      Take the first, leave the second; nothing needs rewriting at
+      the hand-off for that to work.
+
+- [ ] Asked of the bundle, and this is the part only it can do:
+      **be the collector.** This project holds no address and
+      reaches no repository but its own, so it cannot ask anything
+      for anything. What it can do is look in `temp/` at a gate and
+      say in a line what it found. Everything before that is the
+      collector's act: holding unexposed shapes from every project
+      in one place, staging them here **with a note** when this
+      project reaches a gate — a note saying it holds none for this
+      kind is a real delivery and closes the item — and afterwards
+      reading this project's kept version and its dated lines
+      against what was sent, to decide whether to take the change
+      or leave its own standing.
+      With it, the shipping rule: **exposed shapes ship, unexposed
+      ones never do.** An exposed shape is meant to be in front of
+      whoever writes, so it belongs in the pin as a rule with its
+      `paths:`. An unexposed one is a question about whether a
+      shape is right, and the answer is destroyed by showing it to
+      the one being asked. The evidence is this run: it read SL-1's
+      record before writing SL-2's and matched its form without
+      once asking whether SL-2's material wanted another.
+
+- [ ] Offered to the bundle as a convention candidate: the shape
+      lifecycle, `.claude/rules/shapes-lifecycle.md`, written here
+      from lived work by the route `skills-changed-in-place.md`
+      took — written in this project, handed up after, theirs to
+      take, reshape or decline. Little needs generalising: the rule
+      is written in general terms already, and what is this
+      project's is the SL-2 example in §1 and the `temp/` path.
+      It carries: a shape born from work that exists and never
+      designed in advance, by recurring or by being judged worth
+      keeping; exposure as the axis and the place as the mechanism;
+      who moves a shape between places, which is the reviewer and
+      no count; what a gate does with what is in `temp/`; and the
+      three ways a difference ends.
+      Two questions ride with it, neither answerable from inside.
+      Whether the agent-arrangement convention should learn about
+      shapes at all — this repo holds it as stubs, with no copy to
+      edit, so where `.claude/shapes/` sits in the arrangement is
+      the bundle's to say. And whether the default gate items now
+      in PLAN belong to the playbook that defines its steps, which
+      is the same question one level up.
 
 - [ ] Own, no creditor (was a hand-off to the handbook, which the
       bundle's second note of 2026-09-20 says is no longer
