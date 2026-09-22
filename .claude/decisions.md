@@ -528,6 +528,16 @@
   asked destroys the answer — which this run proved on itself by
   reading SL-1's record before writing SL-2's and matching its form
   without asking whether the material wanted another.
+  What the comparison caught, kept because the shape's own text
+  cannot say it: the failing passage **already carried labels** —
+  *Attack:* and *Guarantee:* — so labelling was never the missing
+  piece, and a candidate that only labelled the parts left the
+  reader simulating the situation in their head. The worked example
+  with real numbers is what made it readable, which is why the
+  skeletons demand one where a mechanism is involved. Also built
+  and rejected there: one claim per sentence, which is longer,
+  choppier, and cannot tell a fence from an argument, so it
+  flattens the short-claim passages this project wants left alone.
   Rejected: the shape under `docs/` (its reader is whoever writes
   the next record, and it uses words a docs reader cannot decode);
   the lifecycle inside the one shape that exists (it governs every
