@@ -107,45 +107,105 @@ Each is one answer to: *what would let §1 hold on paper yet break
 in fact?* The attack runs until no new answer comes. Every
 guarantee is a property; none names how it is held.
 
-- **G1. An admitted change leaves the count not under the sum, as
-  the sum stands at the moment of recording.** Attack: the count is
-  set to a number that was above the sum when the request was read
-  and below it when the write lands. Guarantee: the comparison and
-  the change are one act against the store's state as it is then,
-  never two acts against a copy. Kill 6.
-- **G2. A change is taken whole or not at all.** Attack: the ledger
-  meets a number it cannot honour and takes part of it — clamping
-  the count down to the sum, say, so that something is written.
-  Guarantee: the count after an adjustment is either exactly the
-  number the operator asserted or exactly what it was before; the
-  ledger never asserts a number nobody sent. Kill 6's other half.
-- **G3. A refused change moves nothing.** Attack: the refusal is
-  decided, but the attempt has already touched the numbers, or ends
-  a hold on its way out. Guarantee: after a refused adjustment the
-  item's count, its reservations and their active sum are what they
-  were before the request arrived. Kill 6; and the shape of §3 made
-  checkable.
-- **G4. A correction's effect depends only on the number it
-  asserts, never on how many times it arrives.** Attack: a
-  downward correction is resent and the count falls twice for one
-  loss (F11). Guarantee: an adjustment asserts a state, not a
-  movement; the state after two identical assertions is the state
-  after one. Kill 7.
-- **G5. No decision depends on a correction's position in a
-  sequence.** Attack: two corrections arrive in the other order
-  than they were made, and the ledger, assuming an order, admits
-  one because the other preceded it (F13). Guarantee: each
-  adjustment is judged alone, against the state it meets; the
-  ledger asserts no ordering among corrections and needs none for
-  §1 to hold. Whichever order they arrive in, no admitted one
-  leaves the count under the sum. Kill 8.
-- **G6. Every change to the on-hand-count faces this rule, by
-  whatever path it arrives.** Attack: a second way in — a script, a
-  migration, an admin path, a later feature — lowers the count
-  without meeting the comparison. Guarantee: P1's "every change to
-  it enters through the ledger's door" holds for changes this
-  slice never anticipated; no path writes the count without
-  facing §1.
+**G1. An admitted change leaves the count not under the sum, as the
+sum stands at the moment of recording.**
+
+*What could go wrong (the attack):* the count is set to a number that
+was above the sum when the request was read and below it when the write
+lands.
+*Say:* 10 on hand and 6 held when the operator's 7 is read — it
+fits. Two reservations land. Now 8 are held, and the 7 is written
+anyway.
+
+*What we guarantee:* the comparison and the change are one act against
+the store's state as it is then, never two acts against a copy.
+*Say:* the 7 is compared against the 8 that stands when it is
+written, not the 6 that stood when it was read.
+
+*Kills:* 6.
+
+---
+
+**G2. A change is taken whole or not at all.**
+
+*What could go wrong (the attack):* the ledger meets a number it cannot
+honour and takes part of it, so that something is written.
+*Say:* 8 held and the operator asserts 5; the ledger writes 8
+instead — a count that fits, that nobody sent, and that no one
+counted on any shelf.
+
+*What we guarantee:* the count after an adjustment is either exactly the
+number the operator asserted or exactly what it was before.
+
+*Kills:* 6's other half.
+
+---
+
+**G3. A refused change moves nothing.**
+
+*What could go wrong (the attack):* the refusal is decided, but the
+attempt has already touched the numbers, or ends a hold on its way out.
+*Say:* 10 on hand, 8 held, the operator's 7 refused — and the held
+count reads 9 afterwards, so the next honest correction is refused
+for a unit nobody holds.
+
+*What we guarantee:* after a refused adjustment the item's count, its
+reservations and their active sum are what they were before the request
+arrived.
+
+*Kills:* 6, and it is what makes §3's shape checkable.
+
+---
+
+**G4. A correction's effect depends only on the number it asserts,
+never on how many times it arrives.**
+
+*What could go wrong (the attack):* a downward correction is resent and
+the count falls twice for one loss (F11).
+*Say:* 10 on hand, the operator asserts 9, the reply is lost, they
+send 9 again. A door that read the number as a movement would leave
+19, then 28 — which is what this slice's red run actually printed.
+
+*What we guarantee:* an adjustment asserts a state, not a movement; the
+state after two identical assertions is the state after one.
+
+*Kills:* 7.
+
+---
+
+**G5. No decision depends on a correction's position in a
+sequence.**
+
+*What could go wrong (the attack):* two corrections arrive in the other
+order than they were made, and the ledger, assuming an order, admits one
+because the other preceded it (F13).
+*Say:* 9 made first, then 7; delivered 7 then 9. Nothing about
+which arrived first may change whether either is admitted — only
+what the count and the holds are when each lands.
+
+*What we guarantee:* each adjustment is judged alone, against the state
+it meets; the ledger asserts no ordering among corrections and needs
+none for §1 to hold. Whichever order they arrive in, no admitted one
+leaves the count under the sum.
+
+*Kills:* 8.
+
+---
+
+**G6. Every change to the on-hand-count faces this rule, by
+whatever path it arrives.**
+
+*What could go wrong (the attack):* a second way in — a script, a
+migration, an admin path, a later feature — lowers the count without
+meeting the comparison.
+*Say:* a bulk importer sets 5 while 8 are held. The store refuses
+the row, so the state survives; but the importer meets an error
+where the door would have given it a refusal, and nothing told it
+what it did wrong.
+
+*What we guarantee:* P1's "every change to it enters through the
+ledger's door" holds for changes this slice never anticipated; no path
+writes the count without facing §1.
 
 **Inherited, not re-owned.** The attack's answers that SL-1 already
 holds are named, not re-derived: that the comparison is one act and
@@ -274,14 +334,107 @@ absences from being silently filled in later.
 
 ### Owners
 
-| Guarantee | Owner, wall level | Why it defeats *this* adversity |
-|---|---|---|
-| **G1** an admitted change is compared at the moment of recording | **The store: the check constraint `reserved <= on_hand_count`, with the adjustment as one conditional statement** — `INSERT … ON CONFLICT (id) DO UPDATE SET on_hand_count = :count WHERE item.reserved <= :count`. Built by SL-1 (its G3); adopted here as this guarantee's owner. | SL-1 justified it against a race; F9 needs no race, and the same statement answers it for a different reason. The `WHERE` is evaluated against the row's committed state at the instant of writing, so an honest correction under the held units changes no row, and the door's answer is the store's answer — no code of ours decides it. Should the condition ever be wrong, the constraint refuses the row at write time: a count under the held units is physically unwritable, by any path. |
-| **G2** taken whole or not at all | **The store's own assignment, in the same statement:** `SET on_hand_count = :count`, the operator's asserted value verbatim. No arithmetic, no `LEAST`, no clamp — the statement has nowhere to compute a different number. | Clamping is not refused by a check at runtime; it is impossible to express in the one statement that writes the count. The count after an adjustment is the asserted value or the old one, and nothing else can be written. |
-| **G3** a refused change moves nothing | **The store: one statement, and no second write on the path.** The adjust path writes once; a `WHERE` that does not match writes nothing and returns no row, which is what the door turns into a refusal (ADR-0010's `409`). | There is no interval in which something is moved and then undone, and no reservation write on this path at all — so "refused" and "unchanged" are the same event, not two that must agree. |
-| **G4** effect depends only on the number asserted | **The door's contract (ADR-0011): an adjustment asserts a value, never a difference** — backed by G2's assignment. | A resend cannot lower the count twice for one loss because no statement on this path adds or subtracts: the second assertion assigns the same number to the same row. Kill 7 dies of the door's shape, not of a duplicate check — which is why no request identity is needed and none is claimed (W2 stays fenced, the idempotency claim stays banked). |
-| **G5** no decision depends on position in a sequence | **Absence, made structural: no ordering state exists on the adjust path** — no version, no sequence number, no supplied or stored "as of" instant, nothing consulted but the row as found. Held by a test that reads the main source and fails if any appears. | Kill 8 arrives as two assertions in the wrong order; each is judged alone against the state it meets, so no order can put the count under the held units. The danger is not today's code but tomorrow's: an absence nothing enforces is one helpful commit from being filled. The structural test is the enforcement, in the spirit of SL-1's no-process-clock test. |
-| **G6** every change faces the rule, by whatever path | **The store's check constraint as the backstop; a structural test that the count has one writing path.** | The constraint refuses an under-held row whoever writes it — a script, a migration, a console, a future feature — so the *state* is safe by structure. The structural test guards the other half, the *decision*: a second path that writes the count without the conditional statement would refuse nothing, and the constraint would turn its mistake into an error rather than a refusal. |
+One block per guarantee: what holds it, why that beats *this*
+adversity rather than adversity in general, and what stands behind
+it if the wall itself is ever wrong.
+
+**G1. An admitted change is compared at the moment of recording.**
+
+*The wall:* the store's check constraint `reserved <= on_hand_count`,
+with the adjustment as one conditional statement — `INSERT … ON CONFLICT
+(id) DO UPDATE SET on_hand_count = :count WHERE item.reserved <=
+:count`. Built by SL-1 as its G3; adopted here, not rebuilt.
+
+*Why it beats this attack:* SL-1 justified it against a race. F9 needs
+no race, and the same statement answers it for a different reason: the
+`WHERE` is evaluated against the row's committed state at the instant of
+writing, so the door's answer is the store's answer and no code of ours
+decides it.
+*Say:* 8 held, the operator asserts 7. No row changes, and the door
+turns "no row" into a refusal.
+
+*If the wall were ever wrong:* the constraint refuses the row at write
+time, so a count under the held units is unwritable by any path at all.
+
+---
+
+**G2. A change is taken whole or not at all.**
+
+*The wall:* the store's own assignment, in the same statement — `SET
+on_hand_count = :count`, the operator's asserted value verbatim. No
+arithmetic, no `LEAST`, no clamp.
+
+*Why it beats this attack:* clamping is not caught by a check at
+runtime; it is impossible to express in the one statement that writes
+the count.
+*Say:* 8 held and the operator asserts 5. There is nowhere in that
+statement to compute 8 and write it instead.
+
+---
+
+**G3. A refused change moves nothing.**
+
+*The wall:* one statement, and no second write on the path. The adjust
+path writes once; a `WHERE` that does not match writes nothing and
+returns no row, which is what the door turns into a refusal (ADR-0010's
+`409`).
+
+*Why it beats this attack:* there is no interval in which something is
+moved and then undone, and no reservation write on this path at all — so
+"refused" and "unchanged" are one event rather than two that must agree.
+
+---
+
+**G4. A correction's effect depends only on the number it
+asserts.**
+
+*The wall:* the door's contract (ADR-0011) — an adjustment asserts a
+value, never a difference — backed by G2's assignment.
+
+*Why it beats this attack:* a resend cannot lower the count twice for
+one loss because no statement on this path adds or subtracts; the second
+assertion assigns the same number to the same row. Kill 7 dies of the
+door's shape, not of a duplicate check, which is why no request identity
+is needed and none is claimed — W2 stays fenced and the idempotency
+claim stays banked.
+*Say:* the operator asserts 9, the reply is lost, they send 9
+again. The row reads 9 after the first and 9 after the second.
+
+---
+
+**G5. No decision depends on a correction's position in a
+sequence.**
+
+*The wall:* an absence, made structural — no ordering state exists on
+the adjust path: no version, no sequence number, no supplied or stored
+"as of" instant, nothing consulted but the row as found. Held by a test
+that reads the source and fails if any appears.
+
+*Why it beats this attack:* kill 8 arrives as two assertions in the
+wrong order, and each is judged alone against the state it meets, so no
+order can put the count under the held units.
+
+*What the test is for:* the danger is not today's code but tomorrow's.
+An absence that nothing enforces is one helpful commit from being
+filled, so the structural test is the enforcement — in the spirit of
+SL-1's no-process-clock rule.
+
+---
+
+**G6. Every change to the count faces the rule, by whatever path it
+arrives.**
+
+*The wall:* the store's check constraint as the backstop, and a
+structural test that the count has one writing path.
+
+*Why it beats this attack:* the constraint refuses an under-held row
+whoever writes it — a script, a migration, a console, a future feature —
+so the *state* is safe by structure. The test guards the other half, the
+*decision*.
+*Say:* a bulk importer sets 5 while 8 are held. Without the test
+nothing stops the importer existing; the constraint still saves the
+state, but the importer meets an error where the door would have
+given it a refusal.
 
 Every guarantee has one owner, and the two absences (G5, G6) are
 each held by a test that reads the code rather than by a habit.
