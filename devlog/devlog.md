@@ -6,6 +6,90 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-09-21..23  (housekeeping: the writing pass, and shapes)
+
+- Three things were queued when SL-2 closed: the writing pass, the
+  review-between-versions question, and SL-1's per-test references.
+  One branch, `housekeeping-writing-and-review`, took the first
+  only; the other two are untouched and still in TODO's Next.
+- It started as "the records are hard to read" and ended with two
+  artifacts nobody had asked for: `.claude/shapes/slice-record.md`
+  and `.claude/rules/shapes-lifecycle.md`. Nineteen commits, a
+  commit plan of seven steps that landed as eleven, five revisions.
+  Every revision came from the reviewer reading what had just been
+  written and finding it claimed more than it could do.
+- `decide-first` ran first and was worth it: the commit count was
+  not sayable. Its draft was trimmed to one item after the reviewer
+  pointed out that two of the three queued items had no shape
+  question at all — the count was sayable for both, so the draft
+  was covering a pile of work rather than an unsettled shape. The
+  lesson is in the draft's own words, now in history: one draft per
+  unsettled shape, never per pile of queued work.
+- Q1 turned out to be miscut. Asked as "which reader is readable
+  about", it was answered by looking at two real passages: the
+  definition's fences read fine, SL-2's G1 had to be worked at.
+  Same voice, same week, same author. So the fault is not the voice
+  but the passages that pack an argument into one block, and the
+  pass is small and targeted rather than a rewrite of everything.
+- `option-comparison` built five wordings against that same G1.
+  What building caught, which arguing would not have: the failing
+  passage **already carried labels** — *Attack:*, *Guarantee:* — so
+  labelling was never the missing piece; one claim per sentence is
+  longer, choppier and flattens the fences; and a requirement
+  turned out to be the consequence of the real one. The winner was
+  labels plus a worked example with real numbers, marked `*Say:*`
+  on its own line, which is the reviewer's refinement.
+- `visual-comparison` settled the Owners section by rendering. The
+  table died on a measurement: a four-column row is 435 characters
+  on one line, which an editor cannot show and a line diff marks
+  whole when one word changes — the review-between-versions problem
+  made worse. Blocks with a rule between them won.
+- Then the question that ate the rest of the session: where does a
+  thing like that live, and when may it be read. It landed as a
+  mechanism rather than a note — a shape sits in `.claude/shapes/`
+  where nothing loads it, or in `.claude/rules/` with its `paths:`
+  where it loads while the matching artifact is written, and the
+  directory is what decides whether it is in front of the writer.
+  `artifact-kinds` gained a **shape** entry for it: force that is
+  positional, which no other kind has.
+- What the reviewer overturned, all four of them mine: a shape
+  written at a kind's second instance (it would not have described
+  how this project's own first shape was born — from a rebuild
+  judged worth keeping, nothing compared); a promotion counter
+  (exposing a shape is a judgement, and a count only prompts the
+  question); deleting a delivered copy after its gate (keeping it
+  is what lets the collector reconcile); and "keep it concrete so
+  it cannot travel", which confused a status with a wording — the
+  protection is that a shape is offered as a finding, not that it
+  is phrased vaguely.
+- One correction worth keeping for its own sake: the first version
+  of the close-time rule said it runs at the close so the output is
+  written independently of the shape. That reason is false inside a
+  project. This run read SL-1's record before writing SL-2's and
+  matched its form without once asking whether SL-2's material
+  wanted another. The reason that survives is different: what is
+  written from a shape follows the shape, and what is written from
+  the slice follows the material.
+- PLAN gained a step form to copy and default gate items — two at
+  the opening, seven at the close — after the reviewer noticed the
+  same lines were being retyped into every step's gate. Earlier
+  steps are not reworded: their ticks are a record of what was
+  verified in the words the reviewer approved.
+- The drafts were discarded at the end, as `decide-first` and
+  `option-comparison` both say to. The one finding that lived
+  nowhere else — labels were already there and the numbers did the
+  work — went into the decisions log first.
+- Unfinished, and named so it is not mistaken for done: the sweep
+  itself. SL-1's record, README, the manuals and the two comparison
+  tables in SL-2's §8 are untouched. The pass produced the rule and
+  applied it to one record.
+- Resume: three things before SL-3, each on its own branch — the
+  sweep's remainder, the review-between-versions question, SL-1's
+  per-test references. Then Step 7, SL-3, which inherits an
+  operator with no recourse and is the first slice to meet the
+  close-time shape check. Owed to the bundle: four hand-offs in
+  TODO, one of them asking it to be the collector.
+
 ## 2026-09-21  (Step 6: SL-2 built and closed)
 
 - The build ran as a commit plan on `step-6-sl-2`, eight commits
