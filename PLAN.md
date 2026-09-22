@@ -79,13 +79,15 @@ was held to.
 
 **At the close.**
 
+- [ ] `temp/` is checked for shapes delivered for this step, and
+      what was found is said in a line — including that nothing
+      was.
 - [ ] *(one pair per shape that governs what this step produced;
-      the lifecycle says where shapes live, how to find which ones
-      govern this, and what to request from elsewhere)* What the
-      step produced is read against `<shape>`.
-- [ ] Every difference that reading found is settled: corrected in
-      the output, taken up into the shape with a dated line, or
-      both.
+      the lifecycle says where shapes live and how to find which
+      ones govern this)* What the step produced is read against
+      `<shape>`, delivered or already here.
+- [ ] Every difference that reading found is settled: the shape was
+      wrong here, the output drifted, or each had something.
 - [ ] Every commit on `<branch>` follows commit-messages.
 - [ ] No commit straddles agent and project paths, so the
       arrangement's history stays separable from the project's.
