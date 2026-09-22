@@ -505,3 +505,45 @@
   and the reviewer still had to ask; putting any of it in the
   project's own records instead (rule 3 — the demand is one any
   project would want, and nothing in it is this project's answer).
+
+- 2026-09-22 Shapes, and the rule that governs them. A shape says
+  how a kind of this project's output is written — the first is
+  `.claude/shapes/slice-record.md`, the form of a slice record's
+  guarantees and owners — and `.claude/rules/shapes-lifecycle.md`,
+  scoped to `.claude/shapes/**`, says how shapes live: born from
+  work that exists and never designed in advance; unexposed in
+  `shapes/` where nothing loads them, exposed in `rules/` where
+  they load while the matching artifact is written; moved between
+  the two by the reviewer's judgement, which a shape's dated lines
+  inform and no count decides.
+  Found in the housekeeping branch after Step 6. SL-2's record was
+  unreadable in two sections, the rebuild produced a shape worth
+  keeping, and every question after that was about where such a
+  thing lives and when it may be seen.
+  Why the place rather than a note: a rules file loads whenever a
+  matching path is touched and a shapes file loads never, so the
+  directory decides whether a shape is in front of whoever writes,
+  and nobody has to remember the rule. Provisional means the
+  question is still open, and showing a shape to the writer being
+  asked destroys the answer — which this run proved on itself by
+  reading SL-1's record before writing SL-2's and matching its form
+  without asking whether the material wanted another.
+  Rejected: the shape under `docs/` (its reader is whoever writes
+  the next record, and it uses words a docs reader cannot decode);
+  the lifecycle inside the one shape that exists (it governs every
+  shape and describes movement between places, so no file inside
+  one of them has the scope); a shape written at a kind's second
+  instance as the rule (it would not describe how this project's
+  own first shape was born — from a rebuild judged worth keeping,
+  with no pair compared); a promotion counter (two closes taking
+  nothing up is a prompt to ask the question, never the answer —
+  exposing a shape and withdrawing it are the reviewer's);
+  deleting a delivered copy after its gate (deleting only hides
+  what has already been read, and keeping it is what lets the
+  collector reconcile — it reads this project's version and its
+  dated lines against what it sent); the rule speaking as if this
+  project could ask the collector for anything (it holds no address
+  and reaches no repository but its own — a delivery arrives
+  because a person asked for it there, so the gate's act is to look
+  in `temp/` and to say in a line what it found, including
+  nothing).
