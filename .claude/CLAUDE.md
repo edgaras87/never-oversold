@@ -41,6 +41,7 @@ its source as a diff: the conventions under convention-lifecycle
 | Building on the ground: which identity, what is refused, how schema changes | The builder's contract, one section per service | docs/infrastructure/infrastructure-contract.md |
 | Asking what the skeleton delivers and refuses, or what a slice may rely on from the bootstrap | The bootstrap's contract, certified at its close | docs/construction/bootstrap-requirements.md |
 | Asking what a slice guarantees, what holds each guarantee, and how it was proven | The slice's specification, plan and evidence, one record per slice | docs/construction/sl-*.md |
+| Closing a step, and checking what it made reads as the last one did | The shapes: what a kind of output looks like here, read at a gate while provisional, never while the work is done | .claude/shapes/ |
 | Starting work, or closing a step's gate | Current state, next steps, gates | PLAN.md |
 | A decision taken, options rejected | Decisions and why | docs/adr/ |
 | Noticed something, not doing it now | Backlog | TODO.md |
