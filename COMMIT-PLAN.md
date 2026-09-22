@@ -47,17 +47,7 @@ every step's gate written by hand, now with their placeholders, to
 be copied into each step when it opens. Copied, not shared: a step
 needs its own checkbox or there is nothing to tick.
 
-**4. `docs: hand the baseline lifecycle and the gates to the bundle`**
-TODO's hand-offs, now three. The shape offered as a baseline. The
-request that baselines be delivered at a gate rather than shipped.
-And the larger one this set has been circling: where all of it
-should live — the baseline lifecycle as something a project can
-work to rather than invent, the default gate items as the
-playbook's, and the second baseline kind nobody has written yet,
-the test machinery a project derives once and every slice after
-leans on.
-
-**5. `chore(agent): move the shapes under .claude/, as workshop`**
+**4. `chore(agent): move the shapes under .claude/, as workshop`**
 Steps 2 and 3 landed the shape record under `docs/` and the glob
 with it, and both were wrong about where this belongs. Its
 vocabulary gives it away — it says "the bundle" and "the reviewer",
@@ -92,7 +82,7 @@ fixed shapes only, those being the ones meant to be in front of a
 writer. The promotion is countable: a shape is fixed once two
 closes in a row take nothing up into it.
 
-**6. `chore(agent): write the shape lifecycle as a rule`**
+**5. `chore(agent): write the shape lifecycle as a rule`**
 The lifecycle currently sits inside `slice-record-shape.md`, in
 three sections. That was tolerable with one shape and is wrong
 now: it governs every shape, and burying it in one of them leaves
@@ -115,7 +105,7 @@ changes is not fixed any more and the counter resets; how a
 provisional baseline is requested into `temp/` and deleted; and
 that the bundle ships fixed shapes only.
 
-**7. `chore(agent): add the shape kind to artifact-kinds`**
+**6. `chore(agent): add the shape kind to artifact-kinds`**
 The kinds vocabulary has no word for a document that describes
 while the work happens and binds at one moment, so naming this one
 took "model" plus a paragraph saying model is wrong — which is the
@@ -125,11 +115,26 @@ exemplar. The decisions entry and the TODO line asking the bundle
 to evaluate ride with it; the `Governs:` line stays prose, since
 nothing parses it and no record under `docs/` carries frontmatter.
 
-**8. `chore(agent): check a slice record against its project's shape`**
+**7. `chore(agent): check a slice record against its project's shape`**
 The skill edit, the decisions entry, and the records-table row.
 Agent paths only. The step the skill gains is general; the shape it
 compares against is the project's own, which is what lets this
 travel upstream without handing anyone an answer.
+
+**8. `docs: hand the shapes and their lifecycle to the bundle`**
+TODO's hand-offs, written last because two of the three describe
+what step 5 defines and would otherwise be written twice. Three of
+them. One: this project's slice-record shape offered — as a
+*provisional shape*, not an example, the distinction mattering
+because what the bundle does with it is a design question of its
+own. It has to decide where a project's shapes land on its side,
+how it notices that `.claude/shapes/` here holds a new or changed
+finding, whether it reconciles by reading the records of change or
+by tracking a hash. Ours is to offer and to say what changed, not
+to specify their side. Two: ship fixed shapes, request provisional
+ones. Three: the lifecycle itself offered as a convention
+candidate, carrying the question of whether the arrangement
+convention should learn about shapes at all.
 
 **9. `docs(agent): the drafts behind the writing pass`**
 `temp/`: the decide-first questions, the option comparison on the
@@ -205,6 +210,25 @@ Step 4's hand-off grows again with it: the lifecycle offered to
 the bundle as a convention candidate, by the same route those
 seven rules took — written here from lived work, handed up after,
 theirs to take, reshape or decline.
+
+## Revision — 2026-09-22, at step 4's boundary
+
+The hand-offs move from step 4 to step 8, after everything they
+describe exists. What forced it: the reviewer read them and found
+two of the three were restating the lifecycle that step 5 has not
+written yet, which is the same thing said twice and corrected
+later. The third was framed as offering an example, and it is not
+— it offers a provisional shape, and how a bundle notices, stores
+and reconciles a project's shapes is that bundle's design rather
+than something this repo can specify for it.
+
+Left open deliberately, to be settled inside step 5 rather than
+guessed here: whether a requested provisional shape is deleted
+after the gate or moved into `.claude/shapes/` and kept. The
+reviewer's argument for keeping it is that by then this project's
+later records are already influenced by its own earlier ones, so
+hiding it buys little — which the lifecycle is the right place to
+weigh.
 
 ## Decisions taken inside this plan
 
