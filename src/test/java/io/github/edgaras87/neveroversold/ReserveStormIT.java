@@ -42,6 +42,16 @@ class ReserveStormIT extends WebDatabaseIT {
     @Autowired
     private TestRestTemplate door;
 
+    /**
+     * E1 · G1 — kills 1, 3 and 4. E4 · G4 — kill 9, riding on the same storm.
+     *
+     * <p>Twenty units on hand, a hundred requests for one unit each, all
+     * released at the same instant. At most twenty may be admitted, and the
+     * store must hold exactly the reservations the admitted replies name —
+     * no more, no fewer. This fails if the admit ever checks the numbers in
+     * one step and writes in another: two requests then see the same free
+     * unit, and both take it.
+     */
     @Test
     void aHundredSimultaneousReservesNeverOversell() throws Exception {
         String item = "storm-" + UUID.randomUUID();

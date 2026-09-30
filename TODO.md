@@ -10,7 +10,7 @@
 
 - [ ] Between steps. Step 6 closed SL-2 on 2026-09-21; the writing
       pass ran 2026-09-21..23, and the bundle's delivery @ 0000855
-      was taken 2026-10-01. Three things stand before Step 7 opens,
+      was taken 2026-10-01. Two things stand before Step 7 opens,
       listed under Next, each its own branch cut from main, in the
       order the reviewer picks.
 - [ ] Step 7 (SL-3, cbc-slice): a reservation exits once, the
@@ -70,16 +70,6 @@
       beyond the devlog line that says what it said and why it
       went — the pattern used for the writing rule drafted and
       reverted on 2026-09-21.
-
-- [ ] SL-1's tests carry no per-test reference. SL-2's carry a
-      one-line header each — the evidence criterion, the guarantee,
-      the kill, and for the one that is not evidence, that it is a
-      tripwire on a decision (`CorrectionIT`, 2026-09-21). SL-1's
-      say it at class level only, as `AdjustmentRaceIT` does, so a
-      reader landing on a method cannot see what it is for. Add the
-      headers there. Whether the convention is written down is no
-      longer open: `cbc-slice` carries it since @ 0000855 — every
-      test says what it is for, and a tripwire says so.
 
 ## Later / someday
 

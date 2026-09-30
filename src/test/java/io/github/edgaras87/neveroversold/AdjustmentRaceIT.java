@@ -41,6 +41,17 @@ class AdjustmentRaceIT extends WebDatabaseIT {
     @Autowired
     private TestRestTemplate door;
 
+    /**
+     * E3 · G3 — kill 5.
+     *
+     * <p>Twenty on hand; thirty requests for one unit each and one operator
+     * correction down to ten, all released at the same instant, five rounds
+     * over fresh items. Either outcome is allowed: the correction lands and
+     * at most ten are held, or it is refused and the count stays twenty.
+     * This fails on a round where both went through — the count set to ten
+     * with more than ten held — or where the correction's answer disagrees
+     * with what the store holds.
+     */
     @Test
     void aDownwardAdjustmentRacingTheAdmitsNeverLeavesTheCountUnderTheHeldUnits() throws Exception {
         for (int round = 1; round <= ROUNDS; round++) {

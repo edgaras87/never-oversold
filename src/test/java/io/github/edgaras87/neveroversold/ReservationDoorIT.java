@@ -37,6 +37,14 @@ class ReservationDoorIT extends WebDatabaseIT {
     @Autowired
     private JdbcClient store;
 
+    /**
+     * Not evidence — a tripwire on ADR-0011: an item becomes known by its
+     * first adjustment.
+     *
+     * <p>An adjustment of ten on an item the ledger has never seen creates
+     * it, with ten on hand and nothing held. This fails if an item ever
+     * needs registering some other way first.
+     */
     @Test
     void anItemBecomesKnownByItsFirstAdjustment() {
         String item = newItemId();
@@ -52,6 +60,14 @@ class ReservationDoorIT extends WebDatabaseIT {
         assertThat(held(item)).isZero();
     }
 
+    /**
+     * Not evidence — a tripwire on ADR-0010's first answer, admitted.
+     *
+     * <p>Ten on hand, three asked for: the answer is 201 and carries the
+     * reservation as the store recorded it — its id, its quantity, its
+     * expiry — and the store holds one reservation of three. This fails if
+     * the answer ever describes anything but the stored record.
+     */
     @Test
     void aReserveThatFitsIsAdmittedAndRecorded() {
         String item = newItemId();
@@ -72,6 +88,14 @@ class ReservationDoorIT extends WebDatabaseIT {
         assertThat(recorded).isEqualTo(1);
     }
 
+    /**
+     * Not evidence — a tripwire on ADR-0010's second answer, refused.
+     *
+     * <p>Five on hand, four held, two more asked for: the answer is 409 with
+     * a Problem Details body titled "refused", and the numbers stay five on
+     * hand and four held. The storms test the refusal under contention; this
+     * pins what it looks like.
+     */
     @Test
     void aReserveThatDoesNotFitIsRefusedAndMovesNothing() {
         String item = newItemId();
@@ -89,6 +113,14 @@ class ReservationDoorIT extends WebDatabaseIT {
         assertThat(count(item)).isEqualTo(5);
     }
 
+    /**
+     * E6 · G6 — kill 18, folded (FC1): the unknown item.
+     *
+     * <p>A reserve on an item no adjustment has created is answered 404,
+     * "unknown item" — the status ADR-0010 names for it, neither refused nor
+     * invalid. This fails if a reserve on an unknown item ever reaches the
+     * admit, or the answers blur.
+     */
     @Test
     void aReserveOnAnUnknownItemIsUnknown() {
         ResponseEntity<String> response = reserve(newItemId(), Map.of("quantity", 1, "hold", "PT1M"));
@@ -98,11 +130,17 @@ class ReservationDoorIT extends WebDatabaseIT {
         assertThat(Body.of(response.getBody()).stringAt("$.title")).isEqualTo("unknown item");
     }
 
+    /**
+     * Not SL-1's evidence — SL-2's decision, seen at the door: the count
+     * never drops under what reservations hold, and a correction that would
+     * is refused rather than ending holds to fit. Its evidence is
+     * {@link CorrectionIT}.
+     *
+     * <p>Ten on hand, seven held, the operator asserts six: the answer is
+     * 409, and the numbers stay ten and seven.
+     */
     @Test
     void anAdjustmentUnderTheHeldUnitsIsRefused() {
-        // the shape SL-2 decided: the count never drops under what
-        // reservations hold, and the correction is refused rather than
-        // ending holds to fit. Its own evidence is in CorrectionIT.
         String item = newItemId();
         adjust(item, Map.of("onHandCount", 10));
         reserve(item, Map.of("quantity", 7, "hold", "PT15M"));
@@ -128,6 +166,15 @@ class ReservationDoorIT extends WebDatabaseIT {
                 Arguments.of("body not JSON", "this is not a request"));
     }
 
+    /**
+     * E6 · G6 — kill 18, folded (FC1).
+     *
+     * <p>Nine malformed reserve requests, one per run: a quantity of zero,
+     * negative, over the bound or missing; a hold of zero, over seven days,
+     * missing or not a duration; a body that is not JSON. Each is answered
+     * 400 "invalid request", and the item keeps ten on hand and nothing
+     * held. This fails if any of them reaches the admit.
+     */
     @ParameterizedTest(name = "{0}")
     @MethodSource("nonsense")
     void nonsenseIsInvalidAndMovesNothing(String shape, String body) {
@@ -143,6 +190,12 @@ class ReservationDoorIT extends WebDatabaseIT {
         assertThat(count(item)).isEqualTo(10);
     }
 
+    /**
+     * E6 · G6 — kill 18, folded (FC1): the adjustment's own nonsense.
+     *
+     * <p>An adjustment asserting minus one is answered 400 "invalid
+     * request". This fails if a negative count ever gets past the door.
+     */
     @Test
     void aNegativeCountIsInvalid() {
         ResponseEntity<String> response = post("/items/" + newItemId() + "/adjustments", "{\"onHandCount\":-1}");

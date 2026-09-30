@@ -51,6 +51,16 @@ class NoInstanceStateOrClockTest {
             .withImportOption(new ImportOption.DoNotIncludeTests())
             .importPackages("io.github.edgaras87.neveroversold");
 
+    /**
+     * E5 · G5 — kill 10, the structural half.
+     *
+     * <p>Reads the compiled application, not a run of it. Any use of the
+     * process's own time fails it — a {@code now()} from {@code java.time},
+     * a {@code Clock} or a {@code Date}, {@code System.currentTimeMillis}
+     * or {@code nanoTime}, called or passed as a method reference. Two
+     * instances whose clocks disagree would then disagree about which holds
+     * are still active.
+     */
     @Test
     void theLedgerConsultsNoProcessClock() {
         // accesses, not only calls: a method reference such as Instant::now is an access too
@@ -66,6 +76,14 @@ class NoInstanceStateOrClockTest {
                 .check(LEDGER);
     }
 
+    /**
+     * E2 · G2 — kill 2, the structural half.
+     *
+     * <p>Reads the compiled application. A field holding a map, a
+     * collection or an atomic value, or a static field that is not final,
+     * fails it: each is somewhere an instance could keep item numbers of its
+     * own, which the other instances would never see.
+     */
     @Test
     void theLedgerKeepsNoStateOutsideTheStore() {
         noFields().should().haveRawType(assignableTo(Map.class)

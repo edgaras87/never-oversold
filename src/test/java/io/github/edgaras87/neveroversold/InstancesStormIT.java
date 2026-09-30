@@ -40,6 +40,15 @@ class InstancesStormIT {
     private static final int ON_HAND = 20;
     private static final int REQUESTS = 120;
 
+    /**
+     * E2 · G2 — kill 2. E4 · G4 — kill 9, riding on the same storm.
+     *
+     * <p>E1's storm split across three separate processes: a hundred and
+     * twenty requests for one unit each against twenty on hand. At most
+     * twenty may be admitted, whichever instance answered. This fails if
+     * any instance ever decides from numbers it keeps in its own memory,
+     * which the other two cannot see.
+     */
     @Test
     void threeInstancesRacingForTheLastUnitsNeverOversell() throws Exception {
         List<ForkedLedger> ledgers = new ArrayList<>();

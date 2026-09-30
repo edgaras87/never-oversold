@@ -36,6 +36,15 @@ class OneClockIT extends WebDatabaseIT {
     @Autowired
     private JdbcClient store;
 
+    /**
+     * E5 · G5 — kill 10, removed rather than staged (FC3).
+     *
+     * <p>A fifteen-minute hold is asked for, and the store's record puts its
+     * expiry exactly fifteen minutes after the store's own creation stamp.
+     * This fails if the ledger ever works out the expiry itself and sends
+     * it: the two stamps would then come from two clocks, and the distance
+     * would be off by however far apart they are.
+     */
     @Test
     void theExpiryInstantIsTheStoresAssignment() {
         String item = newItem(5);
@@ -48,6 +57,16 @@ class OneClockIT extends WebDatabaseIT {
         assertThat(distance).isEqualTo("00:15:00");
     }
 
+    /**
+     * E5 · G5 — kill 10.
+     *
+     * <p>Two holds on one item, one for a second and one for ten minutes. A
+     * second and a half later the short one has left the active sum and the
+     * long one has not, judged by the store's clock. The held-units counter
+     * still counts both: an expired hold is not ended until an exit ends it,
+     * which is SL-3's. This fails if an expired hold is ever still counted
+     * as active, or a live one dropped.
+     */
     @Test
     void activenessIsJudgedByTheStoresClock() throws InterruptedException {
         String item = newItem(5);
