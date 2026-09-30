@@ -656,3 +656,36 @@
   bundle's to ship or not); taking only the copies our edits
   touched (a take copies whole, and a partial pin cannot say which
   version is held).
+
+- 2026-10-01 The shape takes the faces weighed for a guarantee, as
+  blocks: the chosen face first and marked, each face answering
+  *How it holds* and then *Cost* or *Why not*, a rule between faces.
+  The shape had left these tables undecided since the writing pass,
+  because they do a job the owners table did not — putting options
+  side by side to be weighed — and columns are good at that.
+  Found in the writing sweep, before SL-3. `visual-comparison` ran
+  on SL-2 §8's G5 table, the content word for word in every
+  candidate, against six requirements written first: the chosen face
+  seen without reading the reasons; every face answered on the same
+  questions; each reason readable as an argument at the width the
+  file is read in; a one-word change a one-line change in a diff;
+  each claim said once; plain Markdown.
+  The table as it was failed the diff requirement by measurement —
+  rows of 374 characters on one line — and was predicted to squeeze
+  its reasons into a column. A short table of verdicts with the
+  blocks below said every verdict twice. A numbered list was
+  shortest, but put the questions inside sentences instead of
+  labels. The blocks were the only candidate with no fail; what they
+  give up is columns that line up.
+  Why: the owners' answer, for the owners' reason — a long row
+  cannot be read in an editor, and a line diff marks it whole.
+  The render step was skipped, on the reviewer's call: the verdicts
+  on reading were predictions when the reviewer chose, and the
+  choice was made on the argument, not on looking. Recorded here,
+  not in a `docs/adr/` ADR as the skill says, following the writing
+  pass: the shape is agent-side, and the decision is how records
+  are written, not how the system is built.
+  Rejected: keeping the tables as an exempt kind, like lookup
+  tables (their cells carry arguments, which lookup cells do not);
+  leaving them undecided (three tables in two records, and SL-3
+  would meet the question with no answer).
