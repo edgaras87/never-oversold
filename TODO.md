@@ -8,27 +8,11 @@
 
 ## Now (current plan step)
 
-- [ ] Between steps, and three things stand before Step 7 opens.
-      Step 6 closed SL-2 on 2026-09-21 and reached main; the
-      writing pass ran 2026-09-21..23 on
-      `housekeeping-writing-and-review` and reached main too. Each
-      of the three below is its own branch cut from main, and their
-      order is the reviewer's.
-- [ ] 1 of 3 — the writing sweep's remainder. The pass produced the
-      rule and applied it to one record: SL-2's guarantees and its
-      owners. Untouched: SL-1's record, README, the manuals, and
-      the two comparison tables in SL-2's §8, which the shape marks
-      as undecided rather than exempt. The rule is
-      `.claude/shapes/slice-record.md`; how shapes live is
-      `.claude/rules/shapes-lifecycle.md`.
-- [ ] 2 of 3 — seeing what changed between versions, not between
-      commits. The practice is in use and works: stage each version
-      shown, word-diff the next, or the IDE's staging area. What is
-      open is only whether it is written down here or handed to the
-      bundle, whose `commit-plan` convention it touches. The item
-      below under "Next" carries the detail.
-- [ ] 3 of 3 — SL-1's tests carry no per-test reference, where
-      SL-2's carry one each. Detail in the item below.
+- [ ] Between steps. Step 6 closed SL-2 on 2026-09-21; the writing
+      pass ran 2026-09-21..23, and the bundle's delivery @ 0000855
+      was taken 2026-10-01. Three things stand before Step 7 opens,
+      listed under Next, each its own branch cut from main, in the
+      order the reviewer picks.
 - [ ] Step 7 (SL-3, cbc-slice): a reservation exits once, the
       registry's chosen-next since 2026-09-21. It inherits by name:
       an expired hold still counts in the held units until an exit
@@ -39,28 +23,15 @@
       the first slice to meet the close-time shape check, and its
       gate is the first derived from PLAN's step form.
 
-## Next (after SL-2 closes)
+## Next (before Step 7)
 
-- [ ] Two faces, one problem: the records read as if they must be
-      decoded — SL-2's owners table was the case that showed it,
-      and it is not alone — and so do the chat answers explaining
-      them, which the reviewer has had to ask to have said again
-      more simply nearly every time. The pass covers both.
-      Nothing was changed mid-slice on purpose, so this slice's
-      record stays in one voice. The pass decides a writing rule
-      for the records and for how the work is explained while it
-      happens, and sweeps what it touches — SL-1's record, the
-      argument-carrying tables, README, the manuals —
-      and asks whether different artifact kinds want different
-      rules. Already turned down once, so the pass need not
-      re-run them: a second plainer set of records beside these;
-      marking these as agent-only and writing a human version.
-      The reviewer's sketch, an idea and not a decision:
-      decide-first for the questions, option-comparison on real
-      examples, a picture only if visual-comparison earns it, then
-      a commit plan — the output may be a writing-guide artifact
-      plus updates to what it touches. Detail in this session's
-      devlog entry.
+- [ ] The writing sweep's remainder. The pass produced the rule and
+      applied it to one record: SL-2's guarantees and its owners.
+      Untouched: SL-1's record, README, the manuals, and the two
+      comparison tables in SL-2's §8, which the shape marks as
+      undecided rather than exempt. The rule is
+      `.claude/shapes/slice-record.md`; how shapes live is
+      `.claude/rules/shapes-lifecycle.md`.
 
 - [ ] Seeing what changed between versions, not between commits.
       While one commit's worth of work is being polished, each new
@@ -93,12 +64,12 @@
       away. Fallback if that feels wrong in practice: the IDE's
       Local History, which records every save without git and can
       be labelled at the moment a version is shown.
-      For the pass to decide: whether this becomes a written rule
-      here or a note handed to the bundle, the commit-plan
-      convention being theirs; and whether a rejected draft ever
-      needs keeping beyond the devlog line that says what it said
-      and why it went — the pattern used for the writing rule
-      drafted and reverted on 2026-09-21.
+      Still to decide: whether this becomes a written rule here or
+      a line to the deliverer, the commit-plan convention being
+      theirs; and whether a rejected draft ever needs keeping
+      beyond the devlog line that says what it said and why it
+      went — the pattern used for the writing rule drafted and
+      reverted on 2026-09-21.
 
 - [ ] SL-1's tests carry no per-test reference. SL-2's carry a
       one-line header each — the evidence criterion, the guarantee,
@@ -106,114 +77,15 @@
       tripwire on a decision (`CorrectionIT`, 2026-09-21). SL-1's
       say it at class level only, as `AdjustmentRaceIT` does, so a
       reader landing on a method cannot see what it is for. Add the
-      headers there, and decide in the same pass whether the
-      convention is written down or left as a habit — it belongs
-      with the writing pass above, being the same kind of question.
+      headers there. Whether the convention is written down is no
+      longer open: `cbc-slice` carries it since @ 0000855 — every
+      test says what it is for, and a tripwire says so.
 
 ## Later / someday
 
-<!-- Hand-offs the bundle has taken are gone from here; this repo's
-     decisions log is the record (2026-09-15 @ 7bbf49a for the SL-1
-     harvest, 2026-09-17 for the in-place answer) — the bundle's
-     harvest lines in each skill's header end with the next copy,
-     which opens on instruction only. What stays is for the
-     playbook, the bundle — which owns the kit — or a later
-     trigger. -->
-
-- [ ] Retrospective (playbook): PLAN's Release step was reshaped at
-      birth — a Goal line, the gate in the run's step form, the two
-      `(CbC)` items no longer naming another run's exclusions. Fold
-      back to the cbc-run-pure playbook (its v5 already derives
-      Release's gate; check the rest). The other half this item
-      carried, Step 2's retitle to "Identity (name, description,
-      remote)", the bundle discharged 2026-09-20 in its note: taken,
-      nothing further owed.
-- [ ] Retrospective (bundle, playbook): four arrangement pieces
-      are on trial from Step 1 — the one-branch-per-step rule
-      (PLAN, Standing rules), the kit @ af16eb7 with its
-      settings-file gate rejected, the operator's CLAUDE.local.md
-      holding the pace, the entry file under .claude/. Each that
-      held folds back to its source, and the source of the kit is
-      the bundle since 2026-09-18 (its second note of 2026-09-20:
-      the handbook is no longer this project's upstream, its kit
-      and conventions the bundle's; HANDBOOK ADR-0035 waited on
-      this run's report, and the report goes where the kit went).
-      The rule's fold-back to the playbook the bundle discharged
-      2026-09-20 — taken, nothing further owed, the trial here runs
-      on. The fifth, skills edited between two pins (2026-09-14),
-      is settled: it went into convention-lifecycle §3 step 4
-      (HANDBOOK ADR-0038), the bundle took the seven rules for the
-      method skills 2026-09-17, and the first edit went through a
-      re-pin 2026-09-20 and was taken (decisions.md, that date) —
-      no longer provisional on either side.
-- [ ] Retrospective (playbook): a fifth arrangement piece on trial,
-      from Step 6 — gate items ticked as they come true, the step's
-      marker at `[~]` while it runs, a tick recording a verification
-      and never that the item is final (PLAN, Standing rules; the
-      why and the rejected option in `.claude/decisions.md`). It
-      came from SL-1's registry lesson, one step out: a record that
-      reads unchanged through a whole step is not the source of
-      truth for where the step is. If it holds, the fold-back is the
-      run playbook's step form, which the bundle owns.
-
-- [ ] source: evaluate this run's changes to `cbc-slice` and
-      `artifact-kinds` since `4c3ac99` (convention-lifecycle §3 and
-      the rules file; the edits are in the diff, their why in
-      `.claude/decisions.md` at 2026-09-21 and 2026-09-22).
-
-- [ ] Offered to the CbC bundle, not asked of it: this project's
-      shape for a slice record — the form of its guarantees and its
-      owners, `.claude/shapes/slice-record.md`. Unexposed here, and
-      offered as a finding rather than a proposal: it says what one
-      project arrived at after SL-2's record turned out unreadable
-      in those two sections. It travels in two layers, and only one
-      of them is anyone else's business — the skeleton and what it
-      encodes are general by construction, the illustrations
-      filling the placeholders are this project's and marked so.
-      Take the first, leave the second; nothing needs rewriting at
-      the hand-off for that to work.
-
-- [ ] Asked of the bundle, and this is the part only it can do:
-      **be the collector.** This project holds no address and
-      reaches no repository but its own, so it cannot ask anything
-      for anything. What it can do is look in `temp/` at a gate and
-      say in a line what it found. Everything before that is the
-      collector's act: holding unexposed shapes from every project
-      in one place, staging them here **with a note** when this
-      project reaches a gate — a note saying it holds none for this
-      kind is a real delivery and closes the item — and afterwards
-      reading this project's kept version and its dated lines
-      against what was sent, to decide whether to take the change
-      or leave its own standing.
-      With it, the shipping rule: **exposed shapes ship, unexposed
-      ones never do.** An exposed shape is meant to be in front of
-      whoever writes, so it belongs in the pin as a rule with its
-      `paths:`. An unexposed one is a question about whether a
-      shape is right, and the answer is destroyed by showing it to
-      the one being asked. The evidence is this run: it read SL-1's
-      record before writing SL-2's and matched its form without
-      once asking whether SL-2's material wanted another.
-
-- [ ] Offered to the bundle as a convention candidate: the shape
-      lifecycle, `.claude/rules/shapes-lifecycle.md`, written here
-      from lived work by the route `skills-changed-in-place.md`
-      took — written in this project, handed up after, theirs to
-      take, reshape or decline. Little needs generalising: the rule
-      is written in general terms already, and what is this
-      project's is the SL-2 example in §1 and the `temp/` path.
-      It carries: a shape born from work that exists and never
-      designed in advance, by recurring or by being judged worth
-      keeping; exposure as the axis and the place as the mechanism;
-      who moves a shape between places, which is the reviewer and
-      no count; what a gate does with what is in `temp/`; and the
-      three ways a difference ends.
-      Two questions ride with it, neither answerable from inside.
-      Whether the agent-arrangement convention should learn about
-      shapes at all — this repo holds it as stubs, with no copy to
-      edit, so where `.claude/shapes/` sits in the arrangement is
-      the bundle's to say. And whether the default gate items now
-      in PLAN belong to the playbook that defines its steps, which
-      is the same question one level up.
+<!-- What this run addresses to the bundle is under "To the
+     deliverer", at the foot. What stays here is the learner's own,
+     or waits on a later trigger. -->
 
 - [ ] Own, no creditor (was a hand-off to the handbook, which the
       bundle's second note of 2026-09-20 says is no longer
@@ -232,67 +104,62 @@
       person's own practice, no artifact kind for a skill yet; the
       likely shape then a guide or a pointer; it wants to hear when
       two projects have been served.
-- [ ] Hand-off to the CbC bundle (infra-establish): the skill is
-      silent on the contract's paragraph about the store's facility
-      — the ways it makes two writers disagree — so this run wrote
-      one at Step 3 and sent a slice's choice of face to "its own
-      specification"; a face is a mechanism and belongs to the
-      slice's plan (fixed here, 6c986bd). If the contract should
-      carry a facility paragraph, the skill says so and where the
-      face is chosen. Bundle's answer 2026-09-17: held, not
-      declined — the wording fix was this run's and correct, but one
-      instance is not a shape; it watches for a second run reaching
-      the same gap unprompted, and reads SL-2 leaning on this
-      paragraph as evidence the first slice needed it. Say so if
-      SL-2 does.
-- [ ] Hand-off to the CbC bundle: where the second note of
-      2026-09-20 fell short, since they asked. Its map correction
-      named two Later items that pointed at the handbook and there
-      were three: the four-arrangement-pieces item folded three
-      pieces back "to the handbook" and called ADR-0038 provisional
-      — re-addressed here to the bundle, as the kit's owner, and
-      the provisional mark dropped. The same grep-the-whole-span
-      lesson, third time: a map correction moves every arrow that
-      pointed at the old party, not the two the sender has in mind.
-      Both asks of the morning's hand-off were taken and that line
-      is closed; the five-noun edit is in the masters, and the
-      header-line clause is gone from §3 step 4.
-- [ ] Held at the bundle, not here — recorded so the trail is
-      whole, each verdict in the bundle's note of 2026-09-20 being
-      the whole of the event, nothing behind it to check.
-      The absence rung in the enforcement hierarchy: a concept
-      question, in the bundle's Later with a trigger, a second run
-      meeting a guarantee held by absence. Unchanged.
-      The Spring slice reference: the bundle keeps it as a baseline
-      design under its docs/baselines/, the skill carries no
-      pointer. Its rule "handed to a run after its build is on
-      record" the bundle withdrew 2026-09-20 — it never fired, it
-      generalised from one slice, and a shape adopted from a
-      reference is inherited by the next slice rather than derived.
-      Nothing is handed at a slice close, ever; SL-2 and everything
-      after it is derived with no reference in hand, as SL-1 was.
-      Framing steps as commit series (cbc-framing, commit-plan):
-      draft, one commit per reviewer question, verdict — each
-      question's effect a diff. Asked whether commit-plan should
-      name the shape. Held 2026-09-20, not decided: it collides with
-      that skill's own assertion that the commits which exist are
-      the steps done, so naming it means saying what a step is — a
-      change to the convention, not a sentence added. cbc-framing's
-      record section (the mode) is still this run's to fold back at
-      the retrospective.
-      The imperative test (commit-messages): not followed here since
-      Step 1 — record commits are statements ("the bundle takes the
-      in-place rule"), work commits imperative ("update the bundle's
-      skills"); nobody decided it, it settled, and the re-pin of
-      2026-09-18 followed the log rather than the text. Asked
-      whether the convention names the split. Held 2026-09-20, not
-      decided; this run's reading of where the line falls is the
-      one the bundle starts from.
-      Trigger for the two held items: the next time that file is
-      opened for any reason, or a retrospective, whichever first.
-      Nothing owed meanwhile; either moves sooner on request.
-      Nothing to do here unless SL-2 meets the first two.
 
 ## Known issues (deferred deliberately — each entry: what, why accepted, when to revisit)
 
 - <issue>. Accepted because <reason>. Revisit at <step / condition>.
+
+## To the deliverer
+
+<!-- What this run addresses to the bundle, and only that, so a
+     reading looks in one place (delivered-copies.md, rule 4). A
+     line leaves when a note answers it. Last answered: the note of
+     2026-09-30, read through 9869798. -->
+
+- [ ] Retrospective (playbook): PLAN's Release step was reshaped at
+      birth — a Goal line, the gate in the run's step form, the two
+      `(CbC)` items no longer naming another run's exclusions. Fold
+      back to the cbc-run-pure playbook (its v5 already derives
+      Release's gate; check the rest). Held until the retrospective.
+- [ ] Retrospective: four arrangement pieces on trial from Step 1 —
+      the one-branch-per-step rule (PLAN, Standing rules), the kit
+      @ af16eb7 with its settings-file gate rejected, the operator's
+      CLAUDE.local.md holding the pace, the entry file under
+      .claude/. Each that held folds back to the bundle, the kit's
+      owner. The fifth, skills edited between two pins, is settled:
+      it is `delivered-copies.md`, taken @ 0000855. Held until the
+      retrospective.
+- [ ] Retrospective (playbook): a fifth arrangement piece on trial,
+      from Step 6 — gate items ticked as they come true, the step's
+      marker at `[~]` while it runs, a tick recording a verification
+      and never that the item is final (PLAN, Standing rules; the
+      why and the rejected option in `.claude/decisions.md`). If it
+      holds, the fold-back is the run playbook's step form. Held
+      until the retrospective.
+- [ ] This project's slice-record shape, offered as a finding
+      (`.claude/shapes/slice-record.md`): held there, and weighed
+      when the bundle first holds a shape of its own. Nothing owed
+      here.
+- [ ] `infra-establish`'s silence on the contract's facility
+      paragraph: held there, until a second run reaches the same
+      gap unprompted. Asked whether SL-2 leaned on it: no. SL-2
+      faces no race (its record, "Kills covered"), and its first
+      three guarantees reuse SL-1's comparison of faces rather than
+      choosing one against the contract.
+- [ ] The absence rung: held there, until a second run meets a
+      guarantee held by absence. Not that trigger, but said as
+      promised: this run met one again in SL-2. Its G5 and G6 are
+      both held by an absence, each guarded by a test that reads
+      the source, in the spirit of SL-1's no-process-clock rule.
+- [ ] Framing steps as commit series, and the imperative test in
+      commit-messages: both being weighed there now; this run's
+      reading of the imperative split is where they start. Nothing
+      owed here.
+- [ ] Information, not a request: `decide-first` and
+      `option-comparison` were used here before they were withdrawn.
+      `visual-comparison` now calls the general method "discarded
+      2026-09-24, unused". In this run's writing pass
+      (2026-09-21..23), `decide-first` showed the commit count was
+      not yet sayable, and `option-comparison` built five wordings
+      of SL-2's G1 and caught that its labels were already there —
+      the finding the pass turned on.
