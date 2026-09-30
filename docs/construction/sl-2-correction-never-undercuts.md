@@ -449,19 +449,75 @@ reviewer before the choice is taken:
 
 **G4 — how a resend is made harmless.**
 
-| Face | How it holds G4 | Cost |
-|---|---|---|
-| **Value semantics at the door** — chosen | a second assertion of the same number assigns the same number; nothing accumulates | none new: ADR-0011 already decided values over deltas, and this slice consumes that decision rather than taking one. Does not tell a resend from two honest corrections that agree — and does not need to |
-| A request identity per adjustment — an idempotency key, stored and refused on repeat | the ledger recognises the resend as *the same request* and answers the first outcome again | a second claim, not this promise's: the intent banked "a retried request creates at most one" and fenced it as W2. It buys the operator a truthful "you already sent this", which nobody has asked for, at the cost of a key, a store of keys, and their expiry |
-| Deltas with identity — `{"delta": -3}` plus a key | the count moves once per identified request | strictly worse here: it needs the key *and* re-opens the reordering question, since deltas do not commute with a refusal. ADR-0011 rejected deltas already |
+**Value semantics at the door** — *chosen*
+
+*How it holds G4:* a second assertion of the same number assigns
+the same number; nothing accumulates.
+
+*Cost:* none new: ADR-0011 already decided values over deltas, and
+this slice consumes that decision rather than taking one. Does not
+tell a resend from two honest corrections that agree — and does not
+need to.
+
+---
+
+**A request identity per adjustment** — an idempotency key, stored
+and refused on repeat
+
+*How it holds G4:* the ledger recognises the resend as *the same
+request* and answers the first outcome again.
+
+*Why not:* a second claim, not this promise's: the intent banked "a
+retried request creates at most one" and fenced it as W2. It buys
+the operator a truthful "you already sent this", which nobody has
+asked for, at the cost of a key, a store of keys, and their expiry.
+
+---
+
+**Deltas with identity** — `{"delta": -3}` plus a key
+
+*How it holds G4:* the count moves once per identified request.
+
+*Why not:* strictly worse here: it needs the key *and* re-opens the
+reordering question, since deltas do not commute with a refusal.
+ADR-0011 rejected deltas already.
+
+---
 
 **G5 — whether the ledger should know the order.**
 
-| Face | How it holds G5 | Cost |
-|---|---|---|
-| **No ordering at all** — chosen | each assertion judged alone against the state it meets; no order can break §1 | the count can end at the older value, which is W1's remainder in ink. The ledger claims nothing about which correction was made last |
-| An operator-supplied instant, last-write-wins | a late-arriving older correction is ignored, so the count tends to the operator's latest truth | it trusts the operator's clock — T3 trusts their *identity*, not their timekeeping — and it is a claim about the world, which L2 refuses and W1 fences. Shrinking W1 takes a dated revision of the definition, not a slice's plan |
-| A ledger-assigned sequence per item | the ledger orders what it received | orders *arrival*, which is exactly what F13 scrambles; it would answer a question nobody asked while leaving the real one untouched |
+**No ordering at all** — *chosen*
+
+*How it holds G5:* each assertion judged alone against the state it
+meets; no order can break §1.
+
+*Cost:* the count can end at the older value, which is W1's
+remainder in ink. The ledger claims nothing about which correction
+was made last.
+
+---
+
+**An operator-supplied instant, last-write-wins**
+
+*How it holds G5:* a late-arriving older correction is ignored, so
+the count tends to the operator's latest truth.
+
+*Why not:* it trusts the operator's clock — T3 trusts their
+*identity*, not their timekeeping — and it is a claim about the
+world, which L2 refuses and W1 fences. Shrinking W1 takes a dated
+revision of the definition, not a slice's plan.
+
+---
+
+**A ledger-assigned sequence per item**
+
+*How it holds G5:* the ledger orders what it received.
+
+*Why not:* it orders *arrival*, which is exactly what F13
+scrambles; it would answer a question nobody asked while leaving
+the real one untouched.
+
+---
 
 ### Escape hatches hunted, afresh
 
@@ -620,3 +676,6 @@ What would rot this slice, and what watches:
 
 - 2026-09-20 — the specification (§1–§7) signed by the reviewer.
 - 2026-09-21 — the plan (§8) signed by the reviewer.
+- 2026-10-01 — §8's faces for G4 and G5 rewritten from tables into
+  blocks, one face each, the chosen one first; the same faces, the
+  same reasons, no decision changed.

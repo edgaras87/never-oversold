@@ -232,13 +232,62 @@ act" hold (the contract's inventory). Only two make an over-held
 row physically unwritable; the other three defend the path, not the
 state. Compared against the named adversity:
 
-| Face | How it holds G1 | Why not, or why |
-|---|---|---|
-| **Check constraint + conditional `UPDATE`** — chosen | one statement, the row count the decision; the constraint refuses an over-held row by any path | the strongest wall that keeps the decision visible in one SQL sentence. Cost: `reserved` is a counter the entry path must keep true (the drift case, below) |
-| Row lock, then compute — `SELECT … FOR UPDATE`, sum the active rows, decide, insert | serializes writers on the item row | exact about expiry, no counter. But the wall is a lock plus a runtime check; nothing in the store refuses a violating row written by another path; every racer waits for a sum |
-| Serializable isolation with retry | the store aborts one of two conflicting racers; the code retries | correct. But the decision becomes a loop and the wall hides in a retry policy; under a hundred racers the abort rate is high |
-| Advisory lock per item around the naive admit | serializes writers by convention, no schema | forget the lock on one path and the race is back. The ground's probe, chosen there because it needed no table |
-| Trigger maintaining `reserved` from the reservation rows | no code can drift the counter | the strongest keeper of the counter, rejected for now because it moves the entry path's logic into structure a reader does not see in the application. **The first option to revisit** if a second write path to `reservation` ever appears |
+**G1 — the admit decided against the truth at the moment of
+recording.**
+
+**Check constraint + conditional `UPDATE`** — *chosen*
+
+*How it holds G1:* one statement, the row count the decision; the
+constraint refuses an over-held row by any path. The strongest wall
+that keeps the decision visible in one SQL sentence.
+
+*Cost:* `reserved` is a counter the entry path must keep true (the
+drift case, below).
+
+---
+
+**Row lock, then compute** — `SELECT … FOR UPDATE`, sum the active
+rows, decide, insert
+
+*How it holds G1:* serializes writers on the item row. Exact about
+expiry, no counter.
+
+*Why not:* the wall is a lock plus a runtime check; nothing in the
+store refuses a violating row written by another path; every racer
+waits for a sum.
+
+---
+
+**Serializable isolation with retry**
+
+*How it holds G1:* the store aborts one of two conflicting racers;
+the code retries. Correct.
+
+*Why not:* the decision becomes a loop and the wall hides in a
+retry policy; under a hundred racers the abort rate is high.
+
+---
+
+**Advisory lock per item around the naive admit**
+
+*How it holds G1:* serializes writers by convention, no schema.
+
+*Why not:* forget the lock on one path and the race is back. The
+ground's probe, chosen there because it needed no table.
+
+---
+
+**Trigger maintaining `reserved` from the reservation rows**
+
+*How it holds G1:* no code can drift the counter. The strongest
+keeper of the counter.
+
+*Why not:* rejected for now because it moves the entry path's logic
+into structure a reader does not see in the application. **The
+first option to revisit** if a second write path to `reservation`
+ever appears.
+
+---
 
 Serialization under the default isolation is what makes the
 conditional update's re-evaluation correct: two updates to one row
@@ -387,3 +436,6 @@ omitted on the reserve reply until a reader exists.
 - 2026-09-14 — §7's "faces chosen, and the ones not" restated as a
   comparison at the reviewer's ask, after the close; the same five
   faces, the same reasons, no decision changed.
+- 2026-10-01 — §7's faces rewritten from a table into blocks, one
+  face each, the chosen one first; the same five faces, the same
+  reasons, no decision changed.
