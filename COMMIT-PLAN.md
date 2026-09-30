@@ -12,8 +12,9 @@ job `delivered-copies.md` now does.
 
 Nothing live points at a removed name. `TODO.md` has a
 `## To the deliverer` section holding only what is still open with
-the bundle, and the lines the note answered are gone. The devlog
-says what happened.
+the bundle, and the lines the note answered are gone. PLAN no longer
+points at a shape file that does not exist. The devlog says what
+happened.
 
 What this gives us: SL-3 and the three queued items run on the
 current rules, not the ones the bundle has since replaced.
@@ -42,7 +43,17 @@ lean on the facility paragraph, and `decide-first` and
 note calls the second one unused. "Now" stops repeating the items
 that "Next" already lists.
 
-**4. `docs: devlog carries the take @ 0000855`**
+**4. `docs: PLAN drops a stale pointer to the shape`**
+Added in revision, after commit 3. The "Steps 7..N-1" section says
+each slice's record is read against
+`docs/construction/slice-record-shape.md`, a file that does not
+exist: the writing pass moved the shape to
+`.claude/shapes/slice-record.md` and PLAN was not swept. PLAN's step
+form already carries the same check with the right path and the
+three ways a difference ends, so the stale sentence goes, not
+corrected. SL-3's gate then takes the check from the step form only.
+
+**5. `docs: devlog carries the take @ 0000855`**
 The session's entry and its Resume line.
 
 ## Decisions taken inside this plan
