@@ -19,12 +19,12 @@ is the registry's chosen-next, and nothing is invented beyond what
 they say. They are living records: changed only by a dated
 revision entry, never in place.
 
-`docs/concept/` is a pinned copy, never edited in place — a change
-is a new copy from the source, logged in `.claude/decisions.md`.
-The skills under `.claude/skills/` are copies this run may correct
-from lived work between two pins, each edit logged and handed to
-its source as a diff: the conventions under convention-lifecycle
-§3, the bundle's method skills under `.claude/rules/`.
+Everything under `.claude/skills/`, `.claude/rules/` and
+`docs/concept/` is a copy delivered by the bundle, pinned at one of
+its commits. A skill or rule may be corrected in place from lived
+work, each edit logged and handed back; a concept chapter never is.
+How, and how a new delivery is taken:
+`.claude/rules/delivered-copies.md`.
 
 ## Records
 

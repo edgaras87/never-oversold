@@ -6,27 +6,10 @@ name what holds each guarantee. Their form, never their content:
 what a guarantee says comes from the attack, and what holds it
 comes from the plan.
 
-<!-- Kind: shape (artifact-kinds): what a kind of output looks
-     like here, its form and never its content. Where a shape sits,
-     what that place does, who moves it between places and what a
-     gate does with one: .claude/rules/shapes-lifecycle.md.
-     What this is not: an instruction to the next slice. A record is
-     written from its own material and read against this at the
-     close. -->
-
-## How this is used
-
-**A slice is written without this document open**, and read against
-it at the close. `.claude/rules/shapes-lifecycle.md` says why, and
-everything else about how shapes live: when one is written, what
-its place does, who moves one between places, and what a gate does
-with a shape delivered into `temp/`.
-
-What belongs here and nowhere else is the shape itself — the two
-sections it governs, and what they look like.
-
-The cost, stated so nobody is surprised by it: every slice record
-is written once and then reconciled. That is a rewrite per slice.
+<!-- A shape: what a kind of output looks like here, its form and
+     never its content. How shapes live — where one sits, who moves
+     it, what a gate does with one — is
+     .claude/rules/shapes-lifecycle.md, and not repeated here. -->
 
 ## What this document controls
 
