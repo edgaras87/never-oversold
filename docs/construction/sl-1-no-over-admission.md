@@ -49,61 +49,134 @@ Each is one answer to: *what would let §1 hold on paper yet break
 in fact?* The attack runs until no new answer comes. Every
 guarantee is a property; none names how it is held.
 
-- **G1. The admit is decided against the truth at the moment of
-  recording.** Attack: read the count and the sum, find the units
-  fit, then record — and between the finding and the recording
-  another admit lands on the same units (F1, F21, F22). Guarantee:
-  an admit that would take the sum past the count cannot be
-  recorded; the finding and the recording are one act against the
-  store's state as it is then, never two acts against a copy.
-  Kills 1, 3, 4.
-- **G2. The decision holds across instances as it holds within
-  one.** Attack: an instance decides on a count it holds in memory
-  (F17). Guarantee: no state an instance holds outside the store
-  takes part in the admit; two instances admitting at once are the
-  same adversity as two callers on one instance, with the same
-  outcome. Kill 2.
-- **G3. An admit and a change to the count on one item do not
-  interleave.** Attack: an operator lowers the count while an admit
-  is checking against the old one; both pass (F10). Guarantee: on
-  one item, an admit and a change to the count are ordered — each
-  sees the other's effect or is seen by it. No admit is recorded
-  against a count a concurrent change has already replaced; no
-  change to the count is recorded under a sum an admit has already
-  raised. A downward change that would set the count under the
-  reserved sum is not admitted in this slice (per ADR-0011; SL-2
-  decided the shape on 2026-09-21 — refuse it — and this wall is
-  the answer, no longer provisional). Kill 5.
-- **G4. A decision exists only as a record.** Attack: an instance
-  decides "admitted" and dies before recording, or records later —
-  a decision no other admit can see (F15). Guarantee: there is no
-  decided-but-unrecorded admit. An admit is admitted at the instant
-  its reservation is recorded and not before; every reply that says
-  admitted names a reservation the store holds. The other half —
-  recorded but never replied — is an orphaned hold, fenced (W2,
-  V5). Kill 9. *Kill 9's shape, decided:* because the decision and
-  the record are one instant, there is no interval to kill, and no
-  kill-mid-work evidence is owed here. Should the plan put any act
-  between deciding and recording, this guarantee re-opens as a
-  kill-mid-work evidence, and the plan must say so.
-- **G5. Active is judged by one clock.** Attack: instance A's clock
-  says a reservation has expired, so its sum is smaller and it
-  admits; instance B still counts it (F18). Guarantee: whether a
-  reservation is active is judged, for every instance, by the one
-  clock all instances share — the store's own, the one thing on the
-  runtime ground that outlives and is common to every instance —
-  and a reservation's expiry instant is set against that same
-  clock. No instance's own clock enters either. Kill 10. *Kill 10's
-  shape, decided:* FC3 removes it. The evidence does not stage a
-  controlled clock; it shows the one-clock judgment is the one used
-  by showing no other clock is consulted, and by reading activeness
-  from the store against the store's clock.
-- **G6. Nonsense never reaches the decision.** Attack: a quantity of
-  zero, negative, or beyond any bound; an unknown item (F6).
-  Guarantee: only a request naming a known item and a positive
-  whole quantity within a stated bound reaches the admit; anything
-  else is answered invalid and the numbers do not move. Kill 18,
-  folded (FC1).
+**G1. The admit is decided against the truth at the moment of
+recording.**
+
+*What could go wrong (the attack):* read the count and the sum, find
+the units fit, then record — and between the finding and the
+recording another admit lands on the same units (F1, F21, F22).
+*Say:* 20 on hand and 19 held. Two requests for one unit each both
+read 19, both find a unit free, and both record it: 21 held of 20.
+With the admit written this way, the red run printed an active sum
+of 22 of 20.
+
+*What we guarantee:* an admit that would take the sum past the count
+cannot be recorded; the finding and the recording are one act
+against the store's state as it is then, never two acts against a
+copy.
+*Say:* the second request is judged against the 20 held that stand
+when it is written, not the 19 it read, and is refused.
+
+*Kills:* 1, 3, 4.
+
+---
+
+**G2. The decision holds across instances as it holds within one.**
+
+*What could go wrong (the attack):* an instance decides on a count it
+holds in memory (F17).
+*Say:* three instances each remember 20 on hand and nothing held,
+and each admits ten against its own memory: 30 held of 20.
+
+*What we guarantee:* no state an instance holds outside the store
+takes part in the admit; two instances admitting at once are the
+same adversity as two callers on one instance, with the same
+outcome.
+
+*Kills:* 2.
+
+---
+
+**G3. An admit and a change to the count on one item do not
+interleave.**
+
+*What could go wrong (the attack):* an operator lowers the count while
+an admit is checking against the old one; both pass (F10).
+*Say:* 20 on hand, 10 held. The operator sets 10 while a request for
+one more unit checks against the old 20 and finds it fits. Both
+land: 11 held of 10.
+
+*What we guarantee:* on one item, an admit and a change to the count
+are ordered — each sees the other's effect or is seen by it. No
+admit is recorded against a count a concurrent change has already
+replaced; no change to the count is recorded under a sum an admit
+has already raised. A downward change that would set the count
+under the reserved sum is not admitted in this slice (per ADR-0011;
+SL-2 decided the shape on 2026-09-21 — refuse it — and this wall is
+the answer, no longer provisional).
+*Say:* if the 10 lands first, the request finds no unit free. If the
+request lands first, 11 are held and the 10 is refused.
+
+*Kills:* 5.
+
+---
+
+**G4. A decision exists only as a record.**
+
+*What could go wrong (the attack):* an instance decides "admitted" and
+dies before recording, or records later — a decision no other admit
+can see (F15).
+*Say:* an instance decides the last of 20 units is admitted and
+dies before recording it. If its caller was already told yes, that
+yes names nothing the store holds, and another admit can take the
+same unit.
+
+*What we guarantee:* there is no decided-but-unrecorded admit. An
+admit is admitted at the instant its reservation is recorded and not
+before; every reply that says admitted names a reservation the store
+holds. The other half — recorded but never replied — is an orphaned
+hold, fenced (W2, V5).
+
+*Kills:* 9.
+
+*Kill 9's shape, decided:* because the decision and the record are
+one instant, there is no interval to kill, and no kill-mid-work
+evidence is owed here. Should the plan put any act between deciding
+and recording, this guarantee re-opens as a kill-mid-work evidence,
+and the plan must say so.
+
+---
+
+**G5. Active is judged by one clock.**
+
+*What could go wrong (the attack):* instance A's clock says a
+reservation has expired, so its sum is smaller and it admits;
+instance B still counts it (F18).
+*Say:* a 15-minute hold on the last unit. A's clock runs a minute
+fast, so at minute 14 it counts the hold as gone and admits the
+unit again, while B still counts the hold: two holds on one unit.
+
+*What we guarantee:* whether a reservation is active is judged, for
+every instance, by the one clock all instances share — the store's
+own, the one thing on the runtime ground that outlives and is
+common to every instance — and a reservation's expiry instant is
+set against that same clock. No instance's own clock enters either.
+*Say:* at minute 14 A asks the store, and the store says the hold
+is live, for A as for B.
+
+*Kills:* 10.
+
+*Kill 10's shape, decided:* FC3 removes it. The evidence does not
+stage a controlled clock; it shows the one-clock judgment is the one
+used by showing no other clock is consulted, and by reading
+activeness from the store against the store's clock.
+
+---
+
+**G6. Nonsense never reaches the decision.**
+
+*What could go wrong (the attack):* a quantity of zero, negative, or
+beyond any bound; an unknown item (F6).
+*Say:* a request for −3 units. Added to the held units it lowers
+them, and makes room for three units nobody released.
+
+*What we guarantee:* only a request naming a known item and a
+positive whole quantity within a stated bound reaches the admit;
+anything else is answered invalid and the numbers do not move.
+
+*Kills:* 18, folded (FC1).
+
+---
 
 The attack ran dry at six: a seventh answer — "the reply lies about
 the outcome" — is the caller's view, refused at L2 and covered at
@@ -213,14 +286,123 @@ promise, and is named in §6 as provisional.
 
 ### Owners
 
-| Guarantee | Owner, wall level | Why it defeats the named adversity |
-|---|---|---|
-| **G1** one act against the truth at recording | **The store: the check constraint** `reserved <= on_hand_count`, with the admit as one conditional statement — `UPDATE item SET reserved = reserved + q WHERE id = ? AND reserved + q <= on_hand_count`, then the reservation's insert, both in one transaction. | Two racers update one row; the store serializes writers to a row and the second re-evaluates the condition against the first's result, so exactly the admits that still fit change a row. Should the condition ever be wrong, the constraint refuses the row at write time: an over-admitted state is physically unwritable, by any path (F1, F21, F22). The store's answer — one row changed or none — *is* the decision. |
-| **G2** across instances as within one | **Single validated entry path: the application holds no item state.** No cache, no counter in memory, no per-instance map; the only state is the row, and every instance reaches it through the same statement. | The serialization in G1 lives in the store, which every instance shares and none owns; an instance's memory cannot take part because nothing is kept there (F17). Structural: a test reads the main source for any in-memory keeping of item numbers and finds none. |
-| **G3** admit and adjustment do not interleave | **The store: the same row, the same constraint.** An adjustment is one conditional statement on the item row — `INSERT … ON CONFLICT (id) DO UPDATE SET on_hand_count = ? WHERE item.reserved <= ?` — creating the item if unknown (ADR-0011), refusing when the new count would sit under `reserved`. | An admit and an adjustment are two writers to one row: serialized by the store, each sees the other's effect (F10). The constraint refuses a count under the held units whichever order they land in; the refusal (§3 G3) is the constraint's own answer, no code of ours decides it — provisional when this slice closed, decided by SL-2 on 2026-09-21. |
-| **G4** a decision exists only as a record | **Single validated entry path: the decision is the transaction's commit.** The admit's two statements run in one transaction; the reply "admitted" is produced only from the committed outcome; there is no decision variable set before the write. | Before commit nothing is visible to any other admit and nothing is replied; after commit the reservation exists. Death before commit rolls the whole back — no decision was taken (F15). Death after commit before the reply is the orphan half, fenced. No interval exists to kill: the spec's trigger (§3 G4) is not pulled. |
-| **G5** active is judged by one clock | **The store's clock: `expires_at` assigned in the insert as `now() + hold`; activeness judged as `expires_at > now()` in the store.** The application declares no `Clock`, calls no `Instant.now()`, and passes no timestamp. | Every instance asks the same clock, the store's, for both the setting and the judging; an instance's skew cannot enter what it never supplies (F18). The witness reads activeness by the same expression. Structural: a test reads the main source and fails on any process-clock call. |
-| **G6** nonsense never reaches the decision | **Type system at the door: a request is parsed into a value that cannot be nonsense** — quantity a whole number in 1..1 000 000, hold a duration in 1 s..7 days, item id non-blank — or it is answered `400` before any statement runs; an unknown item answered `404` (ADR-0010). The store's `quantity > 0` and `>= 0` constraints back it. | A value that cannot exist cannot reach the admit (F6); the constraints make the backstop the store's, so even a bypassed door cannot record an absurd quantity. |
+**G1. One act against the truth at recording.**
+
+*The wall:* the store's check constraint `reserved <= on_hand_count`,
+with the admit as one conditional statement — `UPDATE item SET
+reserved = reserved + q WHERE id = ? AND reserved + q <=
+on_hand_count`, then the reservation's insert, both in one
+transaction.
+
+*Why it beats this attack:* two racers update one row; the store
+serializes writers to a row and the second re-evaluates the
+condition against the first's result, so exactly the admits that
+still fit change a row. The store's answer — one row changed or
+none — *is* the decision (F1, F21, F22).
+*Say:* 19 held of 20, two requests for one unit. The first changes
+the row to 20 held; the second's condition is re-checked against
+20, matches no row, and is refused.
+
+*If the wall were ever wrong:* the constraint refuses the row at
+write time. An over-admitted state is physically unwritable, by any
+path.
+
+---
+
+**G2. Across instances as within one.**
+
+*The wall:* a single validated entry path — the application holds no
+item state. No cache, no counter in memory, no per-instance map; the
+only state is the row, and every instance reaches it through the
+same statement. Held by a test that reads the main source for any
+in-memory keeping of item numbers.
+
+*Why it beats this attack:* the serialization in G1 lives in the
+store, which every instance shares and none owns; an instance's
+memory cannot take part because nothing is kept there (F17).
+*Say:* three instances, 120 requests, 20 on hand. Every request asks
+the same row, so the storm across processes is G1's storm again,
+and 20 are held.
+
+---
+
+**G3. Admit and adjustment do not interleave.**
+
+*The wall:* the store — the same row, the same constraint. An
+adjustment is one conditional statement on the item row — `INSERT …
+ON CONFLICT (id) DO UPDATE SET on_hand_count = ? WHERE
+item.reserved <= ?` — creating the item if unknown (ADR-0011),
+refusing when the new count would sit under `reserved`.
+
+*Why it beats this attack:* an admit and an adjustment are two
+writers to one row: serialized by the store, each sees the other's
+effect (F10). The constraint refuses a count under the held units
+whichever order they land in; the refusal (§3 G3) is the
+constraint's own answer, and no code of ours decides it —
+provisional when this slice closed, decided by SL-2 on 2026-09-21.
+*Say:* 20 on hand, thirty requests for one unit and the operator's
+10, all at one instant, five rounds. Once the 10 landed first: count
+10, 10 held. Four times the requests got there first: the 10 was
+refused, and the count stayed 20 with 20 held.
+
+---
+
+**G4. A decision exists only as a record.**
+
+*The wall:* a single validated entry path — the decision is the
+transaction's commit. The admit's two statements run in one
+transaction; the reply "admitted" is produced only from the
+committed outcome; there is no decision variable set before the
+write.
+
+*Why it beats this attack:* before commit nothing is visible to any
+other admit and nothing is replied; after commit the reservation
+exists. Death before commit rolls the whole back — no decision was
+taken (F15). Death after commit before the reply is the orphan half,
+fenced. No interval exists to kill: the spec's trigger (§3 G4) is
+not pulled.
+*Say:* in the storm of a hundred, twenty replies said admitted, and
+the store held exactly those twenty reservations, each under the id
+its reply named.
+
+---
+
+**G5. Active is judged by one clock.**
+
+*The wall:* the store's clock — `expires_at` assigned in the insert
+as `now() + hold`; activeness judged as `expires_at > now()` in the
+store. The application declares no `Clock`, calls no
+`Instant.now()`, and passes no timestamp. Held by a test that reads
+the main source and fails on any process-clock call.
+
+*Why it beats this attack:* every instance asks the same clock, the
+store's, for both the setting and the judging; an instance's skew
+cannot enter what it never supplies (F18). The witness reads
+activeness by the same expression.
+*Say:* a 15-minute hold's expiry sits exactly `00:15:00` after the
+store's own creation stamp. A 1-second hold has left the active sum
+a second and a half later, by the store's clock.
+
+---
+
+**G6. Nonsense never reaches the decision.**
+
+*The wall:* the type system at the door — a request is parsed into a
+value that cannot be nonsense: quantity a whole number in
+1..1 000 000, hold a duration in 1 s..7 days, item id non-blank. Or
+it is answered `400` before any statement runs; an unknown item is
+answered `404` (ADR-0010).
+
+*Why it beats this attack:* a value that cannot exist cannot reach
+the admit (F6).
+*Say:* a request for −3 units never becomes a quantity. It is
+answered `400`, and the held units do not move.
+
+*If the wall were ever wrong:* the store's `quantity > 0` and `>= 0`
+constraints back it, so even a bypassed door cannot record an
+absurd quantity.
+
+---
 
 Every guarantee has one owner. None is "all the code being
 careful".
@@ -439,3 +621,7 @@ omitted on the reserve reply until a reader exists.
 - 2026-10-01 — §7's faces rewritten from a table into blocks, one
   face each, the chosen one first; the same five faces, the same
   reasons, no decision changed.
+- 2026-10-01 — §3's guarantees and §7's owners rewritten as blocks,
+  each part labelled, with worked numbers where a mechanism is
+  involved, as SL-2's record has them; the same guarantees, owners
+  and kills, no decision changed.
