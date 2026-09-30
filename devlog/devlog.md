@@ -6,6 +6,41 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-01  (housekeeping: the bundle's delivery @ 0000855)
+
+- The bundle's note of 2026-09-30 was waiting in `temp/` with its
+  staging, read through 9869798. It answered everything this run
+  had addressed to the bundle since 4c3ac99.
+- Checked before anything moved, as the note asked: its counts held
+  (24 differ, 1 new, 5 gone), and each difference was what it said.
+  All four of this run's edits since the last pin had a verdict, so
+  nothing was re-applied. Both `cbc-slice` edits came back in this
+  run's wording.
+- Taken whole on `housekeeping-bundle-0000855`. Conventions held as
+  copies went from seven to three: `decide-first`,
+  `option-comparison`, `artifact-kinds` and `convention-lifecycle`
+  are gone, and our `skills-changed-in-place.md` with them.
+  `delivered-copies.md` does that rule's job, and covers the concept
+  chapters under the same pin.
+- The reviewer's call: no private copies of the withdrawn skills —
+  do as the note says. TODO tells the bundle they were used here,
+  because `visual-comparison` now calls the general method unused.
+- TODO gained `## To the deliverer`, and Now stopped repeating Next.
+  Two answers the bundle asked for went there: SL-2 did not lean on
+  the facility paragraph, and SL-2's G5 and G6 are held by absence.
+- Found on the way, not in the note: PLAN named
+  `docs/construction/slice-record-shape.md` twice, a file that has
+  not existed since the writing pass moved the shape. The kind of
+  miss `commit-plan`'s new rule — sweep every moved name — is
+  there to catch. Plan revised; one commit added.
+- Careful at the next take: `cp -a` from the staging's `.` copied
+  that folder's owner-only mode onto the repo root, 755 to 700. Put
+  back by hand; git does not track folder modes, so nothing showed
+  in the diff. Copy the files, not the folder's own attributes.
+- Resume: once this branch reaches main, the three items under
+  TODO's Next, each its own branch from main, in the order the
+  reviewer picks. Then Step 7, SL-3.
+
 ## 2026-09-21..23  (housekeeping: the writing pass, and shapes)
 
 - Three things were queued when SL-2 closed: the writing pass, the
