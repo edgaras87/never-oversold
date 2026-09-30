@@ -550,7 +550,7 @@ Only what the guarantees need somewhere to live:
 | G3 admit and adjustment do not interleave | the same row, the same constraint | `AdjustmentRaceIT` (E3) | 30 reserves + one correction 20→10 at one instant, 5 rounds: correction admitted once (count 10, held 10) and refused four times (count 20, held 20); the answer agreed with the state every round; no sampled state broken. |
 | G4 a decision exists only as a record | the transaction's commit | rides on E1, E2 (E4) | every `201` named an id present in the store; the store held exactly the admitted ids; no interval to kill, none killed. |
 | G5 active is judged by one clock | the store's `now()`, at insert and at read | `OneClockIT`; `NoInstanceStateOrClockTest` (E5) | a 15-minute hold's expiry exactly `00:15:00` from the store-stamped creation; a 1-second hold left the active sum by the store's clock while the counter kept it. Structurally: no access to any `java.time` `now()`, `Clock`, `Date`, `System.currentTimeMillis` or `nanoTime` — as calls or method references. |
-| G6 nonsense never reaches the decision | the value types at the door; the store's constraints behind | `ReservationDoorIT` (E6) | nine shapes — zero, negative, beyond the bound, missing, a non-duration, a non-JSON body, a hold of zero, beyond seven days, a negative count — each `400` Problem Details, the numbers untouched. |
+| G6 nonsense never reaches the decision | the value types at the door; the store's constraints behind | `ReservationDoorIT` (E6) | nine reserve shapes — a quantity of zero, negative, beyond the bound or missing; a hold of zero, beyond seven days, missing or not a duration; a body that is not JSON — each `400` Problem Details, the numbers untouched. An adjustment to a negative count, `400`. A reserve on an unknown item, `404` "unknown item", the status ADR-0010 names. |
 
 **The harness can fail (R5).** Before the wall: both storms red
 with real oversells, 22 and 23 of 20, on the working tree only;
@@ -625,3 +625,7 @@ omitted on the reserve reply until a reader exists.
   each part labelled, with worked numbers where a mechanism is
   involved, as SL-2's record has them; the same guarantees, owners
   and kills, no decision changed.
+- 2026-10-01 — §8's E6 row lists what the tests send, the unknown
+  item among them as §4 names it; the row had counted its shapes
+  loosely and left that one out. Nothing re-run, nothing changed in
+  what the evidence showed.
