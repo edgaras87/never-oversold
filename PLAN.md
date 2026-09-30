@@ -692,12 +692,7 @@ its adversity; ordering re-decided at each close, never assumed
 from the original expectation.
 Gate: derived when each stage opens — verifiable facts, from the
 goal, the named skill, and the registry; written into the stage
-before its work starts. One item is the same in every slice step
-from Step 7 on: the record is read against
-`docs/construction/slice-record-shape.md` after it is written and
-before the merge, and each difference is either corrected in the
-record or taken up into the shape with a dated line — never left
-unremarked.
+before its work starts.
 Notes:
 
 ## Step N: Release                                  [ ]
@@ -753,13 +748,9 @@ Ran: <start> → <end>
 6. The entry file — read CLAUDE.md top to bottom; every line still
    passes its three tests, or leaves (agent-arrangement §2).
 7. What this project gives back — whether
-   `docs/construction/slice-record-shape.md` has held across every
-   slice, and whether it is worth offering as a baseline to the
-   bundle. Reading *their* baselines does not wait for here: that
-   happens once, after the first slice closes, because the first
-   slice record is the only independent sample a project produces
-   and everything after it inherits anyway (the shape document says
-   why). What waits for the retrospective is the other direction —
+   `.claude/shapes/slice-record.md` has held across every slice. It
+   is already offered to the bundle as a finding, and held there
+   (TODO, To the deliverer). What waits for the retrospective is
    what this project found that no other has.
 
 Then fold lessons into the playbook the steps came from — the
