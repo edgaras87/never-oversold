@@ -6,6 +6,33 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-01  (housekeeping: SL-1's test headers)
+
+- The first of the three items before Step 7, on
+  `housekeeping-sl-1-test-headers`. Fifteen headers across SL-1's
+  six test files, in the form SL-2's carry: criterion, guarantee,
+  kill — or "not evidence" and what it pins — then what the test
+  checks and what would make it fail. Comments only; the tests
+  compile and the structural test passes.
+- The question the item used to carry, whether to write the
+  convention down, was answered before the work started: the take
+  @ 0000855 brought it in `cbc-slice`.
+- Writing them sorted the door tests. Three of `ReservationDoorIT`'s
+  pin a decision (ADR-0010's answers, ADR-0011's first adjustment)
+  and cannot fail for the invariant, so they say they are
+  tripwires. One is SL-2's decision seen at the door and points at
+  `CorrectionIT`.
+- Found, not fixed: SL-1 §4 names an unknown item among E6's
+  shapes, and §8's row for E6 counts nine shapes without it. The
+  unknown-item test's header follows §4. The record is left as it
+  is; the writing sweep touches SL-1's record next, and can square
+  it there.
+- The line owed to the bundle since the take is in TODO: which rule
+  gives way when a take covers `.claude/` and `docs/concept/`.
+- Resume: once this branch reaches main, two items under TODO's
+  Next — the writing sweep's remainder, and seeing changes between
+  versions — each its own branch from main. Then Step 7, SL-3.
+
 ## 2026-10-01  (housekeeping: the bundle's delivery @ 0000855)
 
 - The bundle's note of 2026-09-30 was waiting in `temp/` with its
