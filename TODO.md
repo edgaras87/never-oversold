@@ -153,3 +153,11 @@
       not yet sayable, and `option-comparison` built five wordings
       of SL-2's G1 and caught that its labels were already there —
       the finding the pass turned on.
+- [ ] Which rule wins when a take covers both `.claude/` and
+      `docs/concept/`? `delivered-copies.md` takes skills, rules and
+      the concept chapters as one act under one pin;
+      `commit-messages` says a commit touching `.claude/` touches
+      nothing else. The take @ 0000855 followed the first and broke
+      the second (be77f79; the close commit's body, 895dbed). At
+      the birth the concept went in a `docs:` commit of its own.
+      Say which one gives way, or how the take is split.
