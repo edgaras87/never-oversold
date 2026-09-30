@@ -1,10 +1,8 @@
 ---
 name: cbc-bootstrap
 description: Bootstrap a framed project's system on an established ground - decide the stack and the bootstrap set at capability-and-constraint grain, compose a requirements document, implement an empty-but-running skeleton wired to the real services, and prove an evidence harness creates one named adversity end to end. Use whenever the user asks to bootstrap the system, stand up the skeleton, "bring the system to life", or to continue a project that has a completed framing and a running ground but no application code yet - even if they just say "let's start building". Requires a completed framing AND an established, verified ground - Stage 0 checks readiness and refuses to proceed if either is missing. Do NOT use for framing (cbc-framing), for implementing invariant slices (cbc-slice), or for setting up databases/infrastructure (that is the ground's own work, done before this).
+foundation: practice, checked against concept v1
 ---
-
-<!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). -->
 
 # cbc-bootstrap — bring a framed system to life
 

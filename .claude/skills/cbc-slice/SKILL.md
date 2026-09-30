@@ -1,10 +1,8 @@
 ---
 name: cbc-slice
 description: Work one slice of a correctness-driven backend - take one invariant from the project's slice registry through specify-correctness, plan, build, and document, until a test that CREATES the adversity (concurrent hammering, injected duplicates, kill mid-transaction) proves the invariant survives. Use this whenever the user asks to work, implement, or close a slice, to implement an invariant or idempotency/contention/recovery guarantee, or to continue a project that has a slice registry (docs/system/registry.md) - even if they just say "let's build the next piece". Requires a completed framing AND a bootstrapped system - this skill's Stage 0 checks readiness first and refuses to proceed if the system is not ready. Do NOT use for framing a new project (that is cbc-framing) or for ordinary feature work outside the registry.
+foundation: concept v1
 ---
-
-<!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). -->
 
 # CbC slice — one invariant made real
 
@@ -106,11 +104,12 @@ already stands, remove it on the working tree; when the wall is a rule
 over the code, plant the violation it forbids.
 Each test says beside itself what it is for — its evidence criterion, its
 guarantee, its kill, and in plain words what it checks and what would trip
-it, the reasons staying in the record. A test that cannot fail for the
-invariant, because it guards a decided face rather than the promise, says
-on itself that it is a tripwire and which decision it pins; **a tripwire
-never discharges a kill**, every kill still owes a test seen red, and the
-red run decides which kind a test is rather than its author.
+it, the reasons staying in the slice's record so the two cannot drift. A
+test that cannot fail for the invariant, because what it guards is a
+decided face rather than the promise, says on itself that it is a tripwire
+and which decision it pins; **a tripwire never discharges a kill**, every
+kill still owes a test seen red, and the red run decides which kind a test
+is rather than its author.
 
 **Stage 4 — document.** Record compactly: invariant → guarantees → each
 one's owner → each one's evidence. Close the slice in the registry as
@@ -125,13 +124,13 @@ work, not at the close: a registry that reads `chosen-next` through a
 whole build is not the source of truth for what is being worked.
 Last, what the slice made is read against the project's own shapes —
 the project's, never this skill's, which carries none. Differences are
-**proposed as a diff, never corrected**: each ends one of three ways
-and the human says which, the shape being wrong here, the output
-having drifted, or each having something. Where no shape governs what
-the slice made, nothing is checked. This runs at the close and not
-before: what is written from a shape follows the shape, and what is
-written from the slice follows the material, so where the material
-does not fit, only the second shows it.
+**proposed as a diff, never corrected**: each ends one of three ways and
+the human says which, the shape being wrong here, the output having
+drifted, or each having something. Where no shape governs what the slice
+made, nothing is checked. This runs at the close and not before: what is
+written from a shape follows the shape, and what is written from the
+slice follows the material, so where the material does not fit, only the
+second shows it.
 
 ## Deviations — legal, never silent
 

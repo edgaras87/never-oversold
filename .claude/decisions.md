@@ -624,3 +624,35 @@
   the close writing a shape when none exists (a shape is born from
   work judged worth keeping, which is the project's call and not a
   thing a close does by rote).
+
+- 2026-10-01 The bundle updated @ 0000855, from 4c3ac99. Read
+  through 9869798 — the first read-through this log holds. The
+  delivery came staged in temp/ with a note of 2026-09-30, which
+  answers everything this run addressed to the bundle since
+  4c3ac99.
+  Checked before anything moved, as the note asked: 24 copies
+  differ from what main held, 1 is new, 5 of ours are not in the
+  staging — the note's counts. Each difference is what the note
+  says it is. All four of this run's edits since 4c3ac99 have a
+  verdict, so nothing is re-applied: both `cbc-slice` edits land
+  in this run's wording, rewrapped, with "corrected" now "settled"
+  where the close had clashed with "propose, never correct";
+  `artifact-kinds`'s shape entry is folded into the shapes rule;
+  `shapes-lifecycle.md` is taken, reshaped, and lands over ours.
+  Copied whole, and deleted by name as the note says, since a copy
+  cannot carry an absence: `artifact-kinds`, `convention-lifecycle`,
+  `decide-first`, `option-comparison`, and
+  `.claude/rules/skills-changed-in-place.md`. The new
+  `.claude/rules/delivered-copies.md` replaces that rule and
+  convention-lifecycle §3 together: one pin for every delivered
+  copy, the concept chapters included, and two numbers on each
+  delivery entry — the pin and the read-through.
+  Conventions held as copies from here: commit-messages,
+  commit-plan, visual-comparison — seven to three, as the note says.
+  Why: SL-3 opens on `cbc-slice`, and a step that opens on copies
+  the bundle has since replaced runs on rules nobody holds any more.
+  Rejected: keeping `decide-first` and `option-comparison` as this
+  run's own (the reviewer's word: do as the note says; they are the
+  bundle's to ship or not); taking only the copies our edits
+  touched (a take copies whole, and a partial pin cannot say which
+  version is held).

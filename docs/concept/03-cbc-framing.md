@@ -6,7 +6,7 @@
      slice" → "after framing, answerable to the registry") — the
      runs stand up ground and skeleton before the first slice,
      and that is where technology lands, traced to registry
-     needs. The authoritative copy lives in
+     needs. The canonical copy lives in
      correctness-by-construction's concept/ — a run's copy
      (docs/concept/) is pinned, changed only by copying anew
      (harvest, never edits); the archive copy is a historical

@@ -1,5 +1,4 @@
-<!-- Template — master copy in correctness-by-construction (CBC ADR-0008);
-     checked against concept v1 (CBC ADR-0003, CBC ADR-0005 — practice-born).
+<!-- Template — master copy in correctness-by-construction (CBC ADR-0008).
      Merge into the run's README at Stage 5, when the
      harness is real, and fill from the certified commands; the
      filled sections are the run's own (CBC ADR-0008). Only the material

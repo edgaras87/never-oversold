@@ -1,10 +1,8 @@
 ---
 name: infra-serve
 description: Add, change, or remove an infrastructure service or capability on an ALREADY-ESTABLISHED ground - a new dependency discovered during the project's build (a cache, a queue, a second datastore, a broker, an extension, a new port or capability on an existing service) re-enters the original need-constrained evaluation as one logged decision, with the manuals grown from the lived setup. Use whenever the user wants to add infrastructure to a project whose ground already stands - "we need Redis now", "add a message queue", "the new slice needs X", "open another port", "bump the postgres version" - even if it sounds like a small compose edit. Re-entry is the lived normal, never a failure of the first pass. Do NOT use for the first establishment (infra-establish) or for application/schema work (that is building, not ground).
+foundation: practice, checked against concept v1
 ---
-
-<!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). -->
 
 # Infra serve — keeping an established ground
 

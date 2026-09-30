@@ -1,7 +1,8 @@
 ---
 name: commit-plan
 description: How work larger than one commit is sequenced into commits, reviewed at each boundary, and closed. Use before starting a change set that needs more than one commit.
-requires: commit-messages, artifact-kinds, project-recording
+requires: commit-messages, project-recording
+foundation: the commit-plan convention
 ---
 
 # Commit Plan
@@ -96,6 +97,12 @@ section.>
   in the set's final records commit, never in the close commit. An
   ADR committed Accepted early claims that no later boundary can
   contradict it. An abandoned set leaves its ADRs Proposed.
+- **Before the close, sweep for every name the set moved.** When a
+  step renamed or renumbered anything, grep live text for each old
+  identifier — all of them, not the one being described. A
+  renumbering moves every number, so the search is the whole span;
+  the cheapest form is every old value at once. What is history
+  stays; what points at the old name from live text is the defect.
 
 ## 5. Divergence
 
@@ -133,9 +140,9 @@ at every commit, not only inside a change set.
 
 ## Decisions
 
-- HANDBOOK ADR-0010 — a separate convention; the plan is a scaffold,
+- CBC ADR-0038, 1b — a separate convention; the plan is a scaffold,
   not a record
-- HANDBOOK ADR-0025 — a set that closes a gate item names the commit
-- HANDBOOK ADR-0027 — order follows where the decision lives;
+- CBC ADR-0038, 1d — a set that closes a gate item names the commit
+- CBC ADR-0038, 1e — order follows where the decision lives;
   provisional tails; ADRs open Proposed
-- HANDBOOK ADR-0035 — the stop at every boundary is commit-messages'
+- CBC ADR-0038, 1f — the stop at every boundary is commit-messages'

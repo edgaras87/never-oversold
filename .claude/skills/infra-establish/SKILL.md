@@ -1,10 +1,8 @@
 ---
 name: infra-establish
 description: Establish a framed backend project's infrastructure ground - decide the execution environment against a lived default (podman local containers, compose-driven), evaluate infrastructure services strictly from the slice registry's adversity needs (the not-provisioned list stated with each exclusion's why), name each service's constraints with database-level enforcement, stand services up, verify both ways (catalog check plus behavioral refusal check), and write the two manuals (infrastructure contract for the builder, operator manual for the human). Use whenever a framed project needs its infrastructure stood up - containers, PostgreSQL, compose files, Flyway/migrations tooling, "set up the database", "stand up the ground", "infrastructure establishment" - even if the user just says "the framing is done, let's get it running". Requires completed framing artifacts (intent, definition, slice registry) - Stage 0 checks and refuses to proceed without them. Do NOT use for framing (cbc-framing), for implementing slices (cbc-slice), or for adding a service to an already-established ground (infra-serve).
+foundation: practice, checked against concept v1
 ---
-
-<!-- Checked against concept v1 of correctness-by-construction
-     (CBC ADR-0003, CBC ADR-0005 — practice-born). -->
 
 # Infra establish — from no infrastructure to a governed, verified ground
 

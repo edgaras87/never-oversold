@@ -1,7 +1,7 @@
 <!-- Provenance — archive/cbc/system-design-method
      birth-materials/concept/01-layered-system.md @ fe0075d (imported
      2026-08-28, PLAN Step 2). Changes on import: none — verbatim
-     below this header. The authoritative copy lives in
+     below this header. The canonical copy lives in
      correctness-by-construction's concept/ — a run's copy
      (docs/concept/) is pinned, changed only by copying anew
      (harvest, never edits); the archive copy is a historical

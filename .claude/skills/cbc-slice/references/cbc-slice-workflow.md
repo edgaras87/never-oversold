@@ -135,24 +135,23 @@ unowned guarantees.**
    the wall is a rule over the code, plant the violation it forbids. This
    is also how a slice answers R5 when readiness had no wall to break —
    the usual first slice.
-
 5. **Say on each test what it is for.** Beside the test, not only in the
    record: which evidence criterion, which guarantee, which kill, and then
-   in plain words what it checks and what would trip it. The reasons —
-   why this face, why this shape — stay in the slice record, or the two
-   drift apart and neither can be trusted. A reader who lands on a test
-   should not have to reconstruct its purpose from its assertions.
-6. **A test that is not evidence says so.** A slice may leave behind a
-   test that cannot fail for the invariant, because what it guards is a
-   decided face: it goes red only when someone changes, by hand, something
-   the slice chose on purpose. That is worth keeping — it speaks to
-   whoever stands over it when it reddens — but it says on itself that it
-   is a tripwire, which decision it pins, and where the reasons live. And
-   the counting rule that keeps this from becoming a hole: **a tripwire
-   never discharges a kill.** Every kill still owes a test that was seen
-   red, and the red run decides which kind a test is, not its author — a
-   test that cannot be reddened by removing the wall it claims to guard is
-   not evidence, whatever it is called.
+   in plain words what it checks and what would trip it. The reasons — why
+   this face, why this shape — stay in the slice record, or the two drift
+   apart and neither can be trusted. A reader who lands on a test should
+   not have to reconstruct its purpose from its assertions.
+6. **A test that is not evidence says so.** A slice may leave behind a test
+   that cannot fail for the invariant, because what it guards is a decided
+   face: it goes red only when someone changes, by hand, something the
+   slice chose on purpose. That is worth keeping — it speaks to whoever
+   stands over it when it reddens — but it says on itself that it is a
+   tripwire, which decision it pins, and where the reasons live. And the
+   counting rule that keeps this from becoming a hole: **a tripwire never
+   discharges a kill.** Every kill still owes a test that was seen red, and
+   the red run decides which kind a test is, not its author — a test that
+   cannot be reddened by removing the wall it claims to guard is not
+   evidence, whatever it is called.
 
 **Exit:** all evidence tests pass. **Gate: every guarantee has a test that
 creates its adversity, and was red without the wall — a green suite of
@@ -179,38 +178,37 @@ slice teach that the next expected slice is wrong, split, or unnecessary
 — the registry can only re-decide on what the close wrote down.
 
 **Last, read what the slice made against the project's own shapes.** A
-project may hold a record of what a kind of its output looks like —
-the form of a slice record's sections, of the machinery the evidence
-leans on. One may govern each thing this slice produced, or none may.
-They are the project's, never this skill's: a shape handed down is an
-answer a project did not earn, and one adopted from elsewhere hides
-what this project would have arrived at on its own.
+project may hold a record of what a kind of its output looks like — the
+form of a slice record's sections, of the machinery the evidence leans
+on. One may govern each thing this slice produced, or none may. They are
+the project's, never this skill's: a shape handed down is an answer a
+project did not earn, and one adopted from elsewhere hides what this
+project would have arrived at on its own.
 
 - **None for what this slice made?** Nothing is checked, and that is
   correct. Whether this output is worth writing a shape from is a
-  judgement the project makes when it makes it, not a step of this
-  close.
-- **One exists?** Read what the slice made against it and propose, as
-  a diff, every place they differ. **Propose, never correct.** Each
-  difference ends one of three ways and the human says which: the
-  shape was wrong here, so it changes and the output stands; the
-  output drifted, so it is brought to the shape; or each has
-  something, and both move.
+  judgement the project makes when it makes it, not a step of this close.
+- **One exists?** Read what the slice made against it and propose, as a
+  diff, every place they differ. **Propose, never correct.** Each
+  difference ends one of three ways and the human says which: the shape
+  was wrong here, so it changes and the output stands; the output
+  drifted, so it is brought to the shape; or each has something, and both
+  move.
 
 This runs at the close and not before, and the reason is not
 independence — inside one project the records inherit from each other
-anyway, the writer having read the last one. It is that a record
-written from the shape follows the shape, and a record written from
-the slice follows the material. Where this slice's material does not
-fit — a guarantee with a part the shape has no line for, an owner that
-is an absence rather than a thing — writing from the material shows
-it, and writing into the shape hides it as a filled-in form. A shape
-record that never changes is either finished or unread.
+anyway, the writer having read the last one. It is that a record written
+from the shape follows the shape, and a record written from the slice
+follows the material. Where this slice's material does not fit — a
+guarantee with a part the shape has no line for, an owner that is an
+absence rather than a thing — writing from the material shows it, and
+writing into the shape hides it as a filled-in form. A shape record that
+never changes is either finished or unread.
 
 **Exit:** the slice closes in the registry as evidence-closed, with its
 provisionals and hand-ons named and the ordering re-decided in writing;
-and its record has been read against the project's shape, with each
-difference either corrected or taken up into the shape.
+and its record has been read against the project's shapes, with each
+difference either settled or taken up into the shape.
 
 ---
 

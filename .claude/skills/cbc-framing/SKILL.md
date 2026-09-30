@@ -1,10 +1,8 @@
 ---
 name: cbc-framing
 description: Frame a new backend system with correctness-driven design - turn a raw project idea into one falsifiable promise, a layered system definition (L1-L5), and a registry of provable slices, BEFORE any code or tech choices. Use this whenever the user wants to start, design, or plan a backend/service where being wrong is expensive (orders, payments, inventory, bookings, anything owning facts or money), mentions framing, a promise, invariants, idempotency, "what must never happen", CbC, or correctness-driven design - even if they just say "I have an idea for a service" or "help me design a backend". Do NOT use for throwaway prototypes, experiments, or low-stakes tools, and do not use for implementing code (that is cbc-slice, which runs only after framing AND bootstrap).
+foundation: concept v1
 ---
-
-<!-- Derives from concept v1 of correctness-by-construction
-     (CBC ADR-0003). -->
 
 # CbC framing — one promise worked into a slice surface
 
