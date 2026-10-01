@@ -157,7 +157,7 @@ two consecutive lenses with zero new facts.
 | Lens | New facts |
 |---|---|
 | actors × vanishes / duplicates / lies | 17 |
-| the assumption hunt — silent singulars and silent successes | 5 (F11, F13, F17, F18, F22, F24) |
+| the assumption hunt — silent singulars and silent successes | 6 (F11, F13, F17, F18, F22, F24) |
 | the timeline stretched to a year | 1 (F8), 1 out (W6) |
 | every quantity at zero / many / huge | 0 |
 | the assumption hunt again, over the additions | 0 |
@@ -521,3 +521,7 @@ A and B, with no joint to hold them together.
   clock. Why: the framing left the runtime facts unstated, and the
   ground must be derived from them. Triggered by PLAN Step 3's
   readiness check. No fact, fence, or verdict changed.
+- 2026-10-01 — L1's census table: the second lens's count corrected
+  from 5 to 6. Why: the line listed six facts and counted five; the
+  twenty-four numbers F1–F24 need six. Triggered by a documentation
+  error check before Step 7. No fact, fence, or verdict changed.

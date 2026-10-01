@@ -30,9 +30,10 @@ witness — the promise's own.
   of active reservations ≤ on-hand-count.
 - **Adversity to create:** concurrent admits on one item's last
   units — from many callers (F1); from more than one of our own
-  instances (F17); against a stale read (F22); against a downward
-  adjustment racing them (F10); an admit decided but not yet
-  recorded (F15).
+  instances (F17); against a store that shows two checks the same
+  count (F21) or a stale read (F22); against a downward adjustment
+  racing them (F10); an admit decided but not yet recorded (F15);
+  under clocks that disagree about activeness (F18).
 - **Area:** the reservation ledger. **Kills covered:** 1, 2, 3, 4,
   5, 9, 10.
 - **Folds in:** FC1 (what a valid request is); FC3 (what *active*
@@ -187,6 +188,13 @@ derivation overriding the briefing.
 
 - 2026-09-10 — the divergences section: the working name's fate
   recorded (ADR-0003). Triggered by PLAN Step 2. No slice changed.
+- 2026-09-14 — SL-1 closed on evidence (its record:
+  `docs/construction/sl-1-no-over-admission.md`); the ordering
+  expectation re-decided and kept, with what SL-1 leaves to SL-2
+  and SL-3 by name. SL-1's flag (kill 10) resolved as FC3 removing
+  it: activeness is judged by the store's clock, shown by evidence
+  and by structure. Triggered by PLAN Step 5's close. No invariant,
+  adversity or fold changed.
 - 2026-09-21 — SL-2 closed on evidence (its record:
   `docs/construction/sl-2-correction-never-undercuts.md`); the
   ordering expectation re-decided and kept, with what SL-2 leaves
@@ -196,10 +204,8 @@ derivation overriding the briefing.
   parking; the choice itself lives in the slice record's §3, with
   the losing shape and its three reasons. Triggered by PLAN Step
   6's close. No invariant, adversity or fold changed.
-- 2026-09-14 — SL-1 closed on evidence (its record:
-  `docs/construction/sl-1-no-over-admission.md`); the ordering
-  expectation re-decided and kept, with what SL-1 leaves to SL-2
-  and SL-3 by name. SL-1's flag (kill 10) resolved as FC3 removing
-  it: activeness is judged by the store's clock, shown by evidence
-  and by structure. Triggered by PLAN Step 5's close. No invariant,
-  adversity or fold changed.
+- 2026-10-01 — SL-1's adversity line names F21 and F18, which it
+  always covered: the definition places both in concern A, and SL-1
+  closed on evidence for both (kills 3 and 10). The revision log put
+  in date order. Triggered by a documentation error check before
+  Step 7. No invariant, kill or fold changed.
