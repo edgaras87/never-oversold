@@ -10,8 +10,9 @@
 
 - [ ] Between steps. Step 6 closed SL-2 on 2026-09-21; the writing
       pass ran 2026-09-21..23, and the bundle's delivery @ 0000855
-      was taken 2026-10-01. One thing stands before Step 7 opens,
-      listed under Next, on its own branch cut from main.
+      was taken 2026-10-01. Since then the writing sweep and SL-1's
+      test headers are done. Nothing stands before Step 7 on this side;
+      the reviewer reads the bundle's side first.
 - [ ] Step 7 (SL-3, cbc-slice): a reservation exits once, the
       registry's chosen-next since 2026-09-21. It inherits by name:
       an expired hold still counts in the held units until an exit
@@ -24,7 +25,16 @@
 
 ## Next (before Step 7)
 
+Nothing. The one item left was moved to Later on 2026-10-01.
+
+## Later / someday
+
+<!-- What this run addresses to the bundle is under "To the
+     deliverer", at the foot. What stays here is the learner's own,
+     or waits on a later trigger. -->
+
 - [ ] Seeing what changed between versions, not between commits.
+      Moved here from Next on 2026-10-01, on the reviewer's word.
       While one commit's worth of work is being polished, each new
       version can only be diffed against the last commit, so the
       reviewer must re-read the whole thing to find the part that
@@ -62,11 +72,14 @@
       went — the pattern used for the writing rule drafted and
       reverted on 2026-09-21.
 
-## Later / someday
-
-<!-- What this run addresses to the bundle is under "To the
-     deliverer", at the foot. What stays here is the learner's own,
-     or waits on a later trigger. -->
+- [ ] Should `temp/` be tracked? Today it is neither ignored nor
+      committed, so a draft written there never reaches history:
+      the table comparison of 2026-10-01 survives only as its
+      decisions entry, although `visual-comparison` says "git
+      history keeps it". Tracking it would keep drafts; it would
+      also commit the bundle's whole staging at every take, on top
+      of the take commit that already holds the same files. Raised
+      2026-10-01, postponed by the reviewer.
 
 - [ ] Own, no creditor (was a hand-off to the handbook, which the
       bundle's second note of 2026-09-20 says is no longer
@@ -120,7 +133,9 @@
 - [ ] This project's slice-record shape, offered as a finding
       (`.claude/shapes/slice-record.md`): held there, and weighed
       when the bundle first holds a shape of its own. Nothing owed
-      here.
+      here. It has moved since the note: on 2026-10-01 it took a
+      third part, the faces weighed for a guarantee, as blocks;
+      its dated lines say what taught it.
 - [ ] `infra-establish`'s silence on the contract's facility
       paragraph: held there, until a second run reaches the same
       gap unprompted. Asked whether SL-2 leaned on it: no. SL-2
@@ -152,3 +167,13 @@
       the second (be77f79; the close commit's body, 895dbed). At
       the birth the concept went in a `docs:` commit of its own.
       Say which one gives way, or how the take is split.
+- [ ] The staging folder arrives owner-only (`drwx------`). Taking
+      it with `cp -a temp/<staging>/. .` carried that mode onto the
+      repository root, 755 to 700, and git does not track folder
+      modes, so nothing showed in the diff. Put back by hand. Either
+      stage it readable, or have `delivered-copies.md` rule 5 say
+      to copy the files and not the folder's own attributes.
+- [ ] Information, not a request: `commit-plan`'s new rule — sweep
+      for every name a set moved — earned its keep on first use. At
+      the take it found PLAN pointing twice at a shape file the
+      writing pass had moved, a miss from before the rule existed.
