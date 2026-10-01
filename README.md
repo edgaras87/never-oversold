@@ -82,6 +82,10 @@ Next is the exit: a reservation's numbers move at most once.
 cp .env.example .env
 podman compose up -d
 
+# apply the schema as the migrator — the first time, and after every
+# new migration; the running ledger cannot and must not
+podman compose run --rm flyway migrate
+
 # run the ledger against it, as the runtime identity
 set -a; . ./.env; set +a
 ./mvnw spring-boot:run
@@ -91,13 +95,6 @@ set -a; . ./.env; set +a
 If health answers with `db` DOWN, the environment was not exported:
 the ledger starts anyway and only health tells. Export `.env` in
 the same shell and start again.
-
-The first time, and after every new migration, apply the schema as
-the migrator — the running ledger cannot and must not:
-
-```bash
-podman compose run --rm flyway migrate
-```
 
 ## Use
 
