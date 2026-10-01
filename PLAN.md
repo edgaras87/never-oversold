@@ -746,7 +746,8 @@ Ran: <start> → <end>
 4. Missing steps — work that had no home in the plan.
 5. Useless gates — ceremony that caught nothing.
 6. The entry file — read CLAUDE.md top to bottom; every line still
-   passes its three tests, or leaves (agent-arrangement §2).
+   passes its three tests, or leaves (the tests are written in its
+   own comment, above Local rules).
 7. What this project gives back — whether
    `.claude/shapes/slice-record.md` has held across every slice. It
    is already offered to the bundle as a finding, and held there
