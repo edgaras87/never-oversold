@@ -583,6 +583,10 @@ is read from the store as `runtime`, from outside the application.
 | E5 · G5 | `NoOrderingStateOrSecondWriterTest.anAdjustmentCarriesNothingButTheAssertedCount` | the code read, not run: the door carries one field |
 | E5 · G6 | `NoOrderingStateOrSecondWriterTest.theCountHasOneWritingPath` | the code read: one class reaches the store, one method takes a count |
 
+E5 was signed for G6 alone (§5). The plan gave G5's absence a
+structural test as well (§8, G5's owner), so E5 as delivered covers
+both; §5 stands as signed.
+
 Beside them, and not evidence:
 `CorrectionIT.theArrivalOrderDecidesWhichNumberSurvives`, which says
 so on itself — a tripwire on the decision to keep no ordering. §9's
@@ -679,3 +683,5 @@ What would rot this slice, and what watches:
 - 2026-10-01 — §8's faces for G4 and G5 rewritten from tables into
   blocks, one face each, the chosen one first; the same faces, the
   same reasons, no decision changed.
+- 2026-10-01 — §9 says E5 grew to cover G5 as well as G6, which §5
+  had not carried; §5 is unchanged.
