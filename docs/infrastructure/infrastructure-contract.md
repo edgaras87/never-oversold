@@ -69,17 +69,26 @@ the server's grant system and was watched being refused on
    that writes one is wrong, not helpful.
 
 **What the store offers — inventory, not a choice.** The server
-can make two concurrent writers to one thing disagree; its faces
-of that facility are row-level locks, unique and check constraints
-checked at commit, serializable isolation, advisory locks. The
-ground proved the facility refuses — an advisory lock held by one
-session, a second cancelled by `lock_timeout` — and chose that
-probe because it needs no schema, not because it is preferred. No
-face is endorsed here: a slice that needs the facility chooses its
-face in its own plan, with its why. The contract promises
-only that the facility exists and that a refused writer sees an
-error, never a silent success. Multi-statement transactions commit
-atomically; that too is inventory.
+can make two concurrent writers to one thing disagree. Its faces
+of that facility:
+
+- row-level locks;
+- unique and check constraints checked at commit;
+- serializable isolation;
+- advisory locks.
+
+The ground proved the facility refuses: an advisory lock held by
+one session, and a second session cancelled by `lock_timeout`. That
+probe was chosen because it needs no schema, not because it is
+preferred.
+
+No face is endorsed here. A slice that needs the facility chooses
+its face in its own plan, with its why. The contract promises only
+two things: that the facility exists, and that a refused writer
+sees an error, never a silent success.
+
+Multi-statement transactions commit atomically; that too is
+inventory.
 
 **How schema changes are made.** Only through Flyway, as
 `migrator`: a file `infrastructure/flyway/migrations/V<n>__<description>.sql`,

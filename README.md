@@ -25,20 +25,25 @@ where every request crosses — HTTP here.
 
 ## The invariants
 
-- No over-admission under contention — the sum of active
+- **No over-admission under contention.** The sum of active
   reservations never exceeds the on-hand-count, however many admits
-  race. *(closed 2026-09-14 on evidence: the wall, its guarantees
-  and the storms that proved it, in
-  [docs/construction/sl-1-no-over-admission.md](docs/construction/sl-1-no-over-admission.md))*
-- The correction never undercuts the holds — no admitted change to
-  the on-hand-count leaves it under the reserved sum. *(closed
-  2026-09-21 on evidence: the shape decided — a correction that
-  does not fit is refused — and the resent and reordered
-  corrections proved, in
-  [docs/construction/sl-2-correction-never-undercuts.md](docs/construction/sl-2-correction-never-undercuts.md))*
-- A reservation exits once — its numbers move at most once on
-  exit, and never after it has ended. *(chosen next)*
-- Consume's two moves hold together — no readable state has the
+  race.
+
+  Closed 2026-09-14, on evidence. The wall, its guarantees and the
+  storms that proved it:
+  [docs/construction/sl-1-no-over-admission.md](docs/construction/sl-1-no-over-admission.md)
+
+- **The correction never undercuts the holds.** No admitted change
+  to the on-hand-count leaves it under the reserved sum.
+
+  Closed 2026-09-21, on evidence. A correction that does not fit is
+  refused, and one resent or arriving out of order is proved too:
+  [docs/construction/sl-2-correction-never-undercuts.md](docs/construction/sl-2-correction-never-undercuts.md)
+
+- **A reservation exits once.** Its numbers move at most once on
+  exit, and never after it has ended. Chosen next.
+
+- **Consume's two moves hold together.** No readable state has the
   reservation ended without the count lowered, or the reverse.
 
 Each with the adversity its evidence must create, and its status:
@@ -48,15 +53,19 @@ Built by correctness-by-construction: what must never happen first,
 features last. The method: [docs/concept/](docs/concept/), start
 with [00-cbc.md](docs/concept/00-cbc.md).
 
-**Status:** framed and named 2026-09-10; the ground stands,
-verified, 2026-09-11; bootstrapped 2026-09-12; the first invariant
-closed 2026-09-14 — the ledger admits and refuses reservations,
-and cannot oversell under contention, shown by evidence; the
-second closed 2026-09-21 — an operator's correction that would
-leave the count under the units held is refused, and survives
-being resent and arriving out of order. Version 0.2: two of four
-invariants evidence-closed. Next is the exit: a reservation's
-numbers move at most once.
+**Status:** version 0.2 — two of four invariants closed on
+evidence.
+
+- 2026-09-10 — framed and named.
+- 2026-09-11 — the ground stood up and verified.
+- 2026-09-12 — bootstrapped.
+- 2026-09-14 — the first invariant closed: the ledger admits and
+  refuses reservations, and cannot oversell under contention.
+- 2026-09-21 — the second closed: an operator's correction that
+  would leave the count under the units held is refused, and
+  survives being resent and arriving out of order.
+
+Next is the exit: a reservation's numbers move at most once.
 
 ## Prerequisites
 
