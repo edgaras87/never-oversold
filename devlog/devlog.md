@@ -6,6 +6,42 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-01  (housekeeping: the writing sweep's remainder)
+
+- The second item before Step 7, on `housekeeping-writing-sweep`.
+  Three decisions first, all the recommended ones: reshape SL-1's
+  record although it closed before the shape existed; settle the
+  face tables by comparison; touch README and the contract only
+  where a passage carries an argument, and leave the operator
+  manual, which is procedure.
+- The face tables were the shape's one undecided part. Four
+  candidates built on SL-2's G5 table, the words the same in each.
+  The table failed the diff test outright, with 374-character rows.
+  Blocks were the only candidate with no fail. The reviewer chose
+  them on the argument without opening the render, and asked first
+  what was being decided and why the shape did not already say —
+  it had left this part open on purpose, because columns are good
+  at weighing options side by side. Recorded in the decisions log
+  as it happened, render skipped.
+- SL-1's guarantees and owners now read like SL-2's. The *Say:*
+  lines are the one new content: SL-1's own run numbers where a
+  test made them, the attack played out where none did. SL-1's §8
+  now counts the unknown item §4 always named; its old row had
+  also swapped a missing hold for the negative count.
+- Found on the way, not in the plan: the contract said check
+  constraints are checked at commit. PostgreSQL checks them at
+  every write and cannot defer them, which is exactly why SL-1's
+  wall holds. Fixed in a commit of its own after a plan revision.
+  ADR-0005's "constraints checked at commit" is true of the
+  deferrable kinds and stays.
+- SL-2's sign-offs have no line for its close or for the writing
+  pass's reshape. Only today's line was added, on the reviewer's
+  word; the gap is left visible.
+- Resume: once this branch reaches main, the last item under
+  TODO's Next — seeing changes between versions — on its own
+  branch. Then Step 7, SL-3, the first slice to meet the shape's
+  close-time check with all three parts in it.
+
 ## 2026-10-01  (housekeeping: SL-1's test headers)
 
 - The first of the three items before Step 7, on

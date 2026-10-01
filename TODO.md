@@ -10,9 +10,8 @@
 
 - [ ] Between steps. Step 6 closed SL-2 on 2026-09-21; the writing
       pass ran 2026-09-21..23, and the bundle's delivery @ 0000855
-      was taken 2026-10-01. Two things stand before Step 7 opens,
-      listed under Next, each its own branch cut from main, in the
-      order the reviewer picks.
+      was taken 2026-10-01. One thing stands before Step 7 opens,
+      listed under Next, on its own branch cut from main.
 - [ ] Step 7 (SL-3, cbc-slice): a reservation exits once, the
       registry's chosen-next since 2026-09-21. It inherits by name:
       an expired hold still counts in the held units until an exit
@@ -24,14 +23,6 @@
       gate is the first derived from PLAN's step form.
 
 ## Next (before Step 7)
-
-- [ ] The writing sweep's remainder. The pass produced the rule and
-      applied it to one record: SL-2's guarantees and its owners.
-      Untouched: SL-1's record, README, the manuals, and the two
-      comparison tables in SL-2's §8, which the shape marks as
-      undecided rather than exempt. The rule is
-      `.claude/shapes/slice-record.md`; how shapes live is
-      `.claude/rules/shapes-lifecycle.md`.
 
 - [ ] Seeing what changed between versions, not between commits.
       While one commit's worth of work is being polished, each new
