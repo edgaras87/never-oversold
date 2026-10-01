@@ -73,7 +73,7 @@ foundation: the exchange convention
    against the staging** — diff every delivered file against what
    this run holds; the note says how many differ, the diff says how
    many, and a mismatch is reported first. Then diff each held copy
-   against this run's own delivery commit to find its own edits, and
+   against the last delivery entry's commit to find its own edits, and
    read the note's verdict on each. **An edit with no verdict was
    made after the read-through the note names**: the copy lands
    whole and that edit is re-applied on top, its log entry and its
@@ -87,7 +87,10 @@ foundation: the exchange convention
    absence, so the note carries it and this step does it. Then empty
    `temp/` and write one decisions entry carrying both numbers, the
    new pin and the read-through the note names; the copy is pristine
-   again; the TODO line leaves with the pin. A declined edit is gone
+   again; the TODO line leaves with the pin. The take's commits
+   follow `.claude/skills/commit-messages/`; when they are more than
+   one, the chapters' commit comes first and the entry goes in the
+   last, where every copy equals the pin. A declined edit is gone
    with the re-pin — never edited back in. If the project still
    needs what was declined, that need goes into records per rule 3,
    and the decisions entry says so.
@@ -123,3 +126,5 @@ between the pin and the copy is the whole of what this run changed
   built from the seven rules never-oversold wrote for its own method
   skills and widened to every delivered copy; the pin and the
   read-through; what a copy cannot carry; the check at the take
+- CBC ADR-0046 — the take's commits: the chapters first, the entry
+  in the last

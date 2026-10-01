@@ -689,3 +689,26 @@
   tables (their cells carry arguments, which lookup cells do not);
   leaving them undecided (three tables in two records, and SL-3
   would meet the question with no answer).
+
+- 2026-10-01, later The bundle updated @ e6538f6, from 0000855. Read
+  through c33a996. The note of 2026-10-01 answers what this run
+  addressed to the bundle since the last take.
+  Checked before anything moved, as the note asked: the staging's
+  folders arrive 755 and its files 644, so the copy carries no
+  mode of its own onto the tree; 2 copies differ from what main
+  held, none is new, none gone, nothing under `docs/concept/` — the
+  note's counts. No copy was edited here since the last take, so
+  nothing is re-applied. Copied whole: every held copy now equals
+  the staging.
+  What changed: `delivered-copies.md` rule 5 says a take's commits
+  follow `commit-messages`, the chapters' commit first and this
+  entry in the last when a take is more than one — the answer to
+  this run's question of which rule wins; this take touches no
+  chapter and is one commit. `visual-comparison` records its outcome
+  where the entry file's records table puts a decision of its kind,
+  not in an ADR whatever the decision, which is where this run put
+  the faces on 2026-10-01; its footer drops "unused" from the
+  general method, after this run said it had been used.
+  Why: SL-3 opens on these copies, and the two rules this run
+  found pulling apart at the last take now agree.
+  Rejected: none weighed; the take copies whole.
