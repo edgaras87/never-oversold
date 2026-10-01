@@ -73,7 +73,9 @@ can make two concurrent writers to one thing disagree. Its faces
 of that facility:
 
 - row-level locks;
-- unique and check constraints checked at commit;
+- unique constraints, which can be deferred to commit;
+- check constraints, which are checked at every write and cannot
+  be deferred;
 - serializable isolation;
 - advisory locks.
 
