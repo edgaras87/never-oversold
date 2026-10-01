@@ -70,16 +70,8 @@ contention.
   Problem Details and moves no number.
 - A reservation carries an expiry set from the caller's hold by the
   store's clock, the one clock every instance shares.
-
-### Changed
-
-- Named `never-oversold`: the name is the promise's negation, ruled
-  out. The working name safe-reservations is overturned (ADR-0003).
-
-### Added
-
-- The ledger runs: an empty skeleton on the ground, connecting as
-  the runtime identity alone, with an HTTP door and a health check
+- At bootstrap (2026-09-12), the ledger ran: an empty skeleton on
+  the ground, connecting as the runtime identity alone, with an HTTP door and a health check
   that names the store. No business behavior yet — one probe,
   scaffolding that dies at the first slice. Run and test commands
   in the README.
@@ -94,3 +86,8 @@ contention.
   `docs/system/`: what this ledger will guarantee, what it owns
   and refuses, and the four invariants to be proven — written
   before any code.
+
+### Changed
+
+- Named `never-oversold`: the name is the promise's negation, ruled
+  out. The working name safe-reservations is overturned (ADR-0003).
