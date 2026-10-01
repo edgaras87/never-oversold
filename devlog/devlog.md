@@ -6,6 +6,27 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-01  (housekeeping: the error check's four decisions)
+
+- The four findings the error check left open, settled on the
+  reviewer's picks after they were put again in plain words.
+- ADR-0010's "201 for a new record" against the adjustment that
+  creates its item and answers 200: the code was right, and
+  ADR-0012 says why — the same assertion gets the same answer, and
+  a resent first adjustment would otherwise read 201 then 200. It
+  narrows one line of ADR-0010, which stays Accepted. No code, test
+  or README line changed.
+- ADR-0005's two overturned reasons: TODO's Known issues, its first
+  real entry. The decision stands, so a new ADR would say nothing.
+- The bootstrap requirements carry a dated note on top, the body
+  kept as certified. PLAN's retrospective points at the three tests
+  where they are written, CLAUDE.md's own comment.
+- The two structure ideas are in TODO's Later, for Release or the
+  retrospective.
+- Resume: once this branch reaches main, nothing stands before Step
+  7 on this side. The reviewer checks the bundle's side first, then
+  SL-3.
+
 ## 2026-10-01  (housekeeping: the documentation error check)
 
 - Asked before SL-3: do the records contradict each other, are there

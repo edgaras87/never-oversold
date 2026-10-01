@@ -733,6 +733,7 @@ Notes:
 - ADR-0009: The harness drives plural instances as processes (Step 4)
 - ADR-0010: The door's conventions (Step 5)
 - ADR-0011: An item becomes known by its first adjustment (Step 5)
+- ADR-0012: An adjustment answers 200, whether or not it creates the item (before Step 7)
 
 ---
 

@@ -65,7 +65,8 @@ Why shaped this way: ADR-0007 (the stack; the migration tool
 outside the app; one identity), ADR-0008 (package by feature,
 package-private, depth earned per feature; its note on
 vocabulary sub-packages), ADR-0010 (the door's conventions),
-ADR-0011 (an item becomes known by its first adjustment); the
+ADR-0011 (an item becomes known by its first adjustment),
+ADR-0012 (an adjustment answers 200, creating or not); the
 wall's owners per guarantee in the slice record
 (`docs/construction/sl-1-no-over-admission.md`, §7).
 

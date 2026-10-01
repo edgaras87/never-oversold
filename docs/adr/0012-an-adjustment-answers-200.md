@@ -1,7 +1,7 @@
 # 0012. An adjustment answers 200, whether or not it creates the item
 
 Date: 2026-10-01
-Status: Proposed
+Status: Accepted
 
 ## Context
 
