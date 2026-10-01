@@ -6,7 +6,7 @@
 
 ## Overview
 
-The ledger runs on the ground and holds its first invariant:
+The ledger runs on the ground and holds two of its four invariants:
 instances of one build output, each connecting to the store as
 `runtime` and nothing else, each answering HTTP — reserve, adjust,
 and a health check that names the store. The store holds the two
@@ -133,4 +133,4 @@ suite self-contained, the ground not required up).
 | `pom.xml`, `mvnw` | the build: every dependency with its earning reason; the wrapper |
 | `src/main/java/…/neveroversold/` | the entry point; `reservation/` is the ledger — its `package-info` is the map |
 | `src/main/resources/application.yaml` | the one identity, the password from the environment, the absences commented |
-| `src/test/java/…/neveroversold/` | the evidence: `testsupport/` is the harness (the throwaway store, the test bases, the forked instance, the witness, the body reader); `*IT` are the integration tests, `*StormIT`/`*RaceIT` the adversity-creating ones; `NoInstanceStateOrClockTest` the structural rules |
+| `src/test/java/…/neveroversold/` | the evidence: `testsupport/` is the harness (the throwaway store, the test bases, the forked instance, the witness, the body reader); `*IT` are the integration tests — `*StormIT`/`*RaceIT` create SL-1's contention, `CorrectionIT` SL-2's honest corrections; `NoInstanceStateOrClockTest` and `NoOrderingStateOrSecondWriterTest` the structural rules |
