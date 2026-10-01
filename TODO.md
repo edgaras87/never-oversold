@@ -72,6 +72,23 @@ Nothing. The one item left was moved to Later on 2026-10-01.
       went — the pattern used for the writing rule drafted and
       reverted on 2026-09-21.
 
+- [ ] Records that describe a moment carry no mark saying so. The
+      bootstrap requirements, the operator manual's lived lines, a
+      slice record's provisionals: each was true on a date and read
+      as if true now, and the error check of 2026-10-01 found three
+      of them. Decide whether such records or passages carry a
+      "true as of" mark, and in what form. Raised 2026-10-01;
+      structure waits for Release or the retrospective, on the
+      reviewer's call.
+
+- [ ] A fact written in two places gets fixed in one. The contract
+      was corrected to "plan" and the operator manual kept
+      "specification"; SL-1's record took SL-2's decision in three
+      places and missed a fourth. `commit-plan` now sweeps for
+      moved names; nothing sweeps for a changed fact. Decide whether
+      that is a habit, a gate item, or a line to the deliverer.
+      Raised 2026-10-01; same timing as above.
+
 - [ ] Should `temp/` be tracked? Today it is neither ignored nor
       committed, so a draft written there never reaches history:
       the table comparison of 2026-10-01 survives only as its
@@ -101,7 +118,16 @@ Nothing. The one item left was moved to Later on 2026-10-01.
 
 ## Known issues (deferred deliberately — each entry: what, why accepted, when to revisit)
 
-- <issue>. Accepted because <reason>. Revisit at <step / condition>.
+- ADR-0005's list of what is not provisioned gives two reasons SL-1
+  later overturned: "expiry is the application's clock" (the queue
+  bullet), and SL-1's clock evidence as "an application-level
+  injection" (the clock bullet). SL-1 put expiry on the store's
+  clock, and the application reads none (its G5). The decision —
+  PostgreSQL and nothing else — stands, and both bullets'
+  conclusions still hold. Accepted because ADRs are immutable and
+  the decision did not change, so a new ADR would record nothing
+  new. Revisit when a later ADR touches the service set, or if a
+  reader is misled by it. Found 2026-10-01.
 
 ## To the deliverer
 
