@@ -206,19 +206,23 @@ Seen here: the second session refused after 1.5 s. Advisory locks
 are one of the server's serializing tools; row locks, unique and
 check constraints, and serializable isolation are the same
 facility's other faces. Which one a slice uses is that slice's
-decision, made in its specification; the ground proves only that
+decision, made in its plan; the ground proves only that
 the facility refuses.
 
-**Flyway as `migrator`** — connects, sees the schema, empty history,
-which is correct on a fresh ground:
+**Flyway as `migrator`** — connects and sees the schema. On a fresh
+ground nothing is applied yet, and every migration in the home is
+listed as pending:
 
 ```sh
 podman compose run --rm flyway info
-# expected: Database: ...never_oversold (PostgreSQL 17.x);
-#           Schema version: << Empty Schema >>; No migrations found
+# expected on a fresh ground: Database: ...never_oversold (PostgreSQL 17.x);
+#           Schema version: << Empty Schema >>; V1 listed as Pending
 ```
 
-Seen here: Flyway 11.20.3, exactly that, exit 0.
+Then apply them (*Migrate*, below); `info` lists V1 as Success.
+
+Seen here, 2026-09-11, before V1 existed: Flyway 11.20.3,
+`No migrations found`, exit 0.
 
 ### Read the witness from outside
 
