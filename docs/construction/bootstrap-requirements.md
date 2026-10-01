@@ -9,6 +9,14 @@
      document wins and the conflict is reported. Ground facts are
      cited by pointer to the two manuals, never restated. -->
 
+*Dated 2026-09-12, certified at the bootstrap's close, and kept as
+it was certified.* SL-1, closed 2026-09-14, has since lifted what §6
+excluded, as §6 says it would: the migrations home §3 calls empty
+holds V1, the migration-path assertion of §2 and §5 now expects it
+applied, the ledger has behaviour, and the probe is gone. Everything
+else here still stands as what a slice may rely on from the
+bootstrap.
+
 ## §1 Identity
 
 - Group `io.github.edgaras87`; artifact `never-oversold`; base
