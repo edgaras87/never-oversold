@@ -6,6 +6,45 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-01  (housekeeping: the documentation error check)
+
+- Asked before SL-3: do the records contradict each other, are there
+  errors, would a better structure help, and now or later. Split in
+  two: errors now, because three had already turned up today by
+  accident and SL-3 and the bundle both read these records next;
+  structure later, at Release or the retrospective, with only two of
+  four slices written.
+- One read, alone, of all 23 records (4,800 lines), with every claim
+  about code checked against the code and the tests. Eighteen
+  findings: seven wrong, five stale, three order or format, three
+  small gaps. Clean: constraint names, README's refusal message, the
+  39-test count, the decision index, the kill mapping across
+  registry, definition and records.
+- Fourteen fixed on `housekeeping-doc-errors`, one commit per
+  document kind. The truth set changed only by dated revision
+  entries; each slice record got a dated line.
+- The kind of error that recurred: a fix made in one document and
+  not in its twin. The contract was corrected to "plan" on
+  2026-09-11 and the operator manual kept "specification"; SL-1's
+  record updated three places for SL-2's decision and missed a
+  fourth. Wrong the day it was written, also: a pointer to a §6
+  that never held the cost, and one to a README that never existed.
+- Tried and abandoned: standing up a second, throwaway ground to
+  see a fresh Flyway `info` as lived. The compose file pins the
+  container name, and the stopped real container holds it. The
+  empty volume and network the attempt made were removed by name;
+  the real volume was not touched. The manual's new expected line
+  is Flyway's documented behaviour, marked so by keeping the old
+  lived line dated.
+- Waiting on the reviewer: ADR-0005's stale reasons and ADR-0010's
+  201 against the code's 200, both immutable records; whether the
+  bootstrap requirements stay a snapshot; PLAN's pointer to a
+  convention this repo does not hold; and two structure ideas for
+  TODO — a mark for "true as of a date", and a habit of sweeping a
+  fact's other copies when one changes.
+- Resume: once this branch reaches main, the four decisions above,
+  then Step 7, SL-3.
+
 ## 2026-10-01  (housekeeping: the writing sweep's remainder)
 
 - The second item before Step 7, on `housekeeping-writing-sweep`.
