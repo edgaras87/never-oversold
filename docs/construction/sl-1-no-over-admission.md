@@ -282,7 +282,7 @@ It is a superset of the active sum (an expired hold not yet ended
 still counts), so the invariant holds with room to spare: active
 sum ≤ `reserved` ≤ `on_hand_count`. The cost — units held past
 expiry until SL-3's exit ends them — is throughput (W3), not the
-promise, and is named in §6 as provisional.
+promise, and is named below, under "Deviations and provisionals".
 
 ### Owners
 
@@ -336,10 +336,11 @@ refusing when the new count would sit under `reserved`.
 
 *Why it beats this attack:* an admit and an adjustment are two
 writers to one row: serialized by the store, each sees the other's
-effect (F10). The constraint refuses a count under the held units
-whichever order they land in; the refusal (§3 G3) is the
-constraint's own answer, and no code of ours decides it —
-provisional when this slice closed, decided by SL-2 on 2026-09-21.
+effect (F10). The statement's condition refuses a count under the
+held units whichever order they land in, and the constraint stands
+behind it; the refusal (§3 G3) is the store's own answer, and no
+code of ours decides it — provisional when this slice closed,
+decided by SL-2 on 2026-09-21.
 *Say:* 20 on hand, thirty requests for one unit and the operator's
 10, all at one instant, five rounds. Once the 10 landed first: count
 10, 10 held. Four times the requests got there first: the 10 was
@@ -479,10 +480,9 @@ are ordered by the store, and the second sees the first's result.
 
 - **A migration writing rows.** `migrator` owns the schema and
   could insert reservations or set counts without the entry path.
-  Rule, in the migrations home's README line and the contract's
-  spirit: migrations carry structure, never ledger rows; the
-  constraint still refuses an over-held item whatever a migration
-  writes.
+  Rule, stated here in the contract's spirit: migrations carry
+  structure, never ledger rows; the constraint still refuses an
+  over-held item whatever a migration writes.
 - **The counter drifting from the rows.** `reserved` equal to the
   sum of not-ended reservations is the entry path's bookkeeping,
   not the store's. The witness recomputes the sum from the rows on
@@ -527,8 +527,9 @@ Only what the guarantees need somewhere to live:
 
 - `reserved` over-approximates the active sum until SL-3 (above).
 - A downward adjustment under the held units is refused by the
-  constraint. Closed: SL-2 weighed "end reservations" and rejected
-  it (its record, §3), so this wall stands as the decided shape.
+  statement's condition, the constraint behind it. Closed: SL-2
+  weighed "end reservations" and rejected it (its record, §3), so
+  this wall stands as the decided shape.
 - `Location` omitted until a reader exists.
 - The red run for R5: the same tests against the admit written the
   naive way — a read of the row, a check in code, a plain update —
@@ -581,8 +582,9 @@ instance's own pool.
 **Provisionals carried to the close** (§7): `reserved`
 over-approximates the active sum until SL-3 ends expired holds; a
 downward correction under the held units is refused by the
-constraint until SL-2 decides the correction's shape; `Location`
-omitted on the reserve reply until a reader exists.
+statement's condition until SL-2 decides the correction's shape —
+decided 2026-09-21: refuse; `Location` omitted on the reserve reply
+until a reader exists.
 
 ## §9 Standing guards
 
@@ -629,3 +631,10 @@ omitted on the reserve reply until a reader exists.
   item among them as §4 names it; the row had counted its shapes
   loosely and left that one out. Nothing re-run, nothing changed in
   what the evidence showed.
+- 2026-10-01 — four corrections, no decision changed: §7's pointer
+  to §6 now goes to "Deviations and provisionals", where the cost
+  is named; the migrations rule is stated here, the README it
+  pointed to never having existed; an adjustment under the held
+  units is said to be refused by the statement's condition, the
+  constraint behind it, as the code does it; §8's provisionals say
+  SL-2 decided the correction.
