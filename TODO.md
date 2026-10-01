@@ -134,7 +134,7 @@ Nothing. The one item left was moved to Later on 2026-10-01.
 <!-- What this run addresses to the bundle, and only that, so a
      reading looks in one place (delivered-copies.md, rule 4). A
      line leaves when a note answers it. Last answered: the note of
-     2026-09-30, read through 9869798. -->
+     2026-10-01, read through c33a996. -->
 
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
@@ -177,29 +177,3 @@ Nothing. The one item left was moved to Later on 2026-10-01.
       commit-messages: both being weighed there now; this run's
       reading of the imperative split is where they start. Nothing
       owed here.
-- [ ] Information, not a request: `decide-first` and
-      `option-comparison` were used here before they were withdrawn.
-      `visual-comparison` now calls the general method "discarded
-      2026-09-24, unused". In this run's writing pass
-      (2026-09-21..23), `decide-first` showed the commit count was
-      not yet sayable, and `option-comparison` built five wordings
-      of SL-2's G1 and caught that its labels were already there —
-      the finding the pass turned on.
-- [ ] Which rule wins when a take covers both `.claude/` and
-      `docs/concept/`? `delivered-copies.md` takes skills, rules and
-      the concept chapters as one act under one pin;
-      `commit-messages` says a commit touching `.claude/` touches
-      nothing else. The take @ 0000855 followed the first and broke
-      the second (be77f79; the close commit's body, 895dbed). At
-      the birth the concept went in a `docs:` commit of its own.
-      Say which one gives way, or how the take is split.
-- [ ] The staging folder arrives owner-only (`drwx------`). Taking
-      it with `cp -a temp/<staging>/. .` carried that mode onto the
-      repository root, 755 to 700, and git does not track folder
-      modes, so nothing showed in the diff. Put back by hand. Either
-      stage it readable, or have `delivered-copies.md` rule 5 say
-      to copy the files and not the folder's own attributes.
-- [ ] Information, not a request: `commit-plan`'s new rule — sweep
-      for every name a set moved — earned its keep on first use. At
-      the take it found PLAN pointing twice at a shape file the
-      writing pass had moved, a miss from before the rule existed.
