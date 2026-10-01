@@ -14,7 +14,8 @@ carries a dated line saying what changed and that no decision did.
 
 README and the infrastructure contract lose the passages that carry
 an argument in one block: README's Status paragraph and invariant
-bullets, the contract's "What the store offers". The operator manual
+bullets, the contract's "What the store offers". The contract no
+longer says a check constraint waits for commit. The operator manual
 is untouched; it is procedure, one claim per line.
 
 TODO's item is gone, and the devlog says what the sweep did.
@@ -51,7 +52,16 @@ README's Status paragraph and the bracketed notes on its invariants;
 the contract's "What the store offers". Same claims, split so a
 reader holds one at a time.
 
-**6. `docs: devlog and TODO close the writing sweep`**
+**6. `docs: the contract says when a check constraint fires`**
+Added in revision, after commit 5. The contract lists "unique and
+check constraints checked at commit". PostgreSQL can defer a unique
+constraint to commit; a check constraint it checks at every write,
+and cannot defer. SL-1's wall is a check constraint and holds
+because of that. A content fix, kept apart from commit 5's form.
+ADR-0005 says only "constraints checked at commit", true of the
+deferrable kinds, and is not touched.
+
+**7. `docs: devlog and TODO close the writing sweep`**
 TODO's item leaves; the devlog's entry and its Resume line.
 
 ## Decisions taken inside this plan
