@@ -859,6 +859,7 @@ Notes:
 - ADR-0010: The door's conventions (Step 5)
 - ADR-0011: An item becomes known by its first adjustment (Step 5)
 - ADR-0012: An adjustment answers 200, whether or not it creates the item (before Step 7)
+- ADR-0013: A repeated exit answers as the first did (Step 7)
 
 ---
 
