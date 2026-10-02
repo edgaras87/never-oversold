@@ -68,7 +68,7 @@ witness — the promise's own.
   different adversity: hammering never sends an honest correction,
   and a correction never creates a race — hence two slices.
 
-### SL-3 — a reservation exits once  `chosen-next`
+### SL-3 — a reservation exits once  `in-progress`
 
 - **Invariant:** a reservation moves its item's numbers at most
   once on exit, and never after it has ended.
@@ -104,9 +104,10 @@ witness — the promise's own.
 
 ## Registry state
 
-2 slices closed (SL-1, 2026-09-14; SL-2, 2026-09-21), 2 open, SL-3
-chosen-next (2026-09-21). New work enters by re-framing or as a new
-slice through this registry, never around it.
+2 slices closed (SL-1, 2026-09-14; SL-2, 2026-09-21), 1 in progress
+(SL-3, its specification landed 2026-10-02), 1 open. New work
+enters by re-framing or as a new slice through this registry, never
+around it.
 
 ## Fold-reconciliation line
 

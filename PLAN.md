@@ -717,7 +717,7 @@ Gate:
       red before each wall stands — answered in the build, owed
       there by name. The readiness sign-off is the reviewer's, one
       dated line.
-- [ ] The registry row goes to `in-progress` when the specification
+- [x] The registry row goes to `in-progress` when the specification
       lands — not at this opening and not at the close.
 - [x] Stage 1, before the specification: the whats the framing does
       not carry, each decided as a record with its options, never
