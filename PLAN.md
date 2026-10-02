@@ -685,7 +685,7 @@ corrected in place for the general lesson. Version 0.2. The branch
 item is ticked on the reviewer's word to merge, given at this
 boundary.
 
-## Step 7: SL-3 — a reservation exits once  (cbc-slice)    [ ]
+## Step 7: SL-3 — a reservation exits once  (cbc-slice)    [~]
 
 <!-- The first slice that adds an operation: nothing ends a
      reservation today. The first step written from the step form. -->
@@ -696,11 +696,11 @@ consume, consume racing release, two consumes, consume racing
 expiry, a late consume on an ended reservation, and expiry fired
 early.
 Gate:
-- [ ] The step's branch `step-7-sl-3` is cut from main, and the step
+- [x] The step's branch `step-7-sl-3` is cut from main, and the step
       has not been worked anywhere else.
-- [ ] This gate was written before the work started, not
+- [x] This gate was written before the work started, not
       reconstructed from it afterwards.
-- [ ] Stage 0 passed on the actual repo and recorded in the devlog:
+- [x] Stage 0 passed on the actual repo and recorded in the devlog:
       R1 the three exports stand, SL-3 the only `chosen-next` row,
       the reconciliation line whole; R2 `./mvnw test` green at the
       branch point, from actual output; R3 the store reachable from

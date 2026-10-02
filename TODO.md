@@ -8,13 +8,9 @@
 
 ## Now (current plan step)
 
-- [ ] Between steps. Step 6 closed SL-2 on 2026-09-21; the writing
-      pass ran 2026-09-21..23, and the bundle's delivery @ 0000855
-      was taken 2026-10-01. Since then the writing sweep and SL-1's
-      test headers are done. Nothing stands before Step 7 on this side;
-      the reviewer reads the bundle's side first.
-- [ ] Step 7 (SL-3, cbc-slice): a reservation exits once, the
-      registry's chosen-next since 2026-09-21. It inherits by name:
+- [ ] Step 7 (SL-3, cbc-slice): a reservation exits once. Opened
+      2026-10-02 on the bundle's copies @ a3b6b8c; readiness signed
+      the same day; Stage 1 next. It inherits by name:
       an expired hold still counts in the held units until an exit
       ends it (SL-1 §7), and an operator who has counted the shelf
       and found fewer units than are held has no recourse — whether
@@ -23,9 +19,9 @@
       the first slice to meet the close-time shape check, and its
       gate is the first derived from PLAN's step form.
 
-## Next (before Step 7)
+## Next (after Step 7)
 
-Nothing. The one item left was moved to Later on 2026-10-01.
+Nothing yet.
 
 ## Later / someday
 

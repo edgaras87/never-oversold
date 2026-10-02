@@ -6,6 +6,64 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-02  (Step 7 opens: SL-3, Stage 0)
+
+- The bundle's delivery @ a3b6b8c was taken first (fa9a402), on the
+  note's advice that SL-3 opens on two of its changes. It was
+  committed straight onto main, not on a housekeeping branch like
+  the takes before it. Same result on main; the reviewer said to
+  leave it.
+- Step 7 opened on `step-7-sl-3`, cut from main at fa9a402. The
+  gate was written and committed (06c2aee) before any work. It is
+  the first step written from PLAN's step form.
+- Stage 0, checked against the repo, not from memory.
+  - R1: the three exports stand; SL-3 is the only `chosen-next`
+    row; the reconciliation table has its 20 kill rows.
+  - R2: `./mvnw test` at the branch point: exit 0, 39 tests, 0
+    failures, 0 errors, 0 skipped. The same 39 SL-2 closed on.
+  - R3: the suite's store is `ThrowawayStore`, a real postgres:17
+    per test JVM, built from the ground's own bootstrap.sql and
+    migrated from the one migrations home. No mock.
+  - R4, one line per kind of adversity SL-3 names. A request sent
+    twice (F3, F5): the door is driven by plain HTTP, as
+    `CorrectionIT` already does for a resend. Requests at the same
+    instant (F4, F23): `ReserveStormIT` holds requests at a line
+    and releases them together, and `InstancesStormIT` does it
+    across forked instances; both work on any endpoint. A hold run
+    out, or not yet, by the store's clock (F23, F24): `OneClockIT`
+    makes a one-second hold run out by waiting, and a ten-minute
+    hold is "not yet". The shortest hold is one second, so a race
+    exactly at expiry is staged by firing on both sides of the
+    instant; how is a plan question, not harness work. No harness
+    work owed.
+  - R6: the registry writable, the record scheme in place.
+  - R5, split as the gate says. Two of SL-1's constraints bear on
+    exits and stand already: `item_reserved_not_negative` (a
+    reservation's units given back twice can drive `reserved`
+    down) and `item_never_oversold`. They can be made absent on
+    the working tree. The walls SL-3 owns do not exist yet, so
+    their evidence is seen red in the build, before each wall
+    stands.
+- What Stage 0 surfaced for Stage 1, not for the harness:
+  - Nothing ends a reservation today. The `reservation` table has
+    no ended state, and the door has two endpoints, reserve and
+    adjust.
+  - The admit already returns the reservation's identifier, which
+    is the obvious way for an exit to name its reservation (FC2).
+    Whether it should is Stage 1's to decide.
+  - An expired hold still counts in `reserved`. Whether expiry
+    ends a reservation is one of the three questions the gate
+    puts before the specification.
+- The ground was down: `never-oversold-postgres` stopped 11 days.
+  The suite does not need it, so it was left down.
+- Readiness signed by the reviewer: *2026-10-02 — ready for SL-3,
+  signed off.*
+- Resume: Stage 1. First the three questions, each a record with
+  its options: what an exit is at the door, what expiry does, and
+  whether an operator-side exit exists. Then the specification,
+  the row to `in-progress` when it lands; the reviewer signs it
+  before the plan.
+
 ## 2026-10-01  (housekeeping: the error check's four decisions)
 
 - The four findings the error check left open, settled on the
