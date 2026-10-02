@@ -719,7 +719,7 @@ Gate:
       dated line.
 - [ ] The registry row goes to `in-progress` when the specification
       lands — not at this opening and not at the close.
-- [ ] Stage 1, before the specification: the whats the framing does
+- [x] Stage 1, before the specification: the whats the framing does
       not carry, each decided as a record with its options, never
       absorbed into code — what an exit is at the door (consume and
       release, and how an exit names its reservation, FC2); whether

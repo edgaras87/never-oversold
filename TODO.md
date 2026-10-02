@@ -68,6 +68,14 @@ Nothing yet.
       went — the pattern used for the writing rule drafted and
       reverted on 2026-09-21.
 
+- [ ] A list of an item's reservations, for an operator. Raised
+      2026-10-02 at SL-3's opening (its record, §3): an operator
+      who counts fewer units than are held can release a hold only
+      if they know its identifier, and nothing lists them. No
+      guarantee needs it, so no slice builds it. Trigger: a reader
+      or the README's stranger meets that operator's case, or a
+      re-framing takes up the operator side.
+
 - [ ] Records that describe a moment carry no mark saying so. The
       bootstrap requirements, the operator manual's lived lines, a
       slice record's provisionals: each was true on a date and read
