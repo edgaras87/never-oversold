@@ -49,8 +49,8 @@ volume identity depends on the directory the file happens to run from.
 password (**must equal** the literal in the bootstrap SQL), optional
 `POSTGRES_PORT`, and the runtime application password (**must
 equal** the runtime literal in the bootstrap SQL) — the app reads it
-from the environment at bootstrap; the run that lived this walk
-added the key. Rule: secrets and machine variance are variables;
+from the environment at bootstrap.
+Rule: secrets and machine variance are variables;
 **decided identities (db, schema, role names) stay literal** in the
 files that use them — changing one is a committed decision, not
 configuration.

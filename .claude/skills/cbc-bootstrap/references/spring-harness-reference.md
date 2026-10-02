@@ -282,7 +282,7 @@ class MigrationPathIT extends DatabaseIT {
   as the wrong identity — the exact failure the miniature exists to
   prevent.
 - **The refused DDL witnesses the authority, not only the identity**
-  (lived once, run 3): a miniature wired as the right name but
+  (lived once): a miniature wired as the right name but
   without the split — the grants missing, the bootstrap SQL not
   mounted — passes the identity assertion and fails here, with the
   ground's own message. Its trap is in the shape: Spring translates
@@ -481,8 +481,8 @@ class ContentionProbeIT extends WebDatabaseIT {
    runtime ground says the system runs as more than one instance,
    the machinery proof must cross the process boundary (walkthrough,
    stage 5): a single-process pass proves a shape nobody runs, and a
-   lock inside the process could make it pass. Lived once (run 3,
-   never-oversold), carried here as prose until a second run lives
+   lock inside the process could make it pass. Lived once, carried
+   here as prose until a second run lives
    it: the container and the migration lifted out of the database
    base into a **store holder** of their own, so a test with no
    application context shares the store — the base keeps only the
@@ -499,9 +499,8 @@ class ContentionProbeIT extends WebDatabaseIT {
    up. The in-process burst stays beside it as the cheap first
    check.
 9. **How the evidence asserts on a body** is a stack convention this
-   file left unsaid, so each run decided by habit. Lived once (run 3,
-   never-oversold): substring first, replaced mid-slice by JSON path
-   — a substring cannot tell `3` from `30`, cannot say a field exists,
+   file left unsaid, so each run decided by habit. Lived once: a
+   substring cannot tell `3` from `30`, cannot say a field exists,
    and cannot say one is absent. The convention, decided before the
    first slice and held after: **by path for a shape** (a small
    test-support reader that parses a body once and answers a path —

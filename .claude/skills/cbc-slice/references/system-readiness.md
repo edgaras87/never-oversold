@@ -1,9 +1,10 @@
 # System readiness — the contract between framing and slicing
 
-*What must exist before the first slice can be worked. The framing hands off
-TO this checklist; the slice workflow's Stage 0 checks AGAINST it. How each
-item gets satisfied — which store, which language, which harness tooling —
-is deliberately unspecified: bootstrap is project work, not method work.*
+*What must exist before a slice can be worked. The framing hands off
+TO this checklist; the slice workflow's Stage 0 checks AGAINST it, at
+every slice. How each item gets satisfied — which store, which language,
+which harness tooling — is deliberately unspecified: bootstrap is project
+work, not method work.*
 
 ## R1 — The framing artifacts are in the repo
 
@@ -37,9 +38,9 @@ Why: the strongest walls (unique constraints, atomic conditional updates)
 are *store behavior*. Evidence against a mock proves the mock, not the
 invariant.
 
-## R4 — The harness can create each adversity class the registry names
+## R4 — The harness can create the adversity class this slice names
 
-Check the registry's slices; for **each adversity class named there**, the
+Read this slice's registry entry; for **the adversity class it names**, the
 test harness must be able to generate it:
 
 - **contention** → fire N genuinely concurrent requests at one endpoint
@@ -49,8 +50,9 @@ test harness must be able to generate it:
 - **partial failure / crashes** → kill the process (or the transaction)
   mid-write, then restart and re-drive.
 
-Only the classes the registry names are required — a checklist item for an
-adversity no slice faces is ceremony.
+Only this slice's class is required — a later slice's class is checked at
+that slice's Stage 0, and a checklist item for an adversity no slice faces
+is ceremony.
 
 Why: a slice closes only on a test that *creates* its adversity. If the
 harness can't create it, the completion gate is physically unrunnable and

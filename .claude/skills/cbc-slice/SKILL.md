@@ -63,7 +63,7 @@ challenge: attack the invariant ("what would let this
 hold on paper yet break in fact?") until each distinct answer is a
 strategy-free guarantee. Set evidence criteria per guarantee.
 **Gate: zero mechanisms.** If the spec mentions a lock, constraint, queue,
-key, or any technology — it leaked; park it and restate as a property.
+or any technology — it leaked; park it and restate as a property.
 **And every flag on the registry row answered by name**: a flag says the
 adversity cannot be staged the normal way, so the spec says what its
 evidence is instead — staged as its own evidence, or removed by a

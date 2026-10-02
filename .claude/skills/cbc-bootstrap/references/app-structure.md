@@ -20,7 +20,7 @@ owns only the *shape they land in*.
 ## The lived default
 
 **Package-by-feature, package-private boundaries, structural depth
-earned per feature.** Lived by checkout-system across nine slices:
+earned per feature.** Lived across nine slices:
 
 ```
 <base-package>
@@ -37,8 +37,8 @@ earned per feature.** Lived by checkout-system across nine slices:
   becomes public. The compiler enforces the boundary — enforcement
   over convention, the same stance as the ground's grant split.
 - **Depth is earned per feature, never stamped.** A feature starts
-  as few classes as its slice demands (checkout's: a controller
-  and a domain class); an internal service or persistence split
+  as few classes as its slice demands (one lived feature: a
+  controller and a domain class); an internal service or persistence split
   appears inside one feature when that feature's own complexity
   earns it, and appears nowhere else. Layers inside a feature are
   legal; a repo-wide layer template is provisioning ahead of need.

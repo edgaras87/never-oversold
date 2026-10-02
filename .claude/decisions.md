@@ -712,3 +712,26 @@
   Why: SL-3 opens on these copies, and the two rules this run
   found pulling apart at the last take now agree.
   Rejected: none weighed; the take copies whole.
+
+- 2026-10-02 The bundle updated @ a3b6b8c, from e6538f6. Read
+  through 65aa18d. The note of 2026-10-02 answers nothing this run
+  holds under *To the deliverer*; it was sent because the run stands
+  between steps and SL-3 opens on two of these copies.
+  Checked before anything moved, as the note asked: the staging's
+  folders arrive 755 and its files 644; 12 copies differ from what
+  main held, none is new, none gone, nothing under `docs/concept/`
+  — the note's counts. No copy was edited here since the last take,
+  so nothing is re-applied. Copied whole: every held copy now equals
+  the staging.
+  What changed, for SL-3: `system-readiness.md` R4 asks the harness
+  for the adversity class this slice names, not every class in the
+  registry; a later slice's class is checked at its own Stage 0.
+  `cbc-slice` Stage 1's gate drops "key" from the leaked mechanisms:
+  a key the caller sends is part of the door's contract.
+  The rest: `cbc-framing` and its workflow hand off to the ground
+  and the bootstrap; both worked examples, still one text, name the
+  shop owner as the only audience; `commit-messages` makes a new
+  agent skill or rule `chore(agent)`; `infra-establish` and four
+  references stop naming runs.
+  Why: SL-3 opens on these copies.
+  Rejected: none weighed; the take copies whole.

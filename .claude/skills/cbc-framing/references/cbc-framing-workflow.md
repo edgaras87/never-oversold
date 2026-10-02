@@ -4,6 +4,10 @@
 definition and a slice surface. Ends exactly where `cbc-slice-workflow.md`
 begins — its output is that workflow's input.*
 
+*When a step's required output changes here, `worked-example.md` — beside
+this file and in the cbc-slice skill, one text — changes in the same
+commit: a framer is sent to it to see what a step's output looks like.*
+
 ---
 
 ## The unit
@@ -136,8 +140,9 @@ a census line races them; the store as a service on that machine,
 reachable by every instance and outliving any of them — what it is
 stays the ground's decision; the clock as the machine's, shared by
 the instances unless the evidence skews it. Five lines, not a
-design. The ground's readiness check reads this block first; both
-runs that framed without it wrote it later by a dated revision.
+design. The ground's readiness check reads this block first; a
+framing that leaves it out writes it later, by a dated revision —
+lived twice.
 
 **The probe machinery — how saturation is earned.** The enumeration
 ran on one lens (actors × three negations), which only finds facts
@@ -247,7 +252,7 @@ redefines them.
 
 *Question: which concerns are theorems, which are definitions?*
 
-A **slice** = one promise × one enemy needing its own proof. The step
+A **slice** = one invariant × one adversity needing its own proof. The step
 runs as **three passes**, each with its test and its record:
 
 1. **The sort.** Every concern stamped **theorem** (carries an
@@ -275,7 +280,8 @@ Ordering is an *expectation*, not a commitment: derive a presumption order
 slice at each close. Step 6's deliverable is the **shape**, not a sequence.
 
 **Exit:** the registry stands — first slice chosen-next.
-**Hands off to:** `cbc-slice-workflow.md`, one slice at a time.
+**Hands off to:** the ground and the bootstrap, then
+`cbc-slice-workflow.md`, one slice at a time.
 
 ---
 

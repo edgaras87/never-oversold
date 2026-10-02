@@ -89,8 +89,8 @@ context test needs no environment and no test property (a property
 added "so the placeholder resolves" is dead — verify by removing it);
 and the README's Run section names the symptom. Whether the app should
 refuse to start without its secret is a *what*, not a wiring detail —
-decided at Stage 1 by name (run 3: not at bootstrap, at release), never
-absorbed here.
+decided at Stage 1 by name (lived once: not at bootstrap, at release),
+never absorbed here.
 
 ## 4. Stand up the evidence harness
 
@@ -159,8 +159,7 @@ never pasted**; read its variation points before writing a line.
    alone **no longer provides the `TestRestTemplate` bean**: the test
    (or base) needs `@AutoConfigureTestRestTemplate` from
    `org.springframework.boot.resttestclient.autoconfigure`, or the
-   autowire fails with "No qualifying bean". (Lived on Boot 4.1.1,
-   checkout-system bootstrap.)
+   autowire fails with "No qualifying bean". (Lived on Boot 4.1.1.)
 3. Testcontainers 2.x renamed artifacts and packages:
    `testcontainers-postgresql`, `org.testcontainers.postgresql`.
 4. **No dummy baseline migration** — keep the home honestly empty until a
@@ -194,7 +193,7 @@ never pasted**; read its variation points before writing a line.
   Only a mechanism in the store, or a protocol every process honours,
   can pass it. The reference carries the shape as its variation point 8.
 
-**Lived realization (run 3):** the instances are **forked from the
+**Lived realization (once):** the instances are **forked from the
 build's own output** — `target/classes` plus exactly the runtime
 classpath, which the dependency plugin writes to a file at
 `process-test-classes` — because the test phase runs before packaging,

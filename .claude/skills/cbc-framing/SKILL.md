@@ -73,9 +73,11 @@ polish passes.
   the mirror test. Sketch-enemies are fine here — they are debt step 2 pays.
 - **Step 2:** facts only, concrete enough to attack with ("responses get
   lost", never "networks are unreliable"), consequence-first. **A census is
-  not an assumption inventory** — list what can hurt, never what you trust.
-  Exit only by saturation: two consecutive fresh probes finding nothing
-  new — the probe log recorded in L1.
+  not an assumption inventory** — list what can hurt, never what you trust,
+  outside the two labelled blocks the workflow allows beside the facts:
+  the trust assumptions, accepted deliberately and kept short, and the
+  runtime ground. Exit only by saturation: two consecutive fresh probes
+  finding nothing new — the probe log recorded in L1.
 - **Step 3:** each kill states **what dies, never how it's saved** — park
   any mechanism the instant it surfaces. Land kills invariant-shaped with
   adversity named, consumable by the slice workflow with zero translation.
@@ -135,8 +137,7 @@ L1 → L5, outside-in, and no reorder is needed after. Skipping the
 sequence is off-default: log why.
 
 The three artifacts, under `docs/system/` — internal truth as one
-nameable path, the directory carrying the context the old dotted
-prefixes carried:
+nameable path:
 
 - `intent.md` — the promise + banked rejections
 - `definition.md` — L1–L5, filled or empty-with-reasons
@@ -193,9 +194,10 @@ status line), re-derived from the masters, never patched in place.
 The residue filter applies with full force: the surface tells what
 the system is and guarantees, never how the work ran.
 
-Then say this explicitly to the user: **the handoff is to bootstrap, not to
-slicing.** Between framing and the first slice sits real project work —
-repo skeleton, store, adversity harness — defined by the readiness
+Then say this explicitly to the user: **the handoff is to the ground and
+the bootstrap, not to slicing.** Between framing and the first slice sits
+real project work — the ground the system runs on, its store among it;
+then the skeleton and its adversity harness — defined by the readiness
 checklist (`system-readiness.md`, bundled with the cbc-slice skill). Slicing
 begins only when the human signs off readiness; the cbc-slice skill will
 check.

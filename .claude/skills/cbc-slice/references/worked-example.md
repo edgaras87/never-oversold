@@ -20,9 +20,15 @@ Candidate promises considered and banked:
 
 **Chosen promise:** *One customer submission becomes exactly one recorded
 order — no matter how many times it arrives.*
-Audience: the shop owner (money) and integrating clients (retry safely).
+Audience: the shop owner — the party the proof matters to, since a double
+order is theirs to refund. Integrating clients are callers: they enter the
+census as actors, not the intent as audience.
 Falsifiable: the breaking scenario is concrete — a timeout retry creates
 two orders, a customer is charged twice.
+Done, demonstrably: identical submissions genuinely fired at once and
+replayed after a swallowed response; the witness — recorded orders per
+submission, read from the store — never above one; and the path from this
+sentence to that test followable by the shop owner.
 
 ## Step 1 — What must be ours? (L2)
 
@@ -67,8 +73,20 @@ unknowable-write fact; probe 2 (timeline stretched — a retry arriving a day
 later) surfaced nothing new; probe 3 (quantities at huge — a key reused
 thousands of times) surfaced nothing new. Two dry probes → saturated.
 
+The runtime ground, beside the facts: one local machine; a stranger's clean
+machine stands the system up from the README; one instance of our process
+— no census line races two of us; the store a service on that machine,
+reachable by the instance and outliving it; the clock the machine's.
+
 Return trip check: did the census reveal a missed possession? No — L2
 stands, no revision logged.
+
+The ledgers the exit leaves:
+- Fence list — **W1** a shop edits or cancels an order after it is
+  recorded: another promise's territory. **W2** a caller submits as
+  another shop: identity at the door, a new kind of difficulty.
+- Not probed — clock skew between machines (one machine); deployment
+  transitions (no second version ever runs beside the first).
 
 ## Step 3 — Run the collisions (L4)
 
@@ -86,6 +104,8 @@ Each fact × each possession — what dies (never how it's saved):
    order is silently confirmed as a "repeat."**
 6. Unknowable write outcome × order records → **we ourselves don't know if
    the order exists.**
+
+Fenced facts collide with nothing: W1 and W2 stop at the fence.
 
 Dedup by attack surface: kills 1–3 are one concern (duplicate delivery in
 three costumes — same thing dies the same way). Kills 4 and 6 are one
@@ -133,8 +153,10 @@ an expectation, re-decided at close).
 
 ## What now exists (the three artifacts)
 
-1. **Intent:** the promise, one sentence, plus banked rejections.
-2. **System definition:** L1 the six facts · L2 three possessions, three
+1. **Intent:** the promise, one sentence, its audience and what done
+   demonstrably means, plus banked rejections.
+2. **System definition:** L1 the six facts, the runtime ground, two fences
+   and the not-probed ledger · L2 three possessions, three
    written refusals · L3 one area, one seam named-not-drawn · L4 the
    concerns · L5 empty-with-reasons.
 3. **Slice registry:** 2 slices + 1 fold, reconciliation line, slice 1

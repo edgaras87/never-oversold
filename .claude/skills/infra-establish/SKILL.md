@@ -9,7 +9,7 @@ foundation: practice, checked against concept v1
 Take one framed project to **ground**: the environment chosen and
 running, the services the problem's reasoning chain requires stood up,
 constrained to need, verified both ways, with the manuals that make the
-ground usable and reproducible. The exit is the guide's own: **the
+ground usable and reproducible. The exit is the walk's step 7: **the
 ground runs, constrained to need, both manuals stand.**
 
 The full walk is `references/establishment-walk.md` — read it before
@@ -38,7 +38,7 @@ in. Verify against the actual repo:
    added by a dated revision entry in L1 — what changed, why,
    triggered by this check — one commit, no possession, refusal or
    verdict touched; then the check passes. Lived twice, the same way
-   both times (checkout-system, never-oversold). Framing work is not
+   both times. Framing work is not
    done here; a fact the framing left unstated is written where it
    belongs.
 3. **The repo exists and is a git repo** with its plumbing dotfiles
@@ -118,10 +118,8 @@ lived by two runs, and the shape below is theirs:
   happened. Expected results sit in the verify suite and the
   operator manual. The environment ADR carries the mapping from
   this skill's default records to the repo's own — the sentence
-  the log's first entry would have held. Run 3 (never-oversold)
-  opened the log at the decision and withdrew it one commit later
-  at the reviewer's question — what does it hold that the records
-  do not? — nothing.
+  the log's first entry would have held. Lived once: a log beside
+  such records held nothing they did not.
 - **A repo without records:**
   `docs/infrastructure/establishment-log.md`, beside the manuals —
   the decision record and the walk's lived outputs, its first entry
@@ -132,8 +130,7 @@ lived by two runs, and the shape below is theirs:
 The layout, both cases:
 
 - `compose.yaml` and `.env.example` at the root, `.env` ignored —
-  the stranger's first command finds them there, and at bootstrap
-  the file becomes the whole system's declaration.
+  the stranger's first command finds them there.
 - `infrastructure/` — the rest of the runnable ground (bootstrap
   SQL, verify suite, migration tool config), landed as the walk
   produces them.
