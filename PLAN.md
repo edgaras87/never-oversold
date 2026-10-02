@@ -730,7 +730,7 @@ Gate:
       changes the door's contract is an ADR before the spec closes;
       one that changes the definition is a dated revision entry,
       never in place.
-- [ ] Stage 1: the correctness specification stands beside SL-1's
+- [x] Stage 1: the correctness specification stands beside SL-1's
       and SL-2's, its row in the entry file: the invariant and the
       adversity taken from SL-3's registry row and the definition's
       L1 and L4 (kills 11, 12, 13, 14, 16's retry half, 19's early

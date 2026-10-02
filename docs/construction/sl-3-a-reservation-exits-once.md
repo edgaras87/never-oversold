@@ -421,3 +421,11 @@ not reach is said in §7.
 - **That every hold ends.** A hold lasts as long as the caller
   asked, up to the door's bound; that it ends at all is V5's.
 - **How long ended reservations are kept.** W6.
+
+## §8 Sign-offs
+
+<!-- Dated lines, the reviewer's: the specification before the plan,
+     the plan before the build. -->
+
+- 2026-10-02 — §3's three decisions taken by the reviewer.
+- 2026-10-02 — the specification (§1–§7) signed by the reviewer.
