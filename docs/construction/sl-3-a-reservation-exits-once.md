@@ -422,7 +422,386 @@ not reach is said in §7.
   asked, up to the door's bound; that it ends at all is V5's.
 - **How long ended reservations are kept.** W6.
 
-## §8 Sign-offs
+## §8 Plan — one structural owner per guarantee
+
+<!-- The second movement: mechanisms are allowed here and nowhere
+     above. Each guarantee gets exactly one owner from the
+     enforcement hierarchy — database constraint → type system →
+     single validated entry path → runtime check → code review →
+     hope — the strongest available, justified against the named
+     adversity, not in general. -->
+
+### The shape the walls need
+
+One new table, born by this slice's migration, V2:
+
+- **`reservation_exit`** — one row per ended reservation, its
+  receipt: `reservation_id` (the key, and a reference to the
+  reservation), `kind` (`consumed`, `released` or `expired`),
+  `ended_at` (the store's clock). The primary key on
+  `reservation_id` is the slice's main wall: **a reservation can
+  have one receipt, and a second cannot be written by any path.**
+- **One trigger on it,** a function that refuses three things,
+  whoever writes: changing or deleting a receipt; an `expired`
+  receipt written before the reservation's expiry instant by the
+  store's clock; a `consumed` or `released` receipt written at or
+  after it. It also sets `ended_at` itself — the expiry instant for
+  `expired`, the store's now for the others — so no path supplies a
+  time.
+
+Nothing in V1 changes. `item` keeps its three constraints, among
+them `item_never_oversold CHECK (reserved <= on_hand_count)`, and
+`reserved` keeps its meaning, sharpened: the units of reservations
+with no receipt yet.
+
+*Active*, as the witness reads it: no receipt, and `expires_at >
+now()`. A reservation past its expiry with no receipt yet is ended
+already (§3) — its receipt is written by the next request that
+meets it.
+
+### How each path runs
+
+All in one transaction each, on the one entry path (`Ledger`).
+
+- **Tidy** — the first thing reserve and adjust do on an item. One
+  statement writes an `expired` receipt for every reservation of the
+  item that is past its expiry and has none (`INSERT … ON CONFLICT
+  DO NOTHING RETURNING`), and lowers `reserved` by the units of
+  exactly the receipts it wrote — not by a sum it read.
+- **Reserve and adjust** — tidy, then the statement SL-1 or SL-2
+  already proved, unchanged.
+- **Consume** — writes a `consumed` receipt for the reservation if
+  it has none and has not expired, and in the same statement lowers
+  `on_hand_count` and `reserved` by that reservation's units — only
+  if the receipt was written. If the reservation has expired with
+  no receipt, it writes the `expired` receipt instead and frees the
+  units, and the consume is refused. The refused request has still
+  written the receipt — the expiry it met had already happened
+  (§3), and this records it.
+- **Release** — the same, with a `released` receipt, lowering
+  `reserved` only.
+- **The answer** (ADR-0013): no receipt written, and the one that
+  stands is the same kind → `200` with the reservation as
+  persisted; any other kind → `409`; no such reservation → `404`.
+
+**One order for every path: receipts first, then the item row.**
+Each path writes its receipts before it touches the item, and
+several receipts in one fixed order (by identifier). That way no
+two requests can each hold one row while waiting for the other's.
+If a later change broke the order, the store would end such a wait
+by failing one of the two requests with an error — a refused
+request, never a wrong number. The order is a matter of liveness
+(W3), not of the promise.
+
+### Owners
+
+One block per guarantee: what holds it, why that beats *this*
+adversity rather than adversity in general, and what stands behind
+it if the wall itself is ever wrong.
+
+**G1. When exits race on one reservation, exactly one takes
+effect.**
+
+*The wall:* the primary key on `reservation_exit.reservation_id`.
+Every exit — consume, release, and expiry by tidy — ends a
+reservation by writing its receipt, and moves numbers only for a
+receipt it wrote itself.
+
+*Why it beats this attack:* racing exits are racing inserts of the
+same key. The store makes the second wait for the first, then
+refuses it: `ON CONFLICT DO NOTHING` returns no row, so the second
+moves nothing. Time as a racer is the same race — consume writes
+`consumed`, tidy writes `expired`, and the key admits one. Which
+kind can be written at that instant is the trigger's, by the
+store's clock.
+*Say:* consume and release on R together. Both try to write R's
+receipt. The consume's lands; the release's returns no row. The
+item reads 7 on hand and 5 held.
+
+*If the wall were ever wrong:* nothing sound stands behind it. A
+release taking R's 3 a second time lowers `reserved` below the real
+holds, and `item_never_oversold` cannot see that — it compares the
+two stored numbers, not the reservations. That is why the key is
+the wall and not the check.
+
+---
+
+**G2. An exit on a reservation that has ended moves nothing.**
+
+*The wall:* the same primary key, for an ended one with a receipt;
+and the trigger, for one that has expired with no receipt yet: it
+refuses a `consumed` or `released` receipt at or after the expiry
+instant.
+
+*Why it beats this attack:* a retried consume (F3) is a second
+insert of a key that exists. A late consume (F5) on an expired
+reservation whose receipt nobody has written yet is refused by the
+store's clock inside the store — not by the application remembering
+to compare.
+*Say:* R expired at 12:00 and B took its units at 12:05. At 12:10 a
+consume on R arrives. Its path writes R's `expired` receipt, and
+had it tried `consumed` the trigger would have refused it. The item
+still reads 10 on hand, 10 held.
+
+*If the wall were ever wrong:* the statement's own condition
+(`expires_at > now()`) stands in front of the trigger.
+
+---
+
+**G3. Nothing ends a reservation by expiry before its expiry
+instant.**
+
+*The wall:* the trigger refuses an `expired` receipt while the
+store's clock reads before the reservation's expiry, and it sets
+`ended_at` itself. Behind it, SL-1's structural test that the
+application never reads its own clock, which already covers every
+class the application has, the new paths included.
+
+*Why it beats this attack:* the only way a hold ends by expiry is
+an `expired` receipt, and the store will not take one early by its
+own clock. An instance whose clock jumped never supplies a time to
+compare.
+*Say:* R holds until 12:15. At 12:11 by the store's clock, a tidy
+cannot write R's `expired` receipt, and the consume writes
+`consumed`.
+
+*If the wall were ever wrong:* tidy's own condition, `expires_at <=
+now()`, in the store's terms.
+
+---
+
+**G4. An exit moves exactly what its reservation holds.**
+
+*The wall:* the door's shape — the exit paths take no body, so the
+type the controller binds has no quantity to carry — and the
+statement takes the units and the item from the reservation's own
+row, joined to the receipt it just wrote. The receipt's reference to
+the reservation means no receipt names a reservation that does not
+exist.
+
+*Why it beats this attack:* there is no number in the request for a
+caller to get wrong (F7), and no second place the amount could come
+from. A reservation that does not exist is found absent before any
+write, and answered `404`.
+*Say:* consume on R: the statement reads R's 3 from R's row; 10 on
+hand becomes 7, 8 held becomes 5.
+
+---
+
+**G5. An expired reservation frees its units once.**
+
+*The wall:* the same primary key, and tidy lowering `reserved` by
+the receipts it wrote — its `RETURNING` rows — never by a sum it
+read.
+
+*Why it beats this attack:* two tidies meeting the same expired
+hold race to insert its receipt; one row is written, and only that
+statement subtracts. A tidy that read a sum and subtracted it would
+subtract twice, since each reads before the other writes — the
+attack exactly.
+*Say:* R expired; two reserves for 5 at 12:05. Both tidy; one
+writes R's receipt and takes 3 off; the other finds the key taken
+and takes nothing. 5 held, one reserve admitted, one refused.
+
+*If the wall were ever wrong:* `item_never_oversold` refuses the
+over-held row the second reserve would make.
+
+---
+
+**G6. Every way a reservation ends faces these rules.**
+
+*The wall:* the trigger, which refuses any change or deletion of a
+receipt by every identity short of the superuser; and a structural
+test that `reservation_exit` and `reserved` have one writing path,
+in the spirit of SL-2's E5.
+
+*Why it beats this attack:* the cleanup script of §4 cannot delete
+R's receipt — the store refuses it, whoever runs it — so R cannot
+look active again, and a second receipt cannot be added either.
+*Say:* a script deleting receipts older than a day meets an error on
+the first row.
+
+Every guarantee has one owner, and each owner is the store's: the
+key, the trigger, the check. The paths are the application's, and
+the walls behind them are not.
+
+### The faces chosen, and the ones not
+
+Three were put to the reviewer on 2026-10-03 before this plan was
+written, and decided: one, two and three below. The fourth was not
+asked as a question; it is weighed here for the signature.
+
+**G1, G2, G5 — what makes "ends once" impossible to break.**
+
+**A receipt per reservation, one allowed** — *chosen*
+
+*How it holds G1:* a second receipt is a second insert of a key;
+the store refuses it whoever sends it.
+
+*Cost:* a second table, and *active* now reads two tables. Ended
+reservations keep their receipts forever (W6 sees the growth).
+
+---
+
+**An ended mark on the reservation, set if not yet set**
+
+*How it holds G1:* `UPDATE reservation SET ended … WHERE ended IS
+NULL` — the store serializes two updates to one row, and the second
+finds it set.
+
+*Why not:* the wall is the statement's condition. Any write that
+leaves it out ends a reservation twice and the store does not
+object. It defends the path, not the state.
+
+---
+
+**G5 — how expired holds leave the held units (§3: from the
+instant).**
+
+**Tidy first, on every decision** — *chosen*
+
+*How it holds G5:* each reserve and adjust writes the receipts of
+the item's expired holds before deciding, and frees exactly what it
+wrote; the key makes the freeing once.
+
+*Cost:* a little work on every request; `reserved` reads high
+between an expiry and the next request on that item, which no
+decision sees.
+
+---
+
+**No stored held units: sum the active reservations at each
+decision**
+
+*How it holds G5:* nothing to free; expiry is read, not written.
+
+*Why not:* `item_never_oversold` compares two numbers on one row.
+Without a stored `reserved` there is nothing for it to compare, and
+SL-1's strongest wall — weighed in its §7 against this very face,
+"row lock, then compute" — falls to a lock every path must take.
+That is SL-1's guarantee moving from structure to sampling.
+
+---
+
+**G6 — whether a receipt can be changed or deleted.**
+
+**A trigger refusing it** — *chosen*
+
+*How it holds G6:* the store refuses `UPDATE` and `DELETE` on
+receipts, whoever sends them, short of the superuser.
+
+*Cost:* logic in the store that a reader of the application does not
+see; the catalog test names it so its absence is noticed.
+
+---
+
+**Revoke the runtime identity's update and delete on receipts**
+
+*How it holds G6:* the grant system refuses the application itself.
+
+*Why not:* it rewrites the infrastructure contract, whose runtime
+may write every table, including every one a future migration
+creates (term 4). A trigger holds the same line without touching
+the ground.
+
+---
+
+**Code only — one path and the structural test**
+
+*How it holds G6:* nothing in the application writes a second way.
+
+*Why not:* a script outside the application is exactly the attack,
+and code does not see it.
+
+---
+
+**G6 — who moves the numbers when a receipt is written.**
+
+**The application's statement** — *chosen*
+
+*How it holds G6:* the same statement that writes the receipt moves
+the item's numbers, on the one entry path; the structural test keeps
+the path single.
+
+*Cost:* a receipt written by some other path would not move the
+numbers. The trigger refuses no insert for that; the structural test
+is the guard.
+
+---
+
+**A trigger that moves the numbers whenever a receipt is written**
+
+*How it holds G6:* a receipt and its numbers become one act of the
+store; no path could write one without the other.
+
+*Why not:* SL-1 weighed exactly this for `reserved` and kept it as
+the first option to revisit if a second write path ever appears
+(its §7). None has. It would move the arithmetic the reader needs to
+see out of the application; this slice's triggers refuse, they do
+not compute.
+
+---
+
+### Escape hatches hunted, afresh
+
+- **A migration writing receipts or rows.** The rule from SL-1
+  stands: migrations carry structure, never ledger rows. The key and
+  the trigger refuse a second or a late receipt from a migration
+  too.
+- **The superuser, or `migrator`, disabling the trigger.** Both
+  can. The catalog test (`MigrationPathIT`) gains the trigger, the
+  key and the reference, so an evidence run on a store without them
+  fails before any storm could pass around their absence.
+- **Deleting a reservation.** One with a receipt cannot be deleted —
+  the receipt's reference stops it. One without a receipt can, by a
+  script as `runtime`; its units then stay in `reserved` forever, the
+  safe direction. Not closed: W6 leaves retention outside, and the
+  witness would show the gap.
+- **`reserved` set by hand.** The check refuses it above the count;
+  below the real holds is SL-1's drift case, and the witness
+  recomputes the active sum from the rows on every read.
+- **A new path that skips tidy.** It sees expired holds as held — the
+  safe direction, a W3 cost. The structural test names every writer
+  of `reserved`.
+- **The operator's way out.** None is added (§3).
+
+### The surface, at its minimum
+
+- **The door:** `POST /reservations/{reservation}/consume` and
+  `POST /reservations/{reservation}/release`, no body (ADR-0010,
+  ADR-0013). The reservation in a response gains two fields from
+  the definition's terms, `endedBy` and `endedAt`, absent while it
+  is active.
+- **The store:** V2 — the receipts table, its key, its reference,
+  its kind check, the trigger. No index beyond the key: nothing here
+  needs one at the scale of the evidence.
+- **The ledger:** `consume` and `release`; tidy, called first by
+  `reserve` and `adjust`. One new problem, an unknown reservation
+  (`404`); the refusal (`409`) is SL-1's, reused.
+- **Under test:** the witness reads *active* with receipts; the
+  evidence for E1–E7; the catalog test's new names; the structural
+  test's new writer rules.
+- **Not added:** a list of reservations (§3, backlog), a sweep, a
+  read endpoint, an index.
+
+### Deviations and provisionals, so the close can see them
+
+- **SL-4's invariant, held by structure here.** Consume's two moves
+  — the receipt and the count — are one statement in one
+  transaction. SL-4's invariant is that no readable state holds one
+  without the other. This slice builds that wall but proves nothing
+  about it: our death between the moves, and an unknowable outcome,
+  are SL-4's adversity. Handed to SL-4 by name at the close.
+- **SL-1's and SL-2's records,** which name SL-3 as the slice that
+  ends expired holds and pays the conservative-refusal debt, are
+  corrected at this slice's close, not before — and V1's comment
+  "No ended state yet" stays as written, migrations being history.
+- **The guarantees held by structure in the store, not by an
+  absence,** this time. The absence rung this run has met twice
+  (SL-1's clock, SL-2's ordering) appears once more only as SL-1's
+  clock test, reused.
+
+## §9 Sign-offs
 
 <!-- Dated lines, the reviewer's: the specification before the plan,
      the plan before the build. -->
