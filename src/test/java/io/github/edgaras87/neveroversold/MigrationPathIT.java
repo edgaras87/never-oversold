@@ -1,5 +1,8 @@
 package io.github.edgaras87.neveroversold;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import io.github.edgaras87.neveroversold.testsupport.DatabaseIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +66,44 @@ class MigrationPathIT extends DatabaseIT {
                   AND c.conname = 'item_never_oversold'
                 """).query(String.class).single();
         assertThat(wall).isEqualTo("CHECK ((reserved <= on_hand_count))");
+    }
+
+    @Test
+    void theReceiptsWallsAreInTheCatalog() {
+        // SL-3's owners are the store's (slice record, §8): the key, the
+        // reference, the kind check, and the guard trigger. The migrator or
+        // the superuser could drop or disable any of them; this is where
+        // that is seen, before a storm could pass around the gap
+        Map<String, String> walls = new TreeMap<>();
+        jdbc.sql("""
+                SELECT c.conname, pg_get_constraintdef(c.oid)
+                FROM pg_constraint c
+                JOIN pg_class t ON t.oid = c.conrelid
+                JOIN pg_namespace n ON n.oid = t.relnamespace
+                WHERE n.nspname = 'never_oversold'
+                  AND t.relname = 'reservation_exit'
+                  AND c.contype IN ('p', 'f', 'c')
+                """).query((row, i) -> walls.put(row.getString(1), row.getString(2))).list();
+        assertThat(walls).containsOnly(
+                Map.entry("reservation_exit_pk", "PRIMARY KEY (reservation_id)"),
+                Map.entry("reservation_exit_reservation_fk",
+                        "FOREIGN KEY (reservation_id) REFERENCES reservation(id)"),
+                Map.entry("reservation_exit_kind_known",
+                        "CHECK ((kind = ANY (ARRAY['consumed'::text, 'released'::text, 'expired'::text])))"));
+
+        // enabled ('O'), not merely present: a disabled trigger refuses nothing
+        String guard = jdbc.sql("""
+                SELECT pg_get_triggerdef(g.oid) || ' / ' || g.tgenabled::text
+                FROM pg_trigger g
+                JOIN pg_class t ON t.oid = g.tgrelid
+                JOIN pg_namespace n ON n.oid = t.relnamespace
+                WHERE n.nspname = 'never_oversold'
+                  AND t.relname = 'reservation_exit'
+                  AND NOT g.tgisinternal
+                """).query(String.class).single();
+        assertThat(guard).isEqualTo("CREATE TRIGGER reservation_exit_guard"
+                + " BEFORE INSERT OR DELETE OR UPDATE ON never_oversold.reservation_exit"
+                + " FOR EACH ROW EXECUTE FUNCTION reservation_exit_guard() / O");
     }
 
     @Test

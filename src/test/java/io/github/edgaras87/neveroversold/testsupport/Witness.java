@@ -13,9 +13,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * The witness, read from the store from outside every instance of the
  * ledger, as {@code runtime}: for one item, the on-hand-count, the units
- * held, and the sum of active reservations as the store judges them by
- * its own clock ({@code expires_at > now()}). The invariant is §1 of the
- * slice record; this class reads it, never computes it from replies.
+ * held, and the sum of active reservations as the store judges them: no
+ * receipt yet, and not past expiry by the store's own clock
+ * ({@code expires_at > now()}). A reservation past its expiry with no
+ * receipt is ended already (SL-3's record, §3); its receipt is written by
+ * the next request that meets it. The invariant is §1 of the slice
+ * record; this class reads it, never computes it from replies.
  *
  * <p>Plain JDBC on purpose: no application context, no pool the ledger
  * shares, so a forked-instance test and an in-process test read the same
@@ -40,7 +43,9 @@ public final class Witness {
                      SELECT i.on_hand_count,
                             i.reserved,
                             coalesce((SELECT sum(r.quantity) FROM reservation r
-                                      WHERE r.item_id = i.id AND r.expires_at > now()), 0) AS active_sum,
+                                      WHERE r.item_id = i.id AND r.expires_at > now()
+                                        AND NOT EXISTS (SELECT 1 FROM reservation_exit e
+                                                        WHERE e.reservation_id = r.id)), 0) AS active_sum,
                             (SELECT count(*) FROM reservation r WHERE r.item_id = i.id) AS reservations
                      FROM item i WHERE i.id = ?
                      """)) {
