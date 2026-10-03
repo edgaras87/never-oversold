@@ -746,7 +746,7 @@ Gate:
       is part of the door's contract and is not a leak, a key the
       system invents is. Signed off by the reviewer before the
       plan.
-- [ ] Stage 2: the plan stands beside the spec: one structural
+- [x] Stage 2: the plan stands beside the spec: one structural
       owner per guarantee, the strongest wall available, each
       justified against the named adversity and not in general;
       where more than one face could hold a guarantee, the

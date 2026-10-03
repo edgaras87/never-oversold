@@ -628,8 +628,9 @@ the walls behind them are not.
 ### The faces chosen, and the ones not
 
 Three were put to the reviewer on 2026-10-03 before this plan was
-written, and decided: one, two and three below. The fourth was not
-asked as a question; it is weighed here for the signature.
+written, and decided: one, two and three below. The fourth was put
+to the reviewer with the drafted plan, and decided on 2026-10-03
+before the plan was signed.
 
 **G1, G2, G5 — what makes "ends once" impossible to break.**
 
@@ -808,3 +809,6 @@ not compute.
 
 - 2026-10-02 — §3's three decisions taken by the reviewer.
 - 2026-10-02 — the specification (§1–§7) signed by the reviewer.
+- 2026-10-03 — the plan (§8) signed by the reviewer, its four face
+  choices taken: a receipt per reservation, tidy first, a trigger
+  that refuses, the arithmetic in the application's statement.
