@@ -3,6 +3,7 @@ package io.github.edgaras87.neveroversold.reservation;
 import io.github.edgaras87.neveroversold.reservation.problems.InvalidRequest;
 import io.github.edgaras87.neveroversold.reservation.problems.Refused;
 import io.github.edgaras87.neveroversold.reservation.problems.UnknownItem;
+import io.github.edgaras87.neveroversold.reservation.problems.UnknownReservation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * Every non-success answer as Problem Details, RFC 9457 (ADR-0010):
- * three kinds, three statuses, the title in the definition's words and
+ * invalid, unknown and refused, the title in the definition's words and
  * the detail saying what did not fit or what was wrong. A refusal is not
  * an invalid request: the first is a valid ask the ledger cannot honour,
  * the second means nothing and moves nothing.
@@ -32,6 +33,11 @@ class DoorProblems {
     @ExceptionHandler(UnknownItem.class)
     ProblemDetail unknown(UnknownItem e) {
         return problem(HttpStatus.NOT_FOUND, "unknown item", e.getMessage());
+    }
+
+    @ExceptionHandler(UnknownReservation.class)
+    ProblemDetail unknown(UnknownReservation e) {
+        return problem(HttpStatus.NOT_FOUND, "unknown reservation", e.getMessage());
     }
 
     @ExceptionHandler(Refused.class)

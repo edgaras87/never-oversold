@@ -42,6 +42,16 @@ public final class Body {
         return UUID.fromString(stringAt(path));
     }
 
+    /**
+     * Whether the body's top-level object names this field at all. Unlike
+     * {@link #has}, a field present as {@code null} counts as named: this
+     * tells absent from empty.
+     */
+    public boolean names(String field) {
+        return json.read("$") instanceof java.util.Map<?, ?> fields && fields.containsKey(field);
+    }
+
+    /** Whether a value stands at the path; a {@code null} reads as no value. */
     public boolean has(String path) {
         try {
             return json.read(path) != null;

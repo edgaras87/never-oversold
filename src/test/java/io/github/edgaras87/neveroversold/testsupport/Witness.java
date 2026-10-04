@@ -76,6 +76,24 @@ public final class Witness {
     }
 
     /**
+     * How a reservation ended, as its receipt says — {@code consumed},
+     * {@code released} or {@code expired} — or {@code null} while it has
+     * none. Read straight from the receipts, never from a reply.
+     */
+    public static String endingOf(UUID reservation) {
+        try (Connection store = connect();
+             PreparedStatement statement = store.prepareStatement(
+                     "SELECT kind FROM reservation_exit WHERE reservation_id = ?")) {
+            statement.setObject(1, reservation);
+            try (ResultSet row = statement.executeQuery()) {
+                return row.next() ? row.getString(1) : null;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("the witness could not be read", e);
+        }
+    }
+
+    /**
      * Reads the witness again and again on its own thread until {@code stop}
      * is set, returning every reading — the storm's every readable state
      * as this reader saw it. A violating reading is a broken promise.
