@@ -94,6 +94,58 @@ public final class Witness {
     }
 
     /**
+     * Every receipt a reservation has, by kind. One at most while the key
+     * stands; a storm run with the key absent shows two here, which is
+     * the broken promise E1 looks for.
+     */
+    public static List<String> receiptsOf(UUID reservation) {
+        try (Connection store = connect();
+             PreparedStatement statement = store.prepareStatement(
+                     "SELECT kind FROM reservation_exit WHERE reservation_id = ? ORDER BY kind")) {
+            statement.setObject(1, reservation);
+            try (ResultSet row = statement.executeQuery()) {
+                List<String> kinds = new ArrayList<>();
+                while (row.next()) {
+                    kinds.add(row.getString(1));
+                }
+                return kinds;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("the witness could not be read", e);
+        }
+    }
+
+    /**
+     * How each reservation of an item ended, one line per receipt (a
+     * reservation with none reads with a {@code null} kind): its units,
+     * and whether the store's ending instant fell before its expiry
+     * instant — both instants the store's own.
+     */
+    public record Ending(UUID reservation, int quantity, String kind, Boolean beforeExpiry) {
+    }
+
+    public static List<Ending> endingsOf(String item) {
+        try (Connection store = connect();
+             PreparedStatement statement = store.prepareStatement("""
+                     SELECT r.id, r.quantity, e.kind, e.ended_at < r.expires_at
+                     FROM reservation r LEFT JOIN reservation_exit e ON e.reservation_id = r.id
+                     WHERE r.item_id = ?
+                     """)) {
+            statement.setString(1, item);
+            try (ResultSet row = statement.executeQuery()) {
+                List<Ending> endings = new ArrayList<>();
+                while (row.next()) {
+                    endings.add(new Ending(row.getObject(1, UUID.class), row.getInt(2), row.getString(3),
+                            (Boolean) row.getObject(4)));
+                }
+                return endings;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("the witness could not be read", e);
+        }
+    }
+
+    /**
      * Reads the witness again and again on its own thread until {@code stop}
      * is set, returning every reading — the storm's every readable state
      * as this reader saw it. A violating reading is a broken promise.
