@@ -14,7 +14,8 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * The reservation ledger's writes: the admit of a reservation, the
- * change of an item's count, and the two exits. The one entry path to
+ * change of an item's count, the two exits, and the tidy that ends
+ * expired holds before each decision. The one entry path to
  * the numbers (SL-1's record, §7): nothing else in the application
  * writes {@code item}, {@code reservation} or {@code reservation_exit},
  * and the application keeps no item state of its own — every instance
@@ -52,9 +53,13 @@ class Ledger {
      * <p>None changed means either the item is unknown or the units do
      * not fit; one read tells which. That read decides nothing about
      * admission — the admission was decided by the store's answer above.
+     *
+     * <p>{@link #tidy} runs first, in the same transaction: the units of
+     * the item's expired holds are free before the admit decides.
      */
     Reservation reserve(ItemId item, Quantity quantity, Hold hold) {
         return transaction.execute(status -> {
+            tidy(item);
             int admitted = jdbc.sql("""
                     UPDATE item
                        SET reserved = reserved + :units
@@ -95,22 +100,66 @@ class Ledger {
      * admit on the same row (G3), and a count that would sit under the
      * units held changes nothing — refused, which is the shape SL-2
      * decided and proved (its record, §3).
+     *
+     * <p>{@link #tidy} runs first, in the same transaction: units held by
+     * expired holds do not stand under the count the operator asserts.
      */
     Item adjust(ItemId item, OnHandCount count) {
-        return transaction.execute(status -> jdbc.sql("""
-                        INSERT INTO item (id, on_hand_count)
-                        VALUES (:id, :count)
-                        ON CONFLICT (id) DO UPDATE SET on_hand_count = EXCLUDED.on_hand_count
-                            WHERE item.reserved <= EXCLUDED.on_hand_count
-                        RETURNING id, on_hand_count, reserved
-                        """)
+        return transaction.execute(status -> {
+            tidy(item);
+            return jdbc.sql("""
+                            INSERT INTO item (id, on_hand_count)
+                            VALUES (:id, :count)
+                            ON CONFLICT (id) DO UPDATE SET on_hand_count = EXCLUDED.on_hand_count
+                                WHERE item.reserved <= EXCLUDED.on_hand_count
+                            RETURNING id, on_hand_count, reserved
+                            """)
+                    .param("id", item.value())
+                    .param("count", count.units())
+                    .query(Item.class)
+                    .optional()
+                    .orElseThrow(() -> new Refused("the on-hand-count of " + item.value()
+                            + " cannot be set to " + count.units()
+                            + ": more units than that are held by reservations"));
+        });
+    }
+
+    /**
+     * Ends by expiry every hold of an item that has run out by the store's
+     * clock and has no receipt yet, and frees its units — the first thing
+     * every decision on the item does (SL-3's record, §3: an expired
+     * hold's units are free from the instant).
+     *
+     * <p>One statement. It writes the {@code expired} receipts, in the
+     * order of their identifiers, then lowers the units held by the
+     * receipts it wrote — its own returned rows — never by a sum it read.
+     * Two decisions meeting the same expired hold race to insert its
+     * receipt: one row is written, and only that statement subtracts
+     * (G5). A consume racing it at the instant is the same race on the
+     * same key (G1). The {@code NOT EXISTS} only skips the holds already
+     * ended; the key, not it, is what makes the freeing once. The store
+     * refuses an expiry receipt before the instant whoever sends it; the
+     * statement's own condition stands in front of that.
+     */
+    private void tidy(ItemId item) {
+        jdbc.sql("""
+                WITH receipt AS (
+                    INSERT INTO reservation_exit (reservation_id, kind)
+                    SELECT r.id, 'expired' FROM reservation r
+                     WHERE r.item_id = :id AND r.expires_at <= now()
+                       AND NOT EXISTS (SELECT 1 FROM reservation_exit e WHERE e.reservation_id = r.id)
+                     ORDER BY r.id
+                    ON CONFLICT (reservation_id) DO NOTHING
+                    RETURNING reservation_id
+                )
+                UPDATE item i
+                   SET reserved = i.reserved - freed.units
+                  FROM (SELECT sum(r.quantity) AS units
+                          FROM receipt e JOIN reservation r ON r.id = e.reservation_id) freed
+                 WHERE i.id = :id AND freed.units IS NOT NULL
+                """)
                 .param("id", item.value())
-                .param("count", count.units())
-                .query(Item.class)
-                .optional()
-                .orElseThrow(() -> new Refused("the on-hand-count of " + item.value()
-                        + " cannot be set to " + count.units()
-                        + ": more units than that are held by reservations")));
+                .update();
     }
 
     /**
