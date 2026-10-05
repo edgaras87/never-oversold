@@ -232,6 +232,42 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
+     * E4 · G3 — kill 19, nothing ends a hold early.
+     *
+     * <p>R holds 3 for three seconds, S holds 5. A second in, with two
+     * left by the store's clock, a reserve for 2 on the same item tidies
+     * first — and R, still ahead of its instant, is not among what it
+     * ends: R has no receipt, 10 held. Then R's consume is answered as
+     * any consume on an active hold: 7 on hand, S's 5 and the new 2 held,
+     * R ended by consume. This fails if anything ends a hold ahead of its
+     * instant — in bulk, by rounding, or by a clock running ahead.
+     */
+    @Test
+    void aHoldStillAheadByTheStoresClockIsConsumable() throws InterruptedException {
+        String item = newItem(10);
+        UUID r = Body.of(reserve(item, 3, "PT3S").getBody()).uuidAt("$.id");
+        reserve(item, 5, "PT15M");
+        Thread.sleep(1_000);   // R has two seconds left, by the store's clock
+
+        ResponseEntity<String> beside = tryReserve(item, 2, "PT15M");
+        Witness.Numbers between = Witness.read(item);
+        assertThat(Witness.endingOf(r)).as("the tidy left R alone, still ahead of its instant").isNull();
+        assertThat(between.held()).as("R's 3, S's 5 and the new 2: %s", between).isEqualTo(10);
+        assertThat(beside.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+
+        ResponseEntity<String> answer = consume(r);
+
+        Witness.Numbers after = Witness.read(item);
+        assertThat(after.holds()).as("the invariant: %s", after).isTrue();
+        assertThat(after.onHandCount()).as("R's 3 left the shelf: %s", after).isEqualTo(7);
+        assertThat(after.held()).as("S's 5 and the new 2: %s", after).isEqualTo(7);
+        assertThat(Witness.endingOf(r)).isEqualTo("consumed");
+
+        assertThat(answer.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(Body.of(answer.getBody()).stringAt("$.endedBy")).isEqualTo("consume");
+    }
+
+    /**
      * E3 · G2 — a consume after expiry is refused; the expiry it met is
      * recorded.
      *
