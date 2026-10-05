@@ -12,10 +12,13 @@ out, its units free from that instant. Every ending writes one
 receipt, and the store refuses a second receipt, a changed or
 deleted one, an expiry receipt written early, and a consume or
 release receipt written late. The arithmetic stays in the
-application's statements, on the one entry path.
+application's statements, on the one entry path, and the store
+checks at every commit that an item's units held equal what its
+reservations with no receipt hold.
 
 What the repo gains: migration V2 (the receipts table, its key, its
-reference, its kind check, the guard trigger); the two exit doors
+reference, its kind check, the guard trigger); migration V3 (the
+check on the units held); the two exit doors
 and the ledger's `consume` and `release`; tidy, run first by
 reserve and adjust; evidence E1–E7, each seen red with its wall
 absent and then green unchanged; SL-1's and SL-2's evidence green
@@ -85,7 +88,25 @@ is confirmed to reach the new paths. Red by planting the violation
 each rule forbids. May fold into earlier steps if a rule turns out
 to belong beside the code it guards; a revision says so.
 
-**7. `docs: records catch up on SL-3`**
+**7. `feat: check the units held in the store`** *(added by
+revision, 2026-10-05)*
+V3: one function and its constraint trigger on `item`,
+`reservation` and `reservation_exit`, deferred to the commit,
+refusing any transaction that leaves an item's `reserved` unequal
+to the units of its reservations with no receipt (§8, G6, revised
+2026-10-05). With it: the catalog test names the three triggers,
+enabled; the store's refusals shown directly as `runtime` — a
+number lowered without a receipt, a receipt without its move, the
+units held set by hand, a hold added or deleted without its units —
+and a receipt with its move taken; the tests that write rows by
+hand (`ReceiptGuardIT`'s helpers, `MigrationPathIT`'s runtime-writes
+test) keeping the units held in step. Each refusal red with V3's
+triggers dropped on the working tree. All evidence green unchanged
+— E1–E7, SL-1's and SL-2's — and, with commit 5's naive tidy
+planted, the store refusing the double free that the
+never-oversold constraint let through.
+
+**8. `docs: records catch up on SL-3`**
 The slice record's evidence as delivered, standing guards and its
 sign-off line; the registry closing SL-3 by a dated revision entry,
 re-deciding the ordering, and handing SL-4 consume's two moves held
@@ -95,9 +116,16 @@ them; CHANGELOG and the version's move; ARCHITECTURE's new table
 and trigger; the devlog with every red and green from actual
 output; TODO's Step 7 items closed or moved; PLAN's evidence,
 deviations, Stage 4 and records items ticked. A sweep for
-"SL-3" in live text that still speaks of it as future.
+"SL-3" in live text that still speaks of it as future. Added by
+revision, 2026-10-05: the evidence-test conventions as a rule
+exposed to every test (`.claude/rules/`, paths `src/test/**`), with
+its decisions entry; TODO's known issue on E7 rewritten now that
+the store holds the line; ARCHITECTURE and the infrastructure
+contract naming the check on the units held where they list the
+store's refusals; the operator manual if the ground's rows need a
+reset before V3.
 
-**8. `docs(agent): close the commit plan for SL-3's build`**
+**9. `docs(agent): close the commit plan for SL-3's build`**
 Deletes this file.
 
 ## Decisions taken inside this plan
@@ -126,3 +154,23 @@ Deletes this file.
 - **No commit reaches outside the plan.** If the build needs a
   change to §8 — a wall that does not hold as planned — the work
   stops, §8 is revised with the reviewer, and then this file.
+
+## Revisions
+
+- **2026-10-05 — a seventh step of work: the store's check on the
+  units held.** Forced at commit 6's review: E7 reads the
+  application's SQL as text, and a writer outside the application
+  passes it. §8 was revised first, on the reviewer's word
+  (`7c8cb83`); this file follows. The records step and the close
+  move to 8 and 9. Folded into the records step, decided earlier at
+  commit 3's review: the evidence-test conventions as an exposed
+  rule. Lived so far, for the close: commit 3's planned red, the
+  naive read-then-insert, cannot show in sequential tests and moved
+  to commit 4; commit 3 gained a simple late-consume test; the
+  specification's §5 says the naive version lands first and the
+  wall is its own diff, against this plan's working-tree reds —
+  this plan's choice stands, and the skill allows either; commit 5
+  gained a tidy × consume race, on the reviewer's word, and a
+  correction tripwire beside the reserve's, and that race's red
+  needed its window widened; commit 6 landed unfolded, E7 reading
+  source, as Java 21 has no class-file reader.
