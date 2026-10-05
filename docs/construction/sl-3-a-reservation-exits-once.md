@@ -518,11 +518,13 @@ store's clock.
 receipt. The consume's lands; the release's returns no row. The
 item reads 7 on hand and 5 held.
 
-*If the wall were ever wrong:* nothing sound stands behind it. A
-release taking R's 3 a second time lowers `reserved` below the real
-holds, and `item_never_oversold` cannot see that — it compares the
-two stored numbers, not the reservations. That is why the key is
-the wall and not the check.
+*If the wall were ever wrong:* the store's check on the units held
+(G6, revised 2026-10-05). A release taking R's 3 a second time
+lowers `reserved` below what the reservations with no receipt hold,
+and the check refuses that transaction at its commit.
+`item_never_oversold` alone cannot see it — it compares the two
+stored numbers, not the reservations. That is why the key is the
+wall, and the check on the units held what stands behind it.
 
 ---
 
@@ -603,26 +605,41 @@ attack exactly.
 writes R's receipt and takes 3 off; the other finds the key taken
 and takes nothing. 5 held, one reserve admitted, one refused.
 
-*If the wall were ever wrong:* `item_never_oversold` refuses the
-over-held row the second reserve would make.
+*If the wall were ever wrong:* the store's check on the units held
+(G6, revised 2026-10-05). A tidy that subtracted a sum it read
+leaves `reserved` below what the open reservations hold, and its
+transaction is refused at commit. This block first named
+`item_never_oversold` here, and the build showed it does not hold:
+with reserves smaller than the units freed twice, the second free
+and its admit keep `reserved` within the count while more is held —
+seen red as 16 units actively held against 10 on hand.
 
 ---
 
 **G6. Every way a reservation ends faces these rules.**
 
 *The wall:* the trigger, which refuses any change or deletion of a
-receipt by every identity short of the superuser; and a structural
-test that `reservation_exit` and `reserved` have one writing path,
-in the spirit of SL-2's E5.
+receipt by every identity short of the superuser; and the check on
+the units held (revised 2026-10-05): at the commit of every
+transaction that touches an item, its reservations or their
+receipts, the store compares the item's `reserved` with the units
+of its reservations that have no receipt, and refuses the
+transaction if they differ. In front of it, a structural test that
+`reservation_exit` and `reserved` have one writing path, in the
+spirit of SL-2's E5 — a tripwire that fails at build time.
 
 *Why it beats this attack:* the cleanup script of §4 cannot delete
 R's receipt — the store refuses it, whoever runs it — so R cannot
-look active again, and a second receipt cannot be added either.
+look active again, and a second receipt cannot be added either. Nor
+can it give back R's units by hand: lowering `reserved` with no
+receipt leaves the units held below what the open reservations
+hold, and the store refuses it at commit.
 *Say:* a script deleting receipts older than a day meets an error on
-the first row.
+the first row. A script setting R's 3 free without a receipt meets
+"the units held read 5, its reservations with no receipt hold 8".
 
 Every guarantee has one owner, and each owner is the store's: the
-key, the trigger, the check. The paths are the application's, and
+key, the triggers, the checks. The paths are the application's, and
 the walls behind them are not.
 
 ### The faces chosen, and the ones not
@@ -743,6 +760,54 @@ not compute.
 
 ---
 
+**G6 — what refuses the numbers moving without a receipt** *(added
+2026-10-05, during the build)*
+
+**The store checks the units held against the open reservations** —
+*chosen 2026-10-05*
+
+*How it holds G6:* a constraint trigger on `item`, `reservation` and
+`reservation_exit`, deferred to the commit, compares each touched
+item's `reserved` with the units of its reservations that have no
+receipt. A number moved without its receipt, a receipt written
+without its move, a count of units held set by hand, a hold added or
+deleted without its units — each leaves the two unequal, and the
+transaction is refused, whoever sends it. Deferred, because an exit
+writes its receipt before it moves the item row, and only the
+finished transaction is judged.
+
+*Cost:* every commit that touches an item re-reads that item's
+reservations, and receipts are kept forever (W6 sees the growth).
+Tests and scripts that write rows by hand must keep the two in step,
+as the ledger does. The arithmetic stays in the application; the
+store only refuses.
+
+---
+
+**The structural test alone** — *as signed on 2026-10-03*
+
+*How it holds G6:* nothing in the application lowers a number
+without its receipt.
+
+*Why not, on revision:* it reads the application's SQL as text. A
+script outside the application, or a statement assembled at
+runtime, passes it — the attack §4 names. Kept as a tripwire in
+front of the check.
+
+---
+
+**The exits as functions, and `runtime` losing its direct writes**
+
+*How it holds G6:* the grant system refuses every write but the
+functions'.
+
+*Why not:* it rewrites the infrastructure contract's term 4, and
+moves SL-1's and SL-2's proven statements into the store with
+SL-3's. The check holds the same line for the numbers without
+touching the ground.
+
+---
+
 ### Escape hatches hunted, afresh
 
 - **A migration writing receipts or rows.** The rule from SL-1
@@ -751,16 +816,18 @@ not compute.
   too.
 - **The superuser, or `migrator`, disabling the trigger.** Both
   can. The catalog test (`MigrationPathIT`) gains the trigger, the
-  key and the reference, so an evidence run on a store without them
-  fails before any storm could pass around their absence.
+  key and the reference — and, revised 2026-10-05, the check on the
+  units held — so an evidence run on a store without them fails
+  before any storm could pass around their absence.
 - **Deleting a reservation.** One with a receipt cannot be deleted —
-  the receipt's reference stops it. One without a receipt can, by a
-  script as `runtime`; its units then stay in `reserved` forever, the
-  safe direction. Not closed: W6 leaves retention outside, and the
-  witness would show the gap.
-- **`reserved` set by hand.** The check refuses it above the count;
-  below the real holds is SL-1's drift case, and the witness
-  recomputes the active sum from the rows on every read.
+  the receipt's reference stops it. One without a receipt can be
+  deleted only in the same transaction as its units leave
+  `reserved`; alone, the check on the units held refuses it
+  (revised 2026-10-05 — signed as open, the safe direction).
+- **`reserved` set by hand.** `item_never_oversold` refuses it above
+  the count; the check on the units held refuses any value but the
+  units the open reservations hold (revised 2026-10-05 — signed as
+  SL-1's drift case, seen only by the witness).
 - **A new path that skips tidy.** It sees expired holds as held — the
   safe direction, a W3 cost. The structural test names every writer
   of `reserved`.
@@ -774,14 +841,18 @@ not compute.
   the definition's terms, `endedBy` and `endedAt`, absent while it
   is active.
 - **The store:** V2 — the receipts table, its key, its reference,
-  its kind check, the trigger. No index beyond the key: nothing here
-  needs one at the scale of the evidence.
+  its kind check, the trigger. V3 (revised 2026-10-05) — the check on
+  the units held, one function and its deferred constraint trigger
+  on `item`, `reservation` and `reservation_exit`. No index beyond
+  the key: nothing here needs one at the scale of the evidence.
 - **The ledger:** `consume` and `release`; tidy, called first by
   `reserve` and `adjust`. One new problem, an unknown reservation
   (`404`); the refusal (`409`) is SL-1's, reused.
 - **Under test:** the witness reads *active* with receipts; the
   evidence for E1–E7; the catalog test's new names; the structural
-  test's new writer rules.
+  test's new writer rules; the check on the units held, shown
+  refusing directly as `runtime`, and the tests that write rows by
+  hand keeping the units held in step.
 - **Not added:** a list of reservations (§3, backlog), a sweep, a
   read endpoint, an index.
 
@@ -802,6 +873,16 @@ not compute.
   (SL-1's clock, SL-2's ordering) appears once more only as SL-1's
   clock test, reused.
 
+- **§8 revised during the build, 2026-10-05.** G6's guard for the
+  numbers was signed as the structural test alone; the build showed
+  it reads text, and a writer outside the application passes it. G6
+  gains the store's check on the units held, in V3, and the
+  structural test stays as a tripwire in front of it. G1's and G5's
+  "if the wall were ever wrong" now name the check; G5's first
+  answer, `item_never_oversold`, was seen not to hold. The faces
+  signed on 2026-10-03 stand — the arithmetic in the application,
+  triggers that refuse and never compute.
+
 ## §9 Sign-offs
 
 <!-- Dated lines, the reviewer's: the specification before the plan,
@@ -812,3 +893,6 @@ not compute.
 - 2026-10-03 — the plan (§8) signed by the reviewer, its four face
   choices taken: a receipt per reservation, tidy first, a trigger
   that refuses, the arithmetic in the application's statement.
+- 2026-10-05 — §8 revised by the reviewer: the store checks the
+  units held against the open reservations (G6), the arithmetic
+  staying in the application.
