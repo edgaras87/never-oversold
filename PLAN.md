@@ -758,11 +758,11 @@ Gate:
       paths, scripts, migrations; the surface at its minimum,
       nothing entering that a guarantee does not need. No unowned
       guarantee. Signed off by the reviewer before code.
-- [ ] Stage 3 ran as a commit plan, the boundary shown at every
+- [x] Stage 3 ran as a commit plan, the boundary shown at every
       commit and committed on the reviewer's word; each commit
       verified before it landed, a failed verification reported,
       never committed.
-- [ ] The evidence: for every guarantee a test that creates its
+- [x] The evidence: for every guarantee a test that creates its
       adversity through the real door and reads the witness from
       the store — the retried consume (F3), consume racing release
       and two consumes (F4), consume racing expiry (F23), the late
@@ -772,34 +772,38 @@ Gate:
       decided face rather than the promise says on itself that it
       is a tripwire, and discharges no kill; all under
       `./mvnw test`. A green happy path closes nothing.
-- [ ] Every deviation from the spec, the plan or the skill is in
+- [x] Every deviation from the spec, the plan or the skill is in
       the devlog with what was done instead and why; a guarantee
       found in flight enters the spec with this slice as its
       provenance.
-- [ ] Stage 4: the spec document closes as invariant → guarantees →
+- [x] Stage 4: the spec document closes as invariant → guarantees →
       owner → evidence, readable by a stranger; the registry flips
       SL-3 to `closed (date, evidence)` by a dated revision entry
       and re-decides the ordering with its reason, naming what this
       slice leaves provisional and what it hands to SL-4 by name —
       an exit's identity, which SL-4 presumes; the standing guards
       named at close.
-- [ ] Records: CHANGELOG carries what a user can now see, the
+- [x] Records: CHANGELOG carries what a user can now see, the
       version's move decided here; README true for the exits as a
       stranger meets them; ARCHITECTURE shows the walls this slice
       adds; the devlog carries the walk, the red and the green from
       actual output, the exit; TODO's Step 7 items close here or
       move by name; one line under *To the deliverer* per copy
       edited in place, or a line saying none was.
-- [ ] `temp/` is checked for shapes delivered for this step, and
+- [x] `temp/` is checked for shapes delivered for this step, and
       what was found is said in a line — including that nothing
-      was.
-- [ ] SL-3's record is read against `.claude/shapes/slice-record.md`.
-- [ ] Every difference that reading found is settled: the shape was
+      was. Nothing was: it holds one file, the reviewer's own draft
+      for the review after this slice, and no shape.
+- [x] SL-3's record is read against `.claude/shapes/slice-record.md`.
+- [x] SL-3's evidence tests are read against
+      `.claude/rules/evidence-test.md` — added at the close: the
+      shape was written in this step, from these tests among others.
+- [ ] Every difference those readings found is settled: the shape was
       wrong here, the output drifted, or each had something.
 - [ ] Every commit on `step-7-sl-3` follows commit-messages.
-- [ ] No commit straddles agent and project paths, so the
+- [x] No commit straddles agent and project paths, so the
       arrangement's history stays separable from the project's.
-- [ ] No implementation file is older than the decision it
+- [x] No implementation file is older than the decision it
       realizes: the log reads decision, then code.
 - [ ] The step reached main by fast-forward from `step-7-sl-3`, on
       the reviewer's word.
@@ -809,6 +813,24 @@ presumed — the reservations being exited were admitted truly — and
 so is its counter, which still counts an expired hold until an exit
 ends it. SL-2 hands over one question by name: an operator who has
 counted fewer units than are held has no recourse today.
+
+Closed 2026-10-07. Consume, release and expiry built, each ending a
+reservation by one receipt the store keeps once and guards; tidy
+first in every decision, so an expired hold's units are free from
+its instant; and, by revision at the build, the store checking at
+every commit that the units held equal the unreceipted
+reservations' units. Twelve steps at the close against eight at
+the opening, the plan revised three times — V3, after E7 was seen
+to read text and G5's backstop was seen not to hold, with §8
+revised before it; E7 made to parse the statements it checks; the
+records step split by path. 81 tests from 39, every wall seen red
+from actual output — the witness reading 16 actively held against
+10 on hand with tidy freeing by a sum it read, `onHandCount=4,
+held=2, activeSum=5` with the key removed. The ground migrated to
+V3 and exited against for real. The first red was worthless again,
+as SL-2's had been; the lesson is now a shape in front of every
+test. Version 0.3. Two subjects run past 50 characters (`e1e1bf0`,
+`ea86757`); the commit-messages item waits on the reviewer.
 
 ## Steps 8..N-1: Invariant slices  (cbc-slice, one step per stage)
 

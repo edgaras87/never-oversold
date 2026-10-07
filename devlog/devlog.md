@@ -6,6 +6,117 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-03 → 2026-10-07  (Step 7: SL-3 built and closed)
+
+- The build ran as a commit plan on `step-7-sl-3`: eight steps at
+  the opening, six of work and two of bookkeeping; three revisions,
+  and §8 itself revised once; twelve steps at the close. 39 tests
+  at the branch point, 81 at the close; every one green, SL-1's and
+  SL-2's unchanged beside SL-3's.
+- What it built. V2: one receipt per ended reservation, its key the
+  slice's main wall, its guard refusing a changed, deleted, early or
+  late receipt and stamping the instant itself. The two doors,
+  consume and release, each one statement that writes the receipt
+  and moves the numbers only for a receipt it wrote. Tidy, run first
+  by reserve and adjust, freeing exactly the receipts it wrote. V3,
+  added by revision: the store checks at every commit that an item's
+  units held equal what its unreceipted reservations hold.
+- The reds, from actual output; the full list with the messages is
+  the record's §9. The key and `ON CONFLICT` removed: fifty racing
+  consumes read `onHandCount=4, held=2, activeSum=5`, R's 3 off the
+  shelf twice. Tidy subtracting a sum it read: `Numbers[onHandCount=10,
+  held=10, activeSum=16, reservations=13]`, eleven admitted where
+  five fit. Kill 11 in full with the walls out: 10 on hand, 7 held,
+  10 active. The guard's late check out: twenty of forty holds
+  consumed after their instant. E7's planted violations each named
+  by its rule; SL-1's clock rule named `Ledger.tidy` when
+  `OffsetDateTime.now()` was planted there.
+- DEAD END: the first red of the build was worthless, again. Key
+  removed, four sequential tests failed on `500`s — the answer's
+  read met two receipts, threw, and rolled the double move back.
+  SL-2's devlog had this exact lesson, "the order of assertions is
+  part of the evidence". It was in a record nobody opens while
+  writing a test. Redone with the read taking one row; the reds
+  carried the numbers. Taken up on 2026-10-03 as a shape for
+  evidence tests, written and exposed at the close (decisions log,
+  2026-10-07).
+- The finding that changed the plan. E6's red showed G5's backstop
+  wrong: `item_never_oversold` stayed satisfied while 16 units were
+  actively held against 10 on hand — the counter drifted from the
+  rows, and the constraint compares only the two stored numbers.
+  Then E7, signed as G6's guard for the numbers, was seen at its
+  own review to read text that a script outside the application
+  never passes through. The reviewer asked whether the store could
+  refuse the numbers moving without a receipt as it already refused
+  a changed receipt. It could: §8 revised first (7c8cb83), the plan
+  next (cc0e5e3), then V3 (81dbef2). With commit 5's naive tidy
+  planted again, the store refused the double frees 38 and 6 times
+  and the invariant held in every reading.
+- The review at V3 found its reservation-update branch untested;
+  two tests added, the move one rewritten after its first red
+  failed only on a message — the store still refused, on the other
+  item. And E7 rewritten to read SQL (JSqlParser, test scope), a
+  third rule refusing SQL outside text blocks so every statement is
+  read; the ledger's one plain-string read became a text block.
+- Deviations from the plan, for the close. Commit 3's planned red,
+  the naive check-then-insert, cannot show one request at a time;
+  it moved to commit 4's storms. Commit 3 gained a late-consume test
+  when kill 11's harm turned out to need a new hold on the expired
+  units. Commit 5 gained, on the reviewer's word, a race of tidy
+  against consume at the instant, and a correction tripwire beside
+  the reserve's; that race's red hit only `[expired, expired]` until
+  a 50 ms pause in consume, on the red tree only, held the window
+  open — recorded as such. E4's first red was refused by the guard,
+  not a red; the second removed the guard's early check too. §5's
+  sentence that the naive wall lands first stands against the
+  plan's working-tree reds; the skill allows either. Three plan
+  revisions: V3; E7 read as SQL; the records step split, since it
+  carried agent paths beside project ones.
+- The questions this slice raised and did not answer, all in TODO
+  for a review before SL-4's plan: where a rule's responsibility
+  lives, store or application; what scale a decision assumes, with
+  `reservation(item_id)` unindexed and V3's cost unmeasured; who
+  may write the store at all — reservations write-once as the
+  concrete case, since a hold deleted with its units still passes
+  every wall; and, to the deliverer, whether a rule could arrive on
+  trial the way a shape can.
+- The scratchpad notes holding every red were lost to a cleared
+  `/tmp` on 2026-10-06; rebuilt from the session's transcript, where
+  each was written from the tool's output at the time.
+- The ground, 2026-10-07: verified both ways, the rows read before
+  V3 (none out of step), dumped, migrated to V3. Real exits through
+  the door against it, and two script writes as `runtime` refused:
+  "the units held read 0, its reservations with no receipt hold 7",
+  "a receipt is never deleted". The operator manual carries the
+  before-V3 check.
+- Version 0.3, three of four invariants evidence-closed. The
+  registry re-decided the ordering and kept it: SL-4 next and last,
+  its walls standing already, its adversity — death mid-work,
+  unknown outcomes — the one no harness has created yet.
+- Resume: Step 7's gate is closed but for its branch item, ticked on
+  the reviewer's word to merge. Then the review under TODO's Next,
+  before or beside Step 8's opening, as the reviewer sets.
+
+## 2026-10-02 → 2026-10-03  (Step 7: SL-3 specified and planned)
+
+- Written at the close from the commits and the record; the
+  sessions left no entry of their own.
+- 2026-10-02: the three questions the gate put before the
+  specification, decided by the reviewer. A repeated exit answers as
+  the first (ADR-0013). An expired hold's units are free from its
+  instant, not eventually — which paid SL-1's over-counting and
+  SL-2's conservative refusals, at the price of changing what their
+  decisions read. No operator-side exit: release asks no identity,
+  and an exit that chose whose hold ends was SL-2's rejected policy
+  again. The specification signed the same day: six guarantees by
+  attack, the seventh to tenth answers SL-4's, the caller's view,
+  W5 and V5; FC2 folded in; no flag, said why.
+- 2026-10-03: the plan, four faces put to the reviewer and decided —
+  a receipt per reservation over an ended mark; tidy first over no
+  stored counter; a trigger refusing changed receipts over revoked
+  grants or code alone; the arithmetic in the application's
+  statement over a trigger that computes. Signed before code.
+
 ## 2026-10-02  (Step 7 opens: SL-3, Stage 0)
 
 - The bundle's delivery @ a3b6b8c was taken first (fa9a402), on the

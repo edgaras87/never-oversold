@@ -883,7 +883,221 @@ touching the ground.
   signed on 2026-10-03 stand — the arithmetic in the application,
   triggers that refuse and never compute.
 
-## §9 Sign-offs
+## §9 Evidence — as delivered
+
+All of it under `./mvnw test`: 81 tests, 0 failures, nothing
+exported, the ground not required up — 39 at the branch point. The
+witness is read from the store as `runtime`, from outside every
+instance, first in every test and sampled while the storms run; the
+door's answer is checked after it.
+
+| Criterion | Test | The adversity it creates |
+|---|---|---|
+| E1 · G1 | `ExitStormIT.racingConsumesEndAReservationOnce` | fifty consumes on R held at a line and released at one instant (F4, kill 13) |
+| E1 · G1 | `ExitStormIT.racingConsumesAndReleasesEndAReservationOnce` | twenty-five consumes and twenty-five releases on R, interleaved, at one instant (F4, kill 14) |
+| E1 · G1 | `ExitStormIT.racingExitsAcrossInstancesEndAReservationOnce` | sixty exits split across three instances, each its own process (F17) |
+| E2 · G1 | `ExitStormIT.consumesAroundTheExpiryInstantEndEachHoldOnce` | forty one-second holds, each consumed at its own expiry instant ± 0.1 s (F23, kill 14) |
+| E2 · G1 | `ExitStormIT.consumesAndTidiesAroundTheExpiryInstantEndEachHoldOnce` | the same, with a reserve beside each consume whose tidy meets the same hold |
+| E3 · G2 | `ExitDoorIT.theSameConsumeTwiceMovesOnce`, `theSameReleaseTwiceMovesOnce` | the same exit sent twice at the same door (F3, kill 12, 16's retry half) |
+| E3 · G2 | `ExitDoorIT.aReleaseAfterAConsumeIsRefusedAndMovesNothing`, `aConsumeAfterAReleaseIsRefusedAndMovesNothing` | a different exit after the first (F5) |
+| E3 · G2 | `ExitDoorIT.aConsumeAfterExpiryIsRefusedAndTheExpiryRecorded` | a consume after R's hold ran out (F5) |
+| E3 · G2 | `ExitDoorIT.aLateConsumeIsRefusedAfterANewHoldTookItsUnits` | kill 11 in full: R expires, T takes its units, R's consume arrives late |
+| E4 · G3 | `ExitDoorIT.aHoldStillAheadByTheStoresClockIsConsumable` | a tidy meeting R with two of its three seconds left (F24) |
+| E4 · G3 | `NoInstanceStateOrClockTest.theLedgerConsultsNoProcessClock` | SL-1's rule, the code read: no process clock anywhere, tidy and the exits included |
+| E5 · G4 | `ExitDoorIT.aConsumeMovesExactlyItsReservationsUnits`, `aReleaseFreesExactlyItsReservationsUnits` | R's 3 consumed, and released, beside S's 5 |
+| E5 · G4 | `ExitDoorIT.anExitTakesNoAmountFromTheRequest` | a consume sent with a quantity in its body (F7, FC2) |
+| E5 · G4 | `ExitDoorIT.anExitOnAnUnknownReservationIsUnknownAndMovesNothing` | an exit naming a reservation that does not exist (F6) |
+| E6 · G5 | `ExitStormIT.racingReservesFreeAnExpiredHoldOnce` | fifty reserves at one instant, each one's tidy meeting R just expired |
+| E7 · G6 | `NoSecondWayOutTest.receiptsAndTheUnitsHeldAreWrittenByTheLedgerAlone` | the code read: no writer of receipts or of `reserved` outside the ledger |
+| E7 · G6 | `NoSecondWayOutTest.theLedgersSqlIsWrittenAsTextBlocks` | the code read: no SQL in the ledger the next rule would not see |
+| E7 · G6 | `NoSecondWayOutTest.numbersFallOnlyByTheReceiptsTheSameStatementWrote` | the code parsed: every exit's statement by its parts |
+
+Beside them, and not evidence, each saying so on itself:
+`ExitDoorIT.aReserveAfterTheInstantFindsTheExpiredUnitsFree` and
+`aCorrectionAfterTheInstantFindsTheExpiredUnitsFree`, tripwires on
+§3's choice; `anActiveReservationCarriesNoEnding`, a tripwire on the
+answer's shape; `anExitNamingNoReservationIsInvalid`, SL-1's nonsense
+rule reaching the new doors. And the walls' own checks, straight
+against the store as `runtime`: `ReceiptGuardIT` (seven, the guard,
+the key and the reference refusing, and the store setting the ending
+instant), `UnitsHeldCheckIT` (nine, the check on the units held
+refusing and taking), and `MigrationPathIT`'s catalog
+tests naming the key, the reference, the guard and the three
+triggers.
+
+SL-1's and SL-2's evidence ran green unchanged beside all of it,
+with tidy in the reserve and the correction.
+
+**On the real ground,** 2026-10-07: rows read first, none out of
+step; the ground dumped; V2 and V3 applied by Flyway as `migrator`;
+the walls read from its catalog. Through the door: R's 3 consumed (7
+on hand, 5 held), the same consume again `200` and nothing moved, a
+release after it `409`, S released (0 held), an unknown reservation
+`404`, a one-second hold run out and its 7 units taken by the next
+reserve, its late consume `409`. As `runtime`, a script lowering the
+units held met "the units held read 0, its reservations with no
+receipt hold 7", and one deleting a receipt met "a receipt is never
+deleted".
+
+### Red before green, from actual output
+
+Every wall was made absent on the working tree for one run and
+restored; none landed in history. Where the wall is a rule over the
+code, the violation it forbids was planted.
+
+- **E1, the key and every `ON CONFLICT` removed,** the exit reading
+  its receipt by a naive check then insert: fifty consumes read
+  `onHandCount=4, held=2, activeSum=5` — R's 3 off the shelf twice,
+  the invariant broken; mixed, 7 on hand, 2 held, 5 active; across
+  three instances, 4, 2, 5.
+- **E2,** with the guard's late check and the consume's
+  `expires_at > now()` both removed: every one of forty holds
+  consumed, twenty after their instant by the store's clock.
+- **E2 with tidy,** the key removed: red three times out of three
+  (81 on hand, 36 held, 40 active, and the like), but every double
+  ending was `[expired, expired]`. The interleaving the test is named
+  for — a consume uncommitted across the instant — is a window of a
+  few milliseconds; held open on the red tree only, by a 50 ms pause
+  in the consume's transaction, it showed `[consumed, expired]`
+  twice out of two.
+- **E3,** the key removed: consume twice read 4 on hand, 2 held, 5
+  active; release twice 10 and 2; release after consume 7 and 2.
+  Kill 11 in full, the key and the conflict clauses removed: 10 on
+  hand, 7 held, 10 active — the late consume's fallback wrote a
+  second `expired` receipt and freed R's 3 again.
+- **E4,** tidy's condition loosened to five seconds ahead: the guard
+  refused the early receipt, and the reserve that ran tidy answered
+  `500` — the wall held, so that was no red. With the guard's early
+  check removed as well: *the tidy left R alone … expected: null but
+  was: "expired"*. SL-1's clock rule, `OffsetDateTime.now()` planted
+  in tidy: *Method `Ledger.tidy(ItemId)` calls method
+  `java.time.OffsetDateTime.now()`*.
+- **E5,** the consume made to take its amount from an optional body:
+  9 on hand and 7 held, where 7 and 5 were owed.
+- **E6,** tidy subtracting a sum it read rather than the receipts it
+  wrote: *the invariant: Numbers[onHandCount=10, held=10,
+  activeSum=16, reservations=13]* — eleven reserves admitted where
+  five fit, and `item_never_oversold` silent (below).
+- **E7,** each rule's violation planted. A receipt writer in the
+  controller: writers `[ReservationController.java, Ledger.java]`
+  where only the ledger is allowed. A force release in the ledger,
+  in a text block: *one WITH, writing the receipts: UPDATE item SET
+  reserved = reserved - :units WHERE id = :id*; in a plain string:
+  *Expecting empty but was: ["UPDATE item SET reserved = reserved -
+  :units WHERE id = :id"]*. A bare receipt: *an exit moves the item
+  row*. A consume moving by its reservation, not by its receipt:
+  *Expecting HashSet ["reservation"] to contain ["receipt"]*. Green,
+  as it must be, under a reformat of the consume, lower case and its
+  `WITH` renamed.
+- **The tripwires.** Tidy out of the reserve: *S's 5 and the new 5,
+  R's 3 freed … expected 10 but was 8*. Tidy out of the correction:
+  *the count the operator asserted … expected 5 but was 10*. The
+  `@JsonInclude` on the answer removed: *absent, not null*.
+- **The walls' own checks.** The guard dropped from V2: five of
+  seven refusals red, and the catalog test empty; the key dropped:
+  the second receipt taken; the reference dropped: an ended
+  reservation deleted. V3's three triggers dropped: every refusal
+  red, *Expecting code to raise a throwable*, the two that are
+  taken still green; the trigger on `reservation` alone dropped:
+  the four that add, resize, move and delete a hold.
+- **The check on the units held, behind the walls.** With V3
+  standing and E6's naive tidy planted again, the invariant held in
+  every reading — `held` equal to `activeSum`, 23 of 23 and 37 of 37
+  — the store refusing the double frees at commit, 38 and 6 times,
+  each a `500` at the door.
+
+All green, unchanged, with every wall standing: three runs at
+commit 7, the full suite again at commit 8 and before this close —
+81 tests.
+
+### What the build found that the specification had not
+
+- **G5's first "if the wall were ever wrong" did not hold.** It named
+  `item_never_oversold`. E6's red showed why not: with reserves
+  smaller than the units freed twice, the second free and its admit
+  keep `reserved` within the count while more is held — 16 actively
+  held against 10 on hand, the constraint satisfied throughout. The
+  constraint compares two stored numbers; the drift was between a
+  stored number and the rows.
+- **G6's guard for the numbers read text.** Signed as the structural
+  test alone, it was shown at its own commit's review to pass any
+  writer outside the application. §8 was revised on 2026-10-05: the
+  store checks the units held at every commit (V3), and the test
+  stays as the tripwire in front of it. The same check stands behind
+  G1 and G5. Then, on 2026-10-07, the test itself was made to read
+  the statements it checks rather than their spelling — parsed, each
+  exit checked by its parts — and a third rule keeps every statement
+  where the parser reads it.
+- **The first red of the build was worthless, as SL-2's was.** The
+  key removed, the four sequential tests failed — on `500`s: the
+  answer's read found two receipts, threw, and rolled the double move
+  back. The red proved the test reads status codes. Redone with the
+  read taking one row, the reds carried the numbers above. SL-2's
+  record had this lesson; it was not in front of the writer. It now
+  is, as a shape exposed to every test (decisions log, 2026-10-07).
+- **The planned red for E3 could not show sequentially.** A naive
+  check-then-insert is only wrong when two exits interleave, which
+  one request at a time never does; that red moved to E1's storms.
+- **Kill 11 needed its full form.** A consume after expiry, alone,
+  left the invariant holding even with its walls removed — no one
+  else had taken the units. The harm needs a new hold on them first;
+  that test was added.
+- **A tripwire at the correction.** The plan named the reserve's
+  only; without one at the correction, tidy's call in adjust had no
+  red.
+- **One branch of the check had no test.** A reservation updated —
+  resized, or moved to another item with its units carried — was
+  refused by V3 and shown by nothing; two tests were added, the move
+  one rewritten until only the item the hold left could refuse it.
+  The check's branch for a deleted receipt cannot be reached while
+  the guard stands, which refuses the delete first.
+- **What stays open past every wall.** `runtime` may update and
+  delete reservation rows, which the ledger never does. An open hold
+  deleted with its units in one transaction passes the check — the
+  numbers agree — and leaves no receipt; §8's escape hatches signed
+  it as the safe direction. Moving a hold's expiry is not refused.
+  Neither can oversell. Making reservations write-once is a question
+  for the review after this slice, with who may write the store at
+  all (TODO).
+- **§5 against the plan.** §5 says that where this slice births a
+  wall, the naive version lands first and the wall is its own diff.
+  The plan chose otherwise — one migration carrying the walls, each
+  red taken on the working tree — because a migration written to be
+  wrong would be applied by every store forever. The skill allows
+  either; §5 stands as signed.
+
+## §10 Standing guards
+
+What would rot this slice, and what watches:
+
+- **A second way out.** Any new path that ends a reservation or
+  moves an item's numbers — an admin door, a cleanup job, SL-4's
+  recovery — re-reads §4 first. `E7 · G6` fails at build time if it
+  writes outside the ledger, hides SQL from the parser, or lowers a
+  number without its receipt; whatever passes it meets the check on
+  the units held at commit.
+- **A wall dropped "for a while".** `MigrationPathIT` names the
+  receipts' key, reference and guard, and the three triggers of the
+  check, enabled; a store without them fails before any storm could
+  pass around their absence.
+- **Tidy forgotten.** A new decision path that skips tidy sees
+  expired holds as held — the safe direction, a cost to W3. The two
+  tripwires on §3's choice fail if the reserve or the correction
+  ever loses it; a new path has no such tripwire, only this line.
+- **The check made cheap by being made blind.** A `WHEN` clause, a
+  skipped branch, a trigger left off one table — each a faster check
+  that no longer sees one way the numbers can drift. `UnitsHeldCheckIT`
+  is what fails. Its cost is real and unmeasured (TODO); the fix is
+  an index or an ended mark, never a narrower check.
+- **Rows written by hand.** Every test or script that writes
+  reservations, receipts or the units held must move them together,
+  as the ledger does, or the store refuses the transaction. That is
+  the check working, not a nuisance to switch off.
+- **The reservation rows.** `runtime` may still change or delete
+  them; the review after this slice decides whether they become
+  write-once (TODO).
+
+## §11 Sign-offs
 
 <!-- Dated lines, the reviewer's: the specification before the plan,
      the plan before the build. -->
@@ -896,3 +1110,5 @@ touching the ground.
 - 2026-10-05 — §8 revised by the reviewer: the store checks the
   units held against the open reservations (G6), the arithmetic
   staying in the application.
+- 2026-10-07 — the evidence (§9) certified against the delivered
+  files, the suite and the run on the real ground; SL-3 closed.

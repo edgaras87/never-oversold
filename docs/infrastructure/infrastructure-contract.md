@@ -68,12 +68,25 @@ the server's grant system and was watched being refused on
    never writes a GRANT; the default privileges do it. A migration
    that writes one is wrong, not helpful.
 
+**What the schema refuses besides.** The terms above are the grant
+system's. The migrations add walls of their own, and they refuse
+`runtime` as they refuse every identity short of the superuser: a
+check constraint on `item` (V1), the receipts' key and their guard
+trigger (V2), and a check at every commit that an item's held units
+equal what its reservations without a receipt hold (V3). Whoever
+writes rows as `runtime` — the ledger, a script, a test, a fix by
+hand — meets them, and must move a reservation, its receipt and the
+units held together. They are not contract terms: a slice's
+migration adds or changes one, and its record says why. ARCHITECTURE
+lists each with the slice that owns it.
+
 **What the store offers — inventory, not a choice.** The server
 can make two concurrent writers to one thing disagree. Its faces
 of that facility:
 
 - row-level locks;
 - unique constraints, which can be deferred to commit;
+- constraint triggers, which can be deferred to commit;
 - check constraints, which are checked at every write and cannot
   be deferred;
 - serializable isolation;

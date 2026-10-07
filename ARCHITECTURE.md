@@ -6,34 +6,44 @@
 
 ## Overview
 
-The ledger runs on the ground and holds two of its four invariants:
-instances of one build output, each connecting to the store as
-`runtime` and nothing else, each answering HTTP — reserve, adjust,
-and a health check that names the store. The store holds the two
-numbers the promise is about, per item, and the wall between them:
-a check constraint that no writer can pass, and an admit that is
-one conditional statement against the row. The application keeps
-no item state and reads no clock; expiry is the store's clock.
+The ledger runs on the ground and holds three of its four
+invariants: instances of one build output, each connecting to the
+store as `runtime` and nothing else, each answering HTTP — reserve,
+adjust, consume, release, and a health check that names the store.
+The store holds the two numbers the promise is about, per item, and
+the wall between them: a check constraint that no writer can pass,
+and an admit that is one conditional statement against the row. It
+holds each ended reservation's receipt, one at most, guarded so that
+no writer changes, deletes or mistimes one, and it checks at every
+commit that an item's held units equal what its unreceipted
+reservations hold. The application keeps no item state and reads no
+clock; expiry is the store's clock, and every decision first ends
+the holds that clock has run out.
 Beside it, at test scope only, the evidence harness: its own
 throwaway store of the ground's major version, migrated from the
 one home, the machinery to race real instances, and the witness
 that reads the invariant from the store from outside them all.
 
 ```
-┌──────────────────────────┐        ┌──────────────────────────────┐
-│  never-oversold-postgres │        │  the ledger                  │
-│  PostgreSQL 17           │ ◀───── │  N instances, one build      │
-│  db never_oversold       │  5432  │  HTTP door: reserve, adjust  │
-│  item ── the wall ──┐    │        │  health                      │
-│  reservation        │    │        │  connects as `runtime` only  │
-└─────────────────────┼────┘        └──────────────────────────────┘
-        ▲             └ CHECK reserved <= on_hand_count
+┌───────────────────────────┐        ┌──────────────────────────────┐
+│  never-oversold-postgres  │        │  the ledger                  │
+│  PostgreSQL 17            │ ◀───── │  N instances, one build      │
+│  db never_oversold        │  5432  │  HTTP door: reserve, adjust, │
+│  item ── the wall ──┐     │        │  consume, release; health    │
+│  reservation        │     │        │  connects as `runtime` only  │
+│  reservation_exit ┐ │     │        └──────────────────────────────┘
+└───────────────────┼─┼─────┘
+        ▲           │ └ CHECK reserved <= on_hand_count
+        │           └ one receipt per reservation (key); its guard;
+        │             the units held checked at every commit
         │  published ${POSTGRES_PORT}: the witness read, Flyway as `migrator`
 
   test scope ─ the harness: a throwaway postgres:17 (Testcontainers),
   migrated harness-side; forked instances raced through their doors;
   the witness read from the store by plain JDBC; ArchUnit rules on
-  the compiled classes for what the ledger must not contain
+  the compiled classes for what the ledger must not contain, and a
+  SQL parser (JSqlParser) reading the ledger's statements by their
+  parts
 ```
 
 ## Components
@@ -55,20 +65,25 @@ names (L3), as one feature package `reservation`: the door
 (`ReservationController`, `DoorProblems`), the one entry path to
 the numbers (`Ledger`), the rows as persisted (`Item`,
 `Reservation`), and the vocabulary in two public sub-packages —
-`values` (what a request may say) and `problems` (the three
-answers besides success). Reserve is one conditional statement
-whose row count is the decision; adjust is one insert-or-update
-that creates an unknown item and refuses a count under the held
-units. No service layer, no repository, no ORM, no clock, no
-in-memory state.
+`values` (what a request may say) and `problems` (the answers
+besides success). Reserve is one conditional statement whose row
+count is the decision; adjust is one insert-or-update that creates
+an unknown item and refuses a count under the held units. Each
+first runs tidy, one statement writing an `expired` receipt for
+every hold of the item that has run out and freeing exactly the
+units of the receipts it wrote. Consume and release are one
+statement each: the receipt and the item's numbers move together,
+and only for a receipt that statement wrote. No service layer, no
+repository, no ORM, no clock, no in-memory state.
 Why shaped this way: ADR-0007 (the stack; the migration tool
 outside the app; one identity), ADR-0008 (package by feature,
 package-private, depth earned per feature; its note on
 vocabulary sub-packages), ADR-0010 (the door's conventions),
 ADR-0011 (an item becomes known by its first adjustment),
-ADR-0012 (an adjustment answers 200, creating or not); the
-wall's owners per guarantee in the slice record
-(`docs/construction/sl-1-no-over-admission.md`, §7).
+ADR-0012 (an adjustment answers 200, creating or not), ADR-0013
+(a repeated exit answers as the first); the walls' owners per
+guarantee in the slice records (`docs/construction/sl-1-…`, §7;
+`sl-3-…`, §8).
 
 ### The evidence harness — test scope
 
@@ -106,9 +121,25 @@ suite self-contained, the ground not required up).
   count — and enforced by rules on the compiled code
   (`NoOrderingStateOrSecondWriterTest`). No structure was added:
   the slice's record §8 says why.
-- The promise's other two invariants are the registry's, not yet
-  enforced: SL-3 and SL-4 not at all — a reservation has no exit
-  yet.
+- **SL-3, closed:** a reservation moves its item's numbers at most
+  once on exit, and never after it has ended — enforced by the
+  store: the primary key on `reservation_exit.reservation_id` (one
+  receipt per reservation, so of racing or repeated exits one
+  writes and the rest move nothing); the guard trigger
+  `reservation_exit_guard` (no receipt changed or deleted, no
+  `expired` one before its instant, no `consumed` or `released` one
+  at or after it, the ending instant the store's own); and the check
+  on the units held, `units_held_agree` (V3: a constraint trigger on
+  `item`, `reservation` and `reservation_exit`, deferred to commit,
+  refusing any transaction that leaves `reserved` unequal to the
+  units of the item's unreceipted reservations, whoever writes). The
+  arithmetic stays in the ledger's statements; the store refuses,
+  it never computes. One way out is guarded at build time
+  (`NoSecondWayOutTest`): writers outside the ledger, SQL the parser
+  cannot see, an exit not shaped as one.
+- **SL-4, chosen next:** consume's two moves are already one
+  statement in one transaction; the evidence against our death
+  between them is the slice's to create.
 - The running ledger knows one database identity, `runtime`, its
   password from the environment — enforced by the configuration
   carrying no other and the build carrying no migration or
@@ -127,11 +158,11 @@ suite self-contained, the ground not required up).
 |---|---|
 | `compose.yaml`, `.env.example` | the ground's declaration and its secrets' shape |
 | `infrastructure/postgres/` | the bootstrap SQL (runs once) and the verify suite (on demand) |
-| `infrastructure/flyway/` | the only DDL path: config and migrations — V1, `item` and `reservation` with the wall |
+| `infrastructure/flyway/` | the only DDL path: config and migrations — V1, `item` and `reservation` with the wall; V2, the receipts and their guard; V3, the check on the units held |
 | `docs/infrastructure/` | the operator manual and the infrastructure contract |
 | `docs/system/` | the truth set: intent, definition, registry |
 | `docs/construction/` | the bootstrap requirements, and one record per slice: specification, plan, evidence |
 | `pom.xml`, `mvnw` | the build: every dependency with its earning reason; the wrapper |
 | `src/main/java/…/neveroversold/` | the entry point; `reservation/` is the ledger — its `package-info` is the map |
 | `src/main/resources/application.yaml` | the one identity, the password from the environment, the absences commented |
-| `src/test/java/…/neveroversold/` | the evidence: `testsupport/` is the harness (the throwaway store, the test bases, the forked instance, the witness, the body reader); `*IT` are the integration tests — `*StormIT`/`*RaceIT` create SL-1's contention, `CorrectionIT` SL-2's honest corrections; `NoInstanceStateOrClockTest` and `NoOrderingStateOrSecondWriterTest` the structural rules |
+| `src/test/java/…/neveroversold/` | the evidence: `testsupport/` is the harness (the throwaway store, the test bases, the forked instance, the witness, the body reader); `*IT` are the integration tests — `*StormIT`/`*RaceIT` create SL-1's contention, `CorrectionIT` SL-2's honest corrections, `ExitDoorIT` and `ExitStormIT` SL-3's exits; `ReceiptGuardIT` and `UnitsHeldCheckIT` show the store's refusals directly; `NoInstanceStateOrClockTest`, `NoOrderingStateOrSecondWriterTest` and `NoSecondWayOutTest` the structural rules, the last reading SQL through `testsupport/LedgerSql` |

@@ -20,6 +20,48 @@ revision, start a new minor.
 
 ## [Unreleased]
 
+## [0.3] — 2026-10-07
+
+The third invariant evidence-closed: SL-3, a reservation exits once.
+A reservation can now end — and whatever happens on the way out, its
+units move once.
+
+### Added
+
+- Consume: `POST /reservations/{reservation}/consume`, no body. The
+  units were sold: the on-hand-count and the units held both fall by
+  exactly what the reservation holds, and the answer is the
+  reservation as ended — how (`endedBy`) and when (`endedAt`).
+- Release: `POST /reservations/{reservation}/release`, no body. The
+  caller gave up: the units held fall by exactly what it holds, and
+  the count stays.
+- Expiry, with no request at all: a reservation ends when its hold
+  runs out by the store's clock, and its units are free for the very
+  next reserve or correction — not after some cleanup gets round to
+  it.
+- Sending the same exit twice — a retry after a lost reply — does
+  what sending it once did, and answers the same. A different exit
+  after the first is refused with `409` and says how and when the
+  reservation ended. A reservation the ledger does not know is
+  answered `404`. Shown against exits racing each other on one
+  reservation, across three instances of the ledger, at the expiry
+  instant itself, and a consume arriving after the expired hold's
+  units were reserved by someone else.
+
+### Changed
+
+- Reserve and adjust read an expired hold's units as free from its
+  instant. Until now they counted until something ended the hold,
+  which nothing could; a reserve or a correction could be refused
+  against holds that had already run out.
+- The store checks itself: any write that leaves an item's held
+  units unequal to what its open reservations hold is refused,
+  whoever sends it — the ledger, a script, a console. For anyone
+  writing rows by hand, the reservation and the units held must move
+  together.
+- The reservation in an answer gains `endedBy` and `endedAt` once it
+  has ended; an active one reads as before.
+
 ## [0.2] — 2026-09-21
 
 The second invariant evidence-closed: SL-2, the correction never

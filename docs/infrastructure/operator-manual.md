@@ -246,6 +246,36 @@ Schema arrives only through Flyway, as `migrator`:
 migrations, ever — the default privileges hand every new table and
 sequence to `runtime`.
 
+**Before V3, read the rows first.** V3's check judges an item only
+when a later transaction touches it, so an item already out of step
+would refuse every honest write to it afterwards. On a ground below
+V3, as `runtime`:
+
+```sh
+podman exec never-oversold-postgres psql -U runtime -d never_oversold -c "
+SELECT i.id, i.reserved, coalesce(sum(r.quantity), 0) AS held_by_reservations
+  FROM item i LEFT JOIN reservation r ON r.item_id = i.id
+ GROUP BY i.id, i.reserved
+HAVING i.reserved <> coalesce(sum(r.quantity), 0);"
+# expected: (0 rows)
+```
+
+The query counts every reservation as unended, which is true below
+V2, where nothing has a receipt. If a row appears, stop: putting it
+right is a decision, not a command. A dump first costs a second and
+is the only way back once Flyway has moved forward:
+
+```sh
+podman exec never-oversold-postgres \
+  pg_dump -U postgres -d never_oversold --format=custom > ground.dump
+```
+
+Seen here, 2026-10-07, on a ground at V1: 0 rows (one item,
+`proof-item`, 2 held by one reservation of 2); dumped; `migrate`
+applied V2 and V3, and the catalog showed the receipts' key,
+reference and kind check, the guard, and the check's three triggers,
+enabled and deferred.
+
 ### Reset — destructive
 
 The bootstrap runs only against an empty volume. After any change

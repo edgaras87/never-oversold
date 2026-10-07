@@ -41,10 +41,17 @@ where every request crosses — HTTP here.
   [docs/construction/sl-2-correction-never-undercuts.md](docs/construction/sl-2-correction-never-undercuts.md)
 
 - **A reservation exits once.** Its numbers move at most once on
-  exit, and never after it has ended. Chosen next.
+  exit, and never after it has ended.
+
+  Closed 2026-10-07, on evidence. A reservation is consumed,
+  released, or ends at its expiry instant, and each ending is
+  recorded once — exits retried, racing each other or the clock, or
+  arriving late are proved too:
+  [docs/construction/sl-3-a-reservation-exits-once.md](docs/construction/sl-3-a-reservation-exits-once.md)
 
 - **Consume's two moves hold together.** No readable state has the
   reservation ended without the count lowered, or the reverse.
+  Chosen next.
 
 Each with the adversity its evidence must create, and its status:
 [docs/system/registry.md](docs/system/registry.md).
@@ -53,7 +60,7 @@ Built by correctness-by-construction: what must never happen first,
 features last. The method: [docs/concept/](docs/concept/), start
 with [00-cbc.md](docs/concept/00-cbc.md).
 
-**Status:** version 0.2 — two of four invariants closed on
+**Status:** version 0.3 — three of four invariants closed on
 evidence.
 
 - 2026-09-10 — framed and named.
@@ -64,8 +71,12 @@ evidence.
 - 2026-09-21 — the second closed: an operator's correction that
   would leave the count under the units held is refused, and
   survives being resent and arriving out of order.
+- 2026-10-07 — the third closed: a reservation can be consumed or
+  released, ends by itself when its hold runs out, and its numbers
+  move once however the exits repeat, race or arrive late.
 
-Next is the exit: a reservation's numbers move at most once.
+Next is the last: consume's two moves hold together, even if the
+ledger dies between them.
 
 ## Prerequisites
 
@@ -98,8 +109,9 @@ the same shell and start again.
 
 ## Use
 
-Two doors. An item becomes known to the ledger by its first
-adjustment; a reservation is admitted only if its units still fit.
+An item becomes known to the ledger by its first adjustment; a
+reservation is admitted only if its units still fit, and ends once
+— consumed, released, or at its expiry instant.
 Every answer carries the record as stored; every refusal or
 invalid request comes back as an RFC 9457 problem with its reason.
 
@@ -120,9 +132,31 @@ curl -s -H 'Content-Type: application/json' \
 # {"title":"refused","status":409,"detail":"2 units of sku-42 do not fit: 2 held of 3 on hand",…}
 ```
 
+A reservation ends once, by one of three exits. **Consume** means
+the units were sold: they leave the on-hand-count. **Release**
+means the caller gave up: they are free again. **Expiry** needs no
+request: when the hold runs out by the store's clock, its units are
+free for the next decision. An exit names its reservation and
+carries no body.
+
+```bash
+# the caller consumes reservation R → 200, R as ended; sku-42 now has 1 on hand
+curl -s -X POST localhost:8080/reservations/<R>/consume
+# {"id":"…","item":"sku-42","quantity":2,"expiresAt":"…","endedBy":"consume","endedAt":"…"}
+
+# the reply was lost and the caller sends it again → 200, the same answer; nothing moves twice
+curl -s -X POST localhost:8080/reservations/<R>/consume
+
+# a release after the consume → 409, refused: R has already ended
+curl -s -X POST localhost:8080/reservations/<R>/release
+# {"title":"refused","status":409,"detail":"reservation … has already ended by consume, at …",…}
+```
+
+A reservation the ledger does not know is answered `404`; one that
+has already run out is refused, its units long free.
+
 Quantities are whole numbers from 1 to 1 000 000; a hold is an
-ISO-8601 duration from one second to seven days. A reservation
-cannot yet be released or consumed — that is the next work.
+ISO-8601 duration from one second to seven days.
 
 ## Test
 

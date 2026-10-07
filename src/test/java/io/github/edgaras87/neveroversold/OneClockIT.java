@@ -23,10 +23,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * has not stays in it. The ledger supplied no timestamp in either case;
  * {@link NoInstanceStateOrClockTest} shows it could not have.
  *
- * <p>The counter {@code reserved} keeps counting the expired hold: an
- * expired reservation is not yet <em>ended</em> — ending is an exit,
- * SL-3's — and the counter over-approximates on the safe side (slice
- * record, §7). Stated here so the asymmetry is read as designed.
+ * <p>The counter {@code reserved} keeps counting the expired hold until
+ * the next decision on the item frees it: the hold is ended at its
+ * instant (SL-3's record, §3), and its receipt is written, and its units
+ * freed, by the first reserve or correction that meets it. Between the
+ * two the counter reads high, which no decision sees. Stated here so the
+ * asymmetry is read as designed.
  */
 class OneClockIT extends WebDatabaseIT {
 
@@ -63,9 +65,10 @@ class OneClockIT extends WebDatabaseIT {
      * <p>Two holds on one item, one for a second and one for ten minutes. A
      * second and a half later the short one has left the active sum and the
      * long one has not, judged by the store's clock. The held-units counter
-     * still counts both: an expired hold is not ended until an exit ends it,
-     * which is SL-3's. This fails if an expired hold is ever still counted
-     * as active, or a live one dropped.
+     * still counts both: nothing has met the item since, so nothing has
+     * written the expired hold's receipt (SL-3's record, §3). This fails if
+     * an expired hold is ever still counted as active, or a live one
+     * dropped.
      */
     @Test
     void activenessIsJudgedByTheStoresClock() throws InterruptedException {
@@ -81,7 +84,7 @@ class OneClockIT extends WebDatabaseIT {
 
         Witness.Numbers later = Witness.read(item);
         assertThat(later.activeSum()).as("the run-out hold left the active sum").isEqualTo(1);
-        assertThat(later.held()).as("the counter still counts it until an exit ends it").isEqualTo(2);
+        assertThat(later.held()).as("the counter still counts it until a decision meets the item").isEqualTo(2);
         assertThat(later.holds()).isTrue();
     }
 

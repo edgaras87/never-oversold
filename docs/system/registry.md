@@ -68,7 +68,7 @@ witness — the promise's own.
   different adversity: hammering never sends an honest correction,
   and a correction never creates a race — hence two slices.
 
-### SL-3 — a reservation exits once  `in-progress`
+### SL-3 — a reservation exits once  `closed (2026-10-07, evidence)`
 
 - **Invariant:** a reservation moves its item's numbers at most
   once on exit, and never after it has ended.
@@ -82,7 +82,7 @@ witness — the promise's own.
 - **Presumes:** SL-1 — the reservations being exited were admitted
   truly.
 
-### SL-4 — consume's two moves hold together  `open`
+### SL-4 — consume's two moves hold together  `chosen-next`
 
 - **Invariant:** no readable state holds one of consume's two moves
   — ending the reservation, lowering the on-hand-count — without
@@ -104,8 +104,8 @@ witness — the promise's own.
 
 ## Registry state
 
-2 slices closed (SL-1, 2026-09-14; SL-2, 2026-09-21), 1 in progress
-(SL-3, its specification landed 2026-10-02), 1 open. New work
+3 slices closed (SL-1, 2026-09-14; SL-2, 2026-09-21; SL-3,
+2026-10-07), 1 chosen next (SL-4). New work
 enters by re-framing or as a new slice through this registry, never
 around it.
 
@@ -149,32 +149,47 @@ no rider needed beyond the two flags.
 
 ## Ordering expectation (re-decided at each close)
 
-SL-1 closed → SL-2 closed → SL-3 → SL-4, re-decided at SL-2's
-close (2026-09-21) and kept. SL-2 confirmed what SL-1's close
-expected: its invariant was already held by structure, and the
-slice's work was the decision its specification owed — refuse the
-correction, not let it end reservations — and the evidence for the
-resent and reordered corrections, which nothing had created. No
-production code was added.
+SL-1 closed → SL-2 closed → SL-3 closed → SL-4, re-decided at
+SL-3's close (2026-10-07) and kept. SL-3 is the first slice that
+added an operation: a reservation can now be consumed or released,
+and ends by itself when its hold runs out, its units free from that
+instant. Each ending leaves one record of how and when it ended,
+and the store refuses a second, a changed or deleted one, one
+written before or after its time, and any transaction that leaves
+an item's held units unequal to what its unended reservations hold.
 
-What SL-2 leaves by name. To SL-3: an operator who has counted the
-shelf and found fewer units than are held has no recourse in this
-system — the correction is refused, and the surface has no
-operator-side exit, so they wait for expiry or for the callers'
-releases. Whether an exit should exist for them is SL-3's
-territory, exits being what it owns; SL-2 refused to invent one.
-SL-3 also inherits from SL-1, unchanged by this slice, that an
-expired hold still counts in the held units until an exit ends it —
-which is what makes a refusal here conservative, refusing against
-holds the clock has already killed. Left provisional: nothing. The
-word *provisional* is gone from SL-1's G3 with this close.
-Unchanged and fenced: what a refused or reordered correction leaves
-wrong about the world is W1's, and no slice takes it without a
-dated revision of the definition.
+What SL-3 settled from before it. SL-1's held units no longer count
+an expired hold past its instant: every decision ends the holds that
+have run out before it decides, so SL-2's refusals are no longer
+conservative against holds the clock has already ended. Both
+slices' evidence ran green unchanged on that change. The question
+SL-2 handed over — whether an operator can end reservations — is
+answered no: release at the door asks no one's identity (T3, W5), so
+an operator who knows a reservation can release it, and no exit was
+made that would choose whose hold ends. What stays wrong about the
+shelf is W1's, fenced as before.
 
-SL-3 is next because the exits it owns are what every remaining
-question waits on, its own and the one SL-2 hands it; SL-4 needs an
-exit's identity to tell half-done from done.
+What SL-3 leaves by name. To SL-4: consume's two moves — the
+reservation's ending and the count's fall — are already one
+statement in one transaction, so SL-4's invariant is held by
+structure today; what SL-4 owes is the proof against its own
+adversity, our death between the moves and an outcome we cannot
+know, which nothing here created. And the exit's identity SL-4
+presumes now exists: a reservation has at most one ending, recorded
+with its kind and instant, and a repeated exit of the same kind
+answers as the first — so a retry after an unknown outcome can tell
+done from not done. Left provisional: nothing. Left open, and
+outside every slice: the reservation rows themselves may still be
+changed or removed by the application's own identity, which the
+ledger never does; nothing that oversells passes, but a hold can be
+removed with its units and leave no ending behind. Whether the store
+should forbid it is a question about who may write the store at all,
+which the framing never answered; it waits for a review, not for a
+slice.
+
+SL-4 is next and last: it is the one invariant left, its walls stand
+already, and its adversity — kill-mid-work, unknown-outcome
+injection — is the one the harness has not yet created.
 
 ## Divergences from the briefing (derivation wins, recorded)
 
@@ -210,3 +225,9 @@ derivation overriding the briefing.
   closed on evidence for both (kills 3 and 10). The revision log put
   in date order. Triggered by a documentation error check before
   Step 7. No invariant, kill or fold changed.
+- 2026-10-07 — SL-3 closed on evidence (its record:
+  `docs/construction/sl-3-a-reservation-exits-once.md`); the
+  ordering expectation re-decided and kept, with what SL-3 settles
+  from SL-1 and SL-2 and what it leaves to SL-4 by name. SL-4 moves
+  to `chosen-next`. Triggered by PLAN Step 7's close. No invariant,
+  adversity or fold changed.

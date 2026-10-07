@@ -289,7 +289,10 @@ give.
   there.
 - **That an operator can make the ledger true.** No operator-side
   exit exists; whether one should is SL-3's territory, and this
-  slice hands it there by name rather than inventing it here.
+  slice hands it there by name rather than inventing it here. SL-3
+  answered no, 2026-10-07: release asks no identity, so an operator
+  who knows a reservation can release it, and nothing chooses whose
+  hold ends (SL-3's record, §3).
 - **That a resent correction gets the same answer.** The world
   moves between the two: a correction refused while holds stood may
   be admitted once they have gone. What holds across the resend is
@@ -301,7 +304,9 @@ give.
 - **That the sum is minimal.** A hold past its expiry still counts
   until an exit ends it (SL-1 §7), so a refusal here may be
   conservative — refusing against holds the clock has already
-  killed. SL-3's debt, not this slice's to pay.
+  killed. SL-3's debt, not this slice's to pay — paid 2026-10-07:
+  every decision ends the holds that have run out before it decides,
+  and this slice's evidence ran green unchanged on it.
 - **Who may adjust.** W5, T3 — identity is trusted at the door.
 - **That a reply reaches the operator.** The caller's view, refused
   at L2.

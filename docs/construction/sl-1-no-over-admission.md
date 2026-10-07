@@ -238,7 +238,9 @@ the ground not required up.
   as judged by one clock. G5. A reservation carries an expiry
   instant from its admission; how long a hold lasts is the caller's
   to state (L2 refuses the duration policy), positive and within a
-  stated bound; the ending of expired holds as an exit is SL-3's.
+  stated bound; the ending of expired holds as an exit is SL-3's —
+  closed 2026-10-07: a hold ends at its expiry instant, and every
+  decision ends the ones that have run out before it decides.
 
 ## §6 What this slice does not claim
 
@@ -274,7 +276,8 @@ Two tables in the one schema, born by this slice's migration, V1:
   `quantity` (whole, > 0, constraint), `expires_at` (the store's
   clock plus the hold the caller asked for). No ended state yet:
   ending a reservation is an exit, SL-3's; here a reservation
-  counts until SL-3 gives it a way to stop.
+  counts until SL-3 gives it a way to stop — SL-3 did, 2026-10-07,
+  with a receipt per ended reservation in a table of its own.
 
 `reserved` is the sum of not-yet-ended reservations, kept by the
 one entry path in the same transaction as every reservation write.
@@ -283,6 +286,9 @@ still counts), so the invariant holds with room to spare: active
 sum ≤ `reserved` ≤ `on_hand_count`. The cost — units held past
 expiry until SL-3's exit ends them — is throughput (W3), not the
 promise, and is named below, under "Deviations and provisionals".
+Paid by SL-3 on 2026-10-07: expired holds are freed before every
+decision, and the store refuses any transaction that leaves
+`reserved` unequal to what the unended reservations hold.
 
 ### Owners
 
@@ -488,7 +494,10 @@ are ordered by the store, and the second sees the first's result.
   not the store's. The witness recomputes the sum from the rows on
   every read and asserts `reserved` ≥ it; SL-3's exits must lower
   it in the same transaction as they end — the standing guard, and
-  the trigger above is the answer if it ever fails.
+  the trigger above is the answer if it ever fails. SL-3 built a
+  trigger of its own, 2026-10-07: not one that moves the counter but
+  one that checks it, refusing at commit any transaction that leaves
+  it unequal to the unended reservations' units, whoever writes.
 - **A superuser at a console.** The ground's `postgres`; the
   constraint refuses even it. The counter can be set by hand under
   the sum — the drift case above.
@@ -525,7 +534,8 @@ Only what the guarantees need somewhere to live:
 
 ### Deviations and provisionals, so the close can see them
 
-- `reserved` over-approximates the active sum until SL-3 (above).
+- `reserved` over-approximates the active sum until SL-3 (above) —
+  paid 2026-10-07.
 - A downward adjustment under the held units is refused by the
   statement's condition, the constraint behind it. Closed: SL-2
   weighed "end reservations" and rejected it (its record, §3), so
@@ -580,7 +590,8 @@ JDBC as `runtime`, from outside every instance, never through an
 instance's own pool.
 
 **Provisionals carried to the close** (§7): `reserved`
-over-approximates the active sum until SL-3 ends expired holds; a
+over-approximates the active sum until SL-3 ends expired holds —
+paid 2026-10-07; a
 downward correction under the held units is refused by the
 statement's condition until SL-2 decides the correction's shape —
 decided 2026-09-21: refuse; `Location` omitted on the reserve reply
@@ -606,7 +617,8 @@ until a reader exists.
   not-ended reservations by the entry path's discipline, not the
   store's. The witness recomputes the sum from the rows on every
   read; SL-3's exits must lower the counter in the same transaction
-  as they end.
+  as they end — they do, and since 2026-10-07 the store checks it at
+  every commit (SL-3's record, §8, G6).
 
 ## §10 Sign-offs
 

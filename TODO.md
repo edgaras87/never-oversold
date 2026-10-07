@@ -8,20 +8,87 @@
 
 ## Now (current plan step)
 
-- [ ] Step 7 (SL-3, cbc-slice): a reservation exits once. Opened
-      2026-10-02 on the bundle's copies @ a3b6b8c; readiness signed
-      the same day; Stage 1 next. It inherits by name:
-      an expired hold still counts in the held units until an exit
-      ends it (SL-1 §7), and an operator who has counted the shelf
-      and found fewer units than are held has no recourse — whether
-      an operator-side exit should exist is this slice's question,
-      handed over by SL-2 §7 rather than invented there. It is also
-      the first slice to meet the close-time shape check, and its
-      gate is the first derived from PLAN's step form.
+- [ ] Between steps. Step 7 closed SL-3 on 2026-10-07 — consume,
+      release and expiry built, each ending recorded once, the store
+      checking the units held at every commit, the ground migrated
+      to V3. Waiting on the merge of `step-7-sl-3` into main on the
+      reviewer's word, which is the gate's last item.
+- [ ] Before Step 8's plan, the review under "Next" below: where a
+      rule's responsibility lives, what scale a decision assumes,
+      and who may write the store — with reservations made
+      write-once as its concrete case. Its order against Step 8's
+      opening is the reviewer's to set.
+- [ ] Step 8 (SL-4, cbc-slice): consume's two moves hold together,
+      the registry's chosen-next since 2026-10-07. It inherits by
+      name: the two moves are already one statement in one
+      transaction, so the invariant is held by structure and owes
+      only its proof — our death between the moves, an outcome we
+      cannot know, neither created by any harness yet; and the
+      exit's identity it presumes exists, one receipt per
+      reservation with its kind and instant, a repeated exit
+      answering as the first.
 
 ## Next (after Step 7)
 
-Nothing yet.
+- [ ] Two questions the slices answer every time without naming
+      them — take them up once SL-3 closes, before SL-4's plan.
+      Raised 2026-10-05 by the reviewer, at SL-3's units-held check.
+      **Where a rule's responsibility lives, application or store.**
+      The faces so far have put it in the application alone, in the
+      store alone, the application computing and the store only
+      refusing (SL-3's units-held check), or both. Each side's cost
+      is different: the store's guard reaches every writer but costs
+      at every commit and hides from a reader of the code; the
+      application's alone holds only while no one else writes. A
+      store that recomputes what the application computed is a
+      double check; one that only compares is cheaper and cannot
+      drift. **What scale a decision assumes.** Performance and
+      memory are weighed nowhere on the record; a face is chosen
+      for this system's size without saying so, or what would undo
+      it. To do: list how SL-1 to SL-3 placed each rule (who
+      computes, who refuses, who else writes); decide where that map
+      lives (ARCHITECTURE, or the slice record's faces) and whether
+      each face gains "assumes" and "revisit when" beside its cost;
+      and whether the slice skill's owner ladder (store, type, one
+      path) should ask both questions — if so, a finding for the
+      deliverer under "To the deliverer", the copies being theirs.
+      Not an optimising step: the definition puts throughput and
+      latency outside the promise (W3) and growth as seen, not
+      handled (W6). The gap is that a face assumes a scale without
+      saying so — weighed at the plan, where a cost can change which
+      wall is chosen; tuning that changes no meaning (an index) may
+      come any time after, the evidence re-run unchanged.
+      Two more, raised the same day. "Nothing enters ahead of need"
+      (ADR-0007) left `reservation(item_id)` unindexed although
+      every decision searches it: is an index a need known from the
+      code that searches, or only from a measurement? And where is
+      the system's size decided at all? The intent settles it as a
+      demonstration nobody operates, and W3 keeps throughput out,
+      but no record states an operating envelope a face could cite
+      (how many items, reservations, instances), and the method's
+      chapters name scale nowhere — a lesson about a chapter is a
+      line under "To the deliverer", the chapters never edited here.
+      And the lesson under all of it: the framing never said who
+      may write the store, so every slice defends against writers
+      no one named (G6's "paths never anticipated"). Closed by
+      default — the boundary stated in the framing, enforced by the
+      ground, opened when a real second writer comes — may be the
+      better start; whether the definition gains it, and whether the
+      framing chapter should ask for it, is the review's.
+      One concrete case for it, raised 2026-10-07: the ledger never
+      updates or deletes a reservation row — its ending is a
+      separate receipt — yet `runtime` may do both. That door is
+      what stays open past the units-held check: an open hold
+      deleted together with its units (signed in SL-3's §8 as the
+      safe direction), `expires_at` moved, a hold resized or moved
+      with its units carried. Reservations made write-once — a
+      guard trigger like the receipts', or `runtime` losing update
+      and delete on the table — would close all three. A §8
+      revision if taken, and a change to `MigrationPathIT`'s
+      runtime-writes test and the infrastructure contract's term 4
+      if by grants.
+      The fuller draft: `temp/app-store-responsibility.md`
+      (untracked; this item is what reaches history).
 
 ## Later / someday
 
@@ -133,12 +200,45 @@ Nothing yet.
   new. Revisit when a later ADR touches the service set, or if a
   reader is misled by it. Found 2026-10-01.
 
+- SL-3's E7 (`NoSecondWayOutTest`) sees only what is written as a
+  text block in the ledger. A statement assembled at runtime from
+  pieces, or split across a concatenation, passes all three of its
+  rules. Accepted because E7 is the tripwire, not the wall: since
+  2026-10-05 the store checks the units held at every commit (V3),
+  and refuses the numbers moving without a receipt whoever writes,
+  however the statement was built. E7 adds what the store cannot
+  say — that the ledger is the only writer, and every exit is shaped
+  as one — and says it at build time. Revisit if V3 is ever
+  weakened or dropped, since E7 would then be the only guard again.
+  Found 2026-10-05; rewritten 2026-10-07, when E7 came to read the
+  statements by their parts.
+
+- SL-3's check on the units held (V3) has an unmeasured cost. At
+  every commit that touches an item it sums that item's
+  reservations and looks up each one's receipt, once per row
+  written — a reserve or an exit runs it twice, tidy writing five
+  receipts six times. `reservation` has no index on `item_id` (the
+  store makes none for a reference), so each run scans the whole
+  table, every item's reservations ever made; tidy's own search by
+  item scans it the same way, since SL-3's commit 5. Reservations
+  and receipts are kept forever (W6). Seen as nothing at the
+  evidence's scale (hundreds of rows); not measured. Accepted because the store refusing any writer was
+  worth more than a cost no evidence can see yet. The known fixes:
+  an index on `reservation(item_id)`; an ended mark on the
+  reservation with a partial index on the open ones, so the sum
+  reads only those; retention, which is W6's. Revisit when an item's
+  history reaches thousands of reservations, or a decision's latency
+  is measured. Found 2026-10-05.
+
 ## To the deliverer
 
 <!-- What this run addresses to the bundle, and only that, so a
      reading looks in one place (delivered-copies.md, rule 4). A
      line leaves when a note answers it. Last answered: the note of
      2026-10-01, read through c33a996. -->
+
+- [ ] deliverer: evaluate this run's changes to
+      `.claude/rules/delivered-copies.md` since a3b6b8c.
 
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
@@ -177,6 +277,22 @@ Nothing yet.
       promised: this run met one again in SL-2. Its G5 and G6 are
       both held by an absence, each guarded by a test that reads
       the source, in the spirit of SL-1's no-process-clock rule.
+- [ ] This project's evidence-test shape, offered as a finding
+      (`.claude/rules/evidence-test.md`, written 2026-10-07 at
+      SL-3). Exposed here, because the failure it answers happened
+      while writing tests, after three slices had shown what they
+      produce without it. Whether it reaches another project, and
+      whether hidden first so that project's own tests can be read
+      against it, is yours. Its skeleton is marked apart from this
+      project's illustration.
+- [ ] A question, raised by that shape: should a rule, not only a
+      shape, be deliverable hidden or on trial — read at a gate
+      rather than loaded while working — until a second project
+      arrives at it unprompted? Today only shapes have the two
+      places; a rule learned in one run is in force in the next
+      from its first step. This run's own standing rules carry "on
+      trial" in PLAN until the retrospective; a delivered rule has
+      no such state.
 - [ ] Framing steps as commit series, and the imperative test in
       commit-messages: both being weighed there now; this run's
       reading of the imperative split is where they start. Nothing
