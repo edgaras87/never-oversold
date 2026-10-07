@@ -160,7 +160,31 @@ and the line to the deliverer for the copy edited in place; PLAN's
 evidence, deviations, Stage 4 and records items ticked. A sweep for
 "SL-3" in live text that still speaks of it as future.
 
-**12. `docs(agent): close the commit plan for SL-3's build`**
+**12. `docs(agent): revise plan — shapes settled at close`**
+*(added by revision, 2026-10-07)* This file, gaining the two steps
+below.
+
+**13. `chore(agent): shapes take what SL-3's close found`**
+*(added by revision, 2026-10-07)*
+Two differences the close's reading settled on the shapes' side.
+`slice-record.md`: a face revised after the plan was signed carries
+its date — `*chosen <date>*`, `*Why not, on revision:*` — as SL-3's
+§8 wrote them when V3 replaced the structural test. `evidence-test.md`:
+the promise is checked first on every reading taken after the
+adversity; a reading that only confirms the scene is set is exempt.
+Each with a dated revision line.
+
+**14. `docs: settle SL-3's shape check`** *(added by revision,
+2026-10-07)*
+Two differences settled on the record's side: §4's G6 gains its
+kills line, none by number and why; §8's owners for G4 and G6 gain
+what stands behind each wall — partly, and nothing. PLAN: the
+differences settled, each named with its ending; the commit-messages
+item struck, two subjects past 50 characters named and kept, since
+rewriting reviewed commits would break every hash the records cite.
+A devlog line.
+
+**15. `docs(agent): close commit plan for SL-3's build`**
 Deletes this file.
 
 ## Decisions taken inside this plan
@@ -227,3 +251,11 @@ Deletes this file.
   (`commit-messages`). Each becomes its own `chore(agent)` commit,
   ahead of the records, which name them. The records step and the
   close move to 11 and 12.
+- **2026-10-07 — the shape check settled after the records.** The
+  close read SL-3's record against `slice-record.md` and its tests
+  against `evidence-test.md`, and found four differences and two
+  commit subjects past 50 characters. The reviewer took the records
+  commit first, as staged, so each settlement reads as its own diff;
+  the shape edits go first of the two, an agent path, since the
+  record's settlement names them. The close moves to 15, its
+  subject shortened to fit 50 characters, as are the two new ones.
