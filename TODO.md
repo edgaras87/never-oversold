@@ -8,16 +8,12 @@
 
 ## Now (current plan step)
 
-- [ ] Between steps. Step 7 closed SL-3 on 2026-10-07 — consume,
-      release and expiry built, each ending recorded once, the store
-      checking the units held at every commit, the ground migrated
-      to V3. Waiting on the merge of `step-7-sl-3` into main on the
-      reviewer's word, which is the gate's last item.
-- [ ] Before Step 8's plan, the review under "Next" below: where a
-      rule's responsibility lives, what scale a decision assumes,
-      and who may write the store — with reservations made
-      write-once as its concrete case. Its order against Step 8's
-      opening is the reviewer's to set.
+- [ ] The review under "Next" below, before Step 8's plan: opened
+      2026-10-07 on `housekeeping-review-after-sl-3`, cut from main
+      after Step 7's merge, on the reviewer's word. Each question is
+      discussed and decided before any edit; then a commit plan for
+      what the decisions change. Step 7 closed SL-3 and reached main
+      the same day.
 - [ ] Step 8 (SL-4, cbc-slice): consume's two moves hold together,
       the registry's chosen-next since 2026-10-07. It inherits by
       name: the two moves are already one statement in one
@@ -87,6 +83,31 @@
       revision if taken, and a change to `MigrationPathIT`'s
       runtime-writes test and the infrastructure contract's term 4
       if by grants.
+      SL-3's close added seven, settled in the same review
+      (2026-10-07). In the slice skill, edited in place here under
+      `delivered-copies.md` rule 2 — each edit with its decisions
+      entry, and the copy's line under "To the deliverer", so the
+      deliverer reads the diff and the why: (a) Stage 2's hunt for
+      escape hatches, bounded by the definition's trust assumptions
+      — a writer the definition trusts is named, not walled; it
+      follows question one. (b) Stage 3: a red counts only if it
+      fails on the witness, not on a status, a crash or a setup
+      step; lived at SL-2 and again at SL-3. (c) A third kind of
+      test named beside evidence and tripwire: a wall's own check,
+      showing the wall refuse directly, discharging no kill —
+      SL-1's catalog test, SL-3's `ReceiptGuardIT` and
+      `UnitsHeldCheckIT`. (d) A race whose red needs its window
+      widened is widened on the red tree only, and says so; lived
+      once, at SL-3's tidy against consume. In this project's
+      shapes and records: (e) a wall's stated backstop is seen at
+      its red run, or written as unproven — SL-3's G5 named
+      `item_never_oversold`, which did not hold; (f) SL-3's record
+      calls E7 a tripwire in a looser sense than the skill's, one
+      wording to settle. In the framing, the deliverer's: (g) who
+      may write the store, and at what scale — the questions above;
+      where the review finds the method should ask them, each
+      becomes a line under "To the deliverer", the chapters and the
+      framing skill being theirs.
       The fuller draft: `temp/app-store-responsibility.md`
       (untracked; this item is what reaches history).
 
