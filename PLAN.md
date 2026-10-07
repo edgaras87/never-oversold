@@ -685,7 +685,7 @@ corrected in place for the general lesson. Version 0.2. The branch
 item is ticked on the reviewer's word to merge, given at this
 boundary.
 
-## Step 7: SL-3 — a reservation exits once  (cbc-slice)    [~]
+## Step 7: SL-3 — a reservation exits once  (cbc-slice)    [x] 2026-10-07
 
 <!-- The first slice that adds an operation: nothing ends a
      reservation today. The first step written from the step form. -->
@@ -819,7 +819,7 @@ Gate:
       arrangement's history stays separable from the project's.
 - [x] No implementation file is older than the decision it
       realizes: the log reads decision, then code.
-- [ ] The step reached main by fast-forward from `step-7-sl-3`, on
+- [x] The step reached main by fast-forward from `step-7-sl-3`, on
       the reviewer's word.
 Notes: opened 2026-10-02, on the bundle's copies @ a3b6b8c. The
 reviewer signs at readiness, at the spec and at the plan. SL-1 is
