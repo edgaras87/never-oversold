@@ -750,3 +750,35 @@
   rule deleting whatever any project keeps there); a project rule
   carving out an exception (the need is any project's, so it belongs
   in the copy, per rule 2).
+
+- 2026-10-07 The evidence-test shape, written and exposed:
+  `.claude/rules/evidence-test.md`, scoped to `src/test/**`. It says
+  how a test standing as a slice's evidence is written — its first
+  line naming what it is (`E · G — kill`, or a tripwire and the
+  decision it pins), the witness asserted before the door's answer,
+  the promise checked before any exact number on every reading that
+  can move numbers, labels that print the reading, bodies by JSON
+  path and absence by name, the record's example numbers. Each part
+  marks its skeleton — what any project proving invariants by tests
+  would want — apart from this project's illustration of it
+  (`Witness`, `Body`, SL-3's numbers), so it can be offered: whether
+  it reaches another project, and hidden or exposed, is the
+  deliverer's, and TODO asks, with a second question it raised —
+  whether a rule, not only a shape, could arrive on trial. The entry
+  file's line on what `.claude/rules/` holds now names the exception.
+  Found at Step 7, SL-3, decided by the reviewer on 2026-10-03 at the
+  third commit's boundary: four tests lacked the promise check, two
+  the ending, and the first red failed on a `500` — the mistake
+  SL-2's record had already written down as "E1's first red was
+  worthless", in a record nobody opens while writing a test.
+  Why exposed at once, not first in `.claude/shapes/`: the failure
+  was a lesson that existed and was not in front of the writer, and
+  three slices of evidence tests already show what the work produces
+  without it (shapes-lifecycle §2).
+  Rejected: unexposed in `.claude/shapes/` (read only at a close,
+  after the tests are written — the gap it closes is while writing);
+  leaving the lessons in the slice records (SL-1's assertion
+  convention and SL-2's worthless red were there, and were repeated);
+  a demand in the slice skill (a delivered copy, and these are this
+  project's forms — `Witness.holds`, `Body.names` — not any
+  project's; rule 3 of `delivered-copies.md`).

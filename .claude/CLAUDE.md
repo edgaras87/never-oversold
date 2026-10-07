@@ -21,8 +21,11 @@ revision entry, never in place.
 
 Everything under `.claude/skills/`, `.claude/rules/` and
 `docs/concept/` is a copy delivered by the bundle, pinned at one of
-its commits. A skill or rule may be corrected in place from lived
-work, each edit logged and handed back; a concept chapter never is.
+its commits — save a shape this project wrote and exposed in
+`.claude/rules/`, which says so in its own revisions (the shapes'
+lifecycle: `.claude/rules/shapes-lifecycle.md`). A skill or rule may
+be corrected in place from lived work, each edit logged and handed
+back; a concept chapter never is.
 How, and how a new delivery is taken:
 `.claude/rules/delivered-copies.md`.
 
