@@ -897,6 +897,7 @@ Notes:
 - ADR-0012: An adjustment answers 200, whether or not it creates the item (before Step 7)
 - ADR-0013: A repeated exit answers as the first did (Step 7)
 - ADR-0014: The store trusts one writer: the ledger (the review after SL-3)
+- ADR-0015: An index every decision needs is not ahead of need (the review after SL-3)
 
 ---
 
