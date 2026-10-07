@@ -89,6 +89,19 @@
   "the units held read 0, its reservations with no receipt hold 7",
   "a receipt is never deleted". The operator manual carries the
   before-V3 check.
+- The close's shape readings, each shape's first: four differences,
+  settled by the reviewer one by one. The record had drifted twice
+  (G6's kills line; G4's and G6's backstops, the honest answers
+  being "partly" and "nothing") and was brought to the shape. The
+  dated labels on §8's revised faces were something the shape
+  lacked, and it took them. The evidence-test shape asked the
+  promise of setup readings, which are not evidence; it was wrong
+  there, and changed. The reviewer took the records commit first so
+  each settlement reads as its own diff.
+- Two commit subjects found past 50 characters, one from Stage 1
+  and one from today; kept rather than reworded, since a rebase
+  would change the hashes the records cite. The planned subjects
+  were counted after that, and three shortened before committing.
 - Version 0.3, three of four invariants evidence-closed. The
   registry re-decided the ordering and kept it: SL-4 next and last,
   its walls standing already, its adversity — death mid-work,

@@ -798,9 +798,23 @@ Gate:
 - [x] SL-3's evidence tests are read against
       `.claude/rules/evidence-test.md` — added at the close: the
       shape was written in this step, from these tests among others.
-- [ ] Every difference those readings found is settled: the shape was
-      wrong here, the output drifted, or each had something.
-- [ ] Every commit on `step-7-sl-3` follows commit-messages.
+- [x] Every difference those readings found is settled: the shape was
+      wrong here, the output drifted, or each had something. Four,
+      each the reviewer's call. The output drifted twice: §4's G6
+      had no kills line, and §8's owners for G4 and G6 no line on
+      what stands behind them; the record was brought to the shape.
+      Each had something once: §8's faces revised on 2026-10-05
+      carry their dates, and `slice-record.md` took that form. The
+      shape was wrong once: `evidence-test.md` asked the promise of
+      readings that only confirm the scene; it now asks it after the
+      adversity, and the tests stand.
+- [-] Every commit on `step-7-sl-3` follows commit-messages.
+      Struck: two subjects run past 50 characters — `e1e1bf0`
+      (52) and `ea86757` (55). Kept, on the reviewer's word: a
+      rebase to reword them would change every later commit's hash,
+      and the records cite those hashes. Every other subject is 50
+      or under, every body wrapped at 72, and the subjects planned
+      after the finding were counted before they were committed.
 - [x] No commit straddles agent and project paths, so the
       arrangement's history stays separable from the project's.
 - [x] No implementation file is older than the decision it
@@ -830,7 +844,7 @@ held=2, activeSum=5` with the key removed. The ground migrated to
 V3 and exited against for real. The first red was worthless again,
 as SL-2's had been; the lesson is now a shape in front of every
 test. Version 0.3. Two subjects run past 50 characters (`e1e1bf0`,
-`ea86757`); the commit-messages item waits on the reviewer.
+`ea86757`), kept and recorded rather than rewritten.
 
 ## Steps 8..N-1: Invariant slices  (cbc-slice, one step per stage)
 

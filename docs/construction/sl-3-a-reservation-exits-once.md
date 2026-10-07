@@ -295,6 +295,9 @@ numbers for an exit without facing the same rules, including paths
 this slice never anticipated. P2 makes the transitions out of
 active ours; this keeps them in one place.
 
+*Kills:* none by number. The attack is on the walls themselves: a
+second way in that skips G1 to G5, whose kills it would bring back.
+
 ---
 
 **Inherited, not re-owned.** The attack's answers that SL-1 and
@@ -588,6 +591,13 @@ write, and answered `404`.
 *Say:* consume on R: the statement reads R's 3 from R's row; 10 on
 hand becomes 7, 8 held becomes 5.
 
+*If the wall were ever wrong:* partly, the store's check on the
+units held. A consume that lowered `reserved` by 5 for R's 3 would
+leave it unequal to what the open reservations hold, and be refused
+at commit. Nothing stands behind the count: the check does not
+compare it, and a consume taking 5 off the shelf for R's 3 would be
+caught by no wall — only by E5.
+
 ---
 
 **G5. An expired reservation frees its units once.**
@@ -637,6 +647,11 @@ hold, and the store refuses it at commit.
 *Say:* a script deleting receipts older than a day meets an error on
 the first row. A script setting R's 3 free without a receipt meets
 "the units held read 5, its reservations with no receipt hold 8".
+
+*If the wall were ever wrong:* nothing behind it. These are the
+walls the others fall back on; what notices them gone is the catalog
+test, which names the guard and the check's three triggers, enabled,
+before any storm can run around their absence.
 
 Every guarantee has one owner, and each owner is the store's: the
 key, the triggers, the checks. The paths are the application's, and
@@ -1112,3 +1127,7 @@ What would rot this slice, and what watches:
   staying in the application.
 - 2026-10-07 — the evidence (§9) certified against the delivered
   files, the suite and the run on the real ground; SL-3 closed.
+- 2026-10-07 — read against the slice-record shape at the close: §4's
+  G6 gains its kills line, none by number; §8's owners for G4 and G6
+  gain what stands behind each wall — partly, and nothing. The same
+  guarantees and owners; no decision changed.
