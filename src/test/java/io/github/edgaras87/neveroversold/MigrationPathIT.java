@@ -140,6 +140,24 @@ class MigrationPathIT extends DatabaseIT {
     }
 
     @Test
+    void theReservationsAreIndexedByItem() {
+        // ADR-0015: tidy and the check on the units held search an item's
+        // reservations on nearly every request. Not a wall — it refuses
+        // nothing — but named here, so that losing it is seen rather than
+        // felt as every decision slowly reading the whole table
+        String index = jdbc.sql("""
+                SELECT pg_get_indexdef(i.indexrelid)
+                FROM pg_index i
+                JOIN pg_class x ON x.oid = i.indexrelid
+                JOIN pg_namespace n ON n.oid = x.relnamespace
+                WHERE n.nspname = 'never_oversold'
+                  AND x.relname = 'reservation_by_item'
+                """).query(String.class).single();
+        assertThat(index)
+                .isEqualTo("CREATE INDEX reservation_by_item ON never_oversold.reservation USING btree (item_id)");
+    }
+
+    @Test
     void theRuntimeIdentityCanWriteTheNewTables() {
         // the ground's fourth term — new objects arrive already usable by
         // runtime, with no GRANT in the migration — held in the miniature.
