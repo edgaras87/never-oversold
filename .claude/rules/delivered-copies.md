@@ -84,8 +84,11 @@ foundation: the exchange convention
    answers them. Then copy whole. **Then remove
    what the note says is gone** — each path it names as deleted is
    deleted, each it names as renamed is moved; a copy cannot carry
-   absence, so the note carries it and this step does it. Then empty
-   `temp/` and write one decisions entry carrying both numbers, the
+   absence, so the note carries it and this step does it. Then remove
+   the staging — the directory named for the hash and its note — and
+   nothing else: `temp/` may hold the project's own drafts, which are
+   not the delivery's to clear. Then write one decisions entry
+   carrying both numbers, the
    new pin and the read-through the note names; the copy is pristine
    again; the TODO line leaves with the pin. The take's commits
    follow `.claude/skills/commit-messages/`; when they are more than

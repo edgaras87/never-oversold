@@ -735,3 +735,18 @@
   references stop naming runs.
   Why: SL-3 opens on these copies.
   Rejected: none weighed; the take copies whole.
+
+- 2026-10-05 `delivered-copies.md` edited in place, pinned @ a3b6b8c:
+  rule 5's take removes the staging — the directory named for the
+  hash and its note — and nothing else, where it said "empty
+  `temp/`". `temp/` may hold the project's own drafts, which are not
+  the delivery's to clear.
+  Found at Step 7, SL-3. The reviewer kept a draft in `temp/` for a
+  review after the slice closes; read as written, the next take
+  would delete it with the staging, and `temp/` being untracked,
+  nothing would bring it back. The rule had treated the folder as
+  the delivery's alone, which nothing else says it is.
+  Rejected: moving the draft out of `temp/` instead (it leaves the
+  rule deleting whatever any project keeps there); a project rule
+  carving out an exception (the need is any project's, so it belongs
+  in the copy, per rule 2).
