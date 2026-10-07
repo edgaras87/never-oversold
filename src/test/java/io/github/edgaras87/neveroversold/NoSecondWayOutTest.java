@@ -6,12 +6,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import io.github.edgaras87.neveroversold.testsupport.LedgerSql;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.insert.ConflictActionType;
+import net.sf.jsqlparser.statement.insert.Insert;
+import net.sf.jsqlparser.statement.insert.ParenthesedInsert;
+import net.sf.jsqlparser.statement.select.SelectItem;
+import net.sf.jsqlparser.statement.select.WithItem;
+import net.sf.jsqlparser.statement.update.Update;
 import org.junit.jupiter.api.Test;
 
+import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.LEDGER;
+import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.lowersANumber;
+import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.tablesRead;
+import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.tablesWritten;
+import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.withItems;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -23,32 +35,28 @@ import static org.assertj.core.api.Assertions.assertThat;
  * statement inside the ledger class.
  *
  * <p>The store refuses a changed, deleted, second or untimely receipt
- * from any writer. What it cannot refuse is the application moving the
- * numbers without one: a "force release" lowering the units held by
- * hand ends a reservation in the numbers while its receipt never says
- * so, and nothing stops the next exit taking the same units again. So
- * two rules: receipts and the units held are written by the ledger
- * alone; and inside it, numbers fall only in the statement that wrote
- * the receipt, by the receipts that statement wrote.
+ * from any writer, and — its check on the units held (V3) — the numbers
+ * moving without a receipt, whoever writes. That is the wall; this is
+ * the tripwire in front of it, failing at build time and naming the
+ * file. Three rules: receipts and the units held are written by the
+ * ledger alone; the ledger writes its SQL as text blocks, so each
+ * statement is read; and inside it, numbers fall only in the statement
+ * that wrote the receipt, by the receipts that statement wrote.
  *
  * <p>It reads source, not bytecode: SQL is text either way, and a
- * statement assembled at runtime from pieces would pass both. That is
- * why the walls are the store's; this keeps the decision on one path.
- * If a later slice earns an exception, it is written here as a narrower
- * rule with its why.
+ * statement assembled at runtime from pieces would pass both. The first
+ * rule casts a wide net over every file's text; the third parses each of
+ * the ledger's statements ({@link LedgerSql}) and checks its parts. If a
+ * later slice earns an exception, it is written here as a narrower rule
+ * with its why.
  */
 class NoSecondWayOutTest {
 
     private static final Path APPLICATION = Path.of("src", "main", "java");
-    private static final Path LEDGER = APPLICATION.resolve(
-            "io/github/edgaras87/neveroversold/reservation/Ledger.java");
 
     private static final Pattern WRITES_A_RECEIPT = Pattern.compile(
             "(?i)(INSERT\\s+INTO|UPDATE|DELETE\\s+FROM)\\s+reservation_exit\\b");
     private static final Pattern WRITES_THE_UNITS_HELD = Pattern.compile("(?i)\\breserved\\s*=");
-    private static final Pattern LOWERS_A_NUMBER = Pattern.compile(
-            "(?i)\\b(reserved|on_hand_count)\\s*=\\s*(\\w+\\.)?\\1\\s*-");
-    private static final Pattern TEXT_BLOCK = Pattern.compile("(?s)\"\"\"(.*?)\"\"\"");
 
     /**
      * E7 · G6 — a second writer of receipts or of the units held, outside
@@ -75,35 +83,68 @@ class NoSecondWayOutTest {
     }
 
     /**
+     * E7 · G6 — the ledger writes SQL only as text blocks, the form the
+     * next rule reads. A statement in a plain string would go unread: a
+     * force release written {@code "UPDATE item SET reserved = …"} fails
+     * here.
+     */
+    @Test
+    void theLedgersSqlIsWrittenAsTextBlocks() {
+        assertThat(LedgerSql.sqlOutsideTextBlocks())
+                .as("SQL in a plain string is not read by the rule on exits; write it as a text block")
+                .isEmpty();
+    }
+
+    /**
      * E7 · G6 — inside the ledger, every statement that lowers the units
      * held or the count writes a receipt in the same statement, and every
      * statement that writes a receipt moves the numbers by the receipts it
      * wrote — its own returned rows, the key deciding which. A statement
      * lowering a number with no receipt, or a receipt written without its
-     * move, fails it.
+     * move, fails it. Each statement is parsed, so it is checked by its
+     * parts, not its spelling.
      */
     @Test
     void numbersFallOnlyByTheReceiptsTheSameStatementWrote() {
-        List<String> statements = new ArrayList<>();
-        Matcher block = TEXT_BLOCK.matcher(read(LEDGER));
-        while (block.find()) {
-            statements.add(block.group(1));
-        }
+        List<Statement> statements = LedgerSql.statements();
         assertThat(statements).as("the ledger's statements were found").isNotEmpty();
 
-        List<String> exits = statements.stream()
-                .filter(sql -> LOWERS_A_NUMBER.matcher(sql).find() || WRITES_A_RECEIPT.matcher(sql).find())
+        List<Statement> exits = statements.stream()
+                .filter(sql -> lowersANumber(sql) || tablesWritten(sql).contains("reservation_exit"))
                 .toList();
         assertThat(exits).as("the exits' statements were found").isNotEmpty();
         assertThat(exits)
                 .as("a number falls only beside its receipt, and only by what that statement wrote")
-                .allSatisfy(sql -> assertThat(sql)
-                        .contains("WITH receipt AS (")
-                        .contains("INSERT INTO reservation_exit")
-                        .contains("ON CONFLICT (reservation_id) DO NOTHING")
-                        .contains("RETURNING reservation_id")
-                        .contains("UPDATE item")
-                        .contains("FROM receipt"));
+                .allSatisfy(NoSecondWayOutTest::movesTheItemByTheReceiptsItWrote);
+    }
+
+    /**
+     * The one shape an exit has: an {@code UPDATE item} whose {@code WITH}
+     * inserts the receipts — a second one skipped by the key, not raised —
+     * returns the reservations it wrote them for, and is what the update
+     * reads its units from.
+     */
+    private static void movesTheItemByTheReceiptsItWrote(Statement sql) {
+        assertThat(sql).as("an exit moves the item row: %s", sql).isInstanceOf(Update.class);
+        Update update = (Update) sql;
+        assertThat(update.getTable().getName()).as("the row it moves").isEqualTo("item");
+        assertThat(withItems(update)).as("one WITH, writing the receipts: %s", sql).hasSize(1);
+
+        WithItem<?> with = withItems(update).getFirst();
+        assertThat(with.getParenthesedStatement()).as("the WITH writes a row").isInstanceOf(ParenthesedInsert.class);
+        Insert receipt = with.getInsert().getInsert();
+        assertThat(receipt.getTable().getName()).as("the row it writes").isEqualTo("reservation_exit");
+        assertThat(receipt.getConflictTarget().getIndexColumnNames()).as("the key it meets")
+                .containsExactly("reservation_id");
+        assertThat(receipt.getConflictAction().getConflictActionType()).as("a second receipt is skipped")
+                .isEqualTo(ConflictActionType.DO_NOTHING);
+        assertThat(receipt.getReturningClause()).as("it returns what it wrote").isNotNull();
+        assertThat(receipt.getReturningClause().stream().map(SelectItem::toString))
+                .as("it returns the reservations it wrote receipts for")
+                .containsExactly("reservation_id");
+
+        assertThat(tablesRead(update)).as("the update reads its units from the receipts it wrote")
+                .contains(with.getAliasName());
     }
 
     private static String read(Path path) {

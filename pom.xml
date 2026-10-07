@@ -140,6 +140,19 @@
             <version>1.5.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- Reads the ledger's SQL as statements, not text (SL-3: an exit
+             lowers a number only beside the receipt its own statement
+             wrote). ArchUnit cannot see inside a string; this parses the
+             string, so the test checks the statement's parts — which table,
+             which conflict action, what it returns, what it reads from —
+             and a reformat or a renamed alias cannot fail it. Version
+             explicit: the parent does not manage it. -->
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>5.3</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 

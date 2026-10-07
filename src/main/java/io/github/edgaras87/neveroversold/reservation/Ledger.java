@@ -70,7 +70,9 @@ class Ledger {
                     .param("id", item.value())
                     .update();
             if (admitted == 0) {
-                Item current = jdbc.sql("SELECT id, on_hand_count, reserved FROM item WHERE id = :id")
+                Item current = jdbc.sql("""
+                                SELECT id, on_hand_count, reserved FROM item WHERE id = :id
+                                """)
                         .param("id", item.value())
                         .query(Item.class)
                         .optional()
