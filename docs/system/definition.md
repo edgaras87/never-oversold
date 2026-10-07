@@ -135,6 +135,11 @@ than habit:
   decision, not this definition's.
 - **The clock is the machine's,** shared by the instances unless
   the evidence deliberately skews it (SL-1's flag).
+- **The size it is built for is the evidence's:** a handful of
+  items, up to a few thousand reservations on one item over its
+  life, three instances, about a hundred requests racing on one
+  item. Beyond it nothing is promised about speed (W3); a decision
+  that leans on a size says which, and when to revisit it.
 
 ### Trust assumptions — accepted deliberately, not defended
 
@@ -146,6 +151,12 @@ than habit:
   way is a slice's decision.
 - T3. A request's stated caller and operator identity is what it
   claims to be. Authentication is outside: W5.
+- T4. Only the ledger writes the store's data, and the identity it
+  writes with is its alone; only the migration tool writes the
+  store's structure; the store's superuser is trusted, as in any
+  store. The identity could do more than the ledger does, and a
+  real deployment would restrict who holds it; this system assumes
+  nobody else writes. Its complement is fenced: W7.
 
 ### How saturation was earned
 
@@ -186,6 +197,10 @@ stamp.
 - W6. Retention and growth of ended reservations' records. They
   cannot move the reserved sum; written so the growth is seen, not
   dropped.
+- W7. Writers that bypass the ledger — a console, a script, another
+  service, the superuser. T4's complement: what the store's own
+  rules refuse, they refuse from these too, but no wall is owed
+  against them.
 
 ### Not probed — the census's edge
 
@@ -525,3 +540,17 @@ A and B, with no joint to hold them together.
   from 5 to 6. Why: the line listed six facts and counted five; the
   twenty-four numbers F1–F24 need six. Triggered by a documentation
   error check before Step 7. No fact, fence, or verdict changed.
+- 2026-10-08 — L1's trust list gains T4, and the fences W7, its
+  complement: who writes the store. Why: the framing never said, so
+  each slice defended against writers no one had named — SL-3 built
+  part of its walls against scripts holding the ledger's identity —
+  while every other part of the system already pictured the door as
+  the only way in. Triggered by the review after SL-3's close. No
+  fact, kill or verdict changed.
+- 2026-10-08 — L1's runtime ground gains the size the system is
+  built for. Why: no record said it, so every wall assumed one
+  silently — SL-3's check on the units held reads an item's
+  reservations at every commit, ended ones included, fine at the
+  evidence's size, with nothing saying how far beyond it that
+  stays true. Triggered by the same review.
+  No fact, fence or verdict changed.
