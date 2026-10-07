@@ -106,7 +106,26 @@ triggers dropped on the working tree. All evidence green unchanged
 planted, the store refusing the double free that the
 never-oversold constraint let through.
 
-**8. `docs: records catch up on SL-3`**
+**8. `test: read the ledger's exits as SQL, not text`** *(added by
+revision, 2026-10-07)*
+E7's rule that inside the ledger a number falls only beside the
+receipt its own statement wrote, parsed rather than matched: each of
+the ledger's statements read by a SQL parser at test scope
+(JSqlParser, entering the build file with its earning reason, as
+every dependency does), and an exit checked by its parts — an
+`UPDATE item` whose one `WITH` inserts into `reservation_exit`, skips
+a second receipt on the key, returns the reservations it wrote, and
+is what the update reads its units from. The parsing lives in a test
+support class, so the test reads as its rules. A new rule beside it:
+the ledger writes SQL only as text blocks, the form the parser is
+given — the ledger's one read in a plain string becomes a text
+block. The rule on writers outside the ledger keeps its wide net
+over every file's text. Red by planting what each rule forbids: a
+force release, in a text block and in a plain string; a bare
+receipt; a consume moving by its reservation instead of its
+receipt; green under a reformat the text check would have failed.
+
+**9. `docs: records catch up on SL-3`**
 The slice record's evidence as delivered, standing guards and its
 sign-off line; the registry closing SL-3 by a dated revision entry,
 re-deciding the ordering, and handing SL-4 consume's two moves held
@@ -123,9 +142,10 @@ its decisions entry; TODO's known issue on E7 rewritten now that
 the store holds the line; ARCHITECTURE and the infrastructure
 contract naming the check on the units held where they list the
 store's refusals; the operator manual if the ground's rows need a
-reset before V3.
+reset before V3. Added by revision, 2026-10-07: ARCHITECTURE's
+harness naming the SQL parser beside ArchUnit.
 
-**9. `docs(agent): close the commit plan for SL-3's build`**
+**10. `docs(agent): close the commit plan for SL-3's build`**
 Deletes this file.
 
 ## Decisions taken inside this plan
@@ -174,3 +194,14 @@ Deletes this file.
   correction tripwire beside the reserve's, and that race's red
   needed its window widened; commit 6 landed unfolded, E7 reading
   source, as Java 21 has no class-file reader.
+- **2026-10-07 — an eighth step of work: E7's second rule read as
+  SQL.** Forced at commit 7's review: the rule matched the ledger's
+  statements as text — `contains("WITH receipt AS (")` — so a
+  reformat or a renamed alias failed it while saying nothing of
+  what the statement does. The reviewer asked for it to read SQL;
+  a parser was tried on the ledger's statements first and reads all
+  of them, the data-modifying `WITH`, `ON CONFLICT` and `RETURNING`
+  included. At the same review, the parser was found to see only text
+  blocks, and the reviewer chose to refuse SQL written any other way
+  rather than read both forms. No wall moves, the evidence stays
+  green unchanged. The records step and the close move to 9 and 10.
