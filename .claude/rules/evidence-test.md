@@ -91,8 +91,10 @@ assertThat(Body.of(answer.getBody()).stringAt("$.endedAt")).isEqualTo(...);
 
 1. **The witness first,** read from where the truth persists, never
    from replies.
-2. **The promise on every reading that can move numbers,** before
-   any exact number, sampled readings included.
+2. **The promise on every reading taken after the adversity,**
+   before any exact number, sampled readings included. A reading
+   that only confirms the scene is set, before the adversity, is
+   not evidence and owes it nothing.
 3. **Then the exact numbers,** then the state of each thing the
    adversity touched.
 4. **The door's answer last.**
@@ -148,7 +150,7 @@ Read the slice's tests and ask:
 
 1. Does every test's first line say what it is?
 2. Is the witness asserted before the answer, and the promise before
-   the numbers, on every reading that can move numbers?
+   the numbers, on every reading taken after the adversity?
 3. Does every number's label print the reading?
 4. Did every red fail on the witness, not on a status or a crash?
 5. Where a test diverges from this shape — did it find something
@@ -170,3 +172,10 @@ Read the slice's tests and ask:
   only. The skeleton is marked apart from this project's
   illustration (shapes-lifecycle §4), so it can be offered. Nothing
   read from elsewhere.
+- 2026-10-07 — the promise is owed on every reading taken after the
+  adversity, where it said every reading that can move numbers.
+  Taught by SL-3's close, the shape's first reading: five readings
+  in `ExitDoorIT` and `ExitStormIT` confirm the scene before the
+  adversity — `T took the units R's expiry freed` — and check no
+  promise. A setup reading is not evidence; the shape was wrong
+  here, and the tests stand. Nothing read from elsewhere.

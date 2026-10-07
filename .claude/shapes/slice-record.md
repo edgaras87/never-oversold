@@ -87,6 +87,13 @@ and say so>
 ---
 ```
 
+**A face revised after the plan was signed** keeps its block and
+dates the change. The new winner comes first as always, marked
+`*chosen <date>*`; the face it replaced moves below it, marked
+`*as signed on <date>*`, and answers under `*Why not, on
+revision:*`. A reader sees that a decision was signed and then
+overturned, and when — not that it was always so.
+
 Five things these encode, so a reader checking a record knows what
 is being checked:
 
@@ -154,3 +161,12 @@ Read the new record and ask:
   Weighed against the table as it was, a short table with blocks
   below, and a numbered list (decisions log, this date). Nothing
   read from elsewhere.
+- 2026-10-07 — a face revised after signing carries its dates.
+  Taught by SL-3's close, the shape's first reading: §8 had dated
+  both faces when the store's check on the units held replaced the
+  structural test as G6's guard for the numbers (2026-10-05), and
+  the shape had no line for a decision changing mid-build. Each had
+  something: the record keeps its labels, and the shape takes them.
+  The same reading found G6's kills line and two owners' backstop
+  lines missing; there the output had drifted, and the shape
+  stands. Nothing read from elsewhere.
