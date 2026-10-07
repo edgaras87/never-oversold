@@ -125,27 +125,42 @@ force release, in a text block and in a plain string; a bare
 receipt; a consume moving by its reservation instead of its
 receipt; green under a reformat the text check would have failed.
 
-**9. `docs: records catch up on SL-3`**
+**9. `chore(agent): keep temp/'s drafts at a take`** *(added by
+revision, 2026-10-07)*
+`delivered-copies.md`, edited in place on 2026-10-05: the take
+removes its own staging and nothing else, where it said to empty
+`temp/`, which now holds a draft of the project's own. Its decisions
+entry with it. An agent path, so its own commit, ahead of the
+records that name it.
+
+**10. `chore(agent): expose the evidence-test conventions`**
+*(moved here by revision, 2026-10-07)*
+The conventions every evidence test has followed since commit 3's
+review — the witness asserted first, the invariant checked in every
+test that moves numbers, labels carrying the numbers, the record's
+example numbers, each test saying what it is — as a rule exposed to
+every test (`.claude/rules/`, paths `src/test/**`), with its
+decisions entry. Decided at commit 3's review; planned inside the
+records step, moved out because it is an agent path.
+
+**11. `docs: records catch up on SL-3`**
 The slice record's evidence as delivered, standing guards and its
 sign-off line; the registry closing SL-3 by a dated revision entry,
 re-deciding the ordering, and handing SL-4 consume's two moves held
 in one statement; SL-1's and SL-2's records where they name SL-3 as
 the payer of a debt now paid; README's exits as a stranger meets
-them; CHANGELOG and the version's move; ARCHITECTURE's new table
-and trigger; the devlog with every red and green from actual
-output; TODO's Step 7 items closed or moved; PLAN's evidence,
-deviations, Stage 4 and records items ticked. A sweep for
-"SL-3" in live text that still speaks of it as future. Added by
-revision, 2026-10-05: the evidence-test conventions as a rule
-exposed to every test (`.claude/rules/`, paths `src/test/**`), with
-its decisions entry; TODO's known issue on E7 rewritten now that
-the store holds the line; ARCHITECTURE and the infrastructure
-contract naming the check on the units held where they list the
-store's refusals; the operator manual if the ground's rows need a
-reset before V3. Added by revision, 2026-10-07: ARCHITECTURE's
-harness naming the SQL parser beside ArchUnit.
+them; CHANGELOG and the version's move; ARCHITECTURE's new table,
+its triggers and the check on the units held, and the harness's SQL
+parser beside ArchUnit; the infrastructure contract naming the
+check where it lists the store's refusals; the operator manual if
+the ground's rows need a check before V3; the devlog with every red
+and green from actual output; TODO's Step 7 items closed or moved,
+its known issue on E7 rewritten now that the store holds the line,
+and the line to the deliverer for the copy edited in place; PLAN's
+evidence, deviations, Stage 4 and records items ticked. A sweep for
+"SL-3" in live text that still speaks of it as future.
 
-**10. `docs(agent): close the commit plan for SL-3's build`**
+**12. `docs(agent): close the commit plan for SL-3's build`**
 Deletes this file.
 
 ## Decisions taken inside this plan
@@ -205,3 +220,10 @@ Deletes this file.
   blocks, and the reviewer chose to refuse SQL written any other way
   rather than read both forms. No wall moves, the evidence stays
   green unchanged. The records step and the close move to 9 and 10.
+- **2026-10-07 — the records step split by path.** Found opening it:
+  it carried the evidence-test rule and the edit to
+  `delivered-copies.md`, both under `.claude/`, beside the project's
+  records, and an agent path never shares a commit
+  (`commit-messages`). Each becomes its own `chore(agent)` commit,
+  ahead of the records, which name them. The records step and the
+  close move to 11 and 12.
