@@ -7,6 +7,7 @@ import io.github.edgaras87.neveroversold.testsupport.DatabaseIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -24,6 +25,9 @@ class MigrationPathIT extends DatabaseIT {
 
     @Autowired
     private JdbcClient jdbc;
+
+    @Autowired
+    private TransactionTemplate transaction;
 
     @Test
     void applicationConnectsAsTheRuntimeIdentity() {
@@ -99,7 +103,7 @@ class MigrationPathIT extends DatabaseIT {
                 JOIN pg_namespace n ON n.oid = t.relnamespace
                 WHERE n.nspname = 'never_oversold'
                   AND t.relname = 'reservation_exit'
-                  AND NOT g.tgisinternal
+                  AND g.tgname = 'reservation_exit_guard'
                 """).query(String.class).single();
         assertThat(guard).isEqualTo("CREATE TRIGGER reservation_exit_guard"
                 + " BEFORE INSERT OR DELETE OR UPDATE ON never_oversold.reservation_exit"
@@ -107,20 +111,55 @@ class MigrationPathIT extends DatabaseIT {
     }
 
     @Test
+    void theUnitsHeldCheckIsInTheCatalog() {
+        // SL-3's G6, revised 2026-10-05 (slice record, §8): one deferred
+        // constraint trigger on each table whose rows the units held count.
+        // Enabled, not merely present: a disabled one refuses nothing
+        Map<String, String> checks = new TreeMap<>();
+        jdbc.sql("""
+                SELECT t.relname, pg_get_triggerdef(g.oid) || ' / ' || g.tgenabled::text
+                FROM pg_trigger g
+                JOIN pg_class t ON t.oid = g.tgrelid
+                JOIN pg_namespace n ON n.oid = t.relnamespace
+                WHERE n.nspname = 'never_oversold'
+                  AND g.tgname = 'units_held_agree'
+                """).query((row, i) -> checks.put(row.getString(1), row.getString(2))).list();
+        assertThat(checks).containsOnly(
+                Map.entry("item", "CREATE CONSTRAINT TRIGGER units_held_agree"
+                        + " AFTER INSERT OR UPDATE ON never_oversold.item"
+                        + " DEFERRABLE INITIALLY DEFERRED"
+                        + " FOR EACH ROW EXECUTE FUNCTION units_held_agree() / O"),
+                Map.entry("reservation", "CREATE CONSTRAINT TRIGGER units_held_agree"
+                        + " AFTER INSERT OR DELETE OR UPDATE ON never_oversold.reservation"
+                        + " DEFERRABLE INITIALLY DEFERRED"
+                        + " FOR EACH ROW EXECUTE FUNCTION units_held_agree() / O"),
+                Map.entry("reservation_exit", "CREATE CONSTRAINT TRIGGER units_held_agree"
+                        + " AFTER INSERT OR DELETE OR UPDATE ON never_oversold.reservation_exit"
+                        + " DEFERRABLE INITIALLY DEFERRED"
+                        + " FOR EACH ROW EXECUTE FUNCTION units_held_agree() / O"));
+    }
+
+    @Test
     void theRuntimeIdentityCanWriteTheNewTables() {
         // the ground's fourth term — new objects arrive already usable by
-        // runtime, with no GRANT in the migration — held in the miniature
+        // runtime, with no GRANT in the migration — held in the miniature.
+        // Each transaction keeps the units held in step with the open
+        // reservations, which V3's check refuses otherwise
         String item = "migration-path-" + java.util.UUID.randomUUID();
-        jdbc.sql("INSERT INTO item (id, on_hand_count) VALUES (:id, 1)")
-                .param("id", item).update();
-        jdbc.sql("""
-                INSERT INTO reservation (item_id, quantity, expires_at)
-                VALUES (:id, 1, now() + interval '1 minute')
-                """).param("id", item).update();
-        assertThat(jdbc.sql("DELETE FROM reservation WHERE item_id = :id").param("id", item).update())
-                .isEqualTo(1);
-        assertThat(jdbc.sql("DELETE FROM item WHERE id = :id").param("id", item).update())
-                .isEqualTo(1);
+        transaction.executeWithoutResult(status -> {
+            jdbc.sql("INSERT INTO item (id, on_hand_count, reserved) VALUES (:id, 1, 1)")
+                    .param("id", item).update();
+            jdbc.sql("""
+                    INSERT INTO reservation (item_id, quantity, expires_at)
+                    VALUES (:id, 1, now() + interval '1 minute')
+                    """).param("id", item).update();
+        });
+        transaction.executeWithoutResult(status -> {
+            assertThat(jdbc.sql("DELETE FROM reservation WHERE item_id = :id").param("id", item).update())
+                    .isEqualTo(1);
+            assertThat(jdbc.sql("DELETE FROM item WHERE id = :id").param("id", item).update())
+                    .isEqualTo(1);
+        });
     }
 
     @Test

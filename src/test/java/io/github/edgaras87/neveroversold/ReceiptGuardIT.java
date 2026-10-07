@@ -23,8 +23,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * to refuse before any path leans on them. They discharge no kill. The
  * evidence travels the door.
  *
- * <p>The reservations here are written by hand and move no item numbers;
- * nothing reads them but these tests.
+ * <p>The reservations and receipts here are written by hand, each in
+ * one statement with the units held moved to match, as V3's check on
+ * the units held requires of every writer; nothing reads them but
+ * these tests.
  */
 class ReceiptGuardIT extends DatabaseIT {
 
@@ -140,10 +142,11 @@ class ReceiptGuardIT extends DatabaseIT {
         return aReservation("now() - interval '1 hour'", "now() - interval '" + ago + "'");
     }
 
+    /** An item of 10 holding the one unit of one reservation, written as one statement. */
     private UUID aReservation(String createdAt, String expiresAt) {
         String item = "receipt-guard-" + UUID.randomUUID();
-        store.sql("INSERT INTO item (id, on_hand_count) VALUES (:id, 10)").param("id", item).update();
-        return store.sql("INSERT INTO reservation (item_id, quantity, created_at, expires_at) "
+        return store.sql("WITH held AS (INSERT INTO item (id, on_hand_count, reserved) VALUES (:id, 10, 1)) "
+                        + "INSERT INTO reservation (item_id, quantity, created_at, expires_at) "
                         + "VALUES (:id, 1, " + createdAt + ", " + expiresAt + ") RETURNING id")
                 .param("id", item).query(UUID.class).single();
     }
@@ -152,8 +155,18 @@ class ReceiptGuardIT extends DatabaseIT {
         writeReceipt(reservation, kind, OffsetDateTime.parse("2000-01-01T00:00:00Z"));
     }
 
+    /** A receipt and its units freed, as one statement — the store refuses either alone. */
     private void writeReceipt(UUID reservation, String kind, OffsetDateTime endedAt) {
-        store.sql("INSERT INTO reservation_exit (reservation_id, kind, ended_at) VALUES (:id, :kind, :at)")
+        store.sql("""
+                        WITH receipt AS (
+                            INSERT INTO reservation_exit (reservation_id, kind, ended_at)
+                            VALUES (:id, :kind, :at)
+                            RETURNING reservation_id
+                        )
+                        UPDATE item i SET reserved = i.reserved - r.quantity
+                          FROM receipt e JOIN reservation r ON r.id = e.reservation_id
+                         WHERE i.id = r.item_id
+                        """)
                 .param("id", reservation).param("kind", kind).param("at", endedAt).update();
     }
 
