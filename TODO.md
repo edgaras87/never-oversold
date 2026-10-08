@@ -13,8 +13,9 @@
       ADR-0014), where each rule lives (ARCHITECTURE's map), the
       size the system is built for (the definition's runtime
       ground), when an index is a need (ADR-0015, V4), and four
-      delivered copies corrected in place. Waiting on its merge
-      into main, on the reviewer's word.
+      delivered copies corrected in place. Merged into main on
+      2026-10-08 (10437cd). The bundle's answer, taken the same day
+      @ f801fd0, is what SL-4 opens on.
 - [ ] Step 8 (SL-4, cbc-slice): consume's two moves hold together,
       the registry's chosen-next since 2026-10-07. It inherits by
       name: the two moves are already one statement in one
@@ -187,33 +188,7 @@ the devlog.
 <!-- What this run addresses to the bundle, and only that, so a
      reading looks in one place (delivered-copies.md, rule 4). A
      line leaves when a note answers it. Last answered: the note of
-     2026-10-01, read through c33a996. -->
-
-- [ ] deliverer: evaluate this run's changes to
-      `.claude/rules/delivered-copies.md` since a3b6b8c.
-- [ ] deliverer: evaluate this run's changes to
-      `.claude/skills/cbc-slice/` since a3b6b8c.
-- [ ] deliverer: evaluate this run's changes to
-      `.claude/skills/cbc-framing/` since a3b6b8c. A finished copy
-      here: the edit's first use is yours.
-- [ ] deliverer: evaluate this run's changes to
-      `.claude/skills/infra-establish/` since a3b6b8c. A finished
-      copy here: the edit's first use is yours.
-- [ ] deliverer: evaluate this run's changes to
-      `.claude/skills/commit-plan/` since a3b6b8c.
-- [ ] Two lessons about the chapters, which are never edited here.
-      The framing chapter's trust list asks what the system accepts
-      without defending, and never who besides the system can write
-      what it stores; and nothing in it asks what size the system is
-      built for. Both went unsaid in this run's framing, and SL-3
-      paid for each before a review wrote them (the definition's
-      revisions of 2026-10-08; the framing skill now asks both). The
-      walls chapter ranks its rungs by who can violate them, and two
-      things it does not say were met here: a right withheld from an
-      identity is a wall in the store's own grant system, the
-      strongest kind for a rule that an operation never happens; and
-      the single-entry-path rung holds only while a trust line names
-      that path the only writer — without one, "single" is a hope.
+     2026-10-08, read through 10437cd. -->
 
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
