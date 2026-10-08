@@ -116,6 +116,31 @@ public final class LedgerSql {
         return written;
     }
 
+    /**
+     * The tables a statement changes or removes rows of: an update's or a
+     * delete's target, an upsert's when it updates, and the same inside
+     * each of its {@code WITH}s. An insert alone adds rows and is not here.
+     */
+    public static Set<String> tablesRewritten(Statement sql) {
+        Set<String> rewritten = new HashSet<>();
+        switch (sql) {
+            case Update update -> rewritten.add(update.getTable().getName());
+            case Delete delete -> rewritten.add(delete.getTable().getName());
+            case Insert insert when insert.getConflictAction() != null
+                    && insert.getConflictAction().getUpdateSets() != null ->
+                    rewritten.add(insert.getTable().getName());
+            default -> { }
+        }
+        for (WithItem<?> with : withItems(sql)) {
+            switch (with.getParenthesedStatement()) {
+                case ParenthesedUpdate inner -> rewritten.add(inner.getUpdate().getTable().getName());
+                case ParenthesedDelete inner -> rewritten.add(inner.getDelete().getTable().getName());
+                default -> { }
+            }
+        }
+        return rewritten;
+    }
+
     /** The tables an update reads from: its {@code FROM} and its joins, subqueries opened. */
     public static Set<String> tablesRead(Update update) {
         List<FromItem> sources = new ArrayList<>();

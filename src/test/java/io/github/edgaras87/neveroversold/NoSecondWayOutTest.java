@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.LEDGER;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.lowersANumber;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.tablesRead;
+import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.tablesRewritten;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.tablesWritten;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.withItems;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,10 +39,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * from any writer, and — its check on the units held (V3) — the numbers
  * moving without a receipt, whoever writes. That is the wall; this is
  * the tripwire in front of it, failing at build time and naming the
- * file. Three rules: receipts and the units held are written by the
+ * file. Four rules: receipts and the units held are written by the
  * ledger alone; the ledger writes its SQL as text blocks, so each
- * statement is read; and inside it, numbers fall only in the statement
- * that wrote the receipt, by the receipts that statement wrote.
+ * statement is read; inside it, numbers fall only in the statement
+ * that wrote the receipt, by the receipts that statement wrote; and no
+ * statement of its updates or deletes a reservation.
  *
  * <p>It reads source, not bytecode: SQL is text either way, and a
  * statement assembled at runtime from pieces would pass both. The first
@@ -145,6 +147,23 @@ class NoSecondWayOutTest {
 
         assertThat(tablesRead(update)).as("the update reads its units from the receipts it wrote")
                 .contains(with.getAliasName());
+    }
+
+    /**
+     * E7 · G6 — the ledger never updates or deletes a reservation. A
+     * reservation ends by its receipt; removed with its units, or edited,
+     * it would end with none, and the check on the units held would not
+     * see it, the numbers still agreeing. Under T4 the ledger is the only
+     * writer, so this is the whole of that door. A future feature that
+     * means to change reservations — extending a hold — fails here, and
+     * is decided rather than slipped in (the review after SL-3,
+     * 2026-10-08).
+     */
+    @Test
+    void theLedgerNeverRewritesAReservation() {
+        assertThat(LedgerSql.statements())
+                .as("a reservation's ending is a receipt; none of the ledger's statements may change or remove one")
+                .allSatisfy(sql -> assertThat(tablesRewritten(sql)).as("%s", sql).doesNotContain("reservation"));
     }
 
     private static String read(Path path) {

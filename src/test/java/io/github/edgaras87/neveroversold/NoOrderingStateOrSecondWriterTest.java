@@ -10,8 +10,6 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import io.github.edgaras87.neveroversold.reservation.values.OnHandCount;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -75,6 +73,14 @@ class NoOrderingStateOrSecondWriterTest {
      * of its methods takes a count. A second way in — a force-adjust, a
      * bulk importer, an admin endpoint — trips one half or the other.
      *
+     * <p>"Reaches the store" is any database API, not only the two this
+     * ledger happens to use: plain JDBC ({@code java.sql},
+     * {@code javax.sql}), Spring's JDBC and its transactions. And "the
+     * ledger" is the one class by its full name, not any class whose name
+     * ends like it (widened 2026-10-08, the review after SL-3: a class
+     * holding a {@code DataSource}, or one named {@code CleanupLedger},
+     * passed the rule as first written).
+     *
      * <p>The store's constraint already keeps the <em>state</em> safe from
      * any writer at all. What this keeps safe is the <em>decision</em>: a
      * path that writes the count without the comparison refuses nothing,
@@ -83,9 +89,11 @@ class NoOrderingStateOrSecondWriterTest {
      */
     @Test
     void theCountHasOneWritingPath() {
-        noClasses().that().haveSimpleNameNotEndingWith("Ledger")
-                .should().dependOnClassesThat().belongToAnyOf(JdbcClient.class, TransactionTemplate.class)
-                .because("a second class reaching the store is a second decision path for the count (G6)")
+        noClasses().that().doNotHaveFullyQualifiedName("io.github.edgaras87.neveroversold.reservation.Ledger")
+                .should().dependOnClassesThat().resideInAnyPackage(
+                        "java.sql..", "javax.sql..", "org.springframework.jdbc..", "org.springframework.transaction..")
+                .because("a second class reaching the store, by any database API, is a second decision "
+                        + "path for the count (G6), and a second writer T4 does not trust")
                 .check(LEDGER);
 
         List<Method> takeACount = Arrays.stream(
