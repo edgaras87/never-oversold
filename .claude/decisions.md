@@ -782,3 +782,36 @@
   a demand in the slice skill (a delivered copy, and these are this
   project's forms — `Witness.holds`, `Body.names` — not any
   project's; rule 3 of `delivered-copies.md`).
+
+- 2026-10-08 `cbc-slice` edited in place, pinned @ a3b6b8c: five
+  edits, in SKILL.md and in the workflow reference's Stages 2 and 3.
+  One, Stage 2's hunt for escape hatches aims at the definition's
+  trust list: a writer it trusts is named as trusted, not walled, and
+  a writer it never mentions is a question for the definition before
+  it is a wall. Two, a face's cost says the size it assumes and what
+  would make it worth revisiting. Three, Stage 3's red counts only if
+  it fails on the witness, not on a status, a crash or a setup step.
+  Four, a race whose red needs its window held open gets the pause on
+  the red tree only, and says so. Five, a third kind of test named
+  beside evidence and tripwire: the wall's own check, showing a wall
+  refuse directly or reading it from the catalog, discharging no kill.
+  Found at Step 7, SL-3, and the review after it. One: SL-3's G6 was
+  defended against "a script… paths never anticipated", because
+  "raw scripts" in the hunt had nothing to aim at; the review wrote
+  the trust list's missing line (the definition's T4) and found the
+  skill had sent the slice past it. Two: SL-3's check on the units
+  held carried a cost — it reads an item's history at every commit —
+  true at the evidence's size and unstated beyond it. Three: SL-3's
+  first red failed on 500s and proved nothing, SL-2's "worthless red"
+  repeated, its lesson kept only in SL-2's record. Four: SL-3's race
+  of tidy against consume showed its interleaving only with a 50 ms
+  pause on the red tree, which the skill had no word for. Five:
+  SL-1's catalog test and SL-3's direct refusal tests were neither
+  evidence nor tripwires, and said so in words the skill lacked.
+  Rejected: this project's shapes alone (the evidence-test shape
+  already carries three and four, but only here; each is a demand any
+  slice would want, so it belongs in the copy, rule 2); a prose
+  hand-off in TODO (rule 4: the diff and this entry are what the
+  deliverer reads); naming T4 or this project's tests in the copy
+  (rule 2: the question, never this project's answer).
+

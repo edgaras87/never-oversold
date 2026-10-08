@@ -89,13 +89,23 @@ and restate as a property.
    one face could hold the guarantee, the plan shows the candidates as a
    comparison the signer can weigh — each face, how it holds the
    guarantee, its cost — and recommends one, the way an ADR presents
-   options. Faces named in a paragraph after the choice are not weighed;
-   the reviewer reads past them and asks afterwards whether alternatives
-   existed. The sign-off is only real if the alternatives were in front of
-   the signer.
+   options. A cost is true at some size: say which — read from the size
+   the definition says the system is built for, where it says one — and
+   what would make the face worth revisiting, since a face chosen at one
+   size can lose at another. Faces named in a paragraph after the choice
+   are not weighed; the reviewer reads past them and asks afterwards
+   whether alternatives existed. The sign-off is only real if the
+   alternatives were in front of the signer.
 3. **Hunt escape hatches.** Any path that bypasses the wall — an admin
    endpoint, a raw script, a migration — turns the guarantee into fiction.
    Every write path goes through the owner, or the owner is not an owner.
+   Hunt them against the definition's trust list. A writer the definition
+   trusts — the store's superuser, the identity it names as the system's
+   own — is named in the plan as trusted, not walled; a guarantee cannot
+   wall against a writer who can remove the wall, and trying turns every
+   slice into an open-ended defence. A writer the definition never
+   mentions is a question for the definition, answered there by a dated
+   revision, before it becomes a wall built by default.
 4. **Name the surface at its minimum.** Only what the guarantees need
    somewhere to live — the door they are attacked through, the schema
    the walls stand in, the records the close needs — and nothing beyond.
@@ -135,6 +145,15 @@ unowned guarantees.**
    the wall is a rule over the code, plant the violation it forbids. This
    is also how a slice answers R5 when readiness had no wall to break —
    the usual first slice.
+
+   A red counts only if it fails on the witness. A test that stops on a
+   status code, a crash or a failing setup step before it reads the state
+   has proved that it reads status codes, not that it watches the
+   invariant; reorder it so the witness is asserted first, and take the
+   red again. And a race whose red needs its window held open — a pause
+   added so the interleaving the test is named for actually happens —
+   gets that pause on the red tree only, and the record says so: the
+   evidence as committed runs without it.
 5. **Say on each test what it is for.** Beside the test, not only in the
    record: which evidence criterion, which guarantee, which kill, and then
    in plain words what it checks and what would trip it. The reasons — why
@@ -152,6 +171,14 @@ unowned guarantees.**
    the red run decides which kind a test is, not its author — a test that
    cannot be reddened by removing the wall it claims to guard is not
    evidence, whatever it is called.
+7. **A wall may be shown on its own.** Send it its refusal directly — the
+   second key inserted, the forbidden write made straight to the store —
+   or read it from where it lives, its definition in the catalog. That is
+   the wall's own check: it proves the wall stands before any path leans
+   on it, and it is where a wall dropped "for a while" is noticed before
+   any storm samples around the gap. It is not evidence and discharges no
+   kill: it creates no adversity, it only shows the wall is there. It says
+   so on itself, like a tripwire.
 
 **Exit:** all evidence tests pass. **Gate: every guarantee has a test that
 creates its adversity, and was red without the wall — a green suite of

@@ -78,11 +78,15 @@ adversity ("a unique constraint defeats duplicate delivery because the
 second insert cannot physically succeed" — not "we use a unique
 constraint"). Where more than one face could hold a guarantee, put the
 candidates in front of the signer as a comparison — each face, how it
-holds the guarantee, its cost — with a recommendation, the way an ADR
+holds the guarantee, its cost, and the size that cost assumes with what
+would make it worth revisiting — with a recommendation, the way an ADR
 presents options; a rejected face named after the choice is not a
 weighed one, and the sign-off is only real if the alternatives were in
 front of the signer. Hunt escape hatches: admin paths, raw scripts, migrations
-that bypass the wall. Name **the surface at its minimum**: only what the
+that bypass the wall — hunted against the definition's trust list: a writer
+the definition trusts is named as trusted, not walled, and a writer it never
+mentions is a question for the definition before it is a wall to build.
+Name **the surface at its minimum**: only what the
 guarantees need somewhere to live — the door, the schema, the records —
 and nothing beyond; a slice is not a feature, and what enters here without
 a guarantee needing it is scope. **Gate: no unowned guarantee** — "all the
@@ -97,11 +101,16 @@ guarantee by guarantee. **Gate: every guarantee has an adversity-creating
 test, and all pass — and each was seen red with its wall absent, in a
 state that never lands in history, recorded from actual output, then
 green unchanged once the wall stood. A green happy-path suite closes nothing;
-a test never seen red is not known to be watching.** How the wall is made
+a test never seen red is not known to be watching. A red counts only if it
+fails on the witness** — a test that stops on a status, a crash or a setup
+step before reading the state proves it reads statuses; reorder it, witness
+first, and take the red again. How the wall is made
 absent is the slice's choice: when this slice births the wall, the naive
 version can land first and the wall be its own diff; when the wall
 already stands, remove it on the working tree; when the wall is a rule
-over the code, plant the violation it forbids.
+over the code, plant the violation it forbids. A race whose red needs its
+window held open — a pause added so the interleaving the test is named for
+actually happens — gets it on the red tree only, and the record says so.
 Each test says beside itself what it is for — its evidence criterion, its
 guarantee, its kill, and in plain words what it checks and what would trip
 it, the reasons staying in the slice's record so the two cannot drift. A
@@ -109,7 +118,11 @@ test that cannot fail for the invariant, because what it guards is a
 decided face rather than the promise, says on itself that it is a tripwire
 and which decision it pins; **a tripwire never discharges a kill**, every
 kill still owes a test seen red, and the red run decides which kind a test
-is rather than its author.
+is rather than its author. A third kind sends a wall its refusal directly —
+the second key inserted, the forbidden write made — or reads the wall from
+where it lives: **the wall's own check**, proving the wall stands before any
+path leans on it and noticing if it goes. It is not evidence either, says so
+on itself, and discharges no kill.
 
 **Stage 4 — document.** Record compactly: invariant → guarantees → each
 one's owner → each one's evidence. Close the slice in the registry as
