@@ -841,3 +841,24 @@
   carry the question itself; the chapters' matching lessons go to the
   deliverer as prose).
 
+- 2026-10-08 `infra-establish` edited in place, pinned @ a3b6b8c, a
+  copy this project has finished with (rule 7): first used by the
+  deliverer. One edit, in the PostgreSQL walkthrough's hand-off,
+  where it said "Day-to-day IDE/psql inspection: runtime" and
+  nothing more: that identity is the one the application writes
+  with, and the ground now says so and asks which the project means —
+  the framing's trust list covering people who read with it, or a
+  read-only identity made at bootstrap for looking.
+  Found at the review after SL-3. This ground's contract and manual,
+  filled from the walkthrough, told a person to inspect, and the
+  evidence to read its witness, as `runtime`; when the review came to
+  state who may write the store, the one identity that writes the
+  data turned out to be the one handed to people for looking, with
+  nothing on record saying whether they were trusted. The review chose
+  trust (the definition's T4; ADR-0014).
+  Rejected: prescribing the read-only role (an answer, not a question
+  — this project chose the other one, and either holds a system
+  together); editing the role-split reference instead (the hand-off
+  is where the inspection identity is given out, so it is where the
+  question has to be asked).
+

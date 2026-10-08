@@ -159,7 +159,15 @@ container-to-container; database `<project_db>`, schema
 `<project_schema>`; **the application connects as `<project>_runtime`
 and nothing else** — migrator is the migration tool's identity alone;
 the bootstrap identity is an occasional admin lens, never wired in.
-Day-to-day IDE/psql inspection: runtime.
+Day-to-day IDE/psql inspection: runtime — the identity the
+application writes with, so whoever inspects holds a password that
+can change every table. Say which the project means, in the manuals
+and against the framing: either the framing's trust list covers
+people reading with it (trusted not to write), or a read-only
+identity is owed for looking, made at bootstrap beside the two.
+Left unsaid, the writing identity is handed out as the looking one,
+and the slices cannot tell whether that hand is a writer to defend
+against.
 
 **Reading from outside without a host `psql`.** The witness read —
 persisted state read from the host, as runtime, through the
