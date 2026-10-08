@@ -115,7 +115,16 @@ cost item narrowed to retention; one line per copy edited, to the
 deliverer; the chapters' lessons as prose lines. The devlog. The
 ground migrated to V4, on the reviewer's word at that boundary.
 
-**13. `docs(agent): close commit plan for the review`**
+**13. `docs: TODO asks for a glossary`** *(added by revision,
+2026-10-08)*
+Two lines, the glossary itself waiting. To the deliverer: the method
+has no glossary, and five of its words — tripwire, witness, fold,
+fence, possession — appear only in the skills, never in the chapters
+a reader starts from. For this project: whether README's two words
+the records use grow into a short list for a stranger reading the
+records, or a page of their own.
+
+**14. `docs(agent): close commit plan for the review`**
 Deletes this file.
 
 ## Decisions taken inside this plan
@@ -137,3 +146,12 @@ Deletes this file.
   evidence; none closes here.
 - **The ground's migration to V4 waits for the reviewer's word** at
   commit 12, with the before-check and a dump, as V3's did.
+
+## Revisions
+
+- **2026-10-08 — a TODO step before the close.** Raised with the close
+  staged: asked whether "early warning" had replaced "tripwire", the
+  reviewer asked where the method's words are defined at all; nowhere
+  in one place, and five only in the skills. Written down now rather
+  than carried in conversation to Step 8's opening. The close moves
+  to 14.
