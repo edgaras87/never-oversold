@@ -862,3 +862,23 @@
   is where the inspection identity is given out, so it is where the
   question has to be asked).
 
+- 2026-10-08 `commit-plan` edited in place, pinned @ a3b6b8c: two
+  edits. One, planned subjects are counted against commit-messages'
+  limit when the plan is written. Two, a change to the agent's own
+  files is planned as its own step, never inside a records step.
+  Found at Step 7, SL-3's commit plan. Its close's subject sat at 51
+  characters from the day the plan opened, and two revisions planned
+  subjects of 61 and 53; all three were caught only when counted at
+  their boundaries. One revision's own subject, written at its
+  boundary uncounted, had already landed at 55 and was kept, the
+  records citing its hash.
+  The same plan put the evidence-test rule and an edit to a delivered
+  rule, both under `.claude/`, inside its records step, which
+  commit-messages forbids; the step had to be split by revision when
+  it opened.
+  Rejected: relying on commit-messages alone (it governs each commit
+  as it lands; the plan is where the subjects are first written, and
+  where a step's paths are first decided); a check script (a habit at
+  the moment of writing the plan costs less than a tool, and the
+  convention is the deliverer's to tool if it wants).
+

@@ -50,8 +50,12 @@ could reasonably object to. Optional, but usually the most useful
 section.>
 ```
 
-- Commit subjects follow commit-messages. The per-step note says
-  why the step is a step; the commit body is written at commit time.
+- Commit subjects follow commit-messages, and are counted against
+  its limit when the plan is written, not when each step lands: a
+  subject planned too long lands too long, or is rewritten at its
+  boundary with nothing in the plan saying why. The per-step note
+  says why the step is a step; the commit body is written at commit
+  time.
 - **The list may roll.** Steps near at hand are firm. Steps past
   the decision horizon, whatever a not-yet-seen result must shape,
   are provisional and marked so; a provisional step names its
@@ -78,7 +82,11 @@ section.>
 - **Plan the records steps.** Walk the entry file's records table:
   every record whose moment this set will create gets a step, at
   the boundary where its truth exists. A set that closes a
-  `PLAN.md` gate item names the commit that closes it.
+  `PLAN.md` gate item names the commit that closes it. A change to
+  the agent's own files — a skill or rule corrected, a convention
+  exposed, its decisions entry — is a step of its own, never folded
+  into a records step: commit-messages keeps the two apart, and a
+  records step planned to carry one has to be split when it opens.
 
 ## 4. Lifecycle
 
