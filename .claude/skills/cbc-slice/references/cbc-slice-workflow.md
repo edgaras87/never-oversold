@@ -77,8 +77,8 @@ and restate as a property.
    wall available:
 
    ```
-   database constraint → type system → single validated entry path
-   → runtime check → code review → hope
+   the store's refusal (a constraint, a right withheld) → type system
+   → single validated entry path → runtime check → code review → hope
    ```
 
    A guarantee owned by "all the code being careful" is a design defect —

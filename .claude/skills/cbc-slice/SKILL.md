@@ -72,20 +72,21 @@ is a warning the slice inherited and dropped. **Human sign-off on the spec
 before Stage 2.**
 
 **Stage 2 — plan.** One structural owner per guarantee, strongest wall
-available: database constraint → type system → single validated entry path
-→ runtime check → code review → hope. Justify each against the *named*
-adversity ("a unique constraint defeats duplicate delivery because the
-second insert cannot physically succeed" — not "we use a unique
-constraint"). Where more than one face could hold a guarantee, put the
-candidates in front of the signer as a comparison — each face, how it
-holds the guarantee, its cost, and the size that cost assumes with what
-would make it worth revisiting — with a recommendation, the way an ADR
-presents options; a rejected face named after the choice is not a
-weighed one, and the sign-off is only real if the alternatives were in
-front of the signer. Hunt escape hatches: admin paths, raw scripts, migrations
-that bypass the wall — hunted against the definition's trust list: a writer
-the definition trusts is named as trusted, not walled, and a writer it never
-mentions is a question for the definition before it is a wall to build.
+available: the store's refusal (a constraint, a right withheld) → type
+system → single validated entry path → runtime check → code review → hope.
+Justify each against the *named* adversity ("a unique constraint defeats
+duplicate delivery because the second insert cannot physically succeed" —
+not "we use a unique constraint"). Where more than one face could hold a
+guarantee, put the candidates in front of the signer as a comparison —
+each face, how it holds the guarantee, its cost, and the size that cost
+assumes with what would make it worth revisiting — with a recommendation,
+the way an ADR presents options; a rejected face named after the choice is
+not a weighed one, and the sign-off is only real if the alternatives were
+in front of the signer. Hunt escape hatches: admin paths, raw scripts,
+migrations that bypass the wall — hunted against the definition's trust
+list: a writer the definition trusts is named as trusted, not walled, and
+a writer it never mentions is a question for the definition before it is a
+wall to build.
 Name **the surface at its minimum**: only what the
 guarantees need somewhere to live — the door, the schema, the records —
 and nothing beyond; a slice is not a feature, and what enters here without

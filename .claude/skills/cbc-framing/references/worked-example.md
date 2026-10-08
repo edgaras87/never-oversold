@@ -66,17 +66,25 @@ consequence-first:
 - A write's outcome can be unknowable (store timeout) → we face uncertainty
   about our own state.
 
-Census check: no trust-lines ("the store is atomic" does not appear — the
-store appears only as something that can hurt us). Saturation: probe 1
-(assumption hunt — "what does 'recorded' quietly assume?") surfaced the
-unknowable-write fact; probe 2 (timeline stretched — a retry arriving a day
-later) surfaced nothing new; probe 3 (quantities at huge — a key reused
-thousands of times) surfaced nothing new. Two dry probes → saturated.
+Trust assumptions — accepted deliberately, not defended: our service is
+the only writer of the order records; whoever holds the store's own
+credentials writes none by hand.
+
+Census check: one trust line, and it answers who besides us writes what we
+store; "the store is atomic" does not appear — the store appears only as
+something that can hurt us. Saturation: probe 1 (assumption hunt — "what
+does 'recorded' quietly assume?") surfaced the unknowable-write fact; probe
+2 (timeline stretched — a retry arriving a day later) surfaced nothing new;
+probe 3 (quantities at huge — a key reused thousands of times) surfaced
+nothing new. Two dry probes → saturated.
 
 The runtime ground, beside the facts: one local machine; a stranger's clean
 machine stands the system up from the README; one instance of our process
 — no census line races two of us; the store a service on that machine,
-reachable by the instance and outliving it; the clock the machine's.
+reachable by the instance and outliving it; the clock the machine's; built
+for one shop — up to ten thousand orders, each a record and its key kept
+for life, and fifty identical submissions racing at once, the hammering's
+own count.
 
 Return trip check: did the census reveal a missed possession? No — L2
 stands, no revision logged.
@@ -84,7 +92,8 @@ stands, no revision logged.
 The ledgers the exit leaves:
 - Fence list — **W1** a shop edits or cancels an order after it is
   recorded: another promise's territory. **W2** a caller submits as
-  another shop: identity at the door, a new kind of difficulty.
+  another shop: identity at the door, a new kind of difficulty. **W3** a
+  console or a script writes order records: the trust line says none does.
 - Not probed — clock skew between machines (one machine); deployment
   transitions (no second version ever runs beside the first).
 
@@ -105,7 +114,7 @@ Each fact × each possession — what dies (never how it's saved):
 6. Unknowable write outcome × order records → **we ourselves don't know if
    the order exists.**
 
-Fenced facts collide with nothing: W1 and W2 stop at the fence.
+Fenced facts collide with nothing: W1 to W3 stop at the fence.
 
 Dedup by attack surface: kills 1–3 are one concern (duplicate delivery in
 three costumes — same thing dies the same way). Kills 4 and 6 are one
@@ -155,9 +164,9 @@ an expectation, re-decided at close).
 
 1. **Intent:** the promise, one sentence, its audience and what done
    demonstrably means, plus banked rejections.
-2. **System definition:** L1 the six facts, the runtime ground, two fences
-   and the not-probed ledger · L2 three possessions, three
-   written refusals · L3 one area, one seam named-not-drawn · L4 the
+2. **System definition:** L1 the six facts, one trust line, the runtime
+   ground, three fences and the not-probed ledger · L2 three possessions,
+   three written refusals · L3 one area, one seam named-not-drawn · L4 the
    concerns · L5 empty-with-reasons.
 3. **Slice registry:** 2 slices + 1 fold, reconciliation line, slice 1
    chosen-next.
@@ -187,13 +196,19 @@ translation:
 the second insert cannot physically succeed*; (b) the same constraint's
 winner + losers reading the winner's row; (c) the stored original response,
 returned on conflict; (d) a body-hash stored with the key, compared on
-conflict. Escape-hatch hunt: any admin insert path must go through the same
-constraint-guarded table — no side door. Gate passed: no unowned guarantee.
+conflict. Escape-hatch hunt, against the trust line: every write path of
+ours — an admin endpoint included — goes through the same
+constraint-guarded table, no side door; a hand at the store's console is
+trusted, not walled (W3). Gate passed: no unowned guarantee.
 
 **build** — boring code plus the evidence: hammer it, inject the replay,
 send the mismatched body — watch the invariant survive, guarantee by
-guarantee. Gate: green happy-path tests close nothing; only
-adversity-creating tests do.
+guarantee. Each test is seen red with its wall absent, failing on the
+witness — recorded orders per submission, read from the store — never on a
+status code first. Beside them, the unique constraint shown on its own: a
+second row with the key written straight to the store, refused — the
+wall's own check, not evidence. Gate: green happy-path tests close nothing;
+only adversity-creating tests do.
 
 **document** — invariant → four guarantees → their owners → their evidence.
 Slice 1 closes in the registry as evidence-closed; the registry re-decides

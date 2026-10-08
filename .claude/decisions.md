@@ -882,3 +882,29 @@
   the moment of writing the plan costs less than a tool, and the
   convention is the deliverer's to tool if it wants).
 
+
+- 2026-10-08 The bundle updated @ f801fd0, from a3b6b8c. Read
+  through 10437cd. The note of 2026-10-08 answers every line under
+  *To the deliverer*: the five copies and the two lessons about the
+  chapters are answered; the held lines stay held.
+  Checked before anything moved, as the note asked: the staging's
+  folders arrive 755 and its files 644; 10 copies differ from what
+  main held, five of them under `docs/concept/`; none is new, none
+  gone. That is the note's count. `evidence-test.md` is not in the
+  staging and stays this run's own.
+  This run's seven edited files since a3b6b8c were all taken whole,
+  so nothing is re-applied. Five already equal the staging; the
+  other two (`cbc-slice`'s SKILL.md and workflow) differ only by
+  the renamed rung. Copied whole, in two commits, the chapters
+  first: every held copy now equals the staging.
+  What changed, for SL-4: chapter 02's top rung is now the store's
+  refusal (a constraint, a right withheld), and a single entry path
+  is a wall only where a trust line names it the only writer. The
+  definition names the ledger the only writer, so a single entry
+  path SL-4 chooses stands as a wall. The skills carry the same
+  rename.
+  The rest: the five chapters lose their provenance comment; both
+  worked examples, still one text, gain a trust line, a third fence
+  and a size on the runtime ground.
+  Why: SL-4 opens on these copies.
+  Rejected: none weighed; the take copies whole.

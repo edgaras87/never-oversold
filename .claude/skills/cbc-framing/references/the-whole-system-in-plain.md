@@ -70,8 +70,8 @@ later. The attack-creating test is the deliverable most projects skip.
 
 Every guarantee gets exactly one structural guard, strongest available:
 
-database constraint → type system → single checked entry path → runtime
-check → code review → hope.
+the store's refusal (a constraint, a right withheld) → type system →
+single checked entry path → runtime check → code review → hope.
 
 "All the code being careful" is not a guard — it's the absence of one.
 
