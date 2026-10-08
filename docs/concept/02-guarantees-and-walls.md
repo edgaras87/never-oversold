@@ -1,12 +1,3 @@
-<!-- Provenance — archive/cbc/system-design-method
-     birth-materials/concept/02-guarantees-and-walls.md @ fe0075d (imported
-     2026-08-28, PLAN Step 2). Changes on import: none — verbatim
-     below this header. The canonical copy lives in
-     correctness-by-construction's concept/ — a run's copy
-     (docs/concept/) is pinned, changed only by copying anew
-     (harvest, never edits); the archive copy is a historical
-     snapshot. -->
-
 # Guarantees and walls
 
 What the discipline actually produces. Not documents — documents are
@@ -50,7 +41,8 @@ expensive or irreversible — that is where the rigor budget goes.
 For every fact, one owner; for every guarantee, one **structural wall**.
 The walls, ranked strongest to weakest:
 
-    database constraint
+    the store's refusal
+      (a constraint, a right withheld)
     → type system
     → single validated entry path
     → runtime check
@@ -58,11 +50,22 @@ The walls, ranked strongest to weakest:
     → hope
 
 Each guarantee is assigned exactly one wall, the strongest available. The
-ranking is a hierarchy of *who can violate it*: a database constraint binds
+ranking is a hierarchy of *who can violate it*: the store's refusal binds
 every code path ever written, including future ones; a type error binds
 everything that compiles; a single checked entry path binds everything that
 goes through the door; a runtime check binds only the paths that reach it;
 review and hope bind no one.
+
+Every wall leaves someone unbound: whoever can remove it. The store's owner
+can drop a constraint or grant a right back; a single entry path binds only
+while nothing writes around the door. So the described adversary says who
+besides the system may write what it stores — trusted, or defended against
+— and each wall is assigned against that answer. A single entry path is a
+wall only where the trust names it the only writer; elsewhere "single" is a
+hope. And the store refuses by withholding as well as by checking: an
+identity that holds no right to an operation is refused it on every path
+that uses that identity — the strongest wall for an operation that must
+never happen.
 
 "All the code being careful" is not a wall — it is the absence of one. A
 guarantee whose owner is carefulness is a design defect, flagged before

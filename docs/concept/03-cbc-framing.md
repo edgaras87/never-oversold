@@ -1,17 +1,3 @@
-<!-- Provenance — archive/cbc/system-design-method
-     birth-materials/concept/03-cbc-framing.md @ fe0075d (imported
-     2026-08-28, PLAN Step 2). Changes on import: none — verbatim
-     below this header, until: 2026-09-06, the technology-timing
-     sentence corrected against the lived runs ("with the first
-     slice" → "after framing, answerable to the registry") — the
-     runs stand up ground and skeleton before the first slice,
-     and that is where technology lands, traced to registry
-     needs. The canonical copy lives in
-     correctness-by-construction's concept/ — a run's copy
-     (docs/concept/) is pinned, changed only by copying anew
-     (harvest, never edits); the archive copy is a historical
-     snapshot. -->
-
 # Framing
 
 The first movement of the work: turning an idea into a defined system — on
