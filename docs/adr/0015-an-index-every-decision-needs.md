@@ -1,7 +1,7 @@
 # 0015. An index every decision needs is not ahead of need
 
 Date: 2026-10-08
-Status: Proposed
+Status: Accepted
 
 ## Context
 

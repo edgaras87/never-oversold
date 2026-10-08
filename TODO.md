@@ -8,12 +8,13 @@
 
 ## Now (current plan step)
 
-- [ ] The review under "Next" below, before Step 8's plan: opened
-      2026-10-07 on `housekeeping-review-after-sl-3`, cut from main
-      after Step 7's merge, on the reviewer's word. Each question is
-      discussed and decided before any edit; then a commit plan for
-      what the decisions change. Step 7 closed SL-3 and reached main
-      the same day.
+- [ ] Between steps. The review after SL-3 closed on 2026-10-08 on
+      `housekeeping-review-after-sl-3`: who writes the store (T4,
+      ADR-0014), where each rule lives (ARCHITECTURE's map), the
+      size the system is built for (the definition's runtime
+      ground), when an index is a need (ADR-0015, V4), and four
+      delivered copies corrected in place. Waiting on its merge
+      into main, on the reviewer's word.
 - [ ] Step 8 (SL-4, cbc-slice): consume's two moves hold together,
       the registry's chosen-next since 2026-10-07. It inherits by
       name: the two moves are already one statement in one
@@ -26,90 +27,10 @@
 
 ## Next (after Step 7)
 
-- [ ] Two questions the slices answer every time without naming
-      them — take them up once SL-3 closes, before SL-4's plan.
-      Raised 2026-10-05 by the reviewer, at SL-3's units-held check.
-      **Where a rule's responsibility lives, application or store.**
-      The faces so far have put it in the application alone, in the
-      store alone, the application computing and the store only
-      refusing (SL-3's units-held check), or both. Each side's cost
-      is different: the store's guard reaches every writer but costs
-      at every commit and hides from a reader of the code; the
-      application's alone holds only while no one else writes. A
-      store that recomputes what the application computed is a
-      double check; one that only compares is cheaper and cannot
-      drift. **What scale a decision assumes.** Performance and
-      memory are weighed nowhere on the record; a face is chosen
-      for this system's size without saying so, or what would undo
-      it. To do: list how SL-1 to SL-3 placed each rule (who
-      computes, who refuses, who else writes); decide where that map
-      lives (ARCHITECTURE, or the slice record's faces) and whether
-      each face gains "assumes" and "revisit when" beside its cost;
-      and whether the slice skill's owner ladder (store, type, one
-      path) should ask both questions — if so, a finding for the
-      deliverer under "To the deliverer", the copies being theirs.
-      Not an optimising step: the definition puts throughput and
-      latency outside the promise (W3) and growth as seen, not
-      handled (W6). The gap is that a face assumes a scale without
-      saying so — weighed at the plan, where a cost can change which
-      wall is chosen; tuning that changes no meaning (an index) may
-      come any time after, the evidence re-run unchanged.
-      Two more, raised the same day. "Nothing enters ahead of need"
-      (ADR-0007) left `reservation(item_id)` unindexed although
-      every decision searches it: is an index a need known from the
-      code that searches, or only from a measurement? And where is
-      the system's size decided at all? The intent settles it as a
-      demonstration nobody operates, and W3 keeps throughput out,
-      but no record states an operating envelope a face could cite
-      (how many items, reservations, instances), and the method's
-      chapters name scale nowhere — a lesson about a chapter is a
-      line under "To the deliverer", the chapters never edited here.
-      And the lesson under all of it: the framing never said who
-      may write the store, so every slice defends against writers
-      no one named (G6's "paths never anticipated"). Closed by
-      default — the boundary stated in the framing, enforced by the
-      ground, opened when a real second writer comes — may be the
-      better start; whether the definition gains it, and whether the
-      framing chapter should ask for it, is the review's.
-      One concrete case for it, raised 2026-10-07: the ledger never
-      updates or deletes a reservation row — its ending is a
-      separate receipt — yet `runtime` may do both. That door is
-      what stays open past the units-held check: an open hold
-      deleted together with its units (signed in SL-3's §8 as the
-      safe direction), `expires_at` moved, a hold resized or moved
-      with its units carried. Reservations made write-once — a
-      guard trigger like the receipts', or `runtime` losing update
-      and delete on the table — would close all three. A §8
-      revision if taken, and a change to `MigrationPathIT`'s
-      runtime-writes test and the infrastructure contract's term 4
-      if by grants.
-      SL-3's close added seven, settled in the same review
-      (2026-10-07). In the slice skill, edited in place here under
-      `delivered-copies.md` rule 2 — each edit with its decisions
-      entry, and the copy's line under "To the deliverer", so the
-      deliverer reads the diff and the why: (a) Stage 2's hunt for
-      escape hatches, bounded by the definition's trust assumptions
-      — a writer the definition trusts is named, not walled; it
-      follows question one. (b) Stage 3: a red counts only if it
-      fails on the witness, not on a status, a crash or a setup
-      step; lived at SL-2 and again at SL-3. (c) A third kind of
-      test named beside evidence and tripwire: a wall's own check,
-      showing the wall refuse directly, discharging no kill —
-      SL-1's catalog test, SL-3's `ReceiptGuardIT` and
-      `UnitsHeldCheckIT`. (d) A race whose red needs its window
-      widened is widened on the red tree only, and says so; lived
-      once, at SL-3's tidy against consume. In this project's
-      shapes and records: (e) a wall's stated backstop is seen at
-      its red run, or written as unproven — SL-3's G5 named
-      `item_never_oversold`, which did not hold; (f) SL-3's record
-      calls E7 a tripwire in a looser sense than the skill's, one
-      wording to settle. In the framing, the deliverer's: (g) who
-      may write the store, and at what scale — the questions above;
-      where the review finds the method should ask them, each
-      becomes a line under "To the deliverer", the chapters and the
-      framing skill being theirs.
-      The fuller draft: `temp/app-store-responsibility.md`
-      (untracked; this item is what reaches history).
+Nothing waits here but Step 8, under "Now". The review that stood
+here closed on 2026-10-08; what it decided lives in the definition's
+revisions, ADR-0014, ADR-0015 and ARCHITECTURE, and its reasoning in
+the devlog.
 
 ## Later / someday
 
@@ -224,7 +145,7 @@
 - SL-3's E7 (`NoSecondWayOutTest`) sees only what is written as a
   text block in the ledger. A statement assembled at runtime from
   pieces, or split across a concatenation, passes all three of its
-  rules. Accepted because E7 is the tripwire, not the wall: since
+  rules. Accepted because E7 is the early warning, not the wall: since
   2026-10-05 the store checks the units held at every commit (V3),
   and refuses the numbers moving without a receipt whoever writes,
   however the statement was built. E7 adds what the store cannot
@@ -234,22 +155,19 @@
   Found 2026-10-05; rewritten 2026-10-07, when E7 came to read the
   statements by their parts.
 
-- SL-3's check on the units held (V3) has an unmeasured cost. At
-  every commit that touches an item it sums that item's
-  reservations and looks up each one's receipt, once per row
-  written — a reserve or an exit runs it twice, tidy writing five
-  receipts six times. `reservation` has no index on `item_id` (the
-  store makes none for a reference), so each run scans the whole
-  table, every item's reservations ever made; tidy's own search by
-  item scans it the same way, since SL-3's commit 5. Reservations
-  and receipts are kept forever (W6). Seen as nothing at the
-  evidence's scale (hundreds of rows); not measured. Accepted because the store refusing any writer was
-  worth more than a cost no evidence can see yet. The known fixes:
-  an index on `reservation(item_id)`; an ended mark on the
-  reservation with a partial index on the open ones, so the sum
-  reads only those; retention, which is W6's. Revisit when an item's
-  history reaches thousands of reservations, or a decision's latency
-  is measured. Found 2026-10-05.
+- SL-3's check on the units held (V3) still reads every reservation
+  an item has ever had, ended ones included, at every commit that
+  touches it. Since 2026-10-08 the index on `reservation(item_id)`
+  (V4, ADR-0015) keeps that to the one item's history rather than the
+  whole table, and the definition sizes the system at up to a few
+  thousand reservations on one item over its life. What stays is
+  growth itself: nothing removes ended reservations, which is W6's
+  fence. Accepted because retention is outside the promise and the
+  size it is built for keeps the read small. The further fix, if it
+  is ever needed: an ended mark on the reservation with a partial
+  index on the open ones, so the sum reads only those. Revisit when
+  an item's history passes the stated size, or a decision's speed is
+  measured. Found 2026-10-05; narrowed 2026-10-08.
 
 ## To the deliverer
 
@@ -260,6 +178,29 @@
 
 - [ ] deliverer: evaluate this run's changes to
       `.claude/rules/delivered-copies.md` since a3b6b8c.
+- [ ] deliverer: evaluate this run's changes to
+      `.claude/skills/cbc-slice/` since a3b6b8c.
+- [ ] deliverer: evaluate this run's changes to
+      `.claude/skills/cbc-framing/` since a3b6b8c. A finished copy
+      here: the edit's first use is yours.
+- [ ] deliverer: evaluate this run's changes to
+      `.claude/skills/infra-establish/` since a3b6b8c. A finished
+      copy here: the edit's first use is yours.
+- [ ] deliverer: evaluate this run's changes to
+      `.claude/skills/commit-plan/` since a3b6b8c.
+- [ ] Two lessons about the chapters, which are never edited here.
+      The framing chapter's trust list asks what the system accepts
+      without defending, and never who besides the system can write
+      what it stores; and nothing in it asks what size the system is
+      built for. Both went unsaid in this run's framing, and SL-3
+      paid for each before a review wrote them (the definition's
+      revisions of 2026-10-08; the framing skill now asks both). The
+      walls chapter ranks its rungs by who can violate them, and two
+      things it does not say were met here: a right withheld from an
+      identity is a wall in the store's own grant system, the
+      strongest kind for a rule that an operation never happens; and
+      the single-entry-path rung holds only while a trust line names
+      that path the only writer — without one, "single" is a hope.
 
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
@@ -285,8 +226,11 @@
       (`.claude/shapes/slice-record.md`): held there, and weighed
       when the bundle first holds a shape of its own. Nothing owed
       here. It has moved since the note: on 2026-10-01 it took a
-      third part, the faces weighed for a guarantee, as blocks;
-      its dated lines say what taught it.
+      third part, the faces weighed for a guarantee, as blocks; on
+      2026-10-07, at its first reading (SL-3's close), dated labels
+      for a face revised after signing; on 2026-10-08, a face's
+      assumed size and a backstop seen or unproven. Its dated lines
+      say what taught each.
 - [ ] `infra-establish`'s silence on the contract's facility
       paragraph: held there, until a second run reaches the same
       gap unprompted. Asked whether SL-2 leaned on it: no. SL-2

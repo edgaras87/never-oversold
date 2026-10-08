@@ -1,7 +1,7 @@
 # 0014. The store trusts one writer: the ledger
 
 Date: 2026-10-08
-Status: Proposed
+Status: Accepted
 
 ## Context
 

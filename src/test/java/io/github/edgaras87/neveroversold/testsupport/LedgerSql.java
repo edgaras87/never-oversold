@@ -39,7 +39,8 @@ import net.sf.jsqlparser.util.TablesNamesFinder;
  *
  * <p>Source, not a run: a statement assembled at runtime from pieces, or
  * split across a concatenation, is not seen. That is why the wall is the
- * store's (V3); the tests built on this are the tripwire in front of it.
+ * store's (V3); the tests built on this are the early warning in front
+ * of it.
  */
 public final class LedgerSql {
 

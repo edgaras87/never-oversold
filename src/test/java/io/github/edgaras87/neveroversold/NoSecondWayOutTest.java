@@ -38,8 +38,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <p>The store refuses a changed, deleted, second or untimely receipt
  * from any writer, and — its check on the units held (V3) — the numbers
  * moving without a receipt, whoever writes. That is the wall; this is
- * the tripwire in front of it, failing at build time and naming the
- * file. Four rules: receipts and the units held are written by the
+ * the early warning in front of it, failing at build time and naming
+ * the file. Four rules: receipts and the units held are written by the
  * ledger alone; the ledger writes its SQL as text blocks, so each
  * statement is read; inside it, numbers fall only in the statement
  * that wrote the receipt, by the receipts that statement wrote; and no

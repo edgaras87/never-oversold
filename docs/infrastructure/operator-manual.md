@@ -276,6 +276,12 @@ applied V2 and V3, and the catalog showed the receipts' key,
 reference and kind check, the guard, and the check's three triggers,
 enabled and deferred.
 
+V4 adds an index and nothing else, so it needs no row check before
+it; the dump is still taken. Seen here, 2026-10-08: verified both
+ways; dumped; `migrate` applied V4, and the catalog showed
+`reservation_by_item` on `reservation (item_id)`, every trigger
+still enabled.
+
 ### Reset — destructive
 
 The bootstrap runs only against an empty volume. After any change
@@ -292,5 +298,7 @@ podman compose up -d
 
 `podman compose up -d` / `podman compose down` (data survives in
 the named volume `never-oversold_postgres-data`); inspect as
-`runtime` — never wire `migrator` or `postgres` into anything that
-runs.
+`runtime`, and read only — the ledger is its one writer, by the
+definition's T4, a trust the grants do not enforce: the password in
+`.env` can write every table. Never wire `migrator` or `postgres`
+into anything that runs.

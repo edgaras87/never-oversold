@@ -690,3 +690,10 @@ What would rot this slice, and what watches:
   same reasons, no decision changed.
 - 2026-10-01 — §9 says E5 grew to cover G5 as well as G6, which §5
   had not carried; §5 is unchanged.
+- 2026-10-08 — `E5 · G6`'s one-writing-path rule widened by the
+  review after SL-3: "reaches the store" is any database API —
+  `java.sql`, `javax.sql`, Spring's JDBC and its transactions — and
+  "the ledger" is the one class by its full name. As first written,
+  a class holding a `DataSource`, or one named `CleanupLedger`,
+  passed it; both were planted and now fail. The guarantee and its
+  owner are unchanged.

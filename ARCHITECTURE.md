@@ -140,6 +140,14 @@ suite self-contained, the ground not required up).
 - **SL-4, chosen next:** consume's two moves are already one
   statement in one transaction; the evidence against our death
   between them is the slice's to create.
+- **Who writes the store:** the ledger alone (the definition's T4,
+  ADR-0014), trusted rather than enforced by grants. Inside the
+  application it is enforced at build time: only the `Ledger` class
+  reaches the store, by any database API, and none of its statements
+  updates or deletes a reservation (`NoOrderingStateOrSecondWriterTest`,
+  `NoSecondWayOutTest`). Outside it — a console, a script, the
+  superuser — is fenced (W7); the store's walls still refuse a wrong
+  result from them.
 - The running ledger knows one database identity, `runtime`, its
   password from the environment — enforced by the configuration
   carrying no other and the build carrying no migration or
@@ -151,6 +159,27 @@ suite self-contained, the ground not required up).
 - Nothing connects to `never_oversold` but `migrator` and
   `runtime` — enforced by CONNECT revoked from PUBLIC (ADR-0006 C3).
 
+## Responsibilities — who computes, who refuses
+
+<!-- One row per rule the system keeps: where the arithmetic or the
+     decision is made, what refuses a wrong result, and what test
+     would go red if either went. The pattern, deliberately: the
+     application computes, the store refuses and never computes. -->
+
+| Rule | Computed by | Refused by | Guarded by |
+|---|---|---|---|
+| never more held than on hand | the ledger: reserve's conditional update | the store: `item_never_oversold` | the reserve storms, across instances |
+| a correction never under the held units | the ledger: adjust's conditional upsert | the store: `item_never_oversold` | `CorrectionIT`, `AdjustmentRaceIT` |
+| one ending per reservation | — | the store: `reservation_exit_pk` | `ExitStormIT`, `ExitDoorIT` |
+| an ending on time, never changed or deleted | — | the store: `reservation_exit_guard`, by its own clock | `ExitDoorIT`, `ReceiptGuardIT` |
+| an exit moves exactly its reservation's units | the ledger: the exit's statement, from the reservation's row | the store, for the units held: `units_held_agree`; nothing, for the count | `ExitDoorIT` |
+| expired units freed once, from the instant | the ledger: tidy, by the receipts it wrote | the store: the key, and `units_held_agree` | `ExitStormIT`; the tripwires on the instant |
+| units held equal the unended reservations' | the ledger, in each statement | the store: `units_held_agree` (V3) | `UnitsHeldCheckIT` |
+| activeness judged by one clock | the store's `now()` | the application: no process clock | `OneClockIT`, `NoInstanceStateOrClockTest` |
+| no item state outside the store | — | the application's structure | `NoInstanceStateOrClockTest` |
+| the ledger the one writer; no reservation rewritten | — | the application's structure; T4 beyond it | `NoOrderingStateOrSecondWriterTest`, `NoSecondWayOutTest` |
+| nonsense never reaches a decision | the door's value types | the store's constraints | the door tests |
+
 ## Codemap
 
 <!-- Where to find things. Directory → what lives there. -->
@@ -158,7 +187,7 @@ suite self-contained, the ground not required up).
 |---|---|
 | `compose.yaml`, `.env.example` | the ground's declaration and its secrets' shape |
 | `infrastructure/postgres/` | the bootstrap SQL (runs once) and the verify suite (on demand) |
-| `infrastructure/flyway/` | the only DDL path: config and migrations — V1, `item` and `reservation` with the wall; V2, the receipts and their guard; V3, the check on the units held |
+| `infrastructure/flyway/` | the only DDL path: config and migrations — V1, `item` and `reservation` with the wall; V2, the receipts and their guard; V3, the check on the units held; V4, reservations indexed by item |
 | `docs/infrastructure/` | the operator manual and the infrastructure contract |
 | `docs/system/` | the truth set: intent, definition, registry |
 | `docs/construction/` | the bootstrap requirements, and one record per slice: specification, plan, evidence |

@@ -636,7 +636,7 @@ receipts, the store compares the item's `reserved` with the units
 of its reservations that have no receipt, and refuses the
 transaction if they differ. In front of it, a structural test that
 `reservation_exit` and `reserved` have one writing path, in the
-spirit of SL-2's E5 — a tripwire that fails at build time.
+spirit of SL-2's E5 — an early warning that fails at build time.
 
 *Why it beats this attack:* the cleanup script of §4 cannot delete
 R's receipt — the store refuses it, whoever runs it — so R cannot
@@ -806,7 +806,7 @@ without its receipt.
 
 *Why not, on revision:* it reads the application's SQL as text. A
 script outside the application, or a statement assembled at
-runtime, passes it — the attack §4 names. Kept as a tripwire in
+runtime, passes it — the attack §4 names. Kept as an early warning in
 front of the check.
 
 ---
@@ -838,7 +838,10 @@ touching the ground.
   the receipt's reference stops it. One without a receipt can be
   deleted only in the same transaction as its units leave
   `reserved`; alone, the check on the units held refuses it
-  (revised 2026-10-05 — signed as open, the safe direction).
+  (revised 2026-10-05 — signed as open, the safe direction). Closed
+  2026-10-08 for the one writer the definition trusts (T4): E7's
+  fourth rule fails the build if the ledger ever updates or deletes
+  a reservation.
 - **`reserved` set by hand.** `item_never_oversold` refuses it above
   the count; the check on the units held refuses any value but the
   units the open reservations hold (revised 2026-10-05 — signed as
@@ -859,7 +862,9 @@ touching the ground.
   its kind check, the trigger. V3 (revised 2026-10-05) — the check on
   the units held, one function and its deferred constraint trigger
   on `item`, `reservation` and `reservation_exit`. No index beyond
-  the key: nothing here needs one at the scale of the evidence.
+  the key: nothing here needs one at the scale of the evidence —
+  since 2026-10-08, `reservation(item_id)` indexed by V4, the need
+  read from tidy's and the check's searches (ADR-0015).
 - **The ledger:** `consume` and `release`; tidy, called first by
   `reserve` and `adjust`. One new problem, an unknown reservation
   (`404`); the refusal (`409`) is SL-1's, reused.
@@ -892,8 +897,8 @@ touching the ground.
   numbers was signed as the structural test alone; the build showed
   it reads text, and a writer outside the application passes it. G6
   gains the store's check on the units held, in V3, and the
-  structural test stays as a tripwire in front of it. G1's and G5's
-  "if the wall were ever wrong" now name the check; G5's first
+  structural test stays as an early warning in front of it. G1's and
+  G5's "if the wall were ever wrong" now name the check; G5's first
   answer, `item_never_oversold`, was seen not to hold. The faces
   signed on 2026-10-03 stand — the arithmetic in the application,
   triggers that refuse and never compute.
@@ -1038,11 +1043,11 @@ commit 7, the full suite again at commit 8 and before this close —
   test alone, it was shown at its own commit's review to pass any
   writer outside the application. §8 was revised on 2026-10-05: the
   store checks the units held at every commit (V3), and the test
-  stays as the tripwire in front of it. The same check stands behind
-  G1 and G5. Then, on 2026-10-07, the test itself was made to read
-  the statements it checks rather than their spelling — parsed, each
-  exit checked by its parts — and a third rule keeps every statement
-  where the parser reads it.
+  stays as the early warning in front of it. The same check stands
+  behind G1 and G5. Then, on 2026-10-07, the test itself was made to
+  read the statements it checks rather than their spelling — parsed,
+  each exit checked by its parts — and a third rule keeps every
+  statement where the parser reads it.
 - **The first red of the build was worthless, as SL-2's was.** The
   key removed, the four sequential tests failed — on `500`s: the
   answer's read found two receipts, threw, and rolled the double move
@@ -1073,7 +1078,8 @@ commit 7, the full suite again at commit 8 and before this close —
   it as the safe direction. Moving a hold's expiry is not refused.
   Neither can oversell. Making reservations write-once is a question
   for the review after this slice, with who may write the store at
-  all (TODO).
+  all — answered 2026-10-08: the ledger alone writes (T4), and E7's
+  fourth rule fails the build if it ever rewrites a reservation.
 - **§5 against the plan.** §5 says that where this slice births a
   wall, the naive version lands first and the wall is its own diff.
   The plan chose otherwise — one migration carrying the walls, each
@@ -1108,9 +1114,11 @@ What would rot this slice, and what watches:
   reservations, receipts or the units held must move them together,
   as the ledger does, or the store refuses the transaction. That is
   the check working, not a nuisance to switch off.
-- **The reservation rows.** `runtime` may still change or delete
-  them; the review after this slice decides whether they become
-  write-once (TODO).
+- **The reservation rows.** The ledger never changes or deletes
+  them, and since 2026-10-08 `E7 · G6` fails the build if it ever
+  does; anyone else writing with its identity is outside by T4. A
+  slice that means to change reservations — extending a hold — meets
+  that rule first and decides.
 
 ## §11 Sign-offs
 
@@ -1131,3 +1139,16 @@ What would rot this slice, and what watches:
   G6 gains its kills line, none by number; §8's owners for G4 and G6
   gain what stands behind each wall — partly, and nothing. The same
   guarantees and owners; no decision changed.
+- 2026-10-08 — the review after this slice. §8, §9 and §10 call E7
+  an early warning where they had called it a tripwire: the skill's
+  tripwire guards a decided face and can never go red for the
+  promise, and E7 goes red when the violation it forbids is planted.
+  The escape hatch for an open hold deleted with its units, closed
+  for the one writer the definition now trusts (T4), by E7's fourth
+  rule. The surface's "no index beyond the key" answered by V4
+  (ADR-0015). The cost of the check on the units held, sized now
+  that the definition states a size: it assumes up to a few thousand
+  reservations on one item over its life, each check reading that
+  item's history through the index; revisit when an item's history
+  passes that, or a decision's speed is measured. No guarantee,
+  owner or evidence changed.

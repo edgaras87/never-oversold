@@ -6,6 +6,72 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-07 → 2026-10-08  (housekeeping: the review after SL-3)
+
+- Opened on `housekeeping-review-after-sl-3`, cut from main after
+  Step 7's merge. Four questions SL-3 had answered without naming,
+  each discussed and decided before any edit, then a commit plan of
+  thirteen.
+- Who writes the store. Talked through from "why do we have these
+  triggers at all": most of SL-3's walls defend against our own
+  races, retries, clock and bugs — V3 caught a double free in our
+  own tidy — and only part against scripts, which nothing had said
+  were trusted or not. A superuser can remove any wall, so no system
+  walls against everything; it draws a line. Locking with roles was
+  weighed and declined for a system nobody operates, where the
+  person running the ledger holds its password anyway. Decided: T4,
+  a trust line — only the ledger writes data, its identity its
+  alone, Flyway writes structure, the superuser trusted — with W7
+  fencing the rest (ADR-0014, with what a real deployment would
+  enforce instead). The store's walls stay: they refuse a wrong
+  result from anyone, the ledger included.
+- Write-once reservations. Deleting or editing a hold cannot
+  oversell, but it can leave history that lies — a hold gone with no
+  receipt. A store trigger and a revoked right were both weighed;
+  under T4 the only writer is the ledger, so the cheapest whole
+  answer is a build rule: E7's fourth, the ledger never updates or
+  deletes a reservation. Reading SL-2's one-writer rule beside it
+  found two holes — a class holding a `DataSource`, or one merely
+  named `CleanupLedger`, passed. Both planted, both green under the
+  old rule, both red under the widened one.
+- Where a rule lives: ARCHITECTURE's map — the application computes,
+  the store refuses and never computes. What scale: one line in the
+  definition's runtime ground, the evidence's size, so a face can say
+  what its cost assumes. When an index is a need: read from the code
+  that searches on every decision, not from a measurement nothing
+  makes (ADR-0015); V4 indexes `reservation(item_id)`, 82 tests green
+  unchanged, its catalog test red with V4 absent.
+- The copies. The reviewer asked that every delivered copy the
+  findings touch be corrected here and handed back, the deliverer to
+  filter: `cbc-slice` (the hunt aims at the trust list; a cost says
+  its size; a red fails on the witness; a race's held-open window is
+  said; the wall's own check named), `cbc-framing` and
+  `infra-establish` (finished copies, first used by the deliverer:
+  who besides the system writes what it stores; the size; the
+  inspection identity that writes), `commit-plan` (subjects counted
+  when planned; agent files their own step). Each edit written as a
+  question, not this project's answer; one decisions entry and one
+  TODO line per copy; the chapters' lessons as prose.
+- Small things caught on the way: forward references cut twice
+  before staging (a definition entry naming an ADR not yet written,
+  a decisions entry naming manuals not yet changed); a stray
+  `{@linkc` in the ledger's Javadoc, restored by the reviewer; every
+  planned subject counted before the plan was committed.
+- The temp draft, `temp/app-store-responsibility.md`, has done its
+  work: everything it argued is decided in the records above. It
+  stays untracked; deleting it is the reviewer's call.
+- The ground, 2026-10-08: down since the day before, brought up and
+  verified both ways, dumped, migrated to V4; the index read from its
+  catalog, every trigger still enabled. Through the door on V4: a
+  reserve of 2 on `sl3-ground`, whose last hold of 7 had run out
+  overnight, wrote that hold's expired receipt first and was
+  admitted — expiry ending a hold a day late, by the store's clock,
+  the first time on the real ground; a fresh item adjusted to 5,
+  reserved 2 and consumed, leaving 3 on hand and nothing held.
+- Resume: merge `housekeeping-review-after-sl-3` on the reviewer's
+  word, then Step 8, SL-4 — its plan the first to aim its escape
+  hatches at T4 and size its faces.
+
 ## 2026-10-03 → 2026-10-07  (Step 7: SL-3 built and closed)
 
 - The build ran as a commit plan on `step-7-sl-3`: eight steps at

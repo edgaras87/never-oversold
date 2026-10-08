@@ -42,7 +42,7 @@ shape); they never appear in code, config, or this document.
 
 | Identity | Who uses it | May | May not |
 |---|---|---|---|
-| `runtime` | **the running ledger, and only it**; the evidence's witness read; day-to-day inspection | SELECT, INSERT, UPDATE, DELETE on every table and USAGE, SELECT on every sequence in `never_oversold` — including every one a future migration creates | CREATE, ALTER, DROP anything; own anything; TRUNCATE; REFERENCES; touch `public` |
+| `runtime` | **the running ledger, and only it, to write**; the evidence's witness read and day-to-day inspection, to read — the definition's T4: nobody else writes with it, by trust rather than by grant | SELECT, INSERT, UPDATE, DELETE on every table and USAGE, SELECT on every sequence in `never_oversold` — including every one a future migration creates | CREATE, ALTER, DROP anything; own anything; TRUNCATE; REFERENCES; touch `public` |
 | `migrator` | **Flyway, and only it** | DDL inside `never_oversold`, which it owns | own the database; create schemas; anything outside its schema; log in from application code or config |
 | `postgres` | the bootstrap, once, at first start | everything — it is the superuser | appear in any application or migration configuration; be used for routine work |
 
@@ -73,12 +73,14 @@ system's. The migrations add walls of their own, and they refuse
 `runtime` as they refuse every identity short of the superuser: a
 check constraint on `item` (V1), the receipts' key and their guard
 trigger (V2), and a check at every commit that an item's held units
-equal what its reservations without a receipt hold (V3). Whoever
-writes rows as `runtime` — the ledger, a script, a test, a fix by
-hand — meets them, and must move a reservation, its receipt and the
-units held together. They are not contract terms: a slice's
-migration adds or changes one, and its record says why. ARCHITECTURE
-lists each with the slice that owns it.
+equal what its reservations without a receipt hold (V3). The ledger
+is the one writer the definition trusts (T4); a test writing rows by
+hand in its own throwaway store, or a hand that writes on the ground
+anyway, meets the same walls, and must move a reservation, its
+receipt and the units held together. They are not contract terms: a
+slice's migration adds or changes one, and its record says why.
+ARCHITECTURE lists each with who computes and who refuses. An index
+(V4) is none of them: it refuses nothing, and is ADR-0015's.
 
 **What the store offers — inventory, not a choice.** The server
 can make two concurrent writers to one thing disagree. Its faces
