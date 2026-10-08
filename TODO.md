@@ -77,6 +77,19 @@ the devlog.
       went — the pattern used for the writing rule drafted and
       reverted on 2026-09-21.
 
+- [ ] A glossary for this project's reader. Raised 2026-10-08 at the
+      review after SL-3: the records say kill, fold, fence, face,
+      wall, witness, tripwire and evidence throughout, and nothing
+      in this repository defines them in one place — README names
+      only two words, the store and the door. The intent's audience
+      is a reader judging the construction, who meets those words in
+      the registry and the slice records with nowhere to look them
+      up. Decide whether README's two grow into a short list, one
+      line each, or a page of their own linked from it — and that it
+      is derived from the definition and the method, never authored
+      apart from them. Trigger: Release's README pass, or sooner if
+      a reader asks.
+
 - [ ] A list of an item's reservations, for an operator. Raised
       2026-10-02 at SL-3's opening (its record, §3): an operator
       who counts fewer units than are held can release a hold only
@@ -258,6 +271,15 @@ the devlog.
       from its first step. This run's own standing rules carry "on
       trial" in PLAN until the retrospective; a delivered rule has
       no such state.
+- [ ] The method has no glossary. Its words are defined where each
+      is first used, across the chapters and the skills, and five of
+      them — tripwire, witness, fold, fence, possession — appear only
+      in the skills, never in the chapters a reader starts from; the
+      wall's own check, named in this run's edit to `cbc-slice`,
+      joins them. Raised 2026-10-08, when the reviewer asked whether
+      "early warning" had replaced "tripwire" — it had not; E7 had
+      been called a tripwire in a sense the skill does not give the
+      word — and then where the words are defined at all.
 - [ ] Framing steps as commit series, and the imperative test in
       commit-messages: both being weighed there now; this run's
       reading of the imperative split is where they start. Nothing
