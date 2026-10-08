@@ -75,8 +75,10 @@ polish passes.
   lost", never "networks are unreliable"), consequence-first. **A census is
   not an assumption inventory** — list what can hurt, never what you trust,
   outside the two labelled blocks the workflow allows beside the facts:
-  the trust assumptions, accepted deliberately and kept short, and the
-  runtime ground. Exit only by saturation: two consecutive fresh probes
+  the trust assumptions, accepted deliberately and kept short — and
+  answering, either way, who besides the system can write what it
+  stores — and the runtime ground, the size the system is built for
+  among it. Exit only by saturation: two consecutive fresh probes
   finding nothing new — the probe log recorded in L1.
 - **Step 3:** each kill states **what dies, never how it's saved** — park
   any mechanism the instant it surfaces. Land kills invariant-shaped with

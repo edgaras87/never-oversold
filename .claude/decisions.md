@@ -815,3 +815,29 @@
   deliverer reads); naming T4 or this project's tests in the copy
   (rule 2: the question, never this project's answer).
 
+- 2026-10-08 `cbc-framing` edited in place, pinned @ a3b6b8c, a copy
+  this project has finished with (rule 7): the fix's wording is first
+  used by the deliverer, never by a later step here. Two edits, in
+  the workflow's Step 2 and its summary in SKILL.md. One, the trust
+  list owes an answer, either way, to who besides the system can
+  write what it stores — trusted with its complement fenced, or an
+  actor every slice walls against. Two, the runtime ground gains a
+  sixth line: the size the system is built for, at least the
+  evidence's, so a later plan can say what each wall's cost assumes.
+  Found at Step 7, SL-3, and the review after it. This project's
+  framing left both unsaid. SL-3 defended its receipts and units held
+  against scripts holding the ledger's identity, because nothing said
+  whether such writers were trusted; the review wrote the answer as a
+  dated revision (the definition's T4 and W7). And no record said
+  how big the system was, so SL-3's check on the units held carried a
+  cost true at the evidence's size and unstated beyond it; the review
+  wrote the size into the runtime ground by a second revision. Both
+  were found only after a slice had paid for their absence.
+  Rejected: a project rule alone (each question is one any framing of
+  a stateful system faces, so it belongs in the copy, rule 2); this
+  project's answers in the copy — "only the ledger writes", a number
+  of reservations — (rule 2: the question, never the answer); a
+  prose line only, as for a chapter (the skill is a copy and can
+  carry the question itself; the chapters' matching lessons go to the
+  deliverer as prose).
+

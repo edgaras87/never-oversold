@@ -129,6 +129,15 @@ line is a deliberate acceptance a reviewer can challenge ("the store
 durably holds a commit it acknowledged"). Kept short; the moment it
 grows easier to extend than the fact list, it has become the trap.
 
+One question the list owes an answer to, either way, in any system
+that keeps state: **who besides the system can write what it
+stores** — a console, a script, another service, the store's
+superuser. Trusted, it is a line here, its complement fenced;
+defended, it is an actor in the census, and every slice walls
+against it. Left unsaid, each slice answers it alone, and the
+cautious answer — defend against anyone who might write — has no
+end: a writer who can remove a wall cannot be walled against.
+
 Also allowed, and required by the ground that follows: a second
 short block under its own label, **"The runtime ground"** — what the
 system assumes about where it runs, stated so the ground is derived
@@ -139,7 +148,12 @@ process runs on that machine — a fact, not a deployment choice, when
 a census line races them; the store as a service on that machine,
 reachable by every instance and outliving any of them — what it is
 stays the ground's decision; the clock as the machine's, shared by
-the instances unless the evidence skews it. Five lines, not a
+the instances unless the evidence skews it; and the size it is
+built for — how many of the things it counts, how many records one
+of them gathers over its life, how many instances, how many requests
+racing at once — the evidence's size at least, so that a later plan
+can say what each wall's cost assumes. Beyond that size nothing is
+promised about speed unless the promise says so. Six lines, not a
 design. The ground's readiness check reads this block first; a
 framing that leaves it out writes it later, by a dated revision —
 lived twice.
