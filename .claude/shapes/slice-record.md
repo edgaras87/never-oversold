@@ -60,7 +60,8 @@ adversity in general>
 *Say:* <real numbers>
 
 *If the wall were ever wrong:* <what stands behind it, or nothing
-and say so>
+and say so — and whether it was seen catching the attack when the
+wall was removed for its red, or is unproven>
 
 ---
 ```
@@ -75,6 +76,8 @@ and say so>
 *How it holds Gn:* <how this face holds the guarantee>
 
 *Cost:* <what choosing it costs>
+*Assumes:* <the size that cost is true at — the definition's, where
+it states one — and what would make the face worth revisiting>
 
 ---
 
@@ -94,7 +97,7 @@ dates the change. The new winner comes first as always, marked
 revision:*`. A reader sees that a decision was signed and then
 overturned, and when — not that it was always so.
 
-Five things these encode, so a reader checking a record knows what
+Seven things these encode, so a reader checking a record knows what
 is being checked:
 
 - **The parts are labelled in plain words, keeping the method's own
@@ -113,6 +116,13 @@ is being checked:
   answers the same two questions under the same labels — *How it
   holds* and then *Cost* for the chosen one, *Why not* for the
   rest — so faces are weighed by reading down, not across.
+- **A cost says the size it is true at.** A face chosen at one size
+  can lose at another; *Assumes:* is where a later reader finds when
+  to look again, rather than finding out by the system slowing.
+- **A backstop says whether it was seen.** The red run removes the
+  wall; that is the one moment its backstop meets the attack. A
+  backstop named and never seen there is written as unproven, not
+  assumed to hold.
 
 A passage outside these three parts that carries **one claim** is
 left alone. The fences in the definition and the intent's
@@ -141,8 +151,10 @@ Read the new record and ask:
 2. Does every mechanism have a `*Say:*` line with real numbers?
 3. Are the blocks separated by rules, and does every set of faces
    put the chosen one first?
-4. Are the short-claim passages untouched?
-5. Where the record diverges from this shape — did it find
+4. Does the chosen face say what size its cost assumes, and does
+   every backstop say whether it was seen at the red run?
+5. Are the short-claim passages untouched?
+6. Where the record diverges from this shape — did it find
    something better? If so, this document changes and the change
    is dated.
 
@@ -170,3 +182,12 @@ Read the new record and ask:
   The same reading found G6's kills line and two owners' backstop
   lines missing; there the output had drifted, and the shape
   stands. Nothing read from elsewhere.
+- 2026-10-08 — the chosen face's cost gains *Assumes:*, the size it
+  is true at and when to revisit; an owner's backstop says whether
+  it was seen at the red run, or is unproven. Taught by SL-3 and the
+  review after it: G5's backstop, `item_never_oversold`, was named
+  and did not hold — seen only because E6's red happened to show it;
+  and the check on the units held carried a cost true at the
+  evidence's size, unstated beyond it, until the definition gave the
+  system a size. From SL-4's record on; closed records are not
+  reopened (shapes-lifecycle §5). Nothing read from elsewhere.
