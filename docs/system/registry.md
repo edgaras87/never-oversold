@@ -82,7 +82,7 @@ witness — the promise's own.
 - **Presumes:** SL-1 — the reservations being exited were admitted
   truly.
 
-### SL-4 — consume's two moves hold together  `chosen-next`
+### SL-4 — consume's two moves hold together  `in-progress`
 
 - **Invariant:** no readable state holds one of consume's two moves
   — ending the reservation, lowering the on-hand-count — without
@@ -105,9 +105,9 @@ witness — the promise's own.
 ## Registry state
 
 3 slices closed (SL-1, 2026-09-14; SL-2, 2026-09-21; SL-3,
-2026-10-07), 1 chosen next (SL-4). New work
-enters by re-framing or as a new slice through this registry, never
-around it.
+2026-10-07), 1 in progress (SL-4, its specification landed
+2026-10-09). New work enters by re-framing or as a new slice
+through this registry, never around it.
 
 ## Fold-reconciliation line
 
