@@ -40,8 +40,24 @@
   and broke the migration; the store did not start. Emptied whole
   instead.
 - 90 tests green with E1.
-- Resume: E2, a reader and a reserve beside a held consume (plan
-  step 8).
+- E2 written, in the same class: R's consume held at R's row, both
+  moves written; the witness reads mid-consume, then a reserve of 2
+  arrives at a second instance and waits behind the consume. Let go,
+  the reserve fits the state after — 7 on hand, 7 held, R consumed;
+  killed, the state before — 10 on hand, 10 held, R holding. Green.
+  The harness gained `Hold.awaitWaiterOn`, to see the reserve wait
+  on the consume rather than on the hold, and the scene a reserve
+  that returns at once.
+- E2's red, numbers first with V3 absent, from actual output, both
+  runs failing on the mid-consume reading: `the invariant,
+  mid-consume: Numbers[onHandCount=7, held=5, activeSum=8,
+  reservations=2], ending=null`. The test stops there, so on the red
+  tree the reserve's own half is not reached: with the item's row
+  already free, it would not wait at all, and the check that it
+  waits would fail first. Said, not hidden: the reader that breaks
+  first on the red tree is the witness, not the reserve.
+- 92 tests green with E2.
+- Resume: the 503 at the door (plan step 9).
 
 ## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
 

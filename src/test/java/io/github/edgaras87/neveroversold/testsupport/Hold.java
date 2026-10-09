@@ -86,13 +86,25 @@ public final class Hold implements AutoCloseable {
         }
     }
 
+    /** Waits until some session is waiting on this hold, and returns it. */
+    public Waiter awaitWaiter() throws InterruptedException {
+        return awaitWaiterOn(pid, what);
+    }
+
     /**
-     * Waits until some session is waiting on this hold, and returns it.
+     * Waits until some session is waiting on the session {@code blocker} —
+     * a reserve stopped behind a held consume, say — and returns it.
+     */
+    public static Waiter awaitWaiterOn(int blocker) throws InterruptedException {
+        return awaitWaiterOn(blocker, "session " + blocker);
+    }
+
+    /**
      * Read from a separate connection each time: the store's list of
      * sessions is fixed for the length of a transaction, and the hold's
      * own stays open.
      */
-    public Waiter awaitWaiter() throws InterruptedException {
+    private static Waiter awaitWaiterOn(int blocker, String what) throws InterruptedException {
         Instant deadline = Instant.now().plus(WAIT_FOR_WAITER);
         while (true) {
             try (Connection reader = ThrowawayStore.superuser();
@@ -100,7 +112,7 @@ public final class Hold implements AutoCloseable {
                          SELECT pid, query FROM pg_stat_activity
                           WHERE ? = ANY(pg_blocking_pids(pid))
                          """)) {
-                waiting.setInt(1, pid);
+                waiting.setInt(1, blocker);
                 try (ResultSet row = waiting.executeQuery()) {
                     if (row.next()) {
                         return new Waiter(row.getInt(1), row.getString(2));

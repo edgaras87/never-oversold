@@ -49,6 +49,15 @@ public record InterruptedConsumeScene(String item, UUID r, UUID s) {
                 HttpResponse.BodyHandlers.ofString());
     }
 
+    /**
+     * Sends a reserve on the scene's item and returns at once — it may wait
+     * behind a held consume. Asserts nothing: a refusal is an answer.
+     */
+    public CompletableFuture<HttpResponse<String>> reserveOnItem(ForkedLedger ledger, int units) {
+        return HTTP.sendAsync(post(ledger.baseUrl() + "/items/" + item + "/reservations",
+                "{\"quantity\":" + units + ",\"hold\":\"PT10M\"}"), HttpResponse.BodyHandlers.ofString());
+    }
+
     private static HttpResponse<String> adjust(ForkedLedger ledger, String item, int onHandCount)
             throws IOException, InterruptedException {
         return HTTP.send(post(ledger.baseUrl() + "/items/" + item + "/adjustments",
