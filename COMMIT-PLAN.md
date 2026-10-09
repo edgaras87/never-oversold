@@ -45,7 +45,7 @@ a records step. The rule first, then its first use.
 **3. `docs: hold ADR-0016 as Proposed`**
 ADR-0016's status line only, Accepted → Proposed, and nothing else
 in it. It was committed Accepted at the opening (5299d3a), but
-commits 7 and 8 build and test the answer it decides, and either
+commits 8 and 9 build and test the answer it decides, and either
 could reshape it. Still on this step's branch, never on main, so no
 record outside the step ever read it as Accepted.
 
@@ -63,13 +63,24 @@ provisional — whether the hold at the reservation's row stops a
 consume after both moves; if not, E1 holds at one point and a
 revision says so. 83 tests stay green.
 
-**5. `test: kill a consume midway`**
+**5. `docs: revise SL-4's plan — when a kill is seen`**
+Added by revision, after the harness. §8's G3 said a killed
+instance's consume is undone "at once"; the harness showed the store
+notices a dead connection only when it next speaks to it, so a
+killed instance's consume that is waiting on a row stays at the
+store until its wait ends, and is undone then. The outcome is the
+same — nothing committed, nothing half-done readable — and only the
+timing differs, which is W3's. Two sentences of §8 corrected with
+their date, the provisional on the hold at R's row settled as
+confirmed, and the devlog's line. No wall, face or test changes.
+
+**6. `test: kill a consume midway`**
 E1 (G1, kill 15). A consume held at each point, its instance
 killed outright, the witness read after: both moves or neither.
 Red with consume split into two transactions on the working tree,
 the hold landing between them: R consumed, the count unmoved.
 
-**6. `test: read and decide beside a held consume`**
+**7. `test: read and decide beside a held consume`**
 E2 (G2, kill 15's reader). A consume held after both moves; while
 held, the witness reads and a reserve on the same item is sent from
 another instance; then the consume is let go, or its instance
@@ -77,7 +88,7 @@ killed. The reserve decides against one whole state, before or
 after. Red with the same split: the reserve reads half a consume
 and is admitted against units that leave the shelf.
 
-**7. `feat: answer 503 when the store is out of reach`**
+**8. `feat: answer 503 when the store is out of reach`**
 ADR-0016 at the door: one handler in `DoorProblems`, deciding by the
 store's own error class — SQLSTATE `08…`, `57P01`–`57P03` — and
 nothing else. Its check beside it, saying on itself that it checks
@@ -86,7 +97,7 @@ instance's session ended by the superuser, the answer `503` as
 Problem Details, "outcome unknown". Seen red without the handler,
 recorded from actual output.
 
-**8. `test: freeze the store mid-consume`**
+**9. `test: freeze the store mid-consume`**
 E3 (G3, kill 16's silence). A consume held, the store frozen, the
 caller giving up, nothing sent after; the store thawed — with the
 instance alive, and with it killed while frozen. The witness reads
@@ -94,7 +105,7 @@ both moves or neither with no request since, and a reserve on the
 same item then goes through against those numbers. Red with the
 same split, the second transaction never arriving.
 
-**9. `test: a consumed receipt moves the count with it`**
+**10. `test: a consumed receipt moves the count with it`**
 E4 (G4): a fifth rule in `NoSecondWayOutTest` — a statement writes a
 `consumed` receipt if and only if it lowers `on_hand_count` by the
 same units, and nothing else lowers it relative to itself. Red by
@@ -102,7 +113,7 @@ planting each violation it forbids: a consume that lowers only the
 units held; a release that lowers the count; the count lowered
 alone.
 
-**10. `docs: records catch up on SL-4`** *(provisional split)*
+**11. `docs: records catch up on SL-4`** *(provisional split)*
 The slice record's evidence as delivered (§9), standing guards
 (§10) and its sign-off line; ADR-0016 to Accepted, or revised in
 place first if the build reshaped it; the registry closing SL-4 by a dated
@@ -116,7 +127,7 @@ The close's shape readings follow here, and a step of their own is
 added by revision if they find anything; so is any agent-path
 change, never folded into this step.
 
-**11. `docs(agent): close commit plan for SL-4's build`**
+**12. `docs(agent): close commit plan for SL-4's build`**
 Deletes this file.
 
 ## Decisions taken inside this plan
@@ -139,7 +150,7 @@ Deletes this file.
 - **ADR-0016 goes back to Proposed, at the reviewer's ask.** It was
   committed Accepted at the opening, as ADR-0013 was at SL-3's, on
   the reading that a decision taken before the set is not one the
-  set can reshape. That reading was wrong here: commits 7 and 8
+  set can reshape. That reading was wrong here: commits 8 and 9
   build and test the very answer it decides. Moving a status back
   is unusual; it is done because the record has not left this
   step's branch. ADR-0001's immutability binds an Accepted record,
