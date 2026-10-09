@@ -882,7 +882,7 @@ Gate:
       the reviewer's, one dated line.
 - [ ] The registry row goes to `in-progress` when the specification
       lands — not at this opening and not at the close.
-- [ ] Stage 1, before the specification: the whats the framing does
+- [x] Stage 1, before the specification: the whats the framing does
       not carry, each decided as a record with its options, never
       absorbed into code — at least what a caller is told, and may
       do, when its consume's outcome is unknown; and whether

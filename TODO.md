@@ -173,6 +173,16 @@ stands before Release is decided at its close.
   an item's history passes the stated size, or a decision's speed is
   measured. Found 2026-10-05; narrowed 2026-10-08.
 
+- An interrupted consume can keep its item waiting. A consume whose
+  instance is cut off from the store — not killed — stays open at
+  the store until the store gives up on that connection, and other
+  decisions on that item wait until then. No wrong number is read;
+  undone, the consume leaves the item as it was. Accepted because
+  waiting is fenced (W3), and the limit would be a setting on the
+  store, a ground change no guarantee asks for (SL-4's record, §3).
+  Revisit if a deployment puts a network between the instances and
+  the store, or if a wait on an item is ever seen. Found 2026-10-09.
+
 ## To the deliverer
 
 <!-- What this run addresses to the bundle, and only that, so a
