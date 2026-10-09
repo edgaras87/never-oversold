@@ -6,6 +6,43 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-10  (Step 8: SL-4, E1 red and green)
+
+- E1 written (`InterruptedConsumeIT`): R's consume held at each
+  point, its instance killed outright, the hold let go, the witness
+  read in one statement. Green against the standing wall at both
+  points: 10 on hand, 8 held, R with no ending.
+- DEAD END: the red as §8 signed it — consume split into the receipt
+  with the units held, then the count — stayed green at both points.
+  Both holds sit inside the first transaction, which moves the item's
+  row and has its receipt checked against R's row; the hold caught
+  the consume before anything was final.
+- Four runs instead, each on the working tree and restored from git
+  after, from actual output:
+  - receipt first, then the numbers, V3 standing: the store refused
+    the first transaction; the consume never reached the hold —
+    `nothing came to wait on the row of item … within PT30S`.
+  - receipt first, V3 absent, held at the item's row: red, on the
+    witness — `R ended by consume exactly when the count fell by
+    its 3: Numbers[onHandCount=10, held=8, activeSum=5,
+    reservations=2], ending=consumed`.
+  - numbers first, then the receipt, V3 standing: refused the same
+    way — `nothing came to wait on the row of reservation …`.
+  - numbers first, V3 absent, held at R's row: red, on the promise
+    itself — `the invariant: Numbers[onHandCount=7, held=5,
+    activeSum=8, reservations=2], ending=null`.
+- So V3 is G1's backstop, seen catching both orders; and E1 shows
+  F16's two half-states, one per hold point, once V3 is gone too.
+  The split V3 lets through — the receipt with the units held, then
+  the count — no hold can reach: both touch the item's row. Left to
+  E4. §8 revised for it (1fc0b69), on the reviewer's word.
+- A first attempt at taking V3 away commented half its statements
+  and broke the migration; the store did not start. Emptied whole
+  instead.
+- 90 tests green with E1.
+- Resume: E2, a reader and a reserve beside a held consume (plan
+  step 8).
+
 ## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
 
 - Stage 1 and 2 on the reviewer's word, each signed the same day.
