@@ -1,7 +1,7 @@
 # 0016. An outcome the ledger cannot know answers 503
 
 Date: 2026-10-09
-Status: Accepted
+Status: Proposed
 
 ## Context
 
