@@ -411,12 +411,15 @@ item row still waits. The store undoes the receipt: 10 on hand, R
 holding 3, 8 held.
 
 *If the wall were ever wrong:* partly. The check on the units held
-(V3) refuses a receipt made final without the units held falling.
-Nothing stands behind the count's half: a count lowered with no
-receipt, or a receipt with the count unmoved, passes every check
-the store has. E4's rule is the early warning there (G4). Whether
-V3 is seen catching anything at the red run is recorded in §9;
-until then it is unproven here.
+(V3) refuses any commit where the units held disagree with the
+reservations that have no ending — so it refuses a split that
+separates R's ending from the units held falling, in either order.
+Seen at E1's red (revised 2026-10-10, below): with the moves split
+and V3 standing, the store refused the first transaction each way.
+What passes it is the count's fall kept apart from the other two —
+the receipt and the units held made final, then the count; or the
+count lowered alone. Nothing in the store stands behind that; E4's
+rule is the early warning there (G4).
 
 ---
 
@@ -693,15 +696,47 @@ path, against writers T4 already trusts.
 ### The red, planned
 
 The wall stands already, so it is taken away on the working tree,
-never in history: consume split into two transactions — the
-receipt and the units held made final, then the count. Each of
-E1–E3 then holds the second transaction back and lands its
-interruption there; the witness reads R consumed with the count
-unmoved. E4 is seen red by planting a half-consume statement. A
-race whose red needs its window held open gets it on the red tree
-only: the hold is the window, and it is the same on both trees.
+never in history.
+
+*As signed:* consume split into two transactions — the receipt and
+the units held made final, then the count — and each of E1–E3
+holding the second transaction back.
+
+*As revised, 2026-10-10:* that split stayed green. Both hold points
+sit inside the first transaction — it moves the item's row, and its
+receipt is checked against R's row — so the hold caught the consume
+before anything was final. What shows red, tried on the working tree
+from actual output:
+
+- **The moves split in either order, and V3 absent.** V3 refuses
+  each split at its first commit; with V3 standing, nothing half-done
+  is ever left (G1's backstop, seen). With both taken away:
+  - *the receipt first:* the hold at the item's row lands between
+    the two, and the kill leaves R consumed with the count unmoved;
+  - *the numbers first:* the hold at R's row lands between, and the
+    kill leaves the count fallen with R still holding — more held
+    than on hand.
+
+  Each hold point shows one of F16's two half-states. E2 and E3 use
+  the same two red trees.
+- **What no hold reaches:** the split V3 lets through — the receipt
+  with the units held, then the count. Both touch the item's row, so
+  no hold lands between them. E4 sees it red, by planting.
+
+E4 is seen red by planting a half-consume statement. A race whose
+red needs its window held open gets it on the red tree only: the
+hold is the window, and it is the same on both trees.
 
 ### Deviations and provisionals, so the close can see them
+
+- **§8 revised during the build, 2026-10-10.** The red as signed
+  stayed green: both hold points sit inside the first of two
+  transactions. The red takes away two walls instead of one — the
+  single transaction, and V3 behind it — on the working tree only,
+  and the record's §9 says so for each run. G1's backstop, signed as
+  unproven, is now seen. The split V3 lets through is named as
+  beyond E1's holds and E4's to catch. No wall, face or guarantee
+  changed.
 
 - **G2 reaches past the registry's adversity** — a reader rather
   than a death. Signed in the specification; its evidence uses the
