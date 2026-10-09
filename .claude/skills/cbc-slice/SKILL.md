@@ -58,7 +58,10 @@ invariant is about comes to exist at all, the door's conventions the
 adversity arrives through, what the first schema holds; the first slice
 meets most of them. Each is decided at the opening, as a record with its
 options, before the specification that depends on it — never absorbed into
-code, and never a mechanism: it is still a *what*. Then run the guarantee
+code, and never a mechanism: it is still a *what*. One recorded as an ADR is
+**Proposed** until the slice's closing records, then **Accepted**: the build
+can still reshape it, and a Proposed record is corrected in place where an
+Accepted one could only be superseded. Then run the guarantee
 challenge: attack the invariant ("what would let this
 hold on paper yet break in fact?") until each distinct answer is a
 strategy-free guarantee. Set evidence criteria per guarantee.

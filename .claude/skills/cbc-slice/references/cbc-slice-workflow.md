@@ -49,7 +49,10 @@ alternatives are never weighed against the actual requirement.
    its options, before the specification that depends on it; absorbing one
    into code is the silent decision this workflow forbids. It is still not
    a mechanism — "an item becomes known by its first adjustment" names no
-   table.
+   table. One recorded as an ADR is **Proposed** until the slice's closing
+   records (Stage 4), then **Accepted**: the build can still reshape it,
+   and a Proposed record is corrected in place where an Accepted one could
+   only be superseded.
 4. **Run the guarantee challenge.** Attack your own invariant: *"what would
    let this hold on paper yet be violated in fact?"* Every distinct answer
    becomes a **guarantee** — a strategy-free sub-property that must hold.

@@ -908,3 +908,27 @@
   and a size on the runtime ground.
   Why: SL-4 opens on these copies.
   Rejected: none weighed; the take copies whole.
+
+- 2026-10-09 `cbc-slice` edited in place, pinned @ f801fd0: one
+  edit, in SKILL.md's Stage 1 and the workflow's Stage 1 step 3. A
+  decision a slice records as an ADR at its opening is Proposed
+  until the slice's closing records, then Accepted: the build can
+  still reshape it, and a Proposed record is corrected in place
+  where an Accepted one could only be superseded.
+  Found at Step 8, SL-4. ADR-0016, what a caller is told when a
+  consume's outcome is unknown, was decided at the opening and
+  committed Accepted, as ADR-0013 had been at SL-3's — on the
+  reading that a decision taken before the change set is one the
+  set cannot reshape. The reviewer asked why a decision the build
+  has not yet tested should be Accepted at all; the plan's own
+  steps answered it, building and testing the very answer the ADR
+  decides. `commit-plan` already opens an ADR inside a set as
+  Proposed; nothing covered the ones a slice decides before its set
+  opens, and those are exactly the ones its build will test.
+  Rejected: a TODO line (TODO holds what is noticed and not done;
+  this is done now, its first use SL-4's own records step); a rule
+  in `commit-plan` (it governs the set, and these ADRs come before
+  it); a line in this project's PLAN step form alone (rule 2: a
+  demand any slice would want belongs in the copy); a memory (the
+  skill is read at the moment the decision is made; a second copy
+  drifts).
