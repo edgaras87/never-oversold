@@ -352,3 +352,17 @@ definition.
 - **That release and expiry hold together.** Each makes one move —
   the units held fall — and P4 names consume alone as the act that
   moves both numbers.
+
+## §11 Sign-offs
+
+<!-- Dated lines, the reviewer's: the specification before the plan,
+     the plan before the build. -->
+
+- 2026-10-09 — §3's two decisions taken by the reviewer: an outcome
+  the ledger cannot know answers `503` (ADR-0016); nothing
+  converges, because nothing is half-done, the wait named outside
+  the promise.
+- 2026-10-09 — the specification (§1–§7) signed by the reviewer as
+  written, G2 included: a reader in the middle of a consume, found
+  by the attack on "readable", though the registry's adversity
+  names only death and unknown outcomes.
