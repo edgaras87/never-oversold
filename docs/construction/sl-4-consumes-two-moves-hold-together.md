@@ -353,6 +353,359 @@ definition.
   the units held fall — and P4 names consume alone as the act that
   moves both numbers.
 
+## §8 Plan — one structural owner per guarantee
+
+<!-- The second movement: mechanisms are allowed here and nowhere
+     above. Each guarantee gets exactly one owner from the
+     enforcement hierarchy — database constraint → type system →
+     single validated entry path → runtime check → code review →
+     hope — the strongest available, justified against the named
+     adversity, not in general. -->
+
+### What stands already
+
+This slice builds almost no wall. SL-3 made consume one statement
+in one transaction (SL-3 §8, "How each path runs"), and SL-1 made
+every decision on an item one guarded update of its row. The plan's
+work is to say which of those walls owns which guarantee here, and
+to build the harness that can interrupt a consume on purpose.
+
+What a consume is, as the store sees it today, all in one
+transaction on the one entry path (`Ledger.consume`, through
+`Ledger.exit`):
+
+1. **One statement.** Its `WITH` writes R's `consumed` receipt;
+   the same statement's `UPDATE item` lowers `on_hand_count` and
+   `reserved` by R's units, for the receipt it wrote. Move one is
+   the receipt and the units held falling; move two is the count
+   falling. Both of the item's numbers are columns of one row, and
+   one update moves them.
+2. **The answer's read** — the reservation as persisted.
+3. **The commit.** The store's deferred check on the units held
+   (V3) runs here, and then every write of the transaction becomes
+   final at one instant.
+
+*Say:* 10 on hand, R holding 3, 8 held. The statement writes R's
+receipt and turns the item row from 10 on hand and 8 held into 7
+on hand and 5 held. Until the commit, nobody but this transaction
+sees either.
+
+### Owners
+
+**G1. A consume's two moves become final together, or neither
+does.**
+
+*The wall:* the transaction — one statement, one commit. The store
+makes all of a transaction's writes final at its commit, and a
+transaction that never commits leaves nothing (T1; ADR-0005 chose
+the store for exactly this).
+
+*Why it beats this attack:* the attack needs a moment at which one
+move is final and the other is not. Inside one transaction there
+is no such moment: before the commit neither is final, after it
+both are. A death at any point before the commit — mid-statement,
+between the statement and the commit — ends the session, and the
+store undoes every write in it.
+*Say:* the instance is killed while the receipt is written and the
+item row still waits. The store undoes the receipt: 10 on hand, R
+holding 3, 8 held.
+
+*If the wall were ever wrong:* partly. The check on the units held
+(V3) refuses a receipt made final without the units held falling.
+Nothing stands behind the count's half: a count lowered with no
+receipt, or a receipt with the count unmoved, passes every check
+the store has. E4's rule is the early warning there (G4). Whether
+V3 is seen catching anything at the red run is recorded in §9;
+until then it is unproven here.
+
+---
+
+**G2. While a consume is under way, everyone who reads sees it
+whole or not at all.**
+
+*The wall:* the store shows no reader a write before its commit,
+and a decision on an item waits for the item's row while a consume
+holds it. The decision reads the two numbers it compares from that
+one row, in one update (SL-1's guarded update).
+
+*Why it beats this attack:* the attack needs a reader to see one
+move and not the other. A reader that is not deciding sees the
+store as of before the consume's commit, or after it. A reserve on
+the same item cannot read past a consume at all: its update waits
+for the row, and when the row is free, the store re-reads it and
+the reserve decides against what is there then — the before-state
+if the consume was undone, the after-state if it committed.
+*Say:* a consume of R is under way, holding the row at 7 on hand,
+5 held, uncommitted. A reserve of 5 waits. The consume commits; the
+reserve reads 7 and 5, 2 free, and is refused. Or the consume is
+undone; the reserve reads 10 and 8, 2 free, and is refused.
+
+*If the wall were ever wrong:* `item_never_oversold`, the store's
+check that the units held never pass the count, refuses a decision
+that would hold more than is on hand — the promise's own half, not
+the consume's. A reserve that saw half a consume could fit and pass
+it. Unproven until the red run.
+
+---
+
+**G3. An interrupted consume settles on its own.**
+
+*The wall:* the store itself. A session that ends without a commit
+is undone by the store; a commit the store acknowledged stays
+(T1). No path in the ledger finishes, repeats or repairs a consume,
+and G4's rule keeps it so.
+
+*Why it beats this attack:* the attack needs something to be owed
+after the interruption — a retry, a repair, a person. Nothing is.
+The store decides alone, and only between two answers: the commit
+arrived, or it did not. When the instance is killed, its
+connection closes and the store undoes the consume at once. When
+the store was frozen, it resumes the moment it is let go, and does
+the same.
+*Say:* the store freezes mid-consume; the caller walks away. The
+store is let go. Whatever it decides — the commit arrived, 7 on
+hand and R consumed; or the instance is gone, 10 on hand and R
+holding 3 — no request since has been needed.
+
+*If the wall were ever wrong:* nothing. This is T1, trusted.
+
+---
+
+**G4. Nothing makes one of consume's moves without the other.**
+
+*The wall:* the trust line and a rule over the ledger's code. Only
+the ledger writes the store's data (T4). SL-3's structural check
+(`NoSecondWayOutTest`, E7) already fails the build if a number
+falls in a statement that writes no receipt. A fifth rule, this
+slice's E4: a statement writes a `consumed` receipt if and only if
+it lowers `on_hand_count` by the same units; and nothing else
+lowers `on_hand_count` relative to itself.
+
+*Why it beats this attack:* the attack is a second path written
+into the ledger — a retry that resends only the count, a repair
+that writes only receipts. Under T4 every writer the system trusts
+is the ledger, so a rule over the ledger's statements reaches
+every path the definition allows. A path that makes one move alone
+fails the build, naming the file, before it can run.
+*Say:* a planted retry lowers the count by R's 3 with no receipt:
+rule 3 names it. A planted consume that lowers only `reserved`:
+the new rule names it — a `consumed` receipt with the count
+unmoved.
+
+*If the wall were ever wrong:* V3, for the units-held half only, as
+under G1.
+
+---
+
+### The faces chosen, and the ones not
+
+**The two moves, made final (G1)**
+
+**One statement in one transaction** — *chosen*
+
+*How it holds G1:* both moves are one update of one row, beside
+the receipt, all made final by one commit.
+
+*Cost:* nothing new — SL-3 built it. A consume holds its item's
+row from its update to its commit: one statement, one read, and
+V3's read of the item's history.
+*Assumes:* the definition's size — up to a few thousand
+reservations on one item over its life, which V3 reads at every
+commit through V4's index. Revisit with V3's known issue: when an
+item's history passes that size, or a decision's speed is
+measured.
+
+---
+
+**Two statements in one transaction**
+
+*How it holds G1:* the same commit makes both final.
+
+*Why not:* no gain, and it unmakes SL-3's wall: rule 3 of E7 fails
+any statement that lowers a number without writing the receipt.
+And the row is held longer.
+
+---
+
+**Two transactions, and a repair that finishes the half-done**
+
+*How it holds G1:* it does not; it converges afterwards.
+
+*Why not:* the half-done is readable between the two (G2 dies),
+and the repair is a second path that makes one move alone (G4).
+§3 decided there is nothing to converge.
+
+---
+
+**What a reader sees mid-consume (G2)**
+
+**The store's default isolation, and the item's row** — *chosen*
+
+*How it holds G2:* no uncommitted write is seen; a decision waits
+for the row and re-reads it.
+
+*Cost:* nothing new. A reserve on an item waits while a consume of
+the same item is under way, for as long as the consume runs.
+*Assumes:* a consume's run is short — one statement and a commit;
+an interrupted one can keep the row longer (§3, W3, the known
+issue).
+
+---
+
+**Serializable isolation on every decision**
+
+*How it holds G2:* the store refuses any decision whose reads a
+concurrent commit has made stale.
+
+*Why not:* it holds nothing more here — the numbers a decision
+compares are one row — and a refused decision has to be sent
+again, which is a retry path in the ledger (G4's attack).
+
+---
+
+**An interrupted consume settles (G3)**
+
+**The store undoes an ended session** — *chosen*
+
+*How it holds G3:* nothing has to happen after the interruption;
+the store decides between committed and undone by itself.
+
+*Cost:* nothing to build. The wait until the store notices the
+session has ended.
+*Assumes:* the end reaches the store promptly — at once for a
+killed process on the same machine, as on this ground. Revisit
+when a network sits between the instances and the store (the known
+issue: a cut connection can stay open for hours).
+
+---
+
+**A limit at the store on a session left open mid-transaction**
+
+*How it holds G3:* the same, with the wait bounded.
+
+*Why not:* §3 — a ground change made for no guarantee; waiting is
+W3's.
+
+---
+
+**A repair in the ledger**
+
+*How it holds G3:* something finds half-done consumes and finishes
+them.
+
+*Why not:* there are none to find, and it would be a second path
+(G4).
+
+---
+
+**One move never alone (G4)**
+
+**A rule over the ledger's statements, under T4** — *chosen*
+
+*How it holds G4:* every writer the definition trusts is the
+ledger; the rule reads every statement it has.
+
+*Cost:* one more rule in E7, and the build parsing the ledger's
+statements, as it already does.
+*Assumes:* T4. Revisit if anything but the ledger is ever trusted
+to write data.
+
+---
+
+**A check in the store at every commit**
+
+*How it holds G4:* the store would refuse a `consumed` receipt
+whose item's count did not fall by its units, whoever wrote it.
+
+*Why not:* the store keeps no history of the count to compare
+against — an adjustment sets the count outright. The check would
+need a new record of every movement of the count, written by every
+path, against writers T4 already trusts.
+
+---
+
+### Escape hatches hunted, against the trust list
+
+- **The ledger's own retries.** None exist: no retry in the
+  application, and the driver and the pool resend nothing. A
+  consume whose statement fails is answered (ADR-0016), never
+  redone. E4 names any that is ever written with half a consume.
+- **The expiry branch inside an exit.** When a consume meets an
+  expired hold, it writes the `expired` receipt and frees the units
+  — one move. That is expiry, not consume: P4 is not involved.
+- **An adjustment.** It sets the count outright, under SL-2's
+  rules, and writes no receipt. It is the operator's count, not a
+  consume, and E4's rule names relative lowering only.
+- **A migration.** `migrator` writes structure only (T4); V1–V4
+  write no rows. A migration that wrote data would be outside T4 —
+  a question for the definition before it is a wall.
+- **The store's superuser.** Trusted (T4). The harness uses it to
+  hold a row, to end a session, and to read who waits; it writes
+  no data.
+- **Anyone else holding `runtime`'s password.** W7, fenced: T4
+  assumes nobody else writes.
+
+### The surface, at its minimum
+
+- **The door: ADR-0016's answer.** One handler in `DoorProblems`:
+  the store out of reach answers `503`, "outcome unknown". Which
+  failures count is a choice with two faces:
+  - **by the store's own error class — chosen.** SQLSTATE class
+    `08` (the connection failed or was lost) and `57P01`–`57P03`
+    (the store ending the session, or not accepting it). Nothing
+    else: any other failure stays a `500`, a defect.
+  - **by the framework's exception types** (a data-access resource
+    failure, a transaction-system failure). Rejected: the second of
+    those also wraps a refusal at commit — V3 saying no — which
+    would then read "outcome unknown" though the store answered,
+    and undid it.
+- **The store:** nothing. No migration, no table, no index.
+- **The ledger:** nothing.
+- **Under test:**
+  - `ForkedLedger` gains a kill outright (the process killed, not
+    asked to stop).
+  - A hold, from outside every instance: the store's superuser
+    takes a row the consume needs, and keeps it until the test lets
+    go. Two points: the item's row — the consume waits with its
+    receipt written and the count not yet moved; and R's row — the
+    consume waits with both moves written, at the end of its
+    statement, where the receipt's reference to R is checked. The
+    test knows the consume waits there by reading the store's own
+    list of who waits on whom, never by sleeping. The second point
+    rests on when the store checks a reference inside a `WITH`; the
+    build confirms it, and if it does not hold, E1 holds at one
+    point and §9 says so.
+  - `ThrowawayStore` gains a freeze and a thaw (the container
+    paused and resumed, ADR-0004's way), and ending one session as
+    the superuser — the way the ADR-0016 check makes an instance
+    lose the store.
+  - The witness gains one reading of the item's numbers together
+    with R's ending, in one statement, so the two cannot be read at
+    different moments.
+  - E4: a fifth rule in `NoSecondWayOutTest`.
+- **Not added:** a time limit anywhere, a repair, a retry, a read
+  endpoint.
+
+### The red, planned
+
+The wall stands already, so it is taken away on the working tree,
+never in history: consume split into two transactions — the
+receipt and the units held made final, then the count. Each of
+E1–E3 then holds the second transaction back and lands its
+interruption there; the witness reads R consumed with the count
+unmoved. E4 is seen red by planting a half-consume statement. A
+race whose red needs its window held open gets it on the red tree
+only: the hold is the window, and it is the same on both trees.
+
+### Deviations and provisionals, so the close can see them
+
+- **G2 reaches past the registry's adversity** — a reader rather
+  than a death. Signed in the specification; its evidence uses the
+  same hold as E1's, so it adds no new kind of adversity to the
+  harness.
+- **The hold at R's row is provisional** on the store's behaviour,
+  confirmed in the build.
+
 ## §11 Sign-offs
 
 <!-- Dated lines, the reviewer's: the specification before the plan,
