@@ -101,6 +101,19 @@ public final class ForkedLedger implements AutoCloseable {
                 + "; its log: " + log);
     }
 
+    /**
+     * Kills the instance outright — the process killed, not asked to stop:
+     * no shutdown hook runs, no request finishes, nothing is said to the
+     * store. Its connections close only because the operating system
+     * closes them. Returns once the process is gone.
+     */
+    public void kill() throws InterruptedException {
+        process.destroyForcibly();
+        if (!process.waitFor(10, TimeUnit.SECONDS)) {
+            throw new IllegalStateException("instance on port " + port + " still alive after a kill");
+        }
+    }
+
     @Override
     public void close() {
         process.destroy();

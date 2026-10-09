@@ -61,6 +61,42 @@ public final class Witness {
         }
     }
 
+    /**
+     * An item's numbers and one reservation's ending, read together: one
+     * statement, so one moment of the store. Two separate readings could
+     * fall either side of a commit and show half a consume that never
+     * existed; this cannot (SL-4's record, §8).
+     */
+    public record Reading(Numbers numbers, String ending) {
+    }
+
+    public static Reading read(String item, UUID reservation) {
+        try (Connection store = connect();
+             PreparedStatement statement = store.prepareStatement("""
+                     SELECT i.on_hand_count,
+                            i.reserved,
+                            coalesce((SELECT sum(r.quantity) FROM reservation r
+                                      WHERE r.item_id = i.id AND r.expires_at > now()
+                                        AND NOT EXISTS (SELECT 1 FROM reservation_exit e
+                                                        WHERE e.reservation_id = r.id)), 0) AS active_sum,
+                            (SELECT count(*) FROM reservation r WHERE r.item_id = i.id) AS reservations,
+                            (SELECT e.kind FROM reservation_exit e WHERE e.reservation_id = ?) AS ending
+                     FROM item i WHERE i.id = ?
+                     """)) {
+            statement.setObject(1, reservation);
+            statement.setString(2, item);
+            try (ResultSet row = statement.executeQuery()) {
+                if (!row.next()) {
+                    throw new IllegalStateException("no item " + item + " in the store");
+                }
+                return new Reading(new Numbers(row.getInt(1), row.getInt(2), row.getInt(3), row.getInt(4)),
+                        row.getString(5));
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("the witness could not be read", e);
+        }
+    }
+
     /** Whether a reservation with this id is in the store — E4's "every admitted reply names a record". */
     public static boolean holdsReservation(UUID id) {
         try (Connection store = connect();
