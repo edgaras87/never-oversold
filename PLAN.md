@@ -863,7 +863,7 @@ Gate:
       has not been worked anywhere else.
 - [x] This gate was written before the work started, not
       reconstructed from it afterwards.
-- [ ] Stage 0 passed on the actual repo and recorded in the devlog:
+- [x] Stage 0 passed on the actual repo and recorded in the devlog:
       R1 the three exports stand, SL-4 the only `chosen-next` row,
       the reconciliation line whole; R2 `./mvnw test` green at the
       branch point, from actual output; R3 the store reachable from

@@ -6,6 +6,62 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-09  (Step 8 opens: SL-4, Stage 0)
+
+- Step 8 opened on `step-8-sl-4`, cut from main at de29d9e, on the
+  bundle's copies @ f801fd0. The gate was written and committed
+  (05dd952) before any work.
+- Stage 0, checked against the repo, not from memory.
+  - R1: the three exports stand; SL-4 is the only `chosen-next`
+    row; the reconciliation table has its 20 kill rows.
+  - R2: `./mvnw test` at the branch point: exit 0, 83 tests in 16
+    classes, 0 failures, 0 errors, 0 skipped. The review's last
+    count was 82; the one more is E7's fourth rule (24e1214).
+  - R3: the suite's store is `ThrowawayStore`, a real postgres:17
+    per test JVM, built from the ground's bootstrap.sql and
+    migrated from the one migrations home. No mock.
+  - R4, one line per kind of adversity SL-4 names.
+    - An instance killed mid-consume (F16). What the harness has:
+      `ForkedLedger` runs each instance as its own process and
+      knows its pid. What it owes: it only stops an instance
+      gracefully (destroy, then forcibly if it lingers), so a hard
+      kill on demand is missing; and nothing yet lands the kill
+      while a consume is inside its transaction. How to land it is
+      a plan question.
+    - A consume's outcome unknowable (F19). What the harness has:
+      nothing. What it owes: freezing the throwaway store, or
+      cutting an instance from it, from inside a test. The ground's
+      way is `podman pause` (ADR-0004, ADR-0005); checked on this
+      machine with a throwaway container — rootless podman, cgroups
+      v2, pause then unpause both worked, the container removed.
+  - R6: the registry writable, the record scheme in place.
+  - R5: the wall SL-4 leans on stands already, so it is made absent
+    on the working tree — the two moves split apart — and the
+    evidence seen red there, in the build.
+- What Stage 0 surfaced for Stage 1, not for the harness:
+  - Consume is one statement today: it writes the reservation's
+    receipt and lowers the count and the units held, in one
+    transaction (`Ledger.consume`, through `Ledger.exit`). There
+    is no moment in our code between the two moves — only inside
+    the store's transaction, before its commit.
+  - V3 checks at every commit that an item's units held equal its
+    unreceipted reservations' units. A receipt written without the
+    units falling would be refused there. Whether that is an owner
+    of SL-4's invariant or only a second guard is Stage 2's.
+  - A retry after an unknown outcome already gets an answer:
+    ADR-0013 says a repeated exit answers as the first did. What a
+    caller is told while the outcome is unknown is the first of
+    the two questions before the spec.
+- The ground is down: `never-oversold-postgres` exited 11 hours
+  ago. The suite does not need it, so it is left down.
+- Readiness signed by the reviewer: *2026-10-09 — "lets do it"*,
+  given on reading this record.
+- Resume: Stage 1. First the two questions, each a record with its
+  options: what a caller is told when its consume's outcome is
+  unknown, and whether anything is left to converge. Then the
+  specification, the row to `in-progress` when it lands; the
+  reviewer signs it before the plan.
+
 ## 2026-10-07 → 2026-10-08  (housekeeping: the review after SL-3)
 
 - Opened on `housekeeping-review-after-sl-3`, cut from main after

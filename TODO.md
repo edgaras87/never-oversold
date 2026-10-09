@@ -8,30 +8,20 @@
 
 ## Now (current plan step)
 
-- [ ] Between steps. The review after SL-3 closed on 2026-10-08 on
-      `housekeeping-review-after-sl-3`: who writes the store (T4,
-      ADR-0014), where each rule lives (ARCHITECTURE's map), the
-      size the system is built for (the definition's runtime
-      ground), when an index is a need (ADR-0015, V4), and four
-      delivered copies corrected in place. Merged into main on
-      2026-10-08 (10437cd). The bundle's answer, taken the same day
-      @ f801fd0, is what SL-4 opens on.
-- [ ] Step 8 (SL-4, cbc-slice): consume's two moves hold together,
-      the registry's chosen-next since 2026-10-07. It inherits by
-      name: the two moves are already one statement in one
-      transaction, so the invariant is held by structure and owes
-      only its proof — our death between the moves, an outcome we
-      cannot know, neither created by any harness yet; and the
-      exit's identity it presumes exists, one receipt per
-      reservation with its kind and instant, a repeated exit
-      answering as the first.
+- [ ] Step 8 (SL-4, cbc-slice): consume's two moves hold together.
+      Opened 2026-10-09 on the bundle's copies @ f801fd0; readiness
+      signed the same day; Stage 1 next. It inherits by name: the two
+      moves are already one statement in one transaction, so the
+      invariant is held by structure and owes only its proof — our
+      death between the moves, an outcome we cannot know, neither
+      created by any harness yet; and the exit's identity it
+      presumes exists, one receipt per reservation with its kind
+      and instant, a repeated exit answering as the first.
 
-## Next (after Step 7)
+## Next (after Step 8)
 
-Nothing waits here but Step 8, under "Now". The review that stood
-here closed on 2026-10-08; what it decided lives in the definition's
-revisions, ADR-0014, ADR-0015 and ARCHITECTURE, and its reasoning in
-the devlog.
+Nothing yet. SL-4 is the registry's last slice; whether anything
+stands before Release is decided at its close.
 
 ## Later / someday
 
