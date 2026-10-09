@@ -458,10 +458,12 @@ and G4's rule keeps it so.
 *Why it beats this attack:* the attack needs something to be owed
 after the interruption — a retry, a repair, a person. Nothing is.
 The store decides alone, and only between two answers: the commit
-arrived, or it did not. When the instance is killed, its
-connection closes and the store undoes the consume at once. When
-the store was frozen, it resumes the moment it is let go, and does
-the same.
+arrived, or it did not. When the instance is killed, the store
+undoes the consume the next time it speaks to that session and
+finds it gone — at once if the session was mid-statement or idle,
+and when its wait ends if it was waiting on a row (revised
+2026-10-09, below). When the store was frozen, it resumes the
+moment it is let go, and does the same.
 *Say:* the store freezes mid-consume; the caller walks away. The
 store is let go. Whatever it decides — the commit arrived, 7 on
 hand and R consumed; or the instance is gone, 10 on hand and R
@@ -572,8 +574,10 @@ the store decides between committed and undone by itself.
 
 *Cost:* nothing to build. The wait until the store notices the
 session has ended.
-*Assumes:* the end reaches the store promptly — at once for a
-killed process on the same machine, as on this ground. Revisit
+*Assumes:* the end reaches the store promptly — for a killed
+process on the same machine, as on this ground, as soon as the
+store next speaks to its session; a session waiting on a row is
+found gone when its wait ends (revised 2026-10-09, below). Revisit
 when a network sits between the instances and the store (the known
 issue: a cut connection can stay open for hours).
 
@@ -704,7 +708,18 @@ only: the hold is the window, and it is the same on both trees.
   same hold as E1's, so it adds no new kind of adversity to the
   harness.
 - **The hold at R's row is provisional** on the store's behaviour,
-  confirmed in the build.
+  confirmed in the build. Confirmed 2026-10-09 by the harness's own
+  check: while R's row is held, the consume holds the item's row
+  already, so it waits with both moves written.
+
+- **§8 revised during the build, 2026-10-09.** G3's owner and its
+  chosen face said a killed instance's consume is undone "at once".
+  The harness showed the store notices a dead connection only when
+  it next speaks to it: a killed instance's consume that is waiting
+  on a row stays at the store until its wait ends, and is undone
+  then. Nothing about the outcome changed — nothing committed, no
+  half-done state readable at any moment — only when the store
+  learns of it, which is W3's. No wall, face or evidence changed.
 
 ## §11 Sign-offs
 

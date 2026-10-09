@@ -6,6 +6,34 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
+
+- Stage 1 and 2 on the reviewer's word, each signed the same day.
+  §3's two decisions: an unknown outcome answers 503 (ADR-0016);
+  nothing converges, because nothing is half-done. The spec's four
+  guarantees, G2 among them — a reader mid-consume, past the
+  registry's adversity, signed as written. The plan builds almost
+  no wall: SL-3's one statement and SL-1's guarded update already
+  stand.
+- ADR-0016 was committed Accepted at the opening, then held as
+  Proposed (f142873) on the reviewer's question: why Accepted before
+  the build that tests it? `cbc-slice` now says so for every slice
+  (0069200). It is Accepted at this slice's close.
+- The harness (ce8b911): a hold, a kill outright, a freeze, one
+  session ended; 88 tests green. The hold at R's row is confirmed:
+  the consume waits there with the item's row already moved.
+- Found by the harness, and §8 revised for it: a killed instance's
+  session that is waiting on a row is not undone at once. The store
+  learns a connection is dead only when it next speaks to it; the
+  check `aKilledInstancesHeldSessionLeavesTheStore` saw the session
+  stay until the hold let go. The outcome is unchanged; the timing
+  is W3's.
+- Asked along the way, and answered in chat: whether all this is
+  over-engineering. The tests prove our consume stays one
+  transaction, not that the store's commit works; the freeze (E3)
+  adds the least, and was kept on the reviewer's word.
+- Resume: E1, a consume killed midway (commit 6 of the plan).
+
 ## 2026-10-09  (Step 8 opens: SL-4, Stage 0)
 
 - Step 8 opened on `step-8-sl-4`, cut from main at de29d9e, on the
