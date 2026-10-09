@@ -2,6 +2,7 @@ package io.github.edgaras87.neveroversold.reservation;
 
 import io.github.edgaras87.neveroversold.reservation.problems.InvalidRequest;
 import io.github.edgaras87.neveroversold.reservation.problems.Refused;
+import io.github.edgaras87.neveroversold.reservation.problems.StoreOutOfReach;
 import io.github.edgaras87.neveroversold.reservation.problems.UnknownItem;
 import io.github.edgaras87.neveroversold.reservation.problems.UnknownReservation;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * the detail saying what did not fit or what was wrong. A refusal is not
  * an invalid request: the first is a valid ask the ledger cannot honour,
  * the second means nothing and moves nothing.
+ *
+ * <p>A fourth, ADR-0016: an instance that lost the store mid-request
+ * cannot know whether its write committed, and says so — {@code 503},
+ * "outcome unknown". Which failures those are is the ledger's to say, the
+ * one class that knows the store.
  */
 @RestControllerAdvice
 class DoorProblems {
@@ -43,6 +49,11 @@ class DoorProblems {
     @ExceptionHandler(Refused.class)
     ProblemDetail refused(Refused e) {
         return problem(HttpStatus.CONFLICT, "refused", e.getMessage());
+    }
+
+    @ExceptionHandler(StoreOutOfReach.class)
+    ProblemDetail outcomeUnknown(StoreOutOfReach e) {
+        return problem(HttpStatus.SERVICE_UNAVAILABLE, "outcome unknown", e.getMessage());
     }
 
     private static ProblemDetail problem(HttpStatus status, String title, String detail) {

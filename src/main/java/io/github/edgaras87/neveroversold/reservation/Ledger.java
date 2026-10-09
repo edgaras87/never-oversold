@@ -1,6 +1,7 @@
 package io.github.edgaras87.neveroversold.reservation;
 
 import io.github.edgaras87.neveroversold.reservation.problems.Refused;
+import io.github.edgaras87.neveroversold.reservation.problems.StoreOutOfReach;
 import io.github.edgaras87.neveroversold.reservation.problems.UnknownItem;
 import io.github.edgaras87.neveroversold.reservation.problems.UnknownReservation;
 import io.github.edgaras87.neveroversold.reservation.values.Hold;
@@ -8,8 +9,14 @@ import io.github.edgaras87.neveroversold.reservation.values.ItemId;
 import io.github.edgaras87.neveroversold.reservation.values.OnHandCount;
 import io.github.edgaras87.neveroversold.reservation.values.Quantity;
 import io.github.edgaras87.neveroversold.reservation.values.ReservationId;
+import java.sql.SQLException;
+
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.TransactionSystemException;
+import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
@@ -58,7 +65,7 @@ class Ledger {
      * the item's expired holds are free before the admit decides.
      */
     Reservation reserve(ItemId item, Quantity quantity, Hold hold) {
-        return transaction.execute(status -> {
+        return inOneTransaction(status -> {
             tidy(item);
             int admitted = jdbc.sql("""
                     UPDATE item
@@ -107,7 +114,7 @@ class Ledger {
      * expired holds do not stand under the count the operator asserts.
      */
     Item adjust(ItemId item, OnHandCount count) {
-        return transaction.execute(status -> {
+        return inOneTransaction(status -> {
             tidy(item);
             return jdbc.sql("""
                             INSERT INTO item (id, on_hand_count)
@@ -233,7 +240,7 @@ class Ledger {
      * receipt this request wrote stands.
      */
     private Reservation exit(ReservationId reservation, String exit, String statement) {
-        Reservation persisted = transaction.execute(status -> {
+        Reservation persisted = inOneTransaction(status -> {
             int moved = jdbc.sql(statement).param("id", reservation.value()).update();
             if (moved == 0) {
                 jdbc.sql("""
@@ -276,5 +283,54 @@ class Ledger {
                     + persisted.endedBy() + ", at " + persisted.endedAt());
         }
         return persisted;
+    }
+
+    /**
+     * Every decision's one transaction. A store lost mid-way becomes
+     * {@link StoreOutOfReach} (ADR-0016): the commit may or may not have
+     * arrived, and nothing here can say which. Any other failure is thrown
+     * as it came — a refusal at commit included, which the store answered,
+     * and undid.
+     */
+    private <T> T inOneTransaction(TransactionCallback<T> work) {
+        try {
+            return transaction.execute(work);
+        } catch (DataAccessException | TransactionException failure) {
+            if (lostTheStore(failure)) {
+                throw new StoreOutOfReach(failure);
+            }
+            throw failure;
+        }
+    }
+
+    /**
+     * Decided by the store's own error class, never by the framework's
+     * exception type (SL-4's record, §8, "The surface"): a lost connection
+     * and a refusal at commit can arrive in the same wrapper. Read through
+     * the whole chain of causes, and through a failed rollback to the
+     * failure it replaced — on a lost connection the rollback fails too,
+     * and the framework throws that instead.
+     */
+    static boolean lostTheStore(Throwable failure) {
+        for (Throwable cause = failure; cause != null; cause = cause.getCause()) {
+            if (cause instanceof SQLException sql && outOfReach(sql.getSQLState())) {
+                return true;
+            }
+            if (cause instanceof TransactionSystemException rollback && rollback.getApplicationException() != null
+                    && lostTheStore(rollback.getApplicationException())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * SQLSTATE class {@code 08}, the connection failed or was lost; and
+     * {@code 57P01}–{@code 57P03}, the store ending the session or not
+     * accepting it.
+     */
+    private static boolean outOfReach(String sqlState) {
+        return sqlState != null && (sqlState.startsWith("08")
+                || sqlState.equals("57P01") || sqlState.equals("57P02") || sqlState.equals("57P03"));
     }
 }

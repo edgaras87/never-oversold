@@ -57,7 +57,30 @@
   waits would fail first. Said, not hidden: the reader that breaks
   first on the red tree is the witness, not the reserve.
 - 92 tests green with E2.
-- Resume: the 503 at the door (plan step 9).
+- The 503 (ADR-0016). Its check first (`StoreOutOfReachIT`): R's
+  consume held, its session ended at the store. Red against today's
+  door, from actual output: `expected: 503 but was: 500`, the body
+  Spring's default — `{"timestamp":…,"status":500,"error":"Internal
+  Server Error",…}`, not Problem Details. The instance's log showed
+  the shape to classify: the statement failed with SQLSTATE 57P01,
+  the rollback on the dead connection then failed too ("Connection
+  is closed"), and the framework threw that, the first failure kept
+  inside it.
+- First placed in `DoorProblems`, as §8 signed. Two standing
+  structural rules went red on it, and were right: SL-2's — no class
+  but `Ledger` touches `java.sql` or Spring's transactions — and
+  SL-1's — no field holds a collection. Moved: `Ledger` wraps its
+  three transactions in one method that turns a lost store into
+  `StoreOutOfReach`; the door maps that to 503. §8's surface revised
+  for it, in the same commit, on the reviewer's word to follow.
+- A tripwire for §8's face (`StoreOutOfReachClassifierTest`): a lost
+  connection, a lost connection behind a failed rollback, a refusal
+  at commit, a refused constraint. Seen red by planting the rejected
+  face — deciding by the wrapper's type —
+  `aRefusalAtCommitIsNotOutOfReach: Expecting value to be false but
+  was true`.
+- 97 tests green.
+- Resume: E3, the frozen store (plan step 10).
 
 ## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
 

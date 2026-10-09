@@ -654,8 +654,16 @@ path, against writers T4 already trusts.
 
 ### The surface, at its minimum
 
-- **The door: ADR-0016's answer.** One handler in `DoorProblems`:
-  the store out of reach answers `503`, "outcome unknown". Which
+- **The door: ADR-0016's answer.** The store out of reach answers
+  `503`, "outcome unknown". *As signed:* one handler in
+  `DoorProblems`, classifying the failure itself. *As revised,
+  2026-10-10:* the ledger classifies — every decision's transaction
+  goes through one wrapper in `Ledger`, which turns a lost store into
+  a plain problem, `StoreOutOfReach` — and `DoorProblems` maps that
+  to `503`, as it maps `Refused` to `409`. SL-1's and SL-2's
+  structural rules refused the signed shape: no class but `Ledger`
+  may touch the store's APIs (a second writer T4 does not trust),
+  and no field may hold a collection (state kept in memory). Which
   failures count is a choice with two faces:
   - **by the store's own error class — chosen.** SQLSTATE class
     `08` (the connection failed or was lost) and `57P01`–`57P03`
@@ -667,7 +675,8 @@ path, against writers T4 already trusts.
     would then read "outcome unknown" though the store answered,
     and undid it.
 - **The store:** nothing. No migration, no table, no index.
-- **The ledger:** nothing.
+- **The ledger:** one wrapper around its transactions, and the
+  classification (revised 2026-10-10, above). No statement changes.
 - **Under test:**
   - `ForkedLedger` gains a kill outright (the process killed, not
     asked to stop).
@@ -728,6 +737,12 @@ red needs its window held open gets it on the red tree only: the
 hold is the window, and it is the same on both trees.
 
 ### Deviations and provisionals, so the close can see them
+
+- **§8's surface revised during the build, 2026-10-10.** ADR-0016's
+  answer is classified in `Ledger`, not in `DoorProblems`: the
+  door touching the store's error types broke SL-2's one-writer rule,
+  and a set of error codes held in a field broke SL-1's no-state
+  rule. Both rules stand unchanged; the shape moved to fit them.
 
 - **§8 revised during the build, 2026-10-10.** The red as signed
   stayed green: both hold points sit inside the first of two
