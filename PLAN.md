@@ -846,7 +846,140 @@ as SL-2's had been; the lesson is now a shape in front of every
 test. Version 0.3. Two subjects run past 50 characters (`e1e1bf0`,
 `ea86757`), kept and recorded rather than rewritten.
 
-## Steps 8..N-1: Invariant slices  (cbc-slice, one step per stage)
+## Step 8: SL-4 — consume's two moves hold together  (cbc-slice)    [~]
+
+<!-- The registry's last slice. Its wall already stands — SL-3 made
+     consume one statement in one transaction — so this slice owes
+     proof more than structure, against an adversity no harness here
+     has created yet: our own death mid-work, and an outcome we
+     cannot know. -->
+
+Goal: SL-4 closed — no readable state holds one of consume's two
+moves without the other, shown against an instance killed while
+its consume is in flight (F16, kill 15) and a consume whose outcome
+its caller cannot know (F19, kill 16's silence half).
+Gate:
+- [x] The step's branch `step-8-sl-4` is cut from main, and the step
+      has not been worked anywhere else.
+- [x] This gate was written before the work started, not
+      reconstructed from it afterwards.
+- [ ] Stage 0 passed on the actual repo and recorded in the devlog:
+      R1 the three exports stand, SL-4 the only `chosen-next` row,
+      the reconciliation line whole; R2 `./mvnw test` green at the
+      branch point, from actual output; R3 the store reachable from
+      tests as the throwaway store, no mock; R4 the harness can
+      create each kind of adversity this slice names, and only
+      those, said kind by kind with what the harness already has
+      and what it would owe — an instance killed outright, not
+      stopped gracefully, while its consume is in flight (F16); and
+      a consume's outcome made unknowable to its caller by freezing
+      the store or cutting the instance from it mid-write (F19,
+      ADR-0004); R6 the registry writable, the records scheme in
+      place. R5, the harness can fail: the wall this slice leans on
+      stands already, so it is made absent on the working tree —
+      the two moves split apart — and the evidence seen red there,
+      in the build, owed there by name. The readiness sign-off is
+      the reviewer's, one dated line.
+- [ ] The registry row goes to `in-progress` when the specification
+      lands — not at this opening and not at the close.
+- [ ] Stage 1, before the specification: the whats the framing does
+      not carry, each decided as a record with its options, never
+      absorbed into code — at least what a caller is told, and may
+      do, when its consume's outcome is unknown; and whether
+      anything is left to converge when the moves are one write,
+      the registry having kept SL-4 apart for "the half-done
+      converges", said in so many words either way. A choice that
+      changes the door's contract is an ADR before the spec closes;
+      one that changes the definition is a dated revision entry,
+      never in place. If nothing is found, the spec says so.
+- [ ] Stage 1: the correctness specification stands beside SL-1's,
+      SL-2's and SL-3's, its row in the entry file: the invariant
+      and the adversity taken from SL-4's registry row and the
+      definition's L1 and L4 (kills 15 and 16's silence half) as
+      written, zero translation; the guarantees derived by attacking
+      the invariant until the attacks run dry, each strategy-free;
+      an evidence criterion per guarantee, naming the adversity its
+      test creates and the witness it reads from the store. The
+      row's flag answered by name — the evidence is kill-mid-work
+      and unknown-outcome injection, not hammering — each staged as
+      its own evidence or removed by a definition the spec adopts,
+      the removal shown. What stays fenced is named: 16's retry
+      half, closed by SL-3; the orphaned hold of F19 on reserve, L2's
+      refused view and W2, V5. The spec names no lock, constraint,
+      queue or technology. Signed off by the reviewer before the
+      plan.
+- [ ] Stage 2: the plan stands beside the spec: one structural
+      owner per guarantee, the strongest wall available, each
+      justified against the named adversity and not in general;
+      what SL-3's statement already owns said by name, so this slice
+      claims no wall it did not build; where more than one face
+      could hold a guarantee, the candidates in front of the
+      reviewer — each face, how it holds the guarantee, its cost,
+      the size that cost assumes and what would make it worth
+      revisiting, a recommendation — before the choice; the escape
+      hatches hunted against the definition's trust list (T4, W7),
+      a trusted writer named as trusted and an unnamed one a
+      question for the definition first; the surface at its
+      minimum. No unowned guarantee. Signed off by the reviewer
+      before code.
+- [ ] Stage 3 ran as a commit plan, the boundary shown at every
+      commit and committed on the reviewer's word; each commit
+      verified before it landed, a failed verification reported,
+      never committed; every subject counted when planned.
+- [ ] The evidence: for every guarantee a test that creates its
+      adversity through the real door and reads the witness from
+      the store — an instance killed mid-consume (F16), the store
+      frozen or cut mid-consume (F19), and the caller's next move
+      after each; each run red with its wall absent, recorded from
+      actual output, failing on the witness and not on a status or
+      a crash, then green unchanged with the wall standing; a race
+      whose red needs its window held open gets it on the red tree
+      only, and the record says so; a tripwire or a wall's own
+      check says so on itself and discharges no kill; all under
+      `./mvnw test`. A green happy path closes nothing.
+- [ ] Every deviation from the spec, the plan or the skill is in
+      the devlog with what was done instead and why; a guarantee
+      found in flight enters the spec with this slice as its
+      provenance.
+- [ ] Stage 4: the spec document closes as invariant → guarantees →
+      owner → evidence, readable by a stranger; the registry flips
+      SL-4 to `closed (date, evidence)` by a dated revision entry
+      and re-decides what follows with its reason — SL-4 being the
+      last slice the registry holds, said in so many words whether
+      anything remains before Release; the standing guards named
+      at close.
+- [ ] Records: CHANGELOG carries what a user can now see, the
+      version's move decided here; README true for a stranger;
+      ARCHITECTURE shows what this slice adds or proves; the devlog
+      carries the walk, the red and the green from actual output,
+      the exit; TODO's Step 8 items close here or move by name; one
+      line under *To the deliverer* per copy edited in place, or a
+      line saying none was.
+- [ ] `temp/` is checked for shapes delivered for this step, and
+      what was found is said in a line — including that nothing
+      was.
+- [ ] SL-4's record is read against `.claude/shapes/slice-record.md`.
+- [ ] SL-4's evidence tests are read against
+      `.claude/rules/evidence-test.md`.
+- [ ] Every difference those readings found is settled: the shape was
+      wrong here, the output drifted, or each had something.
+- [ ] Every commit on `step-8-sl-4` follows commit-messages.
+- [ ] No commit straddles agent and project paths, so the
+      arrangement's history stays separable from the project's.
+- [ ] No implementation file is older than the decision it
+      realizes: the log reads decision, then code.
+- [ ] The step reached main by fast-forward from `step-8-sl-4`, on
+      the reviewer's word.
+Notes: opened 2026-10-09, on the bundle's copies @ f801fd0. The
+reviewer signs at readiness, at the spec and at the plan. SL-3 is
+presumed — consume one statement in one transaction, and the exit's
+identity: one ending per reservation with its kind and instant, a
+repeated exit answering as the first (ADR-0013). So is the review
+after SL-3: only the ledger writes the store's data (T4, ADR-0014),
+and the size the system is built for, which this plan's faces are
+the first to state.
+
+## Steps 9..N-1: Invariant slices  (cbc-slice, one step per stage)
 
 Goal: each remaining registry slice closed by evidence that creates
 its adversity; ordering re-decided at each close, never assumed
