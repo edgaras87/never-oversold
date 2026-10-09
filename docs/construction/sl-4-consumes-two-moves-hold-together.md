@@ -719,3 +719,9 @@ only: the hold is the window, and it is the same on both trees.
   written, G2 included: a reader in the middle of a consume, found
   by the attack on "readable", though the registry's adversity
   names only death and unknown outcomes.
+- 2026-10-09 — the plan (§8) signed by the reviewer as written, its
+  four face choices taken: one statement in one transaction, the
+  store's default isolation and the item's row, the store undoing an
+  ended session, a rule over the ledger's statements under T4; and
+  ADR-0016's answer decided by the store's own error class, not the
+  framework's exception types.

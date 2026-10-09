@@ -908,7 +908,7 @@ Gate:
       refused view and W2, V5. The spec names no lock, constraint,
       queue or technology. Signed off by the reviewer before the
       plan.
-- [ ] Stage 2: the plan stands beside the spec: one structural
+- [x] Stage 2: the plan stands beside the spec: one structural
       owner per guarantee, the strongest wall available, each
       justified against the named adversity and not in general;
       what SL-3's statement already owns said by name, so this slice
