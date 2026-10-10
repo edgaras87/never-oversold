@@ -102,7 +102,28 @@
   request broke on the way out and never arrived, so `ThrowawayStore`
   now sends it once more when that happens. Green twice after.
 - 99 tests green.
-- Resume: E4, a fifth structural rule (plan step 11).
+- E4, a fifth rule in `NoSecondWayOutTest`: a statement writes a
+  `consumed` receipt if and only if it lowers `on_hand_count`, and
+  then by what it lowers the units held by. Rule three ties every
+  fall to a receipt; this ties the receipt's kind to which number
+  falls. `LedgerSql` gained `loweredBy` and `writesReceiptsOfKind`,
+  read by parts.
+- E4's reds, each planted in `Ledger` on the working tree and
+  restored, from actual output — the rule naming the statement each
+  time:
+  - a consume that frees R's units and leaves the count: `the count
+    falls exactly where a consumed receipt is written: WITH receipt
+    AS (INSERT … 'consumed' …`;
+  - a release that also lowers the count: the same label, on the
+    `'released'` statement;
+  - a retry lowering the count alone, `UPDATE item SET on_hand_count
+    = on_hand_count - :units …`: the same label, and rule three's too;
+  - a consume lowering the count by 1, not the hold's units: `the
+    count falls by what the units held fall by … expected:
+    Optional[r.quantity]`.
+- 100 tests green.
+- Resume: the records catch up on SL-4 (plan step 12), then the
+  close.
 
 ## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
 

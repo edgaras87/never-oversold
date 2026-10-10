@@ -7,11 +7,14 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.expression.operators.arithmetic.Subtraction;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Column;
@@ -23,6 +26,7 @@ import net.sf.jsqlparser.statement.insert.Insert;
 import net.sf.jsqlparser.statement.insert.ParenthesedInsert;
 import net.sf.jsqlparser.statement.select.FromItem;
 import net.sf.jsqlparser.statement.select.Join;
+import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.WithItem;
 import net.sf.jsqlparser.statement.update.ParenthesedUpdate;
@@ -95,6 +99,49 @@ public final class LedgerSql {
             }
             return false;
         });
+    }
+
+    /**
+     * What a column is lowered by, when the statement sets it to itself
+     * minus something — {@code on_hand_count = i.on_hand_count - r.quantity}
+     * gives {@code r.quantity} — and empty when it does not.
+     */
+    public static Optional<Expression> loweredBy(Statement sql, String column) {
+        for (UpdateSet set : updateSets(sql)) {
+            for (int i = 0; i < set.getColumns().size(); i++) {
+                if (set.getColumn(i).getColumnName().equals(column)
+                        && set.getValue(i) instanceof Subtraction minus
+                        && minus.getLeftExpression() instanceof Column from
+                        && from.getColumnName().equals(column)) {
+                    return Optional.of(minus.getRightExpression());
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Whether the statement writes receipts of this kind: an insert into
+     * {@code reservation_exit}, itself or in a {@code WITH}, that selects
+     * the kind as a literal — {@code SELECT r.id, 'consumed' FROM …}.
+     */
+    public static boolean writesReceiptsOfKind(Statement sql, String kind) {
+        List<Insert> inserts = new ArrayList<>();
+        if (sql instanceof Insert insert) {
+            inserts.add(insert);
+        }
+        for (WithItem<?> with : withItems(sql)) {
+            if (with.getParenthesedStatement() instanceof ParenthesedInsert inner) {
+                inserts.add(inner.getInsert());
+            }
+        }
+        return inserts.stream()
+                .filter(insert -> insert.getTable().getName().equals("reservation_exit"))
+                .map(Insert::getSelect)
+                .filter(PlainSelect.class::isInstance)
+                .map(PlainSelect.class::cast)
+                .flatMap(select -> select.getSelectItems().stream())
+                .anyMatch(item -> item.getExpression() instanceof StringValue value && value.getValue().equals(kind));
     }
 
     /** The tables a statement writes: its own target, and each of its {@code WITH}s'. */

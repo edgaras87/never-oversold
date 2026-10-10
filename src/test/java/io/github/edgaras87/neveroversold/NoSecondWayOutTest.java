@@ -20,11 +20,13 @@ import net.sf.jsqlparser.statement.update.Update;
 import org.junit.jupiter.api.Test;
 
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.LEDGER;
+import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.loweredBy;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.lowersANumber;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.tablesRead;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.tablesRewritten;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.tablesWritten;
 import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.withItems;
+import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.writesReceiptsOfKind;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -43,7 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * ledger alone; the ledger writes its SQL as text blocks, so each
  * statement is read; inside it, numbers fall only in the statement
  * that wrote the receipt, by the receipts that statement wrote; and no
- * statement of its updates or deletes a reservation.
+ * statement of its updates or deletes a reservation. A fifth, SL-4's
+ * E4: a consume's two moves are one statement's — a {@code consumed}
+ * receipt is written exactly where the count falls, by the same units.
  *
  * <p>It reads source, not bytecode: SQL is text either way, and a
  * statement assembled at runtime from pieces would pass both. The first
@@ -164,6 +168,42 @@ class NoSecondWayOutTest {
         assertThat(LedgerSql.statements())
                 .as("a reservation's ending is a receipt; none of the ledger's statements may change or remove one")
                 .allSatisfy(sql -> assertThat(tablesRewritten(sql)).as("%s", sql).doesNotContain("reservation"));
+    }
+
+    /**
+     * E4 · G4 for SL-4 — nothing makes one of consume's moves without the
+     * other (the slice record:
+     * {@code docs/construction/sl-4-consumes-two-moves-hold-together.md}).
+     *
+     * <p>A statement writes a {@code consumed} receipt if and only if it
+     * lowers {@code on_hand_count}, and then by exactly what it lowers the
+     * units held by — R's 3 off the shelf and out of the held units, never
+     * one without the other. Rule three already ties every fall to a
+     * receipt; this ties the receipt's kind to which number falls, which
+     * rule three cannot see. It fails on a consume that frees R's 3 but
+     * leaves the count at 10, a release that takes R's 3 off the shelf, a
+     * retry that lowers the count alone, or a count lowered by other units
+     * than the hold's. Each is planted, and the rule names it.
+     */
+    @Test
+    void aConsumedReceiptIsWrittenExactlyWhereTheCountFalls() {
+        List<Statement> statements = LedgerSql.statements();
+        assertThat(statements).as("the ledger's statements were found").isNotEmpty();
+        assertThat(statements).as("a consume's statement was found")
+                .anySatisfy(sql -> assertThat(writesReceiptsOfKind(sql, "consumed")).isTrue());
+
+        assertThat(statements).allSatisfy(sql -> {
+            boolean consumes = writesReceiptsOfKind(sql, "consumed");
+            assertThat(loweredBy(sql, "on_hand_count").isPresent())
+                    .as("the count falls exactly where a consumed receipt is written: %s", sql)
+                    .isEqualTo(consumes);
+            if (consumes) {
+                assertThat(loweredBy(sql, "on_hand_count").map(Object::toString))
+                        .as("the count falls by what the units held fall by: %s", sql)
+                        .isPresent()
+                        .isEqualTo(loweredBy(sql, "reserved").map(Object::toString));
+            }
+        });
     }
 
     private static String read(Path path) {
