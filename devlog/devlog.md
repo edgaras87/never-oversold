@@ -80,7 +80,29 @@
   `aRefusalAtCommitIsNotOutOfReach: Expecting value to be false but
   was true`.
 - 97 tests green.
-- Resume: E3, the frozen store (plan step 10).
+- E3 written, beside the 503 check: R's consume held between its
+  moves, the store frozen, the caller gone, the instance killed while
+  the store could not see it; thawed and let go, nothing sent since.
+  The store settled alone — 10 on hand, 8 held, R with no ending —
+  and a reserve of 2 at another instance then went through, 10 held
+  of 10. Green.
+- E3's red, receipt first with V3 absent, from actual output, on the
+  witness: `R ended by consume exactly when the count fell by its 3:
+  Numbers[onHandCount=10, held=8, activeSum=5, reservations=2],
+  ending=consumed`.
+- Beside it, the freeze with the instance alive: thawed and let go,
+  the live instance carries its consume to the commit — 7 on hand, 5
+  held, R consumed — and a reserve fits after. Green on the red tree
+  too: a live instance finishes what it began, one transaction or
+  two, so nothing is owed. It says on itself that it is not evidence
+  and discharges no kill; kept to show a freeze loses nothing.
+- The harness, again: E3's freeze failed every run with "Broken pipe"
+  on podman's socket — it came after another test's freeze, and the
+  client reused a connection the engine had closed while idle. The
+  request broke on the way out and never arrived, so `ThrowawayStore`
+  now sends it once more when that happens. Green twice after.
+- 99 tests green.
+- Resume: E4, a fifth structural rule (plan step 11).
 
 ## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
 

@@ -1,5 +1,6 @@
 package io.github.edgaras87.neveroversold.testsupport;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -108,12 +109,31 @@ public final class ThrowawayStore {
      * until {@link #thaw()}.
      */
     public static void freeze() {
-        DockerClientFactory.instance().client().pauseContainerCmd(POSTGRES.getContainerId()).exec();
+        toTheEngine(() -> DockerClientFactory.instance().client().pauseContainerCmd(POSTGRES.getContainerId()).exec());
     }
 
     /** Lets a frozen store go on from exactly where it stopped. */
     public static void thaw() {
-        DockerClientFactory.instance().client().unpauseContainerCmd(POSTGRES.getContainerId()).exec();
+        toTheEngine(() -> DockerClientFactory.instance().client().unpauseContainerCmd(POSTGRES.getContainerId()).exec());
+    }
+
+    /**
+     * Sends one request to the container engine, once more if the first
+     * broke on the way out. The engine closes a connection left idle, and
+     * the client may reuse it: the request then fails while being
+     * written — "Broken pipe" — and never reaches the engine, so sending
+     * it again is safe. Seen at SL-4's E3, whose freeze came after another
+     * test's. Any other failure is thrown as it came.
+     */
+    private static void toTheEngine(Runnable request) {
+        try {
+            request.run();
+        } catch (RuntimeException first) {
+            if (!(first.getCause() instanceof IOException)) {
+                throw first;
+            }
+            request.run();
+        }
     }
 
     /**
@@ -156,6 +176,24 @@ public final class ThrowawayStore {
         try (Connection store = superuser();
              PreparedStatement statement = store.prepareStatement(
                      "SELECT 1 FROM pg_stat_activity WHERE pid = ?")) {
+            statement.setInt(1, pid);
+            try (ResultSet row = statement.executeQuery()) {
+                return row.next();
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("could not read the store's sessions", e);
+        }
+    }
+
+    /**
+     * Whether a session is still working — running a statement or inside
+     * an open transaction. A live instance's session, once its consume has
+     * committed, goes idle and stays.
+     */
+    public static boolean isBusy(int pid) {
+        try (Connection store = superuser();
+             PreparedStatement statement = store.prepareStatement(
+                     "SELECT 1 FROM pg_stat_activity WHERE pid = ? AND state <> 'idle'")) {
             statement.setInt(1, pid);
             try (ResultSet row = statement.executeQuery()) {
                 return row.next();
