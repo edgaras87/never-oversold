@@ -15,14 +15,16 @@
  *       adjust, and the two exits, consume and release, which take no
  *       body; the request bodies are records nested inside it</li>
  *   <li>{@link DoorProblems} — every non-success as Problem Details:
- *       invalid 400, unknown item or reservation 404, refused 409</li>
+ *       invalid 400, unknown item or reservation 404, refused 409, and
+ *       the store lost mid-request 503, "outcome unknown" (ADR-0016)</li>
  * </ul>
  *
  * <p><b>The ledger</b> — the statements to the store, the one entry path
  * to the numbers (slice record, §7):
  * <ul>
  *   <li>{@link Ledger} — reserve, adjust, consume and release, one
- *       transaction each; the decision is the commit</li>
+ *       transaction each; the decision is the commit, and a store lost
+ *       before it is told apart from one that refused</li>
  *   <li>{@link Item}, {@link Reservation} — what the store holds, as
  *       persisted, mirrored flat into every answer. Plain fields, not
  *       the value types: the store already guarantees these rows, and
@@ -38,7 +40,8 @@
  *       exist, so nonsense never reaches the decision (G6)</li>
  *   <li>{@link io.github.edgaras87.neveroversold.reservation.problems} —
  *       {@code InvalidRequest}, {@code UnknownItem},
- *       {@code UnknownReservation}, {@code Refused}: the answers besides
+ *       {@code UnknownReservation}, {@code Refused},
+ *       {@code StoreOutOfReach}: the answers besides
  *       success, one per kind, mapped by
  *       {@link DoorProblems}. {@code values} depends on {@code problems};
  *       nothing points back.</li>

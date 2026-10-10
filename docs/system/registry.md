@@ -82,7 +82,7 @@ witness — the promise's own.
 - **Presumes:** SL-1 — the reservations being exited were admitted
   truly.
 
-### SL-4 — consume's two moves hold together  `in-progress`
+### SL-4 — consume's two moves hold together  `closed (2026-10-10, evidence)`
 
 - **Invariant:** no readable state holds one of consume's two moves
   — ending the reservation, lowering the on-hand-count — without
@@ -104,10 +104,10 @@ witness — the promise's own.
 
 ## Registry state
 
-3 slices closed (SL-1, 2026-09-14; SL-2, 2026-09-21; SL-3,
-2026-10-07), 1 in progress (SL-4, its specification landed
-2026-10-09). New work enters by re-framing or as a new slice
-through this registry, never around it.
+4 slices closed (SL-1, 2026-09-14; SL-2, 2026-09-21; SL-3,
+2026-10-07; SL-4, 2026-10-10), none open. New work enters by
+re-framing or as a new slice through this registry, never around
+it.
 
 ## Fold-reconciliation line
 
@@ -149,8 +149,9 @@ no rider needed beyond the two flags.
 
 ## Ordering expectation (re-decided at each close)
 
-SL-1 closed → SL-2 closed → SL-3 closed → SL-4, re-decided at
-SL-3's close (2026-10-07) and kept. SL-3 is the first slice that
+SL-1 closed → SL-2 closed → SL-3 closed → SL-4 closed, re-decided at
+each close and kept; the last re-decision at SL-4's (2026-10-10),
+which leaves nothing to order. Until then, at SL-3's close: SL-3 is the first slice that
 added an operation: a reservation can now be consumed or released,
 and ends by itself when its hold runs out, its units free from that
 instant. Each ending leaves one record of how and when it ended,
@@ -190,6 +191,31 @@ slice.
 SL-4 is next and last: it is the one invariant left, its walls stand
 already, and its adversity — kill-mid-work, unknown-outcome
 injection — is the one the harness has not yet created.
+
+At SL-4's close. SL-4 built no wall: SL-3's one statement in one
+transaction holds its invariant, and SL-1's guarded update makes
+every other decision on an item wait for a consume under way. What
+it added is the proof — a consume held mid-work on purpose, its
+instance killed, the store frozen, a reader set beside it — and one
+answer at the door: a store lost mid-request is "outcome unknown".
+The row's judgment kept it apart from SL-3 for "the half-done
+converges"; the answer, in so many words, is that nothing converges,
+because one commit leaves nothing half-done, and the evidence shows
+both moves or neither after every interruption. The judgment stands
+for the evidence, which differs from SL-3's as the row said: an
+interruption, not duplicates.
+
+What SL-4 leaves by name. Left provisional: nothing. Left open, and
+outside every slice: how long an interrupted consume can keep its
+item waiting — waiting is W3's, and grows only if a network ever
+sits between the instances and the store; and the one way to split
+consume that the store cannot see — the count's fall kept apart
+from the ending — guarded by a rule over the ledger's statements
+alone, under T4. Both are in the backlog's known issues.
+
+Every invariant the definition derives is closed on evidence. What
+follows is not a slice: it is the release gate (the plan's last
+step).
 
 ## Divergences from the briefing (derivation wins, recorded)
 
@@ -231,3 +257,11 @@ derivation overriding the briefing.
   from SL-1 and SL-2 and what it leaves to SL-4 by name. SL-4 moves
   to `chosen-next`. Triggered by PLAN Step 7's close. No invariant,
   adversity or fold changed.
+- 2026-10-10 — SL-4 closed on evidence (its record:
+  `docs/construction/sl-4-consumes-two-moves-hold-together.md`); the
+  ordering re-decided with nothing left to order, and what SL-4
+  leaves named. The row's "the half-done converges" answered: one
+  commit leaves nothing half-done, so nothing converges; the row's
+  judgment stands for the evidence. Its flag answered by staging
+  both: kill-mid-work and unknown-outcome injection. Triggered by
+  PLAN Step 8's close. No invariant, adversity or fold changed.

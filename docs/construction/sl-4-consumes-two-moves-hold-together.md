@@ -771,6 +771,135 @@ hold is the window, and it is the same on both trees.
   half-done state readable at any moment — only when the store
   learns of it, which is W3's. No wall, face or evidence changed.
 
+## §9 Evidence — as delivered
+
+All of it under `./mvnw test`: 100 tests, 0 failures, nothing
+exported, the ground not required up — 83 at the branch point. Every
+interruption runs through a forked instance's real door, and the
+witness is read from the store as `runtime`, from outside every
+instance, in one statement: the item's numbers with R's ending, so
+no reading can fall either side of a commit. The door's answer is
+checked last.
+
+| Criterion | Test | The adversity it creates |
+|---|---|---|
+| E1 · G1 | `InterruptedConsumeIT.aConsumeKilledBetweenItsMovesLeavesNeither` | R's consume held at the item's row — its receipt written, the count not yet moved — and its instance killed outright (F16, kill 15) |
+| E1 · G1 | `InterruptedConsumeIT.aConsumeKilledAfterBothMovesBeforeItsCommitLeavesNeither` | held at R's row — both moves written, neither committed — and its instance killed outright (F16, kill 15) |
+| E2 · G2 | `InterruptedConsumeIT.aReaderBesideAHeldConsumeSeesItWholeWhenItCommits` | the witness reading, and a reserve at a second instance deciding, while the consume is held; then let go |
+| E2 · G2 | `InterruptedConsumeIT.aReaderBesideAHeldConsumeSeesItWholeWhenItDies` | the same, the consume's instance then killed |
+| E3 · G3 | `StoreOutOfReachIT.aConsumeFrozenOutAndAbandonedSettlesWithNoOneSendingAnything` | the store frozen mid-consume, the caller gone, the instance killed unseen; nothing sent since (F19, kill 16's silence) |
+| E4 · G4 | `NoSecondWayOutTest.aConsumedReceiptIsWrittenExactlyWhereTheCountFalls` | the code parsed: a consumed receipt written exactly where the count falls, by the same units |
+
+Beside them, and not evidence, each saying so on itself:
+`StoreOutOfReachIT.aConsumeFrozenOutWithItsInstanceAliveFinishesOnItsOwn`,
+the freeze with the instance alive, which cannot go red for the
+invariant; `StoreOutOfReachIT.anInstanceThatLosesTheStoreMidConsumeAnswersOutcomeUnknown`,
+a check of ADR-0016's answer; `StoreOutOfReachClassifierTest`, a
+tripwire on §8's face — ADR-0016 decided by the store's error class,
+not the framework's type; and `InterruptionHarnessIT`, five checks of
+the harness itself before any evidence leaned on it.
+
+SL-1's, SL-2's and SL-3's evidence ran green unchanged beside all of
+it, with every decision's transaction now passing through the
+ledger's one wrapper.
+
+**Not run on the real ground.** Nothing in this slice changes the
+store — no migration — and its adversity is staged by the harness
+alone. The ground stayed down.
+
+### Red before green, from actual output
+
+Every wall was made absent on the working tree for one run and
+restored; none landed in history. The wall here is two: the single
+transaction, and the store's check on the units held (V3) behind it.
+
+- **The red as signed stayed green** — consume split into the receipt
+  with the units held, then the count. Both hold points sit inside
+  the first transaction, and the hold caught the consume before
+  anything was final (§8, revised 2026-10-10).
+- **E1, the moves split with V3 standing:** the store refused the
+  first transaction each way, and the consume never reached the hold
+  — *nothing came to wait on the row of item … within PT30S*. G1's
+  backstop, seen.
+- **E1, receipt first, V3 absent, held at the item's row:** *R ended
+  by consume exactly when the count fell by its 3:
+  Numbers[onHandCount=10, held=8, activeSum=5, reservations=2],
+  ending=consumed*.
+- **E1, numbers first, V3 absent, held at R's row:** *the invariant:
+  Numbers[onHandCount=7, held=5, activeSum=8, reservations=2],
+  ending=null* — more held than on hand.
+- **E2, numbers first, V3 absent,** both runs on the mid-consume
+  reading: *the invariant, mid-consume: Numbers[onHandCount=7,
+  held=5, activeSum=8, reservations=2], ending=null*. The test stops
+  there, so the reserve's own half is not reached on the red tree;
+  the reader that breaks first is the witness.
+- **E3, receipt first, V3 absent:** *R ended by consume exactly when
+  the count fell by its 3: Numbers[onHandCount=10, held=8,
+  activeSum=5, reservations=2], ending=consumed*. The freeze with the
+  instance alive stayed green on the same tree, as its own words say.
+- **E4, each violation planted in the ledger,** the rule naming the
+  statement: a consume freeing R's units and leaving the count; a
+  release also lowering the count; the count lowered alone, which
+  rule three names too; a consume lowering the count by 1 —
+  *expected: Optional[r.quantity]*.
+- **ADR-0016's check,** against the door before its handler: *expected:
+  503 but was: 500*, the body the framework's default. **Its
+  tripwire,** the rejected face planted — deciding by the wrapper's
+  type: *aRefusalAtCommitIsNotOutOfReach: Expecting value to be
+  false but was true*.
+
+All green, unchanged, with every wall standing — 100 tests.
+
+### What the build found that the specification had not
+
+- **The planned red could not show.** Holds are row locks, and the
+  split signed in §8 put both of its first transaction's rows under
+  them. Red needs the two moves split *and* V3 taken away. That V3
+  refused every split it could see is the build's best news: the
+  units-held half of G1 has a wall behind it in the store.
+- **One split no hold reaches.** The receipt with the units held made
+  final, then the count: both touch the item's row, so no hold lands
+  between, and V3 does not see it. E4, a rule over the ledger's
+  statements, is all that stands there — read at build time, under
+  T4. In TODO's known issues.
+- **A killed instance's waiting session lingers.** The store learns a
+  connection is dead when it next speaks to it; a session waiting on
+  a row stays until the wait ends, then is undone. The outcome holds;
+  the words in §8 did not (revised 2026-10-09).
+- **The door could not classify the store's failures.** SL-1's and
+  SL-2's structural rules refused `DoorProblems` touching the store's
+  types or keeping a set of codes; the ledger classifies, and the
+  door maps `StoreOutOfReach` (§8's surface, revised 2026-10-10).
+- **The harness, twice.** The superuser does not find the ledger's
+  tables without its schema named; and the container engine closes
+  an idle connection that the client then reuses, so a freeze after
+  another failed with *Broken pipe* until the request was sent once
+  more.
+
+## §10 Standing guards
+
+What would rot this slice, and what watches:
+
+- **Consume split.** Any change that makes consume's two moves two
+  statements, two transactions, or two paths. `E4 · G4` fails at
+  build time on the ledger's statements; V3 refuses at commit any
+  split that separates the ending from the units held; E1–E3 fail on
+  the witness when both are gone. The one split only E4 sees — the
+  count apart from the rest — is why E4 stays.
+- **A retry or a repair in the ledger.** Anything that finishes,
+  repeats or repairs a consume after an unknown outcome is a second
+  path (G4's attack). `E4 · G4` names one that moves half; a whole
+  second consume path is rule three's and E4's together.
+- **The wrapper bypassed.** A new decision that opens its own
+  transaction, not through `inOneTransaction`, answers a lost store
+  with the framework's `500` again. ADR-0016's check covers consume
+  only; a new door owes its own.
+- **ADR-0016 decided by type.** `StoreOutOfReachClassifierTest`
+  fails if a refusal at commit ever reads "outcome unknown".
+- **A network between the instances and the store.** The wait an
+  interrupted consume leaves grows from a moment to the operating
+  system's keepalive. TODO's known issue says when to look again.
+
 ## §11 Sign-offs
 
 <!-- Dated lines, the reviewer's: the specification before the plan,
@@ -790,3 +919,5 @@ hold is the window, and it is the same on both trees.
   ended session, a rule over the ledger's statements under T4; and
   ADR-0016's answer decided by the store's own error class, not the
   framework's exception types.
+- 2026-10-10 — the evidence (§9) certified against the delivered
+  files and the suite, 100 tests green; SL-4 closed.

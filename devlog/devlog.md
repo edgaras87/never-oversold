@@ -122,8 +122,22 @@
     count falls by what the units held fall by … expected:
     Optional[r.quantity]`.
 - 100 tests green.
-- Resume: the records catch up on SL-4 (plan step 12), then the
-  close.
+- The records caught up: SL-4's record gains §9 (the evidence as
+  delivered, every red from actual output, what the build found) and
+  §10 (standing guards), and the evidence certified on its sign-off
+  line; the registry closes SL-4 by a dated entry — nothing left to
+  order, Release next, "the half-done converges" answered; ADR-0016
+  Accepted; README and CHANGELOG at 0.4, the 503 shown as a stranger
+  meets it; ARCHITECTURE's SL-4, the ledger's one wrapper, the
+  harness that interrupts; the ledger's package map names the 503
+  and `StoreOutOfReach` — a comment the 503's own commit should have
+  carried; TODO's known issue for the one split only E4 sees, and
+  the line to the deliverer for `cbc-slice`.
+- Not run on the real ground: no migration, and nothing the ground
+  could show that the harness did not. It stays down.
+- Resume: the close — `temp/` checked, SL-4's record and its tests
+  read against the two shapes, the commit plan closed, the merge on
+  the reviewer's word.
 
 ## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
 

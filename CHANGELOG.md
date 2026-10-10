@@ -20,6 +20,23 @@ revision, start a new minor.
 
 ## [Unreleased]
 
+## [0.4] — 2026-10-10
+
+The fourth invariant evidence-closed: SL-4, consume's two moves hold
+together. Every invariant the system was framed with is now closed on
+evidence. A consume either happens whole or not at all — even when
+the ledger dies in the middle of it, or loses the store.
+
+### Changed
+
+- When the ledger loses the store in the middle of a request, it now
+  answers `503`, "outcome unknown", as Problem Details: the request
+  may or may not have taken effect. It used to answer a generic
+  `500` that read as "failed" — even for a consume that had gone
+  through. Sending the same consume, release or adjustment again is
+  safe; a reserve sent again may hold twice, until expiry ends the
+  extra hold.
+
 ## [0.3] — 2026-10-07
 
 The third invariant evidence-closed: SL-3, a reservation exits once.

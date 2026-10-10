@@ -9,19 +9,16 @@
 ## Now (current plan step)
 
 - [ ] Step 8 (SL-4, cbc-slice): consume's two moves hold together.
-      Opened 2026-10-09 on the bundle's copies @ f801fd0; readiness
-      signed the same day; Stage 1 next. It inherits by name: the two
-      moves are already one statement in one transaction, so the
-      invariant is held by structure and owes only its proof — our
-      death between the moves, an outcome we cannot know, neither
-      created by any harness yet; and the exit's identity it
-      presumes exists, one receipt per reservation with its kind
-      and instant, a repeated exit answering as the first.
+      Closed on evidence 2026-10-10, the records caught up; what
+      remains is the close — the shape readings, the commit plan's
+      close, and the merge on the reviewer's word. What it handed on
+      is in the registry and the known issues below.
 
 ## Next (after Step 8)
 
-Nothing yet. SL-4 is the registry's last slice; whether anything
-stands before Release is decided at its close.
+- [ ] Step N, Release. Every registry slice is closed (the registry,
+      2026-10-10); nothing stands before the release gate. Its gate
+      is derived when it opens.
 
 ## Later / someday
 
@@ -183,6 +180,17 @@ stands before Release is decided at its close.
   Revisit if a deployment puts a network between the instances and
   the store, or if a wait on an item is ever seen. Found 2026-10-09.
 
+- SL-4's one split the store cannot see. Consume's moves split so
+  the receipt and the units held become final together and the count
+  after — no hold reaches between them, since both touch the item's
+  row, and V3 sees nothing wrong, the units held agreeing. Only E4,
+  the fifth rule in `NoSecondWayOutTest`, stands there, and it reads
+  the ledger's source, as E7 does (the known issue above). Accepted
+  because T4 makes the ledger the only writer, and E4 reads every
+  statement it has. Revisit if anything but the ledger is trusted to
+  write, or if a store check on the count is ever earned. Found
+  2026-10-10.
+
 ## To the deliverer
 
 <!-- What this run addresses to the bundle, and only that, so a
@@ -210,6 +218,12 @@ stands before Release is decided at its close.
       why and the rejected option in `.claude/decisions.md`). If it
       holds, the fold-back is the run playbook's step form. Held
       until the retrospective.
+- [ ] deliverer: evaluate this run's changes to `cbc-slice` since
+      f801fd0 — one edit, SKILL.md's Stage 1 and the workflow's step
+      3: a decision a slice records as an ADR at its opening is
+      Proposed until the slice's closing records, then Accepted.
+      Found at Step 8, SL-4; its why and the rejected options in
+      `.claude/decisions.md` (2026-10-09).
 - [ ] This project's slice-record shape, offered as a finding
       (`.claude/shapes/slice-record.md`): held there, and weighed
       when the bundle first holds a shape of its own. Nothing owed

@@ -51,7 +51,11 @@ where every request crosses — HTTP here.
 
 - **Consume's two moves hold together.** No readable state has the
   reservation ended without the count lowered, or the reverse.
-  Chosen next.
+
+  Closed 2026-10-10, on evidence. A consume interrupted mid-work —
+  its instance killed, the store frozen, a reader beside it — leaves
+  both moves or neither, and settles with no one sending anything:
+  [docs/construction/sl-4-consumes-two-moves-hold-together.md](docs/construction/sl-4-consumes-two-moves-hold-together.md)
 
 Each with the adversity its evidence must create, and its status:
 [docs/system/registry.md](docs/system/registry.md).
@@ -60,8 +64,7 @@ Built by correctness-by-construction: what must never happen first,
 features last. The method: [docs/concept/](docs/concept/), start
 with [00-cbc.md](docs/concept/00-cbc.md).
 
-**Status:** version 0.3 — three of four invariants closed on
-evidence.
+**Status:** version 0.4 — all four invariants closed on evidence.
 
 - 2026-09-10 — framed and named.
 - 2026-09-11 — the ground stood up and verified.
@@ -74,9 +77,10 @@ evidence.
 - 2026-10-07 — the third closed: a reservation can be consumed or
   released, ends by itself when its hold runs out, and its numbers
   move once however the exits repeat, race or arrive late.
+- 2026-10-10 — the fourth closed: consume's two moves hold together,
+  even when the ledger dies or loses the store between them.
 
-Next is the last: consume's two moves hold together, even if the
-ledger dies between them.
+Next is the release gate.
 
 ## Prerequisites
 
@@ -154,6 +158,16 @@ curl -s -X POST localhost:8080/reservations/<R>/release
 
 A reservation the ledger does not know is answered `404`; one that
 has already run out is refused, its units long free.
+
+If the ledger loses the store mid-request, it cannot know whether
+the request took effect, and says so: `503`, titled "outcome
+unknown". A consume, a release or an adjustment can then be sent
+again — the same request gets the same answer. A reserve sent again
+may hold a second time, until that hold's expiry ends it.
+
+```bash
+# {"title":"outcome unknown","status":503,"detail":"the store was out of reach mid-request: the request may or may not have taken effect",…}
+```
 
 Quantities are whole numbers from 1 to 1 000 000; a hold is an
 ISO-8601 duration from one second to seven days.

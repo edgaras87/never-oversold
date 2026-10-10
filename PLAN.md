@@ -922,11 +922,11 @@ Gate:
       question for the definition first; the surface at its
       minimum. No unowned guarantee. Signed off by the reviewer
       before code.
-- [ ] Stage 3 ran as a commit plan, the boundary shown at every
+- [x] Stage 3 ran as a commit plan, the boundary shown at every
       commit and committed on the reviewer's word; each commit
       verified before it landed, a failed verification reported,
       never committed; every subject counted when planned.
-- [ ] The evidence: for every guarantee a test that creates its
+- [x] The evidence: for every guarantee a test that creates its
       adversity through the real door and reads the witness from
       the store — an instance killed mid-consume (F16), the store
       frozen or cut mid-consume (F19), and the caller's next move
@@ -937,18 +937,18 @@ Gate:
       only, and the record says so; a tripwire or a wall's own
       check says so on itself and discharges no kill; all under
       `./mvnw test`. A green happy path closes nothing.
-- [ ] Every deviation from the spec, the plan or the skill is in
+- [x] Every deviation from the spec, the plan or the skill is in
       the devlog with what was done instead and why; a guarantee
       found in flight enters the spec with this slice as its
       provenance.
-- [ ] Stage 4: the spec document closes as invariant → guarantees →
+- [x] Stage 4: the spec document closes as invariant → guarantees →
       owner → evidence, readable by a stranger; the registry flips
       SL-4 to `closed (date, evidence)` by a dated revision entry
       and re-decides what follows with its reason — SL-4 being the
       last slice the registry holds, said in so many words whether
       anything remains before Release; the standing guards named
       at close.
-- [ ] Records: CHANGELOG carries what a user can now see, the
+- [x] Records: CHANGELOG carries what a user can now see, the
       version's move decided here; README true for a stranger;
       ARCHITECTURE shows what this slice adds or proves; the devlog
       carries the walk, the red and the green from actual output,
