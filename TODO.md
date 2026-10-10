@@ -196,7 +196,7 @@
 <!-- What this run addresses to the bundle, and only that, so a
      reading looks in one place (delivered-copies.md, rule 4). A
      line leaves when a note answers it. Last answered: the note of
-     2026-10-08, read through 10437cd. -->
+     2026-10-10, read through c7073c7. -->
 
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
@@ -218,12 +218,6 @@
       why and the rejected option in `.claude/decisions.md`). If it
       holds, the fold-back is the run playbook's step form. Held
       until the retrospective.
-- [ ] deliverer: evaluate this run's changes to `cbc-slice` since
-      f801fd0 — one edit, SKILL.md's Stage 1 and the workflow's step
-      3: a decision a slice records as an ADR at its opening is
-      Proposed until the slice's closing records, then Accepted.
-      Found at Step 8, SL-4; its why and the rejected options in
-      `.claude/decisions.md` (2026-10-09).
 - [ ] This project's slice-record shape, offered as a finding
       (`.claude/shapes/slice-record.md`): held there, and weighed
       when the bundle first holds a shape of its own. Nothing owed
@@ -273,7 +267,3 @@
       "early warning" had replaced "tripwire" — it had not; E7 had
       been called a tripwire in a sense the skill does not give the
       word — and then where the words are defined at all.
-- [ ] Framing steps as commit series, and the imperative test in
-      commit-messages: both being weighed there now; this run's
-      reading of the imperative split is where they start. Nothing
-      owed here.
