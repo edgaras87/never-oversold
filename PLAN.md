@@ -846,7 +846,7 @@ as SL-2's had been; the lesson is now a shape in front of every
 test. Version 0.3. Two subjects run past 50 characters (`e1e1bf0`,
 `ea86757`), kept and recorded rather than rewritten.
 
-## Step 8: SL-4 — consume's two moves hold together  (cbc-slice)    [~]
+## Step 8: SL-4 — consume's two moves hold together  (cbc-slice)    [x] 2026-10-10
 
 <!-- The registry's last slice. Its wall already stands — SL-3 made
      consume one statement in one transaction — so this slice owes
@@ -969,12 +969,15 @@ Gate:
       twice: SL-4's tests assert the slice's own invariant after the
       promise, and read what must agree in one statement; the
       evidence-test shape took both.
-- [ ] Every commit on `step-8-sl-4` follows commit-messages.
-- [ ] No commit straddles agent and project paths, so the
+- [x] Every commit on `step-8-sl-4` follows commit-messages. The
+      27 before this close read on 2026-10-10, and this one counted
+      as written: every subject 50 or under, every body line 72 or
+      under; the subjects planned were counted when planned.
+- [x] No commit straddles agent and project paths, so the
       arrangement's history stays separable from the project's.
-- [ ] No implementation file is older than the decision it
+- [x] No implementation file is older than the decision it
       realizes: the log reads decision, then code.
-- [ ] The step reached main by fast-forward from `step-8-sl-4`, on
+- [x] The step reached main by fast-forward from `step-8-sl-4`, on
       the reviewer's word.
 Notes: opened 2026-10-09, on the bundle's copies @ f801fd0. The
 reviewer signs at readiness, at the spec and at the plan. SL-3 is
@@ -984,6 +987,23 @@ repeated exit answering as the first (ADR-0013). So is the review
 after SL-3: only the ledger writes the store's data (T4, ADR-0014),
 and the size the system is built for, which this plan's faces are
 the first to state.
+
+Closed 2026-10-10. SL-4 built no wall: SL-3's one statement in one
+transaction holds its invariant, SL-1's guarded update makes every
+other decision on the item wait for it, and the store's check on the
+units held stands behind. What it built is the proof — a harness
+that holds a consume mid-work by a row lock, kills its instance
+outright, freezes the store, ends one session — and one answer at
+the door, ADR-0016's 503, classified in the ledger after two
+standing structural rules refused the door. Fifteen steps at the
+close against eleven at the opening, §8 revised twice: a killed
+instance's waiting session lingers until its wait ends, and the red
+as signed stayed green, both holds inside the first transaction, so
+the red takes away the single transaction and V3 together. 100
+tests from 83, every evidence test seen red on the witness. ADR-0016
+went back to Proposed on the reviewer's question and was Accepted at
+the close; `cbc-slice` now says so for every slice. Every registry
+slice is closed. Version 0.4.
 
 ## Steps 9..N-1: Invariant slices  (cbc-slice, one step per stage)
 

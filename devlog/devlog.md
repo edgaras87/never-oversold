@@ -144,8 +144,14 @@
   the promise, and read the item with R's ending in one statement —
   neither in the shape, both taken into it (each had something).
   Four differences, each settled by the reviewer.
-- Resume: the commit plan's close, then the merge on the reviewer's
-  word.
+- The commit plan closed (6fcb5d0): fifteen steps, three revisions,
+  what diverged in its body. 27 commits on the branch before the
+  last, each read against commit-messages: none over, none
+  straddling; the last, 28th, counted as written.
+- Step 8 reaches main by fast-forward, on the reviewer's word.
+- Resume: Step N, Release — derive its gate into PLAN when it opens,
+  from the goal, the run's records and the exclusions framing
+  recorded.
 
 ## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
 
