@@ -143,7 +143,22 @@ The close's shape readings follow here, and a step of their own is
 added by revision if they find anything; so is any agent-path
 change, never folded into this step.
 
-**13. `docs(agent): close commit plan for SL-4's build`**
+**13. `chore(agent): shapes take what SL-4's close found`**
+Added by revision at the close, on the reviewer's settling. The
+evidence-test shape gains two lines, each with its dated revision:
+where a slice's invariant is not the promise itself, it is asserted
+right after the promise and before the exact numbers; and a reading
+whose parts must agree is taken in one read, so it cannot straddle a
+commit. Both learned from SL-4's tests, which each had something the
+shape lacked. Agent path, its own step.
+
+**14. `docs: settle SL-4's shape check`**
+Added by revision at the close. Where SL-4's record drifted from the
+slice-record shape: G2's backstop said "unproven until the red run",
+and is now said as never reached there; G4's names its backstop as
+seen at E1's red. PLAN's shape items ticked, the devlog's line.
+
+**15. `docs(agent): close commit plan for SL-4's build`**
 Deletes this file.
 
 ## Decisions taken inside this plan
