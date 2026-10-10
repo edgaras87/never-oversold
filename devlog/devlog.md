@@ -8,6 +8,28 @@
      whole, word for word, to devlog/<YYYY-MM>.md: September 2026
      is in devlog/2026-09.md. -->
 
+## 2026-10-10  (housekeeping: the take @ 5361213, the devlog split)
+
+- On `housekeeping-take-5361213`, cut from main.
+- The deliverer's note arrived in `temp/`, read through c7073c7.
+  Checked against the staging before anything moved: 2 copies
+  differ (`commit-messages`, `commit-plan`), none new, none gone,
+  nothing under `docs/concept/`. That is the note's count. Our one
+  edit since f801fd0, to `cbc-slice`, was already in the staging.
+- Taken whole in one commit (c07b57e); the staging and its note
+  removed. Pin now 5361213, in `.claude/decisions.md`.
+- What changes for us: a commit subject is in the present tense,
+  either a command or what became true; a commit plan says
+  "commit", and "step" means only PLAN's steps.
+- TODO's *To the deliverer* drops the two answered lines (65dec93).
+- The devlog split (0dadfd0): September, 1,084 lines, moved word
+  for word to `devlog/2026-09.md`. This file keeps the current
+  month. The note offered it; the reviewer chose this shape over a
+  file per month for October too, which would move the
+  session-ending file every month.
+- Resume: once this branch reaches main, open Step N, Release: cut
+  its branch from main, derive its gate into PLAN before any work.
+
 ## 2026-10-10  (after Step 8: the hand-off)
 
 - Pushed by the reviewer; `step-8-sl-4` deleted, merged and never
