@@ -9,15 +9,18 @@ foundation: the commit-messages convention
 ## Format
 
 ```
-<type>(<scope>): <description>          ← subject: ≤50 chars, imperative, no period
+<type>(<scope>): <description>          ← subject: ≤50 chars, present tense, no period
                                         ← blank line (mandatory)
 <body>                                  ← the WHY, wrapped at 72 chars, optional
                                         ← blank line
 <footer>                                ← issue refs, breaking changes, optional
 ```
 
-The subject completes the sentence *"If applied, this commit will …"*:
-"…Fix race in order creation" passes, "…Fixed race" fails.
+The subject says what the commit changes, in the present tense, and
+makes sense alone in `git log --oneline`. Either mood: a change to
+the work reads as a command — "fix race in order creation" — and a
+record as what became true — "TODO asks for a glossary". "Fixed
+race" fails: it reports the author, not the repo.
 
 ## Types
 
@@ -128,3 +131,4 @@ nothing else.
   never share a commit
 - CBC ADR-0038, 1f — the stop is this file's sentence, gated
   nowhere
+- CBC ADR-0049, 5 — either mood, present tense

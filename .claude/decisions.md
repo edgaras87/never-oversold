@@ -932,3 +932,27 @@
   demand any slice would want belongs in the copy); a memory (the
   skill is read at the moment the decision is made; a second copy
   drifts).
+
+- 2026-10-10 The bundle updated @ 5361213, from f801fd0. Read
+  through c7073c7. The note of 2026-10-10 answers every line under
+  *To the deliverer*. Two are answered and leave: `cbc-slice`, and
+  commit series with the imperative test. The rest stay held.
+  Checked before anything moved, as the note asked: the staging's
+  folders arrive 755 and its files 644. 2 copies differ from what
+  main held, both skills; none is new, none gone, nothing under
+  `docs/concept/`. That is the note's count. `evidence-test.md` is
+  not in the staging and stays this run's own.
+  This run's one edit since f801fd0, `cbc-slice` (0069200), was
+  taken whole: the staging's copy already equals ours. Nothing is
+  re-applied. Copied whole in one commit, since no chapter changed.
+  Every held copy now equals the staging.
+  What changed:
+  - `commit-messages`: a subject is in the present tense, in either
+    mood. A change to the work reads as a command ("fix race"), a
+    record as what became true ("TODO asks for a glossary").
+    "Fixed race" still fails. The 50-character limit stands.
+  - `commit-plan`: it counts commits, never steps; "step" is left
+    to PLAN. The sweep before a close greps the text with its lines
+    joined, so a name broken across two lines is still found.
+  Why: Release opens on these copies.
+  Rejected: none weighed; the take copies whole.
