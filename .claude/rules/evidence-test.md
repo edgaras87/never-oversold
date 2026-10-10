@@ -90,20 +90,29 @@ assertThat(Body.of(answer.getBody()).stringAt("$.endedAt")).isEqualTo(...);
 *Skeleton:*
 
 1. **The witness first,** read from where the truth persists, never
-   from replies.
+   from replies. A reading whose parts must agree with each other —
+   two numbers and the state they depend on — is taken in one read,
+   so it cannot fall either side of a commit and show a state that
+   never existed.
 2. **The promise on every reading taken after the adversity,**
    before any exact number, sampled readings included. A reading
    that only confirms the scene is set, before the adversity, is
    not evidence and owes it nothing.
-3. **Then the exact numbers,** then the state of each thing the
+3. **The slice's own invariant next, where it is not the promise
+   itself,** still before any exact number: the promise can hold
+   while the slice's invariant is broken.
+4. **Then the exact numbers,** then the state of each thing the
    adversity touched.
-4. **The door's answer last.**
+5. **The door's answer last.**
 
 *Illustration here:* the witness is `Witness.read`, plain JDBC as
-`runtime` from outside every instance; the promise is
-`Witness.Numbers.holds()`; each reservation's state is
-`Witness.endingOf`; the answer is the status, then the body by JSON
-path.
+`runtime` from outside every instance — and `Witness.read(item,
+reservation)` where the item's numbers and one reservation's ending
+must agree, one statement for both; the promise is
+`Witness.Numbers.holds()`; SL-4's invariant is "R ended by consume
+exactly when the count fell by its units", asserted as an equality of
+two booleans; each reservation's state is `Witness.endingOf`; the
+answer is the status, then the body by JSON path.
 
 ### How its assertions read
 
@@ -122,7 +131,7 @@ path.
 hand, R holding 3, S holding 5 (SL-3's §4); `tryReserve` beside
 `reserve`.
 
-Four things the skeleton encodes, so a reader checking a test knows
+Six things the skeleton encodes, so a reader checking a test knows
 what is being checked:
 
 - **The witness before the status,** because a test that stops on a
@@ -131,6 +140,13 @@ what is being checked:
   not the evidence's red.
 - **The promise before the numbers,** because exact numbers can be
   right for the story and the state still be wrong elsewhere.
+- **The slice's invariant beside the promise,** because a slice
+  whose invariant is narrower than the promise can break it with the
+  promise intact: R ended with the count unmoved holds no more than
+  is on hand.
+- **One read for what must agree,** because two reads can each be
+  true and their pairing false — the item read before a commit, the
+  reservation after it.
 - **Every test says what it is,** so a reader never has to ask what
   it is for, and a tripwire can never be counted as a kill.
 - **The numbers in the labels,** so a red read from the output alone
@@ -149,8 +165,10 @@ what is being checked:
 Read the slice's tests and ask:
 
 1. Does every test's first line say what it is?
-2. Is the witness asserted before the answer, and the promise before
-   the numbers, on every reading taken after the adversity?
+2. Is the witness asserted before the answer, and the promise — then
+   the slice's invariant, where it differs — before the numbers, on
+   every reading taken after the adversity? Is what must agree read
+   in one read?
 3. Does every number's label print the reading?
 4. Did every red fail on the witness, not on a status or a crash?
 5. Where a test diverges from this shape — did it find something
@@ -179,3 +197,13 @@ Read the slice's tests and ask:
   adversity — `T took the units R's expiry freed` — and check no
   promise. A setup reading is not evidence; the shape was wrong
   here, and the tests stand. Nothing read from elsewhere.
+- 2026-10-10 — the slice's own invariant is asserted after the
+  promise and before the exact numbers, where it is not the promise
+  itself; and a reading whose parts must agree is taken in one read.
+  Taught by SL-4's close, the shape's second reading: its E1–E3
+  assert "R ended exactly when the count fell", which the promise
+  alone cannot see — R ended with the count at 10 holds no more than
+  is on hand — and read the item's numbers and R's ending in one
+  statement, so no reading straddles the commit they test. Each had
+  something: the tests stand, and the shape takes both. Nothing read
+  from elsewhere.
