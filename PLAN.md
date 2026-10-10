@@ -955,14 +955,20 @@ Gate:
       the exit; TODO's Step 8 items close here or move by name; one
       line under *To the deliverer* per copy edited in place, or a
       line saying none was.
-- [ ] `temp/` is checked for shapes delivered for this step, and
+- [x] `temp/` is checked for shapes delivered for this step, and
       what was found is said in a line — including that nothing
-      was.
-- [ ] SL-4's record is read against `.claude/shapes/slice-record.md`.
-- [ ] SL-4's evidence tests are read against
+      was. Nothing was: it is empty.
+- [x] SL-4's record is read against `.claude/shapes/slice-record.md`.
+- [x] SL-4's evidence tests are read against
       `.claude/rules/evidence-test.md`.
-- [ ] Every difference those readings found is settled: the shape was
-      wrong here, the output drifted, or each had something.
+- [x] Every difference those readings found is settled: the shape was
+      wrong here, the output drifted, or each had something. Four,
+      each the reviewer's call. The output drifted twice: §8's
+      backstops for G2 and G4 did not say whether the red run saw
+      them; the record was brought to the shape. Each had something
+      twice: SL-4's tests assert the slice's own invariant after the
+      promise, and read what must agree in one statement; the
+      evidence-test shape took both.
 - [ ] Every commit on `step-8-sl-4` follows commit-messages.
 - [ ] No commit straddles agent and project paths, so the
       arrangement's history stays separable from the project's.

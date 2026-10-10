@@ -135,9 +135,17 @@
   the line to the deliverer for `cbc-slice`.
 - Not run on the real ground: no migration, and nothing the ground
   could show that the harness did not. It stays down.
-- Resume: the close — `temp/` checked, SL-4's record and its tests
-  read against the two shapes, the commit plan closed, the merge on
-  the reviewer's word.
+- The close's readings. `temp/` empty. SL-4's record against the
+  slice-record shape: every block carries its labels; two backstops
+  — G2's, G4's — did not say whether the red run saw them, and now
+  do (the output drifted). The tests against the evidence-test
+  shape: every first line says what the test is, the witness comes
+  first, every red failed on it; E1–E3 assert SL-4's invariant after
+  the promise, and read the item with R's ending in one statement —
+  neither in the shape, both taken into it (each had something).
+  Four differences, each settled by the reviewer.
+- Resume: the commit plan's close, then the merge on the reviewer's
+  word.
 
 ## 2026-10-09  (Step 8: SL-4, specified, planned, the harness built)
 

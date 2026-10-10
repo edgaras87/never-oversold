@@ -447,7 +447,8 @@ undone; the reserve reads 10 and 8, 2 free, and is refused.
 check that the units held never pass the count, refuses a decision
 that would hold more than is on hand — the promise's own half, not
 the consume's. A reserve that saw half a consume could fit and pass
-it. Unproven until the red run.
+it. Unproven: at the red run the witness broke first, mid-consume,
+and no reserve reached it (§9).
 
 ---
 
@@ -498,7 +499,7 @@ the new rule names it — a `consumed` receipt with the count
 unmoved.
 
 *If the wall were ever wrong:* V3, for the units-held half only, as
-under G1.
+under G1 — seen at E1's red, refusing each split it could see.
 
 ---
 
@@ -921,3 +922,7 @@ What would rot this slice, and what watches:
   framework's exception types.
 - 2026-10-10 — the evidence (§9) certified against the delivered
   files and the suite, 100 tests green; SL-4 closed.
+- 2026-10-10 — read against the slice-record shape at the close: §8's
+  owners for G2 and G4 now say whether their backstop was seen at the
+  red run — G2's never reached, G4's seen. The same guarantees and
+  owners; no decision changed.
