@@ -6,6 +6,29 @@
      End every session with a "Resume:" line — cheapest save-point there is.
      When this file gets long, split into devlog/<YYYY-MM>.md per month. -->
 
+## 2026-10-10  (after Step 8: the hand-off)
+
+- Pushed by the reviewer; `step-8-sl-4` deleted, merged and never
+  pushed.
+- TODO's line for the evidence-test shape now says it moved at
+  SL-4's close (968abae), as the slice-record shape's line tracks its
+  own moves.
+- A lesson drafted for `cbc-slice` and dropped, on the reviewer's
+  reasoning: "a plan's claims about behaviour, tried before it is
+  signed" — from the two §8 revisions. A plan is a best guess and the
+  build is where it meets the store; both claims were found within
+  the hour and revised openly, which is the method's own rule —
+  deviations legal, never silent. Testing before signing would turn
+  planning into building. Not to be raised again without a cost
+  bigger than a dated revision.
+- Ready for the deliverer: since the read-through at 10437cd, two
+  changes under `.claude/` besides the take itself — `cbc-slice`
+  (0069200) and the evidence-test shape (a47f129) — each with its
+  record and its line under *To the deliverer*.
+- Resume: wait for the deliverer's note in `temp/`; take it by
+  `delivered-copies.md` rule 5. Then Step N, Release — its gate
+  derived into PLAN when it opens.
+
 ## 2026-10-10  (Step 8: SL-4, E1 red and green)
 
 - E1 written (`InterruptedConsumeIT`): R's consume held at each
