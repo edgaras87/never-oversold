@@ -251,7 +251,11 @@
       produce without it. Whether it reaches another project, and
       whether hidden first so that project's own tests can be read
       against it, is yours. Its skeleton is marked apart from this
-      project's illustration.
+      project's illustration. It has moved since: on 2026-10-10, at
+      its second reading (SL-4's close), a slice's own invariant
+      asserted after the promise where it is not the promise itself,
+      and a reading whose parts must agree taken in one read. Its
+      dated lines say what taught each.
 - [ ] A question, raised by that shape: should a rule, not only a
       shape, be deliverable hidden or on trial — read at a gate
       rather than loaded while working — until a second project
