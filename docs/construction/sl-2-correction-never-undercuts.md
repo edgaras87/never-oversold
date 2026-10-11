@@ -331,8 +331,9 @@ absence that nothing today would notice disappearing.
 
 That is the honest headline of this plan: **the walls this slice
 needs are standing, built by SL-1 against a different adversity.**
-The registry predicted it at SL-1's close — "most of SL-2's
-invariant holds by structure today" — and the work here is to
+The registry predicted it at SL-1's close, in words it has since
+revised — "most of SL-2's invariant holds by structure today" — and
+the work here is to
 justify each wall against *this* adversity, to prove it against
 the two corrections nothing has ever sent, and to stop the
 absences from being silently filled in later.
@@ -559,9 +560,8 @@ delivers no feature at all.
 ### Deviations and provisionals, so the close can see them
 
 - SL-1's provisional refusal is no longer provisional (§3). SL-1's
-  own record still calls it so; its §3 G3 and §6 are corrected at
-  this slice's close, not before, so the correction is one act with
-  its reason.
+  record called it so until this slice's close, when its §3 G3 and
+  §6 were corrected, so the correction was one act with its reason.
 - G5 and G6 are guarantees held by an absence plus a test that the
   absence persists. This run has now met that shape twice — SL-1's
   no-process-clock and no-instance-state tests, and these two. The

@@ -63,9 +63,11 @@ them.
 
 ### The levers the evidence pulls
 
-Proven at the engine level on 2026-09-10 (the devlog's Step 3
-entry has the outputs); the compose-level shapes arrive with the
-services:
+Proven at the engine level on 2026-09-10 (`devlog/2026-09.md`,
+the Step 3 entry, has the outputs). The evidence pulls them its own
+way: the ledger is not a compose service, so the harness forks its
+instances as processes and kills them as processes (ADR-0009), and
+freezes its throwaway store through the engine's pause:
 
 - **Several instances at once:** two containers of one image ran
   simultaneously — `podman compose up --scale <service>=N` at the
@@ -216,10 +218,11 @@ listed as pending:
 ```sh
 podman compose run --rm flyway info
 # expected on a fresh ground: Database: ...never_oversold (PostgreSQL 17.x);
-#           Schema version: << Empty Schema >>; V1 listed as Pending
+#           Schema version: << Empty Schema >>; every migration
+#           (V1–V4 today) listed as Pending
 ```
 
-Then apply them (*Migrate*, below); `info` lists V1 as Success.
+Then apply them (*Migrate*, below); `info` lists each as Success.
 
 Seen here, 2026-09-11, before V1 existed: Flyway 11.20.3,
 `No migrations found`, exit 0.

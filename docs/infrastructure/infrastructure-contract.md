@@ -4,7 +4,8 @@
      every later addition, never rewritten from scratch. It masters
      the ground's vocabulary and states the refusals as contract
      terms. How to stand the ground up is the operator manual's;
-     why it is shaped this way is the ADRs' (0004–0006). -->
+     why it is shaped this way is the ADRs' (0004–0006, 0014,
+     0015). -->
 
 ## Vocabulary
 
@@ -52,7 +53,7 @@ database identity.
 
 **What the store refuses — contract terms.** Each is enforced by
 the server's grant system and was watched being refused on
-2026-09-11 (operator manual, devlog):
+2026-09-11 (operator manual, `devlog/2026-09.md`):
 
 1. **The running application cannot change structure.** A DDL
    statement as `runtime` fails with `permission denied for schema

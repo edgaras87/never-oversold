@@ -10,7 +10,7 @@
 -- Expected results ride as comments beside each query — this file needs no
 -- other document open. The behavioral half (DDL attempted as runtime and
 -- refused; an ungranted connection refused; T2's tool shown) lives in the
--- operator manual and the devlog's Step 3 entry. Filled from the
+-- operator manual and devlog/2026-09.md's Step 3 entry. Filled from the
 -- infra-establish templates (kit @ af16eb7); the role filter is an explicit
 -- IN list because this cluster's role names carry no project prefix.
 

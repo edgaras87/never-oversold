@@ -65,28 +65,16 @@ features last. The method: [docs/concept/](docs/concept/), start
 with [00-cbc.md](docs/concept/00-cbc.md).
 
 **Status:** version 0.4 — all four invariants closed on evidence.
-
-- 2026-09-10 — framed and named.
-- 2026-09-11 — the ground stood up and verified.
-- 2026-09-12 — bootstrapped.
-- 2026-09-14 — the first invariant closed: the ledger admits and
-  refuses reservations, and cannot oversell under contention.
-- 2026-09-21 — the second closed: an operator's correction that
-  would leave the count under the units held is refused, and
-  survives being resent and arriving out of order.
-- 2026-10-07 — the third closed: a reservation can be consumed or
-  released, ends by itself when its hold runs out, and its numbers
-  move once however the exits repeat, race or arrive late.
-- 2026-10-10 — the fourth closed: consume's two moves hold together,
-  even when the ledger dies or loses the store between them.
-
-Next is the release gate.
+What each version brought: [CHANGELOG.md](CHANGELOG.md). What comes
+next: [PLAN.md](PLAN.md).
 
 ## Prerequisites
 
 - podman with a compose provider (`podman compose` answers) — the
   infrastructure ground; details in
-  [docs/infrastructure/operator-manual.md](docs/infrastructure/operator-manual.md)
+  [docs/infrastructure/operator-manual.md](docs/infrastructure/operator-manual.md).
+  The tests also need podman's user socket, set up once per machine
+  (see Test below)
 - JDK 21 (Maven rides in via the committed wrapper)
 
 ## Run
@@ -181,6 +169,11 @@ ISO-8601 duration from one second to seven days.
 # so the ground does not need to be up
 ./mvnw test
 ```
+
+The first time on a machine, the tests need podman's user socket on,
+and `~/.testcontainers.properties` pointing at it — two steps, in
+[the operator manual's test runtime section](docs/infrastructure/operator-manual.md#the-test-runtime--once-per-machine).
+Without them the integration tests cannot start their store.
 
 ## Project records
 

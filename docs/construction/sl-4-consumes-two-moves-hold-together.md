@@ -73,13 +73,14 @@ each with its options.
 When an instance loses the store mid-consume, the consume may have
 committed or not, and the instance cannot tell. The framing refuses
 the caller's view (L2), so what the caller reads is the door's
-convention, not the promise. Today nothing at the door handles a
-lost store, and the framework's default error reads as "failed".
+convention, not the promise. Before this slice nothing at the door
+handled a lost store, and the framework's default error read as
+"failed".
 
 *Say:* 10 on hand, R holding 3. The caller consumes R. The store
 commits — 7 on hand, R consumed — and the connection breaks before
-the instance hears. Today the caller reads an error, and believes R
-is still open.
+the instance hears. Before this slice the caller read an error, and
+believed R was still open.
 
 **Chosen:** the instance answers `503`, Problem Details, "outcome
 unknown": the request may or may not have taken effect. The caller

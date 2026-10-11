@@ -1005,7 +1005,7 @@ went back to Proposed on the reviewer's question and was Accepted at
 the close; `cbc-slice` now says so for every slice. Every registry
 slice is closed. Version 0.4.
 
-## Steps 9..N-1: Invariant slices  (cbc-slice, one step per stage)
+## Steps 9..N-1: Invariant slices  (cbc-slice, one step per stage)    [-] 2026-10-10
 
 Goal: each remaining registry slice closed by evidence that creates
 its adversity; ordering re-decided at each close, never assumed
@@ -1013,7 +1013,8 @@ from the original expectation.
 Gate: derived when each stage opens — verifiable facts, from the
 goal, the named skill, and the registry; written into the stage
 before its work starts.
-Notes:
+Notes: skipped — no slice remains: the registry's four closed by
+Step 8.
 
 ## Step N: Release                                  [ ]
 
@@ -1029,7 +1030,8 @@ a stranger, its commands verified on a clean machine; known
 issues filed in TODO.md. Decided at framing, checked here:
 monitoring and alerts in place; deploy and rollback documented and
 tried once — each unless this run's own recorded exclusion.
-Notes:
+Notes: opens after the polish — three passes over the records, not
+a step (`.claude/polish/`).
 
 <!-- STEPS-END -->
 

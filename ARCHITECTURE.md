@@ -6,7 +6,7 @@
 
 ## Overview
 
-The ledger runs on the ground and holds three of its four
+The ledger runs on the ground and holds all four of its
 invariants: instances of one build output, each connecting to the
 store as `runtime` and nothing else, each answering HTTP — reserve,
 adjust, consume, release, and a health check that names the store.

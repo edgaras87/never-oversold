@@ -8,17 +8,14 @@
 
 ## Now (current plan step)
 
-- [ ] Step 8 (SL-4, cbc-slice): consume's two moves hold together.
-      Closed on evidence 2026-10-10, the records caught up; what
-      remains is the close — the shape readings, the commit plan's
-      close, and the merge on the reviewer's word. What it handed on
-      is in the registry and the known issues below.
+- [ ] The polish before Release: three passes, each on its own
+      branch — clean-up, skills and rules, writing style. Not a
+      PLAN step; its briefs are in `.claude/polish/`. Pass 1,
+      clean-up, opened 2026-10-10.
 
-## Next (after Step 8)
+## Next (after the polish)
 
-- [ ] Step N, Release. Every registry slice is closed (the registry,
-      2026-10-10); nothing stands before the release gate. Its gate
-      is derived when it opens.
+- [ ] Step N, Release. Its gate is derived when it opens.
 
 ## Later / someday
 
@@ -27,43 +24,17 @@
      or waits on a later trigger. -->
 
 - [ ] Seeing what changed between versions, not between commits.
-      Moved here from Next on 2026-10-01, on the reviewer's word.
-      While one commit's worth of work is being polished, each new
-      version can only be diffed against the last commit, so the
-      reviewer must re-read the whole thing to find the part that
-      answers their last clarification. Worse where a paragraph is
-      rewritten and reflows: a line diff marks every line changed
-      when three words moved.
-      Turned down, with reasons, so the pass need not re-run them:
-      a branch per iteration (switching branches to read a
-      paragraph); a commit per iteration, squashed or merged at the
-      end (it fights two rules already held — the reviewer's word
-      before any commit, and the commit-plan convention's "the
-      commits that exist are the steps done", so draft commits make
-      the history lie about what was finished).
-      The working answer, in use from 2026-09-21 and needing no
-      decision: the index is the checkpoint. The agent stages each
-      version it shows and says which version is staged; the next
-      edit then reads as a diff against the version the reviewer
-      last read, however many rounds it takes; one commit at the
-      end. The reflow problem is answered by word-level diffing —
-      `git diff --word-diff`, or the IDE's own word or character
-      highlighting inside a changed line.
-      In the reviewer's IntelliJ: Settings → Version Control → Git
-      → Enable staging area, which splits the Commit window into
-      Staged (the version read) and Unstaged (what changed since),
-      with the diff of an unstaged file taken against the staged
-      one. Clicking the staged entry still shows the whole change
-      against the last commit, so the full picture stays one click
-      away. Fallback if that feels wrong in practice: the IDE's
-      Local History, which records every save without git and can
-      be labelled at the moment a version is shown.
-      Still to decide: whether this becomes a written rule here or
-      a line to the deliverer, the commit-plan convention being
-      theirs; and whether a rejected draft ever needs keeping
-      beyond the devlog line that says what it said and why it
-      went — the pattern used for the writing rule drafted and
-      reverted on 2026-09-21.
+      Moved here from Next on 2026-10-01, on the reviewer's word. The
+      options turned down and the working answer in use since
+      2026-09-21 — the index as the checkpoint, word-level diffs —
+      are in `.claude/decisions.md` (2026-10-10). Still to decide:
+      whether this becomes a written rule here or a line to the
+      deliverer, the commit-plan convention being theirs; and
+      whether a rejected draft ever needs keeping beyond the devlog
+      line that says what it said and why it went. The polish tries
+      one option turned down here — a commit per fix, regrouped at
+      the end — under the reviewer's explicit exception for its
+      branches; the verdict after pass 1 lands comes here.
 
 - [ ] A glossary for this project's reader. Raised 2026-10-08 at the
       review after SL-3: the records say kill, fold, fence, face,
@@ -93,7 +64,8 @@
       of them. Decide whether such records or passages carry a
       "true as of" mark, and in what form. Raised 2026-10-01;
       structure waits for Release or the retrospective, on the
-      reviewer's call.
+      reviewer's call. Met again in the polish's pass 1: its readers
+      took sections headed "as delivered" for claims about now.
 
 - [ ] A fact written in two places gets fixed in one. The contract
       was corrected to "plan" and the operator manual kept
@@ -101,7 +73,10 @@
       places and missed a fourth. `commit-plan` now sweeps for
       moved names; nothing sweeps for a changed fact. Decide whether
       that is a habit, a gate item, or a line to the deliverer.
-      Raised 2026-10-01; same timing as above.
+      Raised 2026-10-01. Tried in the polish's pass 1: each area's
+      reader listed the facts its files state, and the lists were
+      compared; that caught one no area saw alone, the pom's version.
+      Decide at the polish's close.
 
 - [ ] Should `temp/` be tracked? Today it is neither ignored nor
       committed, so a draft written there never reaches history:
@@ -112,10 +87,7 @@
       of the take commit that already holds the same files. Raised
       2026-10-01, postponed by the reviewer.
 
-- [ ] Own, no creditor (was a hand-off to the handbook, which the
-      bundle's second note of 2026-09-20 says is no longer
-      reachable from here; kept as the learner's own item, same
-      trigger): a personal `cut-a-kata` skill —
+- [ ] Own, no creditor: a personal `cut-a-kata` skill —
       practice exercises cut from live work at the moment the
       learner says "I could not rebuild this": a marker in ten
       seconds, a card at a boundary (skill, problem, oracle,
@@ -124,11 +96,6 @@
       against the reference. Lived in this run at SL-1 (three cards
       cut, none yet done); on trial in the learner's user-level
       skills; graduates when it has served katas in two projects.
-      Handbook's answer 2026-09-15 (kit 9e28143): parked in its
-      Later until it graduates — no place in the tiers model for a
-      person's own practice, no artifact kind for a skill yet; the
-      likely shape then a guide or a pointer; it wants to hear when
-      two projects have been served.
 
 ## Known issues (deferred deliberately — each entry: what, why accepted, when to revisit)
 

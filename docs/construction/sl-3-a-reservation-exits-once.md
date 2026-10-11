@@ -89,9 +89,9 @@ request against a reservation with no active state left. What the
 framing does not say is when the units it held become free for
 the next decision.
 
-Today they never do. SL-1 left the held units counting a
-reservation until an exit ends it (SL-1 §7), and nothing ends one
-by expiry.
+Before this slice they never did. SL-1 left the held units counting
+a reservation until an exit ends it (SL-1 §7), and nothing ended
+one by expiry.
 *Say:* 10 on hand. A holds 3 until 12:00 and walks away. At 12:05
 B asks for 8. The held units still read 3, so only 7 look free and
 B is refused — at 12:05, and at every time after.
@@ -874,7 +874,7 @@ touching the ground.
   refusing directly as `runtime`, and the tests that write rows by
   hand keeping the units held in step.
 - **Not added:** a list of reservations (§3, backlog), a sweep, a
-  read endpoint, an index.
+  read endpoint; an index, until V4 (2026-10-08, above).
 
 ### Deviations and provisionals, so the close can see them
 
@@ -885,8 +885,8 @@ touching the ground.
   about it: our death between the moves, and an unknowable outcome,
   are SL-4's adversity. Handed to SL-4 by name at the close.
 - **SL-1's and SL-2's records,** which name SL-3 as the slice that
-  ends expired holds and pays the conservative-refusal debt, are
-  corrected at this slice's close, not before — and V1's comment
+  ends expired holds and pays the conservative-refusal debt, were
+  corrected at this slice's close, 2026-10-07 — and V1's comment
   "No ended state yet" stays as written, migrations being history.
 - **The guarantees held by structure in the store, not by an
   absence,** this time. The absence rung this run has met twice
@@ -914,7 +914,7 @@ door's answer is checked after it.
 | Criterion | Test | The adversity it creates |
 |---|---|---|
 | E1 · G1 | `ExitStormIT.racingConsumesEndAReservationOnce` | fifty consumes on R held at a line and released at one instant (F4, kill 13) |
-| E1 · G1 | `ExitStormIT.racingConsumesAndReleasesEndAReservationOnce` | twenty-five consumes and twenty-five releases on R, interleaved, at one instant (F4, kill 14) |
+| E1 · G1 | `ExitStormIT.racingConsumesAndReleasesEndAReservationOnce` | twenty-five consumes and twenty-five releases on R, interleaved, at one instant (F4, kill 13) |
 | E1 · G1 | `ExitStormIT.racingExitsAcrossInstancesEndAReservationOnce` | sixty exits split across three instances, each its own process (F17) |
 | E2 · G1 | `ExitStormIT.consumesAroundTheExpiryInstantEndEachHoldOnce` | forty one-second holds, each consumed at its own expiry instant ± 0.1 s (F23, kill 14) |
 | E2 · G1 | `ExitStormIT.consumesAndTidiesAroundTheExpiryInstantEndEachHoldOnce` | the same, with a reserve beside each consume whose tidy meets the same hold |
@@ -931,6 +931,7 @@ door's answer is checked after it.
 | E7 · G6 | `NoSecondWayOutTest.receiptsAndTheUnitsHeldAreWrittenByTheLedgerAlone` | the code read: no writer of receipts or of `reserved` outside the ledger |
 | E7 · G6 | `NoSecondWayOutTest.theLedgersSqlIsWrittenAsTextBlocks` | the code read: no SQL in the ledger the next rule would not see |
 | E7 · G6 | `NoSecondWayOutTest.numbersFallOnlyByTheReceiptsTheSameStatementWrote` | the code parsed: every exit's statement by its parts |
+| E7 · G6 | `NoSecondWayOutTest.theLedgerNeverRewritesAReservation` | the code parsed: no statement updates or deletes a reservation (added 2026-10-08, the review after this slice; T4) |
 
 Beside them, and not evidence, each saying so on itself:
 `ExitDoorIT.aReserveAfterTheInstantFindsTheExpiredUnitsFree` and
@@ -1151,4 +1152,8 @@ What would rot this slice, and what watches:
   reservations on one item over its life, each check reading that
   item's history through the index; revisit when an item's history
   passes that, or a decision's speed is measured. No guarantee,
+  owner or evidence changed.
+- 2026-10-10 — §9's table gains E7's fourth rule,
+  `theLedgerNeverRewritesAReservation`: added on 2026-10-08 and
+  named in §8 and §10, but missing from the table. No guarantee,
   owner or evidence changed.

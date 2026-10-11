@@ -544,15 +544,15 @@ Only what the guarantees need somewhere to live:
 - The red run for R5: the same tests against the admit written the
   naive way — a read of the row, a check in code, a plain update —
   and V1 without its check constraint, on the branch, never
-  committed; the output recorded in the devlog before the wall's
-  commit.
+  committed; the output recorded in `devlog/2026-09.md` before the
+  wall's commit.
 
 ## §8 Evidence — as delivered
 
 <!-- The third movement: for each guarantee, the test that created
      its adversity, what it read from the store, and the red that
      preceded the green. Every number is from actual output
-     (devlog, Step 5). -->
+     (`devlog/2026-09.md`, Step 5). -->
 
 | Guarantee | Owner (§7) | Evidence | What it created, what it read |
 |---|---|---|---|
