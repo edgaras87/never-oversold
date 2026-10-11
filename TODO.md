@@ -8,12 +8,15 @@
 
 ## Now (current plan step)
 
-- [ ] The polish before Release: three passes, each on its own
-      branch — clean-up, skills and rules, writing style. Not a
-      PLAN step; its briefs are in `.claude/polish/`. Pass 1,
-      clean-up, opened 2026-10-10.
+- [ ] The walk-through before Release: the reviewer goes through
+      the repo part by part — why each part exists, what it is for,
+      whether it is written as it should be — with the agent guiding
+      and suggesting. Not a PLAN step. It replaces the polish's
+      passes 2 and 3, stopped 2026-10-11 after pass 1; pass 1's
+      ideas list (`.claude/polish/pass-1-report.md`, *Ideas for pass
+      3*) is one place to start.
 
-## Next (after the polish)
+## Next (after the walk-through)
 
 - [ ] Step N, Release. Its gate is derived when it opens.
 
@@ -34,7 +37,10 @@
       line that says what it said and why it went. The polish tries
       one option turned down here — a commit per fix, regrouped at
       the end — under the reviewer's explicit exception for its
-      branches; the verdict after pass 1 lands comes here.
+      branches. Verdict after pass 1 landed (2026-10-11): it worked
+      well, in the reviewer's words — commits made freely on the
+      branch, regrouped by kind before landing, the report the
+      record of each fix.
 
 - [ ] A glossary for this project's reader. Raised 2026-10-08 at the
       review after SL-3: the records say kill, fold, fence, face,
@@ -76,7 +82,7 @@
       Raised 2026-10-01. Tried in the polish's pass 1: each area's
       reader listed the facts its files state, and the lists were
       compared; that caught one no area saw alone, the pom's version.
-      Decide at the polish's close.
+      Decide in the walk-through.
 
 - [ ] Should `temp/` be tracked? Today it is neither ignored nor
       committed, so a draft written there never reaches history:

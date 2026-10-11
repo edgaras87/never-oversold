@@ -1030,8 +1030,9 @@ a stranger, its commands verified on a clean machine; known
 issues filed in TODO.md. Decided at framing, checked here:
 monitoring and alerts in place; deploy and rollback documented and
 tried once — each unless this run's own recorded exclusion.
-Notes: opens after the polish — three passes over the records, not
-a step (`.claude/polish/`).
+Notes: opens after the walk-through — the reviewer going through
+the repo part by part, not a step. The polish before it stopped
+after pass 1 (`.claude/polish/`).
 
 <!-- STEPS-END -->
 
