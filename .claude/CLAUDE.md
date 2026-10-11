@@ -48,12 +48,13 @@ How, and how a new delivery is taken:
 | Starting work, or closing a step's gate | Current state, next steps, gates | PLAN.md |
 | A decision taken, options rejected | Decisions and why | docs/adr/ |
 | Noticed something, not doing it now | Backlog | TODO.md |
-| Session ending, or a dead end hit | Work history, dead ends | devlog/devlog.md |
+| Session ending, or a dead end hit | Work history, dead ends | devlog/devlog.md (the current month); devlog/<YYYY-MM>.md (each finished month) |
 | Shipped something users can see | What changed, for users | CHANGELOG.md |
 | The system's shape changed | Shape of the system | ARCHITECTURE.md |
 | Something became true the outside should see | The front door: what this is, how to use it | README.md |
-| Agent setup changed, or a convention arrives | Decision, why, rejected options; the conventions held, with versions | .claude/decisions.md |
+| Agent setup changed, or a convention arrives | Decision, why, rejected options; every delivery, with its pin | .claude/decisions.md |
 | Work needs more than one commit | In-flight change set | COMMIT-PLAN.md (when present) |
+| Working a polish pass before Release | The passes' rules, briefs and reports | .claude/polish/ (while the polish runs) |
 
 <!-- This file is loaded in full on every task, relevant or not, so
      every line below passes three tests or leaves (agent-arrangement):

@@ -1,7 +1,7 @@
 # Agent decisions
 
-<!-- The working arrangement's decision log (HANDBOOK ADR-0020,
-     provisional). Append-only, newest last. One entry per
+<!-- The working arrangement's decision log (its form from HANDBOOK
+     ADR-0020). Append-only, newest last. One entry per
      arrangement decision — a skill added or changed, a rule tuned,
      a workflow adopted. Three lines: what, why, what was rejected.
 
@@ -15,15 +15,13 @@
      that rule).
 
      At the project retrospective, read top to bottom: each entry
-     graduates to the handbook, stays local, or dies.
+     graduates to the deliverer (the bundle, under TODO's *To the
+     deliverer*), stays local, or dies.
 
-     The two placeholders in the birth entry below — the date and
-     the "@" hash — are replaced at copy time by the install block
-     in the handbook's manual. The hash pins which handbook state —
-     and so which version of every convention — this project was
-     born from (convention-lifecycle §2). If either still shows a
-     placeholder, the install block was not run from the handbook;
-     fix it before the bootstrap commit. -->
+     The birth entry's "@" hash pins the handbook kit this project
+     was born from. Every later pin is the bundle's: since 2026-09-18
+     the bundle has been the only upstream (the entry of
+     2026-09-20). -->
 
 - 2026-09-07 Born from the engineering-handbook starter kit
   @ c670fe5.
@@ -956,3 +954,35 @@
     joined, so a name broken across two lines is still found.
   Why: Release opens on these copies.
   Rejected: none weighed; the take copies whole.
+
+- 2026-10-10 Correction to the entry of 2026-09-17: it says "temp/
+  is ignored". It is not, and was not then: `.gitignore` has never
+  held a rule for it, and `git check-ignore` finds none. TODO's
+  temp/ item states it correctly — neither ignored nor committed.
+  Found by the polish's pass 1; the entry itself stays as written.
+
+- 2026-10-10 How the reviewer sees what changed between versions,
+  moved here from TODO, where it had grown into a decision with its
+  why. Turned down on 2026-10-01: a branch per iteration (switching
+  branches to read a paragraph); a commit per iteration, squashed
+  or merged at the end (it fought the reviewer's word before any
+  commit, and commit-plan's "the commits that exist are the plan
+  done", so draft commits made the history lie about what was
+  finished). The working answer, in use from 2026-09-21: the index
+  is the checkpoint. The agent stages each version it shows and
+  says which is staged; the next edit reads as a diff against the
+  version the reviewer last read; one commit at the end. Reflowed
+  paragraphs are read with `git diff --word-diff`, or the IDE's word
+  highlighting. In the reviewer's IntelliJ: Settings → Version
+  Control → Git → Enable staging area, which splits the Commit
+  window into Staged (the version read) and Unstaged (what changed
+  since); the IDE's Local History is the fallback.
+  Since 2026-10-10 the polish tries the second turned-down option,
+  a commit per fix regrouped at the end, under the reviewer's
+  explicit exception for its branches. What is still open stays in
+  TODO.
+  Why moved: TODO holds what is noticed and not done; a decision
+  with its rejected options is this log's.
+  Rejected: leaving it in TODO (the backlog item could not be read
+  for its open question); dropping the IDE steps (the reviewer's
+  own setup, found once and costly to find again).
