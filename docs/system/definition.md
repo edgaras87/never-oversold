@@ -133,8 +133,9 @@ than habit:
 - **The store is a service on that machine,** reachable by every
   instance, outliving any of them; what it is, is the ground's
   decision, not this definition's.
-- **The clock is the machine's,** shared by the instances unless
-  the evidence deliberately skews it (SL-1's flag).
+- **The clock is the machine's,** shared by the instances;
+  activeness is judged by one clock, the store's (FC3 — the SL-1
+  flag that would have skewed it, resolved 2026-09-14).
 - **The size it is built for is the evidence's:** a handful of
   items, up to a few thousand reservations on one item over its
   life, three instances, about a hundred requests racing on one
@@ -554,3 +555,9 @@ A and B, with no joint to hold them together.
   evidence's size, with nothing saying how far beyond it that
   stays true. Triggered by the same review.
   No fact, fence or verdict changed.
+- 2026-10-10 — L1's runtime ground: the clock's line no longer
+  points at SL-1's flag as open. Why: SL-1 resolved it at its
+  close — FC3, one clock, the store's (registry, 2026-09-14) — and
+  the line still read as if the evidence might skew the clock.
+  Triggered by a records clean-up before Release. No fact, fence
+  or verdict changed.

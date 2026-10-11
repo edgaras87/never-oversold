@@ -63,7 +63,7 @@ witness — the promise's own.
   the one SL-1 keeps true.
 - **Judgment logged:** two shapes were seen during framing and
   parked, not chosen — refuse the correction, or let it end
-  reservations. The slice's specify step decides; the invariant
+  reservations. The slice decides; the invariant
   and the witness are the same under either. Same witness as SL-1,
   different adversity: hammering never sends an honest correction,
   and a correction never creates a race — hence two slices.
@@ -151,7 +151,10 @@ no rider needed beyond the two flags.
 
 SL-1 closed → SL-2 closed → SL-3 closed → SL-4 closed, re-decided at
 each close and kept; the last re-decision at SL-4's (2026-10-10),
-which leaves nothing to order. Until then, at SL-3's close: SL-3 is the first slice that
+which leaves nothing to order. The two latest re-decisions follow,
+each under its date.
+
+**At SL-3's close (2026-10-07).** SL-3 is the first slice that
 added an operation: a reservation can now be consumed or released,
 and ends by itself when its hold runs out, its units free from that
 instant. Each ending leaves one record of how and when it ended,
@@ -186,13 +189,14 @@ ledger never does; nothing that oversells passes, but a hold can be
 removed with its units and leave no ending behind. Whether the store
 should forbid it is a question about who may write the store at all,
 which the framing never answered; it waits for a review, not for a
-slice.
+slice. (Answered 2026-10-08: only the ledger writes the store's
+data — the definition's T4 and its fence W7; ADR-0014.)
 
 SL-4 is next and last: it is the one invariant left, its walls stand
 already, and its adversity — kill-mid-work, unknown-outcome
 injection — is the one the harness has not yet created.
 
-At SL-4's close. SL-4 built no wall: SL-3's one statement in one
+**At SL-4's close (2026-10-10).** SL-4 built no wall: SL-3's one statement in one
 transaction holds its invariant, and SL-1's guarded update makes
 every other decision on an item wait for a consume under way. What
 it added is the proof — a consume held mid-work on purpose, its
@@ -265,3 +269,9 @@ derivation overriding the briefing.
   judgment stands for the evidence. Its flag answered by staging
   both: kill-mid-work and unknown-outcome injection. Triggered by
   PLAN Step 8's close. No invariant, adversity or fold changed.
+- 2026-10-10 — The ordering expectation's two latest re-decisions,
+  at SL-3's and SL-4's closes, each labelled with its date, so the
+  SL-3 text no longer reads as current; its open question of who
+  may write the store marked answered (T4, W7, ADR-0014); SL-2's
+  row says only that the slice decides. Triggered by a records
+  clean-up before Release. No invariant, adversity or fold changed.
