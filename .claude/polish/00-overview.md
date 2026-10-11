@@ -1,24 +1,31 @@
 # Polish: the overview
 
 <!-- The polish's briefs, tracked here from pass 1's opening (they
-     were drafted in temp/). The folder is deleted at pass 3's
-     close; git history keeps every brief and report. -->
+     were drafted in temp/). The polish stopped after pass 1
+     (2026-10-11); the folder stays as pass 1's record and the
+     ideas of the passes not run. Whether it stays past Release is
+     decided then; git history keeps every brief and report. -->
 
 ## Why
 
 1.0.0 is what a stranger reads. Before it is cut, the repo should
-read true, and read once. Release waits until the polish is done:
-all three passes come before it.
+read true, and read once. Release waits until the polish is done.
+
+The polish stopped after pass 1, on the reviewer's word
+(2026-10-11). What passes 2 and 3 meant to do, the reviewer goes
+through by hand instead: the repo part by part, the agent guiding
+and suggesting. Their sketches stay below as ideas, not plans.
 
 ## The passes
 
 | Pass | Brief | Job | Status |
 |---|---|---|---|
 | 1. Clean-up | `pass-1-clean-up.md` | Make every line true and put it in the right place | closed (2026-10-10) |
-| 2. Skills and rules | `pass-2-skills-and-rules.md` | Correct the skills and rules from what this project lived | sketch |
-| 3. Improve | `pass-3-improve.md` | Make the repo read well: wording, explanations, structure, references, test comments | sketch |
+| 2. Skills and rules | `pass-2-skills-and-rules.md` | Correct the skills and rules from what this project lived | stopped (2026-10-11) |
+| 3. Improve | `pass-3-improve.md` | Make the repo read well: wording, explanations, structure, references, test comments | stopped (2026-10-11) |
 
-Status moves: sketch → drafting → open (date) → closed (date).
+Status moves: sketch → drafting → open (date) → closed (date); a
+pass not run is stopped (date).
 
 Why this order:
 - Improving a stale line is wasted work, so clean-up goes first.
@@ -152,3 +159,10 @@ reviewer's word.
   report already says what each fix was. Its open items are
   decided one decision at a time, each covering every item of its
   kind: pass 1's fourteen groups came down to about six.
+- 2026-10-11 — The polish stops after pass 1, on the reviewer's
+  word. Passes 2 and 3 are not run; the reviewer goes through the
+  repo by hand, part by part, with the agent guiding — what the
+  passes meant to do, done as a conversation rather than a sweep.
+  Pass 1's open proposals (its report, and its manual's ideas) are
+  not applied; they stay as ideas. The regroup worked well, in the
+  reviewer's words.
