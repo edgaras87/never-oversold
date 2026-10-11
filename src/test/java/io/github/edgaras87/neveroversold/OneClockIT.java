@@ -26,9 +26,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <p>The counter {@code reserved} keeps counting the expired hold until
  * the next decision on the item frees it: the hold is ended at its
  * instant (SL-3's record, §3), and its receipt is written, and its units
- * freed, by the first reserve or correction that meets it. Between the
- * two the counter reads high, which no decision sees. Stated here so the
- * asymmetry is read as designed.
+ * freed, by the first reserve or correction on the item, or exit on the
+ * reservation, that meets it. Between the two the counter reads high,
+ * which no decision sees. Stated here so the asymmetry is read as
+ * designed.
  */
 class OneClockIT extends WebDatabaseIT {
 

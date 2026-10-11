@@ -20,7 +20,7 @@
  * </ul>
  *
  * <p><b>The ledger</b> — the statements to the store, the one entry path
- * to the numbers (slice record, §7):
+ * to the numbers (SL-1's record, §7):
  * <ul>
  *   <li>{@link Ledger} — reserve, adjust, consume and release, one
  *       transaction each; the decision is the commit, and a store lost

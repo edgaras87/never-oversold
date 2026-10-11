@@ -17,9 +17,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * shows the harness-side migrator path works end to end, and its rows show
  * what was applied and that nothing failed. Born with a count of zero (no
  * table before its invariant); SL-1's V1 turned the count positive without
- * changing what this proves. Riding on it: the wall that V1 carries is
- * read back from the catalog, so a constraint dropped "temporarily" is
- * seen here before any evidence test samples around its absence.
+ * changing what this proves. Riding on it: the walls V1 to V3 carry, and
+ * V4's index, are read back from the catalog, so one dropped
+ * "temporarily" is seen here before any evidence test samples around its
+ * absence.
  */
 class MigrationPathIT extends DatabaseIT {
 

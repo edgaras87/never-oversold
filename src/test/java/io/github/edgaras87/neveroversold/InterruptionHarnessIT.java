@@ -126,7 +126,7 @@ class InterruptionHarnessIT {
      * Not evidence: ending a held consume's session at the store removes
      * it — the way an instance is made to lose the store mid-request —
      * and the instance's caller gets an answer of some kind. Which answer
-     * is ADR-0016's, checked where its handler lands.
+     * is ADR-0016's, checked by {@code StoreOutOfReachIT}.
      */
     @Test
     void anEndedSessionLeavesTheStoreAndTheCallerIsAnswered() throws Exception {

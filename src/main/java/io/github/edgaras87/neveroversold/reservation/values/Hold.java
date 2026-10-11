@@ -8,8 +8,8 @@ import io.github.edgaras87.neveroversold.reservation.problems.InvalidRequest;
  * How long a reservation holds its units: the caller's to state (the
  * duration policy is refused at L2), positive and within the door's
  * stated bound. Carried to the store as seconds; the expiry instant
- * itself is the store's clock plus this (G5) — the ledger never reads a
- * clock.
+ * itself is the store's clock plus this (SL-1's G5) — the ledger never
+ * reads a clock.
  */
 public record Hold(Duration duration) {
 

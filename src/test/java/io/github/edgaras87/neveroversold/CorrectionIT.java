@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * SL-2's evidence, E1 and E2 (the slice record:
+ * SL-2's evidence, E1 to E4 (the slice record:
  * {@code docs/construction/sl-2-correction-never-undercuts.md}).
  *
  * <p>The adversity is not a race and cannot be made by hammering: it is

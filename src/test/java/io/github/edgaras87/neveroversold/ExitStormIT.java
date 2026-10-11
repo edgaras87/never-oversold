@@ -87,7 +87,7 @@ class ExitStormIT extends WebDatabaseIT {
     }
 
     /**
-     * E1 · G1 — kill 14, consume × release.
+     * E1 · G1 — kill 13, consume × release (F4).
      *
      * <p>Twenty-five consumes and twenty-five releases on R, interleaved,
      * released at one instant. One kind wins: R's receipt says which, and
@@ -170,7 +170,8 @@ class ExitStormIT extends WebDatabaseIT {
     }
 
     /**
-     * E2 · G1, with time — kill 13's third racer, consume × expiry (F23).
+     * E2 · G1, with time — kill 14, consume × expiry (F23): kill 13 with
+     * time as one racer.
      *
      * <p>Forty holds of one unit for one second, the shortest the door
      * allows, and a consume for each fired at its own expiry instant, give
