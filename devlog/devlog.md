@@ -8,6 +8,26 @@
      whole, word for word, to devlog/<YYYY-MM>.md: September 2026
      is in devlog/2026-09.md. -->
 
+## 2026-10-11  (the polish stops after pass 1)
+
+- Pass 1 landed on main (247dd70..d5192e4), regrouped from 36 small
+  commits into 7 by kind. A manual for the reviewer
+  (`.claude/polish/pass-1-manual.md`) joined the brief and the
+  report: the brief is the agent's, the manual the reviewer's.
+- The polish stops here, on the reviewer's word. Passes 2 and 3 are
+  not run. Instead the reviewer goes through the repo by hand, part
+  by part — why each exists, what it is for, whether it is written
+  as it should be — with the agent guiding and suggesting.
+- `.claude/polish/` is kept: pass 1's record, and the sketches and
+  ideas of the passes not run. Pass 1's proposals for its rules are
+  not applied; they stay as ideas.
+- The regroup worked well, in the reviewer's words; TODO's versions
+  item carries the verdict.
+- Resume: in a new session, start the walk-through. A place to
+  begin: pass 1's ideas list in its report, and the manual's two
+  ideas (firm on what and never, free on how; the sheet of truth
+  built first).
+
 ## 2026-10-10  (the polish, pass 1: clean-up)
 
 - Before Release, a polish in three passes, on the reviewer's
