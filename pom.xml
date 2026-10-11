@@ -17,9 +17,9 @@
     <groupId>io.github.edgaras87</groupId>
     <artifactId>never-oversold</artifactId>
     <!-- A version is a state of the evidence (CHANGELOG): 0.N while the
-         registry's slices close, N the slices evidence-closed. No slice
-         has closed. -->
-    <version>0.3-SNAPSHOT</version>
+         registry's slices close, N the slices evidence-closed. All four
+         have closed. -->
+    <version>0.4-SNAPSHOT</version>
     <name>never-oversold</name>
     <description>An inventory-reservation ledger in which the reserved quantity never exceeds the on-hand-count, however many reservations race for the same units.</description>
 
@@ -48,8 +48,7 @@
         </dependency>
 
         <!-- Operational health: a cheap world-is-up check every evidence run
-             gates on; it names the store as a component once the store is
-             wired. -->
+             gates on; it names the store as a component. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -63,9 +62,9 @@
         <!-- Connectivity to the ground as `runtime`: the promise is a
              property of persisted state, so the system reaches the store
              — plain SQL inside transactions, at capability grain. No
-             object mapping and no schema generation: nothing persists
-             domain state yet, and structure is never the running
-             application's to control (infrastructure contract). -->
+             object mapping and no schema generation: structure is never
+             the running application's to control (infrastructure
+             contract). -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
