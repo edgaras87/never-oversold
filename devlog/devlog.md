@@ -8,6 +8,39 @@
      whole, word for word, to devlog/<YYYY-MM>.md: September 2026
      is in devlog/2026-09.md. -->
 
+## 2026-10-10  (the polish, pass 1: clean-up)
+
+- Before Release, a polish in three passes, on the reviewer's
+  idea: clean-up, skills and rules, improve. Not a PLAN step; its
+  rules, briefs and reports are in `.claude/polish/`. Each pass on
+  its own branch, the agent committing freely there, never merging.
+- Pass 1 made every line true and put it in its record. A pilot on
+  README, TODO and CHANGELOG first, then seven areas, one read-only
+  reader each (Sonnet), then one re-check of the changes. Stopped
+  on "re-check dry".
+- 20 fixes. The biggest: README missed the tests' once-per-machine
+  setup; the pom still said 0.3 (caught only by comparing each
+  area's facts); ARCHITECTURE said three of four invariants; kills
+  13 and 14 swapped in SL-3 and ExitStormIT; September's devlog
+  entries cited as "the devlog" after the split. 100 tests green.
+- Fourteen groups for the reviewer came down to six decisions,
+  taken one at a time: history corrected only where it misleads
+  (temp/ was never ignored); two export revisions; the entry file
+  and the log's header (the handbook no longer upstream); PLAN's
+  slices slot skipped; SL-3's missing E7 row; TODO trimmed to
+  backlog.
+- Cost: about 720,000 agent tokens, 11 agents with the pilot's
+  three; the code area a third of it.
+- A read-only reader ran `git checkout`. Nothing moved (already on
+  the branch); the report proposes naming the forbidden commands.
+- Landed regrouped: 36 small commits kept on the local
+  `polish-1-clean-up-detail`, the branch committed again by kind.
+  That is the option TODO's versions item turned down on 2026-10-01,
+  tried here under the reviewer's exception; its verdict goes there.
+- Resume: once this lands, pass 2 (skills and rules): turn its
+  sketch into a brief, with pass 1's five rule proposals decided
+  first, then cut `polish-2-skills-and-rules`.
+
 ## 2026-10-10  (housekeeping: the take @ 5361213, the devlog split)
 
 - On `housekeeping-take-5361213`, cut from main.
