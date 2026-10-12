@@ -14,14 +14,57 @@
      and touches nothing else (the commit-messages skill carries
      that rule).
 
-     At the project retrospective, read top to bottom: each entry
-     graduates to the deliverer (the bundle, under TODO's *To the
-     deliverer*), stays local, or dies.
+     Read top to bottom at the retrospective (2026-10-12): what is
+     in force now is the list below the comment; an entry is history.
+     When a rule changes, the list changes with the new entry.
 
      The birth entry's "@" hash pins the handbook kit this project
      was born from. Every later pin is the bundle's: since 2026-09-18
      the bundle has been the only upstream (the entry of
      2026-09-20). -->
+
+## Rules in force now
+
+Each line: the rule, where its text lives, the entry that set it.
+The text is the home; this list only points.
+
+- Delivered copies are pinned at the bundle's 5361213, edited in
+  place from lived work, logged here and handed back; concept
+  chapters never edited. `.claude/rules/delivered-copies.md`
+  (2026-10-01).
+- One branch per step, fast-forwarded on the reviewer's word. PLAN,
+  Standing rules (2026-09-07).
+- A gate item is ticked when it comes true; the step reads `[~]`
+  while it runs. PLAN, Standing rules (2026-09-20).
+- The entry file is `.claude/CLAUDE.md` (2026-09-09).
+- The reviewer's pace is in `CLAUDE.local.md`, ignored; no settings
+  file gates commits (2026-09-09, both entries).
+- Shapes: `.claude/rules/shapes-lifecycle.md`. The slice-record
+  shape is read at a slice's close; the evidence-test shape loads
+  with any test (2026-09-22, 2026-10-01, 2026-10-07).
+- Conventions held as copies: commit-messages, commit-plan,
+  visual-comparison (2026-10-01).
+- What changed between versions is read from the index: the agent
+  stages each version it shows (2026-10-10).
+- How anything here reads, and where a fact lives:
+  `.claude/rules/writing.md`, `.claude/rules/one-home.md`, always
+  loaded (2026-10-12).
+- A retrospective runs by `.claude/skills/retrospective/`, this
+  project's own skill, with a manual for the reviewer beside it
+  (2026-10-12, later).
+
+Replaced, and by what:
+- "Pinned copies change only by copying anew" (2026-09-07), the
+  five guards (2026-09-14) and the seven rules of
+  `skills-changed-in-place.md` (2026-09-15, three entries): by
+  `delivered-copies.md` (2026-10-01).
+- The handbook as an upstream: by the bundle, the only upstream
+  since 2026-09-18 (2026-09-20, later).
+- `artifact-kinds`' shape entry (2026-09-22): folded into the
+  shapes rule (2026-10-01).
+- "temp/ is ignored" (2026-09-17): wrong; corrected 2026-10-10.
+
+## Log
 
 - 2026-09-07 Born from the engineering-handbook starter kit
   @ c670fe5.
@@ -986,3 +1029,32 @@
   Rejected: leaving it in TODO (the backlog item could not be read
   for its open question); dropping the IDE steps (the reviewer's
   own setup, found once and costly to find again).
+
+- 2026-10-12 Two rules of this project's own, kept: `writing.md`
+  (how anything here reads: plain, short sentences, numbers, no
+  metaphor) and `one-home.md` (each fact in one record; elsewhere a
+  link). Both always loaded. Written on `try/writing-rule` from the
+  retrospective's D1 and D2, used for the rest of the retro, kept
+  at its close on the reviewer's word.
+  Why: run 3's records were dense and told one fact in several
+  places; "explain plainly" sat in memory and did not change the
+  records. A rule loaded at every session did.
+  Rejected: keeping the voice in `CLAUDE.local.md` only (it is the
+  reviewer's, and does not reach the records' readers); one rule
+  for both (how a fact reads and where it lives are separate
+  questions).
+
+- 2026-10-12, later A skill of this project's own, kept:
+  `.claude/skills/retrospective/` — SKILL.md for the agent, and
+  `manual.md` for the reviewer. Written on `try/retro-skill` from
+  run 3's retrospective (RETRO.md, D23), which it describes as it
+  was done; kept at once on the reviewer's word. The entry file's
+  line on what is a delivered copy now names everything this
+  project wrote itself.
+  Why: the retro's way of working existed only in one session's
+  conversation; a skill is how this method keeps a way of working,
+  and the next run meets it from the bundle (TODO, To the
+  deliverer).
+  Rejected: only a PLAN step (the how would be lost, or copied into
+  the gate); only a skill (nothing says when it runs); a prose note
+  to the deliverer (a working text is what it can take or reshape).
