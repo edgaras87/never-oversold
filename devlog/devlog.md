@@ -8,6 +8,15 @@
      whole, word for word, to devlog/<YYYY-MM>.md: September 2026
      is in devlog/2026-09.md. -->
 
+## 2026-10-12  (Step 9 closed)
+
+- Main fast-forwarded from `retrospective` (7 commits, be9c11b to
+  b4ae8f7), on the reviewer's word. Step 9 ticked and closed.
+- *To the deliverer* now also offers this run's own files whole
+  (the two rules, the retrospective skill and its manual) and says
+  `CLAUDE.local.md` comes by the reviewer's hand.
+- Resume: the deliverer re-checks this run from main. Then Release.
+
 ## 2026-10-12  (Step 9: the retrospective, closing)
 
 - The retrospective is now this run's Step 9, before Release, as

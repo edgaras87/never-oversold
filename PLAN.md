@@ -1016,13 +1016,12 @@ before its work starts.
 Notes: skipped — no slice remains: the registry's four closed by
 Step 8.
 
-## Step 9: Retrospective  (retrospective)    [~]
+## Step 9: Retrospective  (retrospective)    [x] 2026-10-12
 
 Goal: every lesson of this run that the next run should act on is
 a decision in RETRO.md, with an example from the run and the place
 it lands; the run's own hand-off lists point to those decisions;
 and what only the next run can check is listed for its PLAN.
-Now: closing. Main moves by fast-forward on the reviewer's word.
 Gate:
 - [x] The branch `retrospective` is cut from main, and the step
       has not been worked anywhere else. Its two experiments ran on
@@ -1063,7 +1062,7 @@ Gate:
 - [x] No implementation file is older than the decision it
       realizes: no implementation file changed, and the rules and
       the skill land after the note that decided them.
-- [ ] The step reached main by fast-forward from `retrospective`,
+- [x] The step reached main by fast-forward from `retrospective`,
       on the reviewer's word.
 Notes: opened 2026-10-11 as the walk-through after the polish, and
 turned into this retrospective the same day: run 3 stays as it is,
@@ -1071,6 +1070,13 @@ and its lessons go to run 4. Numbered 9 because no slice step took
 the number (Steps 9..N-1, skipped). The skill it names was written
 in this step, from this step. The reviewer decided each decision,
 each experiment, and when the branch lands.
+
+Closed 2026-10-12. Run 3 walked in ten parts; 23 decisions in
+RETRO.md, each with an example, what was rejected, and where it
+lands. Two rules and one skill of this project's own, kept from
+their trials and offered to the deliverer. 61 small commits
+regrouped into 7 by kind, kept on `retrospective-detail` until the
+reviewer drops it.
 
 ## Step N: Release                                  [ ]
 

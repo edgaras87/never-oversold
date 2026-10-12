@@ -8,12 +8,11 @@
 
 ## Now (current plan step)
 
-- [ ] Step 9, the retrospective, closing: main moves by
-      fast-forward from `retrospective` on the reviewer's word.
-      Then everything the deliverer must take is marked under *To
-      the deliverer*.
+- [ ] The deliverer's re-check of this run: it reads main and
+      answers what is under *To the deliverer*. Step 9 closed
+      2026-10-12.
 
-## Next (after the retrospective)
+## Next (after the re-check)
 
 - [ ] Step N, Release. Its gate is derived when it opens.
 
