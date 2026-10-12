@@ -8,6 +8,65 @@
      whole, word for word, to devlog/<YYYY-MM>.md: September 2026
      is in devlog/2026-09.md. -->
 
+## 2026-10-12  (Step 9: the retrospective, closing)
+
+- The retrospective is now this run's Step 9, before Release, as
+  D23 says a retrospective is. Its gate is D23's draft, ticked with
+  where each fact can be checked. One item is struck: the gate was
+  not written before the work, because the step was invented during
+  it.
+- Release opens after Step 9, and gains one known item: its own
+  lessons go into RETRO.md. PLAN's old "Retrospective (fill at
+  project end)" section points to Step 9.
+- RETRO.md has its row in the records tables, CLAUDE.md's and
+  README's.
+- The branch was regrouped from 58 commits into a few by kind; the
+  small ones are on `retrospective-detail`.
+- Resume: fast-forward main from `retrospective` on the reviewer's
+  word. Then mark under *To the deliverer* everything this run
+  found or changed, and open Release.
+
+## 2026-10-12  (D23: the retrospective kept as a skill)
+
+- D23 decided, option C: the retro becomes a skill, a PLAN step after
+  the last slice and before Release, and a manual for the reviewer.
+  Release gains a closing item: its lessons go into the note.
+- Drafted from this retro on `try/retro-skill`:
+  `.claude/skills/retrospective/` (SKILL.md, manual.md), and the
+  PLAN step in D23's text. Kept at once; merged and the branch
+  deleted. Decisions log entry and "Rules in force now" line added.
+- The entry file's line on delivered copies was already wrong: it
+  named only one shape as this project's own. It now names
+  everything this project wrote itself.
+- Resume: on branch `retrospective`, regroup its commits by kind
+  (small ones kept on `retrospective-detail`) and land it on main
+  on the reviewer's word.
+
+## 2026-10-11 → 2026-10-12  (the retrospective, all ten parts)
+
+- The walk-through became a retrospective: run 3 stays as it is,
+  and the lessons go to run 4 through the bundle. Note: `RETRO.md`,
+  on branch `retrospective`; main untouched.
+- All ten parts walked. 22 decisions, D1 to D22, each with a run 3
+  example, where it lands, and what was considered and rejected.
+- `try/writing-rule` kept: `writing.md` and `one-home.md`, always
+  loaded. Merged into `retrospective`, the branch deleted.
+- Run 3's hand-off lists closed into the note (D20): TODO's answered
+  items point to their decisions; the decisions log opens on "Rules
+  in force now". TODO asks the deliverer to apply D1 to D22.
+- The conversation, cleaned, is kept by the reviewer outside the
+  repo, as raw context if a session is lost.
+- Rejected drafts are not dead ends of the work; each sits in its
+  decision's "Considered and rejected" lines.
+- Open, proposed and not decided: D23, keeping the retro process
+  itself. A skill for the how, a PLAN step after the last slice and
+  before Release for the gate, a plain manual for the reviewer;
+  Release adds its own lessons at its close. Draft on
+  `try/retro-skill`.
+- Resume: on branch `retrospective`, decide D23. Then regroup the
+  branch's commits by kind and land it on main on the reviewer's
+  word.
+
 ## 2026-10-11  (the polish stops after pass 1)
 
 - Pass 1 landed on main (247dd70..d5192e4), regrouped from 36 small

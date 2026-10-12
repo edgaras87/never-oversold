@@ -8,15 +8,12 @@
 
 ## Now (current plan step)
 
-- [ ] The walk-through before Release: the reviewer goes through
-      the repo part by part — why each part exists, what it is for,
-      whether it is written as it should be — with the agent guiding
-      and suggesting. Not a PLAN step. It replaces the polish's
-      passes 2 and 3, stopped 2026-10-11 after pass 1; pass 1's
-      ideas list (`.claude/polish/pass-1-report.md`, *Ideas for pass
-      3*) is one place to start.
+- [ ] Step 9, the retrospective, closing: main moves by
+      fast-forward from `retrospective` on the reviewer's word.
+      Then everything the deliverer must take is marked under *To
+      the deliverer*.
 
-## Next (after the walk-through)
+## Next (after the retrospective)
 
 - [ ] Step N, Release. Its gate is derived when it opens.
 
@@ -171,35 +168,27 @@
      line leaves when a note answers it. Last answered: the note of
      2026-10-10, read through c7073c7. -->
 
+- [ ] Apply RETRO.md's decisions. Each says what to change and
+      where it lands; D22 lists what run 4 must meet as gate items
+      in its own PLAN.
+- [ ] Files this project wrote, offered whole: the writing and
+      one-home rules (`.claude/rules/`), and the retrospective
+      skill with its manual (`.claude/skills/retrospective/`). Why
+      each: RETRO.md, D1, D2 and D23; D23 also drafts the PLAN step.
+- [ ] `CLAUDE.local.md`, the reviewer's way of working, is not in
+      the repo (it is ignored). The reviewer brings it by hand
+      (RETRO.md, D3).
 - [ ] Retrospective (playbook): PLAN's Release step was reshaped at
       birth — a Goal line, the gate in the run's step form, the two
       `(CbC)` items no longer naming another run's exclusions. Fold
       back to the cbc-run-pure playbook (its v5 already derives
-      Release's gate; check the rest). Held until the retrospective.
-- [ ] Retrospective: four arrangement pieces on trial from Step 1 —
-      the one-branch-per-step rule (PLAN, Standing rules), the kit
-      @ af16eb7 with its settings-file gate rejected, the operator's
-      CLAUDE.local.md holding the pace, the entry file under
-      .claude/. Each that held folds back to the bundle, the kit's
-      owner. The fifth, skills edited between two pins, is settled:
-      it is `delivered-copies.md`, taken @ 0000855. Held until the
-      retrospective.
-- [ ] Retrospective (playbook): a fifth arrangement piece on trial,
-      from Step 6 — gate items ticked as they come true, the step's
-      marker at `[~]` while it runs, a tick recording a verification
-      and never that the item is final (PLAN, Standing rules; the
-      why and the rejected option in `.claude/decisions.md`). If it
-      holds, the fold-back is the run playbook's step form. Held
-      until the retrospective.
-- [ ] This project's slice-record shape, offered as a finding
-      (`.claude/shapes/slice-record.md`): held there, and weighed
-      when the bundle first holds a shape of its own. Nothing owed
-      here. It has moved since the note: on 2026-10-01 it took a
-      third part, the faces weighed for a guarantee, as blocks; on
-      2026-10-07, at its first reading (SL-3's close), dated labels
-      for a face revised after signing; on 2026-10-08, a face's
-      assumed size and a backstop seen or unproven. Its dated lines
-      say what taught each.
+      Release's gate; check the rest). Still open after the
+      retrospective: run 3's Release was not run (RETRO.md, D20).
+- [ ] Four arrangement pieces on trial from Step 1: judged in
+      RETRO.md, D4 (all kept).
+- [ ] Gate items ticked as they come true (on trial from Step 6):
+      judged in RETRO.md, D4 (kept).
+- [ ] This project's slice-record shape: decided in RETRO.md, D12.
 - [ ] `infra-establish`'s silence on the contract's facility
       paragraph: held there, until a second run reaches the same
       gap unprompted. Asked whether SL-2 leaned on it: no. SL-2
@@ -211,32 +200,8 @@
       promised: this run met one again in SL-2. Its G5 and G6 are
       both held by an absence, each guarded by a test that reads
       the source, in the spirit of SL-1's no-process-clock rule.
-- [ ] This project's evidence-test shape, offered as a finding
-      (`.claude/rules/evidence-test.md`, written 2026-10-07 at
-      SL-3). Exposed here, because the failure it answers happened
-      while writing tests, after three slices had shown what they
-      produce without it. Whether it reaches another project, and
-      whether hidden first so that project's own tests can be read
-      against it, is yours. Its skeleton is marked apart from this
-      project's illustration. It has moved since: on 2026-10-10, at
-      its second reading (SL-4's close), a slice's own invariant
-      asserted after the promise where it is not the promise itself,
-      and a reading whose parts must agree taken in one read. Its
-      dated lines say what taught each.
-- [ ] A question, raised by that shape: should a rule, not only a
-      shape, be deliverable hidden or on trial — read at a gate
-      rather than loaded while working — until a second project
-      arrives at it unprompted? Today only shapes have the two
-      places; a rule learned in one run is in force in the next
-      from its first step. This run's own standing rules carry "on
-      trial" in PLAN until the retrospective; a delivered rule has
-      no such state.
-- [ ] The method has no glossary. Its words are defined where each
-      is first used, across the chapters and the skills, and five of
-      them — tripwire, witness, fold, fence, possession — appear only
-      in the skills, never in the chapters a reader starts from; the
-      wall's own check, named in this run's edit to `cbc-slice`,
-      joins them. Raised 2026-10-08, when the reviewer asked whether
-      "early warning" had replaced "tripwire" — it had not; E7 had
-      been called a tripwire in a sense the skill does not give the
-      word — and then where the words are defined at all.
+- [ ] This project's evidence-test shape: decided in RETRO.md,
+      D13.
+- [ ] Should a rule be deliverable on trial? Answered in RETRO.md,
+      D4: a trial names the close that judges it.
+- [ ] The method has no glossary: decided in RETRO.md, D2 and D6.
