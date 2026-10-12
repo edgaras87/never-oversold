@@ -1016,6 +1016,62 @@ before its work starts.
 Notes: skipped — no slice remains: the registry's four closed by
 Step 8.
 
+## Step 9: Retrospective  (retrospective)    [~]
+
+Goal: every lesson of this run that the next run should act on is
+a decision in RETRO.md, with an example from the run and the place
+it lands; the run's own hand-off lists point to those decisions;
+and what only the next run can check is listed for its PLAN.
+Now: closing. Main moves by fast-forward on the reviewer's word.
+Gate:
+- [x] The branch `retrospective` is cut from main, and the step
+      has not been worked anywhere else. Its two experiments ran on
+      `try/` branches cut from it and merged back.
+- [-] This gate was written before the work started. Struck: the
+      step was invented during its own work (RETRO.md, D23), and
+      this gate was drafted from that work at the close. The next
+      run writes it first.
+- [x] RETRO.md's parts table lists every part of the run, each
+      marked done with its date: ten parts, done 2026-10-11 and
+      2026-10-12.
+- [x] Every decision has an example from the run and a "Lands in"
+      that names a skill, a rule, the playbook, a template or the
+      reviewer's local file: D1 to D23.
+- [x] Every Parked item is judged, or names the part or the next
+      run's step that takes it: one left, judged in parts 6 and 8.
+- [x] Every `try/` branch is kept or dropped, and the note's
+      Experiments line says which: `try/writing-rule` and
+      `try/retro-skill`, both kept.
+- [x] Every item in TODO's "To the deliverer" that a decision
+      answers is one line naming it; one line asks the deliverer
+      to apply the note. Six point to decisions; three stay open.
+- [x] The decisions log opens on "rules in force now", with what
+      each rule replaced.
+- [x] What only the next run can check is listed in the note, each
+      with the step that judges it: D22's table.
+- [x] The commits are regrouped by kind before landing; the small
+      ones are kept on `retrospective-detail`.
+- [x] `temp/` is checked for shapes delivered for this step, and
+      what was found is said in a line: it is empty.
+- [-] What the step produced is read against the shapes that govern
+      it. Struck: no shape governs a retrospective's note, a rule
+      or a skill.
+- [x] Every commit on `retrospective` follows commit-messages:
+      every subject 50 or under, every body line 72 or under.
+- [x] No commit straddles agent and project paths, so the
+      arrangement's history stays separable from the project's.
+- [x] No implementation file is older than the decision it
+      realizes: no implementation file changed, and the rules and
+      the skill land after the note that decided them.
+- [ ] The step reached main by fast-forward from `retrospective`,
+      on the reviewer's word.
+Notes: opened 2026-10-11 as the walk-through after the polish, and
+turned into this retrospective the same day: run 3 stays as it is,
+and its lessons go to run 4. Numbered 9 because no slice step took
+the number (Steps 9..N-1, skipped). The skill it names was written
+in this step, from this step. The reviewer decided each decision,
+each experiment, and when the branch lands.
+
 ## Step N: Release                                  [ ]
 
 <!-- Kit step — vendored from starter/playbooks/default.md
@@ -1027,12 +1083,11 @@ Gate: derived when this step opens — verifiable facts, from the
 goal, the run's records, and the exclusions framing recorded.
 Known already: a CHANGELOG entry for the release; README true for
 a stranger, its commands verified on a clean machine; known
-issues filed in TODO.md. Decided at framing, checked here:
+issues filed in TODO.md; Release's own lessons added to RETRO.md,
+as decisions in the same form (RETRO.md, D23). Decided at framing, checked here:
 monitoring and alerts in place; deploy and rollback documented and
 tried once — each unless this run's own recorded exclusion.
-Notes: opens after the walk-through — the reviewer going through
-the repo part by part, not a step. The polish before it stopped
-after pass 1 (`.claude/polish/`).
+Notes: opens after the retrospective, Step 9.
 
 <!-- STEPS-END -->
 
@@ -1066,22 +1121,6 @@ after pass 1 (`.claude/polish/`).
 
 ## Retrospective  (fill at project end)
 
-Ran: <start> → <end>
-
-1. Estimate vs reality — which steps took much longer/shorter, why?
-2. Wrong order — what needed to happen earlier?
-3. Dead ends — approaches tried and abandoned (→ playbook warnings).
-4. Missing steps — work that had no home in the plan.
-5. Useless gates — ceremony that caught nothing.
-6. The entry file — read CLAUDE.md top to bottom; every line still
-   passes its three tests, or leaves (the tests are written in its
-   own comment, above Local rules).
-7. What this project gives back — whether
-   `.claude/shapes/slice-record.md` has held across every slice. It
-   is already offered to the bundle as a finding, and held there
-   (TODO, To the deliverer). What waits for the retrospective is
-   what this project found that no other has.
-
-Then fold lessons into the playbook the steps came from — the
-"Steps from" line at the top names it — in the repo that owns it,
-and bump its version there.
+Answered by Step 9: the questions this section held are walked in
+RETRO.md, part by part, and its lessons go back to the playbook
+through the deliverer (TODO, To the deliverer).

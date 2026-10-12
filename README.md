@@ -190,6 +190,7 @@ Without them the integration tests cannot start their store.
 | Backlog | [TODO.md](TODO.md) | What's known but not done |
 | Changelog | [CHANGELOG.md](CHANGELOG.md) | What changed per version (for users) |
 | Devlog | [devlog/](devlog/) | Day-to-day work, dead ends, open questions |
+| Retrospective | [RETRO.md](RETRO.md) | What the next run does differently, and why |
 
 <!-- A line here is true now, and meant for someone arriving from
      outside. What changes weekly is PLAN.md's; why is the ADRs'; how
