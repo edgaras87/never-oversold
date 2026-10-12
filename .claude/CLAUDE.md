@@ -21,11 +21,12 @@ revision entry, never in place.
 
 Everything under `.claude/skills/`, `.claude/rules/` and
 `docs/concept/` is a copy delivered by the bundle, pinned at one of
-its commits — save a shape this project wrote and exposed in
-`.claude/rules/`, which says so in its own revisions (the shapes'
-lifecycle: `.claude/rules/shapes-lifecycle.md`). A skill or rule may
-be corrected in place from lived work, each edit logged and handed
-back; a concept chapter never is.
+its commits — save what this project wrote itself: the
+evidence-test shape, the writing and one-home rules, and the
+retrospective skill, each listed in the decisions log's "Rules in
+force now" (how shapes live: `.claude/rules/shapes-lifecycle.md`).
+A skill or rule may be corrected in place from lived work, each
+edit logged and handed back; a concept chapter never is.
 How, and how a new delivery is taken:
 `.claude/rules/delivered-copies.md`.
 
@@ -54,6 +55,7 @@ How, and how a new delivery is taken:
 | Something became true the outside should see | The front door: what this is, how to use it | README.md |
 | Agent setup changed, or a convention arrives | Decision, why, rejected options; every delivery, with its pin | .claude/decisions.md |
 | Work needs more than one commit | In-flight change set | COMMIT-PLAN.md (when present) |
+| Asking what the next run does differently, and why | The retrospective's decisions, each with its example and where it lands | RETRO.md |
 | Asking what the polish's pass 1 did, or what the passes not run would have done | Pass 1's rules, brief, manual and report; the sketches of passes 2 and 3 | .claude/polish/ |
 
 <!-- This file is loaded in full on every task, relevant or not, so
