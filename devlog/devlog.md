@@ -8,6 +8,75 @@
      whole, word for word, to devlog/<YYYY-MM>.md: September 2026
      is in devlog/2026-09.md. -->
 
+## 2026-10-15  (Step 10: the build and the close)
+
+- Built from 2026-10-13 to 2026-10-15, one planned commit at a time,
+  each staged and shown. About 175 small commits on the branch.
+- Tools first: the check script, run as a baseline, then after every
+  move. Repeats removed, slice records regrouped one block per
+  guarantee, tags and local numbers given their owners, tests moved
+  into folders by kind, the skills fixed from run 3's evidence
+  (E2.1 to E2.12), a glossary written.
+- The plain pass ran three times, as the reviewer asked: pass 1 one
+  record at a time, owners before summaries, README last, each
+  rewrite checked by a fresh reader; pass 2 read every record
+  against the revised ones and fixed about 35 mismatches; pass 3
+  over what pass 2 changed found 13 more, all small, and the pass
+  ended there.
+- "Shape" now means only a page in `.claude/shapes/`; SL-2's heading
+  "The correction's shape — decided" keeps its name, noted in the
+  glossary.
+- cbc-slice says each thing once (shared long phrases 33% to 0.5%);
+  the delivered-copies rule written plain; every copy edited logged,
+  four of them untried here.
+- The close: 100 tests green, as at Step 8. A first count said 195:
+  the report folder kept files from before the tests moved. The
+  shape reading's differences settled as three decisions with the
+  reviewer. commit-plan gained small steps; `apply-retrospective`
+  built from the manual, its own skill. RETRO.md names each row's
+  commits; TODO hands the copies over.
+- DEAD END: a rewrap script joined a heading to its paragraph, a
+  *Say:* label to the line above, and once cbc-slice's front matter
+  into one line. Each was caught and fixed; the script now skips
+  them. A text tool is checked on what it must not touch.
+- Sixteen commits on the branch have subjects over 50 characters,
+  found only at the close. The regroup writes the landing commits to
+  the rule; `commit-plan` now says to check when written.
+- One commit landed without being shown staged first (the
+  slice-record shape at Close 1); the reviewer kept it.
+- Resume: on `step-10-apply-retro`, Close 7 (the commit plan
+  closed), then the look back and the regroup by kind, the small
+  commits kept on `step-10-apply-retro-detail` and its tag, and main
+  on the reviewer's word. Then the deliverer's re-check, then
+  Release.
+
+## 2026-10-12  (Step 10: the triage, and the commit plan)
+
+- Step 10 opened on `step-10-apply-retro`, its gate written first,
+  and a provisional manual for the reviewer started
+  (`.claude/apply-retro/manual.md`).
+- The triage ran one decision at a time: 27 rows in RETRO.md's
+  "Applied to run 3", 11 applied, 14 partly, 2 next run only. Three
+  new decisions arose in it: D25 (new work starts from a
+  provisional manual; its steps in `CLAUDE.local.md`), D26 (the
+  evidence runs the system in the form it ships) and D27 (tests
+  placed by kind). D18 changed: every shape read at the gate only.
+- A dead end worth keeping: the agent suspected the tests never
+  dropped the store's connection. `StoreOutOfReachIT` does, and
+  checks the 503. Read before claiming a gap (D26).
+- The briefing is lost: never committed, and the earliest session
+  transcript is from the day after framing (D8).
+- The manual was updated with what the triage taught.
+  COMMIT-PLAN.md committed, approved: about 35 commits in seven
+  groups, tools first, the close last.
+- `CLAUDE.local.md` gained "New kinds of work" (D25). It is not
+  tracked; the reviewer carries it.
+- Resume: on `step-10-apply-retro`, commit 2 of the plan, the check
+  script, run once as a baseline before anything is fixed. Build in
+  small commits; at each planned commit's boundary, squash, keep
+  the small ones on `step-10-apply-retro-detail`, and show the
+  reviewer.
+
 ## 2026-10-12  (Step 9 closed)
 
 - Main fast-forwarded from `retrospective` (7 commits, be9c11b to

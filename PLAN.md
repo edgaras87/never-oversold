@@ -1,32 +1,35 @@
 # Plan: never-oversold
 
-<!-- The stub ships the pure shape: the steps below are placeholders
-     showing the form — a goal, a gate of verifiable facts, the records
-     expected. At birth the install manual replaces the region between
-     the STEPS markers with a playbook's full sequence — the handbook's
-     or a concept's; the playbook itself stays where it came from. Born
-     without one, fill the placeholders in place. Either way the two
-     STEPS markers stay: they are what makes the swap re-runnable. -->
+Words and tags used here: [glossary](docs/glossary.md).
 
-<!-- Steps from: cbc-run-pure v4 at 57cf22f,
-     copied at birth. Filled in place at birth; this comment stays —
-     the retrospective folds lessons back to what it names. -->
+<!-- The stub shipped placeholder steps, each with a goal, a gate of
+     verifiable facts and the records expected. At birth, the install
+     manual replaces the region between the STEPS markers with a
+     playbook's full sequence, the handbook's or a concept's. The
+     playbook itself stays where it came from. Born without one, fill
+     the placeholders in place. Either way, the two STEPS markers
+     stay: they make the swap re-runnable. -->
+
+<!-- Steps from: cbc-run-pure v4 at 57cf22f, copied at birth, and
+     filled in place at birth. This comment stays: the retrospective
+     folds lessons back to what it names. -->
 
 ## Legend
 
 `[ ]` planned  ·  `[~]` in progress  ·  `[x]` done (+date)  ·  `[!]` blocked (+what unblocks)  ·  `[-]` skipped (+why)
 
 **Gate** = exit criteria: verifiable facts, not intentions. A step is done only when every gate item is true.
-Detail only the next 1–2 steps finely; keep later steps coarse (rolling wave).
+Only the next one or two steps are detailed. Later steps stay coarse until they come near.
 
-Each step carries Goal · Gate · Notes, and a gate is derived when
+Each step carries Goal · Now · Gate · Notes, and a gate is derived when
 the step opens, never at its close. The form and the items every
 step's gate starts from are below, under "The step form".
 
 ## Standing rules
 
-<!-- Arrived 2026-09-07, before the briefing; on trial from Step 1.
-     Its why and rejected options: .claude/decisions.md. -->
+<!-- Arrived 2026-09-07, before the briefing. On trial from Step 1,
+     and kept at the retrospective (RETRO.md, D4). Why, and the
+     options rejected: .claude/decisions.md. -->
 
 - **One branch per step.** A step starts on its own branch cut
   from main, and ends after its gate closes by fast-forward merge
@@ -38,38 +41,44 @@ step's gate starts from are below, under "The step form".
   step's own marker stands at `[~]` from its first tick until its
   last. A gate that reads all-unticked through a step is not
   telling the truth about where the step is. A tick records a
-  verification, never that the item is final: an item rewritten
-  mid-step keeps its tick only if what was verified still
-  satisfies the new words, and loses it in the devlog's words if
-  not. On trial from Step 6.
+  verification, never that the item is final. An item rewritten
+  mid-step keeps its tick only if what was verified still satisfies
+  the new words. If not, it loses its tick, and the devlog says why.
+  On trial from Step 6, and kept at the retrospective (RETRO.md,
+  D4).
 
 ## The step form, and the gate items every step starts from
 
-<!-- Copied into a step when it opens, and filled in.
-     Copied, never shared: a step's gate item carries that step's
-     own tick, so one checkbox cannot serve six steps. On trial
-     from Step 7; earlier steps wrote these lines by hand and are
-     not reworded, their ticks being a record of what was verified
-     in the words the reviewer approved. Why and rejected options:
+<!-- Copied into a step when it opens, and filled in. Copied, never
+     shared: a step's gate item carries that step's own tick, so one
+     checkbox cannot serve six steps. On trial from Step 7, and kept
+     at the retrospective (RETRO.md, D4). Since then, a step's own
+     items are goal facts. Earlier steps wrote these lines by hand,
+     and are not reworded: their ticks record what was verified, in
+     the words the reviewer approved. Why, and the options rejected:
      .claude/decisions.md -->
 
 ```markdown
 ## Step <n>: <title>  (<the skill it runs, if any>)    [ ]
 
 Goal: <one sentence: the state that is true when this step is done>
+Now: <where the step stands, one line, changed when the step
+ enters a new stage: one of its skill's stages, or, for a step with
+ no skill, one its Notes list>
 Gate:
 <the opening items below, filled in>
-<this step's own items, derived from the goal, the named skill and
- the registry>
+<this step's own items: ask of the goal "how would I check that's
+ true?" Each answer is one item: a fact, checkable by looking, what
+ and not how. Together they equal the goal.>
 <the closing items below, filled in>
 Notes: <opened <date>; what the reviewer signs and when; what the
 step presumes from the steps before it>
 ```
 
 **At the opening, before any of the step's work.** These are
-cheap to satisfy then and impossible to satisfy later — a branch
-not cut cannot be cut afterwards, and a gate derived at the close
-is a description of what happened rather than a standard the work
+cheap to satisfy then, and impossible to satisfy later. A branch
+not cut cannot be cut afterwards. And a gate derived at the close
+describes what happened, instead of setting a standard the work
 was held to.
 
 - [ ] The step's branch `<branch>` is cut from main, and the step
@@ -79,15 +88,12 @@ was held to.
 
 **At the close.**
 
-- [ ] `temp/` is checked for shapes delivered for this step, and
-      what was found is said in a line — including that nothing
-      was.
-- [ ] *(one pair per shape that governs what this step produced;
-      the lifecycle says where shapes live and how to find which
-      ones govern this)* What the step produced is read against
-      `<shape>`, delivered or already here.
-- [ ] Every difference that reading found is settled: the shape was
-      wrong here, the output drifted, or each had something.
+- [ ] *(one pair per shape in `.claude/shapes/` that governs what
+      this step produced)* What the step produced is read against
+      `<shape>`.
+- [ ] Every difference that reading found is settled: the output
+      drifted, the shape was wrong here, each had something, or the
+      output is a different kind and a new shape starts from it.
 - [ ] Every commit on `<branch>` follows commit-messages.
 - [ ] No commit straddles agent and project paths, so the
       arrangement's history stays separable from the project's.
@@ -96,14 +102,16 @@ was held to.
 - [ ] The step reached main by fast-forward from `<branch>`, on the
       reviewer's word.
 
-A step's own gate is these, filled, plus whatever its goal, its
-named skill and the registry demand — derived as they always were.
+A step's own gate is these, filled, plus its own items, asked of
+its goal as the form says. The named skill sets the order of work.
+Its stages are not copied into the gate, and an item is ticked when
+it comes true, whenever that is.
 
-Shapes are not described here. When a shape is written, what
-settling a difference does to it, when it is promoted, and how one
-moves between repositories are the shape lifecycle's, in
-`.claude/rules/`. This section is the gate: which items a step
-starts from, and how they are used.
+Shapes are not described here. How shapes live is in
+`.claude/rules/shapes-lifecycle.md`: when one is written, what
+settling a difference does to it, and how one moves between
+repositories. This section is the gate: which items a step starts
+from, and how they are used.
 
 **A default does not fit this step at all.** It is struck there
 with its reason, which is a finding about the default rather than a
@@ -1078,22 +1086,93 @@ their trials and offered to the deliverer. 61 small commits
 regrouped into 7 by kind, kept on `retrospective-detail` until the
 reviewer drops it.
 
+## Step 10: Apply the retrospective    [x] 2026-10-15
+
+Goal: run 3 hands over what its retrospective showed could be
+better, wherever that changes how its records read and not what it
+proved; what happened to each decision is recorded; and the way
+this step was done is kept as a skill.
+Now: closed. The small commits are on `step-10-apply-retro-detail`,
+a branch and a tag; the regrouped ones are on main.
+Gate:
+- [x] The step's branch `step-10-apply-retro` is cut from main, and
+      the step has not been worked anywhere else, save `try/`
+      branches cut from it.
+- [x] This gate was written before the work started.
+- [x] RETRO.md's "Applied to run 3" has one row for every decision
+      in the note: applied here, next run only, or partly, each with
+      its reason.
+- [x] Every row applied here, or partly, names the commits that
+      applied it.
+- [x] What run 3 proved is unchanged: `./mvnw test` is green, with
+      as many tests as at Step 8's close.
+- [x] History keeps its words: no commit on the branch edits a
+      devlog entry, a closed ADR's body, a closed step's gate, or a
+      released CHANGELOG version.
+- [x] The exports change only through dated revision entries.
+- [x] Every delivered copy edited here has its decisions-log entry
+      and its TODO line asking the deliverer to compare it with the
+      bundle since the pin.
+- [x] Every link and path in the records resolves, and every ADR,
+      slice and kill a record cites exists.
+- [x] No living line still says "now", "today" or "not yet" about
+      something that has since changed. (Added mid-step, at the
+      commit plan's commit 3: RETRO.md, D17.)
+- [x] What trying a decision taught is written back into RETRO.md,
+      dated, on the decision it changed.
+- [x] The step's manual is no longer provisional, and a skill is
+      built from it and from this step, with a decisions-log entry.
+- [x] TODO's *To the deliverer* matches the result.
+- [x] `temp/` is checked for shapes delivered for this step, and
+      what was found is said in a line.
+- [x] What the step produced is read against every shape that
+      governs it: the slice-record shape for the slice records, the
+      kill shape for the definition's kills, the registry-entry
+      shape for the registry's entries, and the evidence-test shape
+      for any test it touched. (The kill and registry-entry shapes
+      added mid-step, at the plain pass's second reading: both were
+      written in this step, RETRO.md D29.)
+- [x] Every difference that reading found is settled: the output
+      drifted, the shape was wrong here, each had something, or the
+      output is a different kind and a new shape starts from it.
+- [x] Every commit on `step-10-apply-retro` follows commit-messages.
+- [x] No commit straddles agent and project paths.
+- [x] No implementation file is older than the decision it
+      realizes.
+- [x] The step reached main by fast-forward from
+      `step-10-apply-retro`, on the reviewer's word.
+Notes: opened 2026-10-12, after Step 9, from RETRO.md D24. The
+reviewer decides each triage row and approves the commit plan
+before any change. The commit plan opens after the triage. The
+manual for this step is written as the step runs
+(`.claude/apply-retro/manual.md`), provisional until the close; at
+the close it became `.claude/skills/apply-retrospective/`.
+Its stages: triage, commit plan, build, close. At Close 1
+(2026-10-15): `temp/` checked, and empty; 100 tests green, as at
+Step 8's close; the shape reading's differences settled with the
+reviewer, one decision at a time.
+
 ## Step N: Release                                  [ ]
 
-<!-- Kit step — vendored from starter/playbooks/default.md
-     @ c670fe5; reshaped at birth to the run's step form. -->
+<!-- Kit step, from starter/playbooks/default.md @ c670fe5.
+     Reshaped at birth to the run's step form. -->
 
-Goal: the system handed to its audience — the promise shipped,
+Goal: the system handed to its audience: the promise shipped,
 observable, and reversible wherever it deploys.
-Gate: derived when this step opens — verifiable facts, from the
-goal, the run's records, and the exclusions framing recorded.
-Known already: a CHANGELOG entry for the release; README true for
-a stranger, its commands verified on a clean machine; known
-issues filed in TODO.md; Release's own lessons added to RETRO.md,
-as decisions in the same form (RETRO.md, D23). Decided at framing, checked here:
-monitoring and alerts in place; deploy and rollback documented and
-tried once — each unless this run's own recorded exclusion.
-Notes: opens after the retrospective, Step 9.
+Gate: written when this step opens, from the step form above: its
+opening and closing items, and its own items asked of the goal.
+Known already:
+- a CHANGELOG entry for the release;
+- README true for a stranger, its commands verified on a clean
+  machine;
+- known issues filed in TODO.md;
+- Release's own lessons added to RETRO.md, as decisions in the same
+  form (RETRO.md, D23).
+
+Decided at framing, checked here: what done excludes
+([intent](docs/system/intent.md)).
+Notes: opens after Step 10, the retrospective applied, and after
+the deliverer's re-check of this run from main (TODO, Now).
 
 <!-- STEPS-END -->
 
@@ -1105,6 +1184,8 @@ Notes: opens after the retrospective, Step 9.
      park in Later, or drop. Then delete the line here. -->
 
 ## Decision index
+
+A summary. Each ADR's home is [docs/adr/](docs/adr/).
 
 - ADR-0001: Record architecture decisions (birth)
 - ADR-0002: Adopt the framing as the project's truth set (Step 1)
@@ -1125,7 +1206,7 @@ Notes: opens after the retrospective, Step 9.
 
 ---
 
-## Retrospective  (fill at project end)
+## Retrospective
 
 Answered by Step 9: the questions this section held are walked in
 RETRO.md, part by part, and its lessons go back to the playbook
