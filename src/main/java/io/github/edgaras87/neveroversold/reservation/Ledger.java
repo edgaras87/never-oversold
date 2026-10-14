@@ -20,16 +20,12 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * The reservation ledger's writes: the admit of a reservation, the
- * change of an item's count, the two exits, and the tidy that ends
- * expired holds before each decision. The one entry path to
- * the numbers (SL-1's record, §7): nothing else in the application
+ * The ledger's writes: reserve, adjust, consume, release, and the tidy
+ * before each decision. The one entry path to the numbers: nothing else
  * writes {@code item}, {@code reservation} or {@code reservation_exit},
- * and the application keeps no item state of its own — every instance
- * reaches the same rows through these statements (G2).
- *
- * <p>Every operation is one transaction; the decision is the commit
- * (G4): nothing is replied until the store has the record.
+ * and no item state is kept here, so every instance reads the same rows
+ * (SL-1 G2). Each operation is one transaction, and nothing is answered
+ * before it commits (SL-1 G4).
  */
 @Component
 class Ledger {
@@ -43,26 +39,14 @@ class Ledger {
     }
 
     /**
-     * Admits a reservation if its units still fit, else refuses — G1's one
-     * act against the truth at the moment of recording.
+     * Admits a reservation if its units still fit, else refuses. The check
+     * and the write are one {@code UPDATE}, so the store runs racing admits
+     * on one item one after another, and only those that still fit change
+     * the row; the store's check constraint stands behind it. Holds SL-1 G1.
      *
-     * <p>The check and the write are one statement: the units are added
-     * only where they still fit, and the store's answer — one row changed
-     * or none — is the decision. Two racers update one row; the store
-     * serializes them and the second re-evaluates the condition against
-     * the first's result, so exactly the admits that still fit change a
-     * row (F1, F21, F22, and F17 — the row is the only state, every
-     * instance reaches it the same way). Behind the condition stands the
-     * constraint {@code reserved <= on_hand_count}: an over-held row is
-     * unwritable by any path. The reservation is recorded in the same
-     * transaction; nothing is replied until it commits (G4).
-     *
-     * <p>None changed means either the item is unknown or the units do
-     * not fit; one read tells which. That read decides nothing about
-     * admission — the admission was decided by the store's answer above.
-     *
-     * <p>{@link #tidy} runs first, in the same transaction: the units of
-     * the item's expired holds are free before the admit decides.
+     * <p>Tidy runs first, so an expired hold's units are free before the
+     * admit decides. When no row changed, one read tells an unknown item
+     * from a refusal; it decides nothing.
      */
     Reservation reserve(ItemId item, Quantity quantity, Hold hold) {
         return inOneTransaction(status -> {
@@ -103,15 +87,14 @@ class Ledger {
     }
 
     /**
-     * Sets an item's on-hand-count to what the operator asserts, creating
-     * the item if the ledger did not know it (ADR-0011). One conditional
-     * statement on the item's row: the store serializes it against any
-     * admit on the same row (G3), and a count that would sit under the
-     * units held changes nothing — refused, which is the shape SL-2
-     * decided and proved (its record, §3).
+     * Sets an item's count to what the operator asserts, creating the item
+     * if the ledger does not know it (ADR-0011). One conditional statement
+     * on the item's row: a count under the units held changes nothing, and
+     * is refused. Holds SL-2 G1 to G3; the row orders it against admits
+     * (SL-1 G3).
      *
-     * <p>{@link #tidy} runs first, in the same transaction: units held by
-     * expired holds do not stand under the count the operator asserts.
+     * <p>Tidy runs first, so expired holds do not count against the
+     * asserted number.
      */
     Item adjust(ItemId item, OnHandCount count) {
         return inOneTransaction(status -> {
@@ -134,21 +117,15 @@ class Ledger {
     }
 
     /**
-     * Ends by expiry every hold of an item that has run out by the store's
-     * clock and has no receipt yet, and frees its units — the first thing
-     * every decision on the item does (SL-3's record, §3: an expired
-     * hold's units are free from the instant).
+     * Ends by expiry every hold of the item that has run out by the store's
+     * clock, and frees its units. Runs first in every decision on the item.
+     * The units held fall by the receipts this statement wrote, never by a
+     * sum it read: two decisions meeting one expired hold race on its
+     * receipt's key, and only the one that wrote it subtracts. Holds SL-3 G5.
      *
-     * <p>One statement. It writes the {@code expired} receipts, in the
-     * order of their identifiers, then lowers the units held by the
-     * receipts it wrote — its own returned rows — never by a sum it read.
-     * Two decisions meeting the same expired hold race to insert its
-     * receipt: one row is written, and only that statement subtracts
-     * (G5). A consume racing it at the instant is the same race on the
-     * same key (G1). The {@code NOT EXISTS} only skips the holds already
-     * ended; the key, not it, is what makes the freeing once. The store
-     * refuses an expiry receipt before the instant whoever sends it; the
-     * statement's own condition stands in front of that.
+     * <p>{@code NOT EXISTS} only skips holds already ended; the key makes the
+     * freeing once. Receipts go in identifier order. The store refuses an
+     * expiry receipt written before the instant (SL-3 G3).
      */
     private void tidy(ItemId item) {
         jdbc.sql("""
@@ -172,9 +149,9 @@ class Ledger {
     }
 
     /**
-     * Ends a reservation by consume: its units leave the shelf — the count
-     * and the units held both fall by exactly what it holds (FC2). Answered
-     * as {@link #exit} says.
+     * Ends a reservation by consume: the count and the units held fall by
+     * exactly what it holds (FC2), in one statement (SL-4 G1). Answered as
+     * {@link #exit} says.
      */
     Reservation consume(ReservationId reservation) {
         return exit(reservation, "consume", """
@@ -194,9 +171,8 @@ class Ledger {
     }
 
     /**
-     * Ends a reservation by release: its units are free again — the units
-     * held fall by exactly what it holds, the count stays. Answered as
-     * {@link #exit} says.
+     * Ends a reservation by release: the units held fall by exactly what it
+     * holds; the count stays. Answered as {@link #exit} says.
      */
     Reservation release(ReservationId reservation) {
         return exit(reservation, "release", """
@@ -215,29 +191,17 @@ class Ledger {
     }
 
     /**
-     * One exit, in one transaction (SL-3's record, §8).
+     * One exit, in one transaction. The statement writes the reservation's
+     * receipt, then moves the numbers by the reservation's own units, and
+     * only for a receipt it wrote. The store refuses a consume or release
+     * receipt at or after expiry. Of two racing exits one writes and the
+     * other moves nothing (SL-3 G1); a repeat moves nothing (SL-3 G2).
+     * Receipt first, item row after: the one order every path keeps.
      *
-     * <p>The exit's statement writes the reservation's receipt and moves
-     * the item's numbers by the units on the reservation's own row — and
-     * moves them only for a receipt it wrote itself. A reservation can
-     * have one receipt (the key), so of two exits racing on it one writes
-     * and the other's insert returns no row and moves nothing (G1); a
-     * repeat finds the receipt standing and moves nothing (G2). The
-     * receipt comes first and the item row after, the one order every
-     * path keeps.
-     *
-     * <p>When nothing was written, a reservation past its expiry may have
-     * no receipt yet: it ended at that instant (§3), and its expiry
-     * receipt is written here, freeing its units once — the same key
-     * again. The store refuses a consume or release receipt at or after
-     * expiry whoever sends it; the statement's own condition stands in
-     * front of that.
-     *
-     * <p>Then the answer, from the reservation as persisted (ADR-0013):
-     * ended by this same exit — first or repeated — is {@code 200} with
-     * the record; ended any other way is refused; no such reservation is
-     * unknown. The refusal is thrown after the commit, so an expiry
-     * receipt this request wrote stands.
+     * <p>When nothing was written and the hold is past its expiry, its
+     * expiry receipt is written here (SL-3 G5). Then the answer, from the
+     * reservation as stored (ADR-0013). A refusal is thrown after the
+     * commit, so an expiry receipt written here stands.
      */
     private Reservation exit(ReservationId reservation, String exit, String statement) {
         Reservation persisted = inOneTransaction(status -> {
@@ -305,7 +269,7 @@ class Ledger {
 
     /**
      * Decided by the store's own error class, never by the framework's
-     * exception type (SL-4's record, §8, "The surface"): a lost connection
+     * exception type (SL-4's record, "The surface"): a lost connection
      * and a refusal at commit can arrive in the same wrapper. Read through
      * the whole chain of causes, and through a failed rollback to the
      * failure it replaced — on a lost connection the rollback fails too,

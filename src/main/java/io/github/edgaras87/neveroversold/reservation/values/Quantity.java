@@ -4,9 +4,8 @@ import io.github.edgaras87.neveroversold.reservation.problems.InvalidRequest;
 
 /**
  * Units asked for: a positive whole number within the door's stated
- * bound (FC1, folded into SL-1 as G6). A value that cannot exist cannot
- * reach the admit — this type is the door's wall for nonsense; the
- * store's {@code quantity > 0} constraint is the backstop behind it.
+ * bound (FC1). The door's wall for SL-1 G6; the store's
+ * {@code quantity > 0} constraint stands behind it.
  */
 public record Quantity(int units) {
 

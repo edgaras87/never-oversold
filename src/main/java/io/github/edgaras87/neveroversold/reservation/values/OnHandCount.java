@@ -5,7 +5,7 @@ import io.github.edgaras87.neveroversold.reservation.problems.InvalidRequest;
 /**
  * The count an operator asserts for an item (ADR-0011: an adjustment
  * states the on-hand-count, never a difference). A whole number that is
- * not negative; nonsense stops here (G6).
+ * not negative; an invalid count stops here (SL-1 G6).
  */
 public record OnHandCount(int units) {
 

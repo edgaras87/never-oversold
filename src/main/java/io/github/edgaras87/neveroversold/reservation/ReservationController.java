@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * The door (ADR-0010): resource-shaped paths, bodies with the
  * definition's terms, the record as persisted in every answer. Parses
  * each request into values that cannot be nonsense before any statement
- * runs (G6); the answers for invalid, unknown and refused are
+ * runs (SL-1 G6); the answers for invalid, unknown and refused are
  * {@link DoorProblems}'.
  */
 @RestController

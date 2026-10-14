@@ -20,7 +20,7 @@
  * </ul>
  *
  * <p><b>The ledger</b> — the statements to the store, the one entry path
- * to the numbers (SL-1's record, §7):
+ * to the numbers (SL-1's record, "What the walls need"):
  * <ul>
  *   <li>{@link Ledger} — reserve, adjust, consume and release, one
  *       transaction each; the decision is the commit, and a store lost
@@ -36,8 +36,9 @@
  * <ul>
  *   <li>{@link io.github.edgaras87.neveroversold.reservation.values} —
  *       {@code ItemId}, {@code Quantity}, {@code Hold},
- *       {@code OnHandCount}, {@code ReservationId}: parsed at the door; a bad value refuses to
- *       exist, so nonsense never reaches the decision (G6)</li>
+ *       {@code OnHandCount}, {@code ReservationId}: parsed at the door;
+ *       a bad value refuses to exist, so it never reaches a decision
+ *       (SL-1 G6)</li>
  *   <li>{@link io.github.edgaras87.neveroversold.reservation.problems} —
  *       {@code InvalidRequest}, {@code UnknownItem},
  *       {@code UnknownReservation}, {@code Refused},
@@ -47,12 +48,9 @@
  *       nothing points back.</li>
  * </ul>
  *
- * <p>No repository, no service layer: one store, one writer; depth is
- * earned per feature, never stamped. A sub-package for behaviour is
- * earned when a coherent cluster appears, and is then a logged revision
- * of ADR-0008, since its seam classes become public and that boundary
- * moves from the compiler to convention. The exits did not earn one:
- * they are two more statements on the one entry path, and live in
- * {@link Ledger} beside the other two.
+ * <p>No repository and no service layer: depth is earned per feature
+ * (ADR-0008). A sub-package for behaviour would make its seam classes
+ * public, so it waits for a revision of ADR-0008. The exits did not earn
+ * one: they are two more statements in {@link Ledger}.
  */
 package io.github.edgaras87.neveroversold.reservation;

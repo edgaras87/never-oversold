@@ -7,7 +7,7 @@ import io.github.edgaras87.neveroversold.reservation.problems.InvalidRequest;
 /**
  * A reservation's identifier, as the store assigned it and the reserve
  * answered it. An exit names its reservation by this and nothing else
- * (FC2); a path that is not one is nonsense at the door (G6), answered
+ * (FC2); a path that is not one is invalid at the door (SL-1 G6), answered
  * before any statement runs.
  */
 public record ReservationId(UUID value) {

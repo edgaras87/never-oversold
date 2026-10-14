@@ -6,7 +6,7 @@ import io.github.edgaras87.neveroversold.reservation.problems.InvalidRequest;
  * An item's identifier as the outside gives it: the catalog is not ours,
  * so the ledger knows an item only by the opaque string a caller or
  * operator names (ADR-0010). Cannot be blank — a request naming no item
- * is nonsense at the door (G6).
+ * is invalid at the door (SL-1 G6).
  */
 public record ItemId(String value) {
 
