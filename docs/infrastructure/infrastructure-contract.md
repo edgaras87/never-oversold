@@ -1,23 +1,26 @@
 # Infrastructure contract — what the builder may rely on
 
+Words and tags used here: [glossary](../glossary.md).
+
 <!-- The builder-facing manual: one section per service, grown at
-     every later addition, never rewritten from scratch. It masters
-     the ground's vocabulary and states the refusals as contract
-     terms. How to stand the ground up is the operator manual's;
-     why it is shaped this way is the ADRs' (0004–0006, 0014,
-     0015). -->
+     every later addition, never rewritten from scratch. It owns the
+     ground's vocabulary, and states the refusals as contract terms.
+     How to stand the ground up is the operator manual's. Why it is
+     built this way is the ADRs' (0004–0006, 0014, 0015). -->
 
 ## Vocabulary
 
-- **Execution environment** — the local runtime host for
-  infrastructure: podman local containers, compose-driven, rootless
-  (ADR-0004). Front door: `podman compose` at the repository root.
-- **Infrastructure service** — a capability provided to the system.
+- **Execution environment:** the local host that runs the
+  infrastructure. It runs as podman local containers, compose-driven
+  and rootless (ADR-0004). The command is `podman compose`, run at the
+  repository root.
+- **Infrastructure service:** a capability provided to the system.
   There is one: PostgreSQL (ADR-0005). Everything not listed below
-  is not provided, and the not-provisioned list in ADR-0005 says why.
-- **Infrastructure service constraint** — a requirement or
+  is not provided, and the not-provisioned list in ADR-0005 says
+  why.
+- **Infrastructure service constraint:** a requirement or
   limitation imposed on a service, enforced by the service itself
-  (ADR-0006). The refusals below are those constraints seen from
+  (ADR-0006). The refusals below are those constraints, seen from
   the builder's side.
 
 ## PostgreSQL
@@ -25,67 +28,73 @@
 **What it is.** PostgreSQL 17 (image `docker.io/library/postgres:17`,
 one instance, container `never-oversold-postgres`), holding one
 database, `never_oversold`, with one application schema,
-`never_oversold`. The two numbers the promise is about — an item's
-on-hand-count and its reservations — live here and nowhere else.
+`never_oversold`. The two numbers the promise is about, an item's
+on-hand-count and its reservations, live here and nowhere else.
 
 **How to reach it.**
 
 | From | Host | Port | Notes |
 |---|---|---|---|
-| inside the compose network (the ledger's instances, Flyway) | `postgres` | `5432` | the service name resolves; no published port involved |
-| outside (the host: the evidence's witness read, inspection) | `localhost` | `${POSTGRES_PORT}` from `.env`, default `5432` | the published port; above 1024 because rootless |
+| inside the compose network (Flyway) | `postgres` | `5432` | the service name resolves; no published port involved |
+| outside (the host: the ledger's instances, inspection) | `localhost` | `${POSTGRES_PORT}` from `.env`, default `5432` | the published port; above 1024 because rootless |
 
-Connection URL shape: `postgresql://<identity>:<password>@<host>:<port>/never_oversold`.
-Passwords come from `.env` (`.env.example` is the committed
-shape); they never appear in code, config, or this document.
+The connection URL is built like this:
+`postgresql://<identity>:<password>@<host>:<port>/never_oversold`.
+Passwords come from `.env` (`.env.example` is the committed template).
+They never appear in code, config, or this document.
 
 **Which identity to connect as.**
 
 | Identity | Who uses it | May | May not |
 |---|---|---|---|
-| `runtime` | **the running ledger, and only it, to write**; the evidence's witness read and day-to-day inspection, to read — the definition's T4: nobody else writes with it, by trust rather than by grant | SELECT, INSERT, UPDATE, DELETE on every table and USAGE, SELECT on every sequence in `never_oversold` — including every one a future migration creates | CREATE, ALTER, DROP anything; own anything; TRUNCATE; REFERENCES; touch `public` |
+| `runtime` | **the running ledger, and only it, to write**; day-to-day inspection, to read — the definition's T4: nobody else writes with it, by trust rather than by grant | SELECT, INSERT, UPDATE, DELETE on every table and USAGE, SELECT on every sequence in `never_oversold` — including every one a future migration creates | CREATE, ALTER, DROP anything; own anything; TRUNCATE; REFERENCES; touch `public` |
 | `migrator` | **Flyway, and only it** | DDL inside `never_oversold`, which it owns | own the database; create schemas; anything outside its schema; log in from application code or config |
 | `postgres` | the bootstrap, once, at first start | everything — it is the superuser | appear in any application or migration configuration; be used for routine work |
 
-The password the ledger reads is `NEVER_OVERSOLD_RUNTIME_PASSWORD`
-from the environment; nothing else in its environment names a
+The password the ledger reads is `NEVER_OVERSOLD_RUNTIME_PASSWORD`,
+from the environment. Nothing else in its environment names a
 database identity.
 
-**What the store refuses — contract terms.** Each is enforced by
-the server's grant system and was watched being refused on
-2026-09-11 (operator manual, `devlog/2026-09.md`):
+**What the store refuses: the contract terms.** Each is enforced by
+the server's grant system, and was seen being refused on 2026-09-11
+(operator manual, `devlog/2026-09.md`):
 
 1. **The running application cannot change structure.** A DDL
    statement as `runtime` fails with `permission denied for schema
-   never_oversold`. Do not design around it; there is no way
-   around it.
-2. **No identity but the two named ones can connect** to
-   `never_oversold`. PUBLIC has no CONNECT; a role without the
-   grant fails with `permission denied for database`.
-3. **`public` is no application surface.** Nothing may be created
-   there and nothing should be looked for there; both roles'
+   never_oversold`. Do not design around it. There is no way around
+   it.
+2. **No identity but the two named ones, and the superuser, can
+   connect** to `never_oversold`. PUBLIC has no CONNECT. A role without the grant
+   fails with `permission denied for database`.
+3. **`public` is not for the application.** Nothing may be created
+   there, and nothing should be looked for there. Both roles'
    `search_path` is `never_oversold`.
 4. **New objects arrive already usable by `runtime`.** A migration
-   never writes a GRANT; the default privileges do it. A migration
+   never writes a GRANT. The default privileges do it. A migration
    that writes one is wrong, not helpful.
 
 **What the schema refuses besides.** The terms above are the grant
-system's. The migrations add walls of their own, and they refuse
-`runtime` as they refuse every identity short of the superuser: a
-check constraint on `item` (V1), the receipts' key and their guard
-trigger (V2), and a check at every commit that an item's held units
-equal what its reservations without a receipt hold (V3). The ledger
-is the one writer the definition trusts (T4); a test writing rows by
-hand in its own throwaway store, or a hand that writes on the ground
-anyway, meets the same walls, and must move a reservation, its
-receipt and the units held together. They are not contract terms: a
-slice's migration adds or changes one, and its record says why.
-ARCHITECTURE lists each with who computes and who refuses. An index
-(V4) is none of them: it refuses nothing, and is ADR-0015's.
+system's. The migrations add walls of their own:
+- check constraints on `item` and `reservation` (migration V1);
+- the receipts' key and their guard trigger (migration V2);
+- a check, at the commit of any transaction that touches an item,
+  that its held units equal what its reservations without a receipt
+  hold (migration V3).
 
-**What the store offers — inventory, not a choice.** The server
-can make two concurrent writers to one thing disagree. Its faces
-of that facility:
+They refuse `runtime` as they refuse every identity short of the
+superuser. The ledger is the one writer the definition trusts (T4). A
+test writing rows by hand in its own throwaway store meets the same
+walls. So does anyone who writes on the ground anyway. Both must move
+a reservation, its receipt and the units held together.
+
+These walls are not contract terms. A slice's migration adds or
+changes one, and its record says why. ARCHITECTURE lists each, with
+who computes and who refuses. An index (migration V4) is none of
+them: it refuses nothing, and is ADR-0015's.
+
+**What the store offers: an inventory, not a choice.** The server can
+make two concurrent writers to one thing disagree. It provides that
+facility in these forms:
 
 - row-level locks;
 - unique constraints, which can be deferred to commit;
@@ -95,33 +104,28 @@ of that facility:
 - serializable isolation;
 - advisory locks.
 
-The ground proved the facility refuses: an advisory lock held by
-one session, and a second session cancelled by `lock_timeout`. That
-probe was chosen because it needs no schema, not because it is
-preferred.
+The ground proved the facility refuses: one session held an advisory
+lock, and a second session's request for it was cancelled by
+`lock_timeout`. That probe was chosen because it needs no schema, not
+because it is preferred.
 
-No face is endorsed here. A slice that needs the facility chooses
-its face in its own plan, with its why. The contract promises only
-two things: that the facility exists, and that a refused writer
-sees an error, never a silent success.
+No form is endorsed here. A slice that needs the facility chooses its
+form in its own plan, with its reason. The contract promises only two
+things: that the facility exists, and that a refused writer sees an
+error, never a silent success.
 
-Multi-statement transactions commit atomically; that too is
-inventory.
+A transaction of several statements commits all of them or none.
+That too is inventory.
 
-**How schema changes are made.** Only through Flyway, as
-`migrator`: a file `infrastructure/flyway/migrations/V<n>__<description>.sql`,
-then `podman compose run --rm flyway migrate`. Flyway's history
-table lives in `never_oversold` as `flyway_schema_history`, created
-on the first migrate. The ledger's code never issues DDL and never
-carries `migrator`'s credentials.
+**How schema changes are made.** Only through Flyway, as `migrator`: a
+file `infrastructure/flyway/migrations/V<n>__<description>.sql`, then
+`podman compose run --rm flyway migrate`. Flyway's history table lives
+in `never_oversold` as `flyway_schema_history`, created on the first
+migrate. The ledger's code never issues DDL and never carries
+`migrator`'s credentials.
 
 **What survives what.** Data lives in the named volume
-`never-oversold_postgres-data` and survives `podman compose down`
-and any instance's death; only `down --volumes` destroys it, and
+`never-oversold_postgres-data`. It survives `podman compose down`
+and any instance's death. Only `down --volumes` destroys it, and
 that also re-runs the bootstrap on the next start. Nothing in a
 ledger container is state.
-
-**Provenance.** The ground files were filled from the
-infra-establish skill's templates (kit @ af16eb7), this repo's
-names substituted and one verify query added; the role model they
-instantiate is that skill's `postgres-role-split.md`.

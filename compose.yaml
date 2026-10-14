@@ -1,7 +1,7 @@
 # The infrastructure ground, as this repo's decisions established it
 # (ADR-0004 the environment, ADR-0005 the services, ADR-0006 the
-# constraints). Front door: podman compose. Secrets and machine
-# variance live in .env (git-ignored; shape in .env.example);
+# constraints). The command: podman compose. Secrets and machine
+# variance live in .env (git-ignored; its template is .env.example);
 # decided identities are literal. Filled from the infra-establish
 # templates (kit @ af16eb7); the filled file is this repo's own.
 name: never-oversold    # pinned: volume/network identity must not depend
