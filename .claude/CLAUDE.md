@@ -57,7 +57,6 @@ taken: `.claude/rules/delivered-copies.md`.
 | Agent setup changed, or a convention arrives | Decision, why, rejected options; every delivery, with its pin | .claude/decisions.md |
 | Work needs more than one commit | In-flight change set | COMMIT-PLAN.md (when present) |
 | Asking what the next run does differently, and why | The retrospective's decisions, each with its example and where it lands | RETRO.md |
-| Asking what the polish's pass 1 did, or what the passes not run would have done | Pass 1's rules, brief, manual and report; the sketches of passes 2 and 3 | .claude/polish/ |
 
 <!-- This file is loaded in full on every task, relevant or not, so
      every line below passes three tests or leaves
