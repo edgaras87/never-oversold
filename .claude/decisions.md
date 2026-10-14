@@ -29,19 +29,27 @@ Each line: the rule, where its text lives, the entry that set it.
 The text is the home; this list only points.
 
 - Delivered copies are pinned at the bundle's 5361213, edited in
-  place from lived work, logged here and handed back; concept
-  chapters never edited. `.claude/rules/delivered-copies.md`
-  (2026-10-01).
+  place from lived work, logged here and handed back; a concept
+  chapter only from a mistake lived here.
+  `.claude/rules/delivered-copies.md` (2026-10-01; rule 1 widened in
+  Step 10, RETRO.md D28).
 - One branch per step, fast-forwarded on the reviewer's word. PLAN,
   Standing rules (2026-09-07).
 - A gate item is ticked when it comes true; the step reads `[~]`
   while it runs. PLAN, Standing rules (2026-09-20).
+- A step's own gate items are asked of its goal, one fact each; a
+  "Now:" line changes when the step enters a new stage, one of its
+  skill's or one its Notes list. PLAN, the step form (2026-10-13).
 - The entry file is `.claude/CLAUDE.md` (2026-09-09).
 - The reviewer's pace is in `CLAUDE.local.md`, ignored; no settings
   file gates commits (2026-09-09, both entries).
-- Shapes: `.claude/rules/shapes-lifecycle.md`. The slice-record
-  shape is read at a slice's close; the evidence-test shape loads
-  with any test (2026-09-22, 2026-10-01, 2026-10-07).
+- Shapes: `.claude/rules/shapes-lifecycle.md`. Every shape lives in
+  `.claude/shapes/` (the slice record, the evidence test, the kill,
+  the registry entry) and is read at the closing gate only; a shape
+  that names work is asked for by its skill too (2026-09-22,
+  2026-10-01, 2026-10-13, 2026-10-14).
+- Links, paths, cited numbers and the version pair are checked by
+  `.claude/checks/records.py` (2026-10-13).
 - Conventions held as copies: commit-messages, commit-plan,
   visual-comparison (2026-10-01).
 - What changed between versions is read from the index: the agent
@@ -52,6 +60,9 @@ The text is the home; this list only points.
 - A retrospective runs by `.claude/skills/retrospective/`, this
   project's own skill, with a manual for the reviewer beside it
   (2026-10-12, later).
+- A retrospective is applied to its run by
+  `.claude/skills/apply-retrospective/`, this project's own skill,
+  with a manual for the reviewer beside it (2026-10-15).
 
 Replaced, and by what:
 - "Pinned copies change only by copying anew" (2026-09-07), the
@@ -63,6 +74,9 @@ Replaced, and by what:
 - `artifact-kinds`' shape entry (2026-09-22): folded into the
   shapes rule (2026-10-01).
 - "temp/ is ignored" (2026-09-17): wrong; corrected 2026-10-10.
+- The evidence-test shape loaded with any test (2026-10-07), and
+  shapes delivered through `temp/` (2026-10-01): by every shape
+  read at the gate only (2026-10-13).
 
 ## Log
 
@@ -1058,3 +1072,169 @@ Replaced, and by what:
   Rejected: only a PLAN step (the how would be lost, or copied into
   the gate); only a skill (nothing says when it runs); a prose note
   to the deliverer (a working text is what it can take or reshape).
+
+- 2026-10-13 A check script of this project's own:
+  `.claude/checks/records.py`. It checks the living records and the
+  code's comments for links and paths that lead nowhere, cited ADR,
+  slice, kill and test names that do not exist, and the version in
+  `pom.xml` against CHANGELOG's latest release. Step 10, commit 2,
+  from the retrospective's D17; run before the build, after
+  anything moves files, and at the close.
+  Why: run 3's closes missed this kind of drift (`pom.xml` at
+  0.3-SNAPSHOT after SL-4), found only by an 8-agent sweep. A
+  script finds it in a second, the same way each time.
+  Rejected: reading for it at each close (costly, and misses what a
+  reader skims past); leaving it to a sweep (D17: a sweep means a
+  close missed something).
+
+- 2026-10-13 PLAN's step form: a step's own items are asked of its
+  goal ("how would I check that's true?"), one fact per answer, and
+  the skill's stages are not copied in; a "Now:" line says where
+  the step stands, changed at a new stage, not at every commit. The
+  `temp/` closing item goes; a difference at the gate ends one of
+  four ways. The "on trial" notes say kept. Step 10, commit 3, from
+  the retrospective's D4 and D18.
+  Why: Step 8's gate ran ~150 lines, mostly `cbc-slice` retold, and
+  could be ticked with the goal missed. The `temp/` item was checked
+  at two closes and nothing was ever there.
+  Rejected: an instruction in a rule (used once per step, when the
+  gate is written; the reviewer reads PLAN, not the rules); "Now:"
+  updated at every commit (tried in Step 10: noise, and it repeats
+  what the commit plan and the log already show).
+
+- 2026-10-13 Shapes in one folder, read at the gate only.
+  `shapes-lifecycle.md`, a delivered copy, edited under rule 2:
+  shortened to what run 3 used and written plain; one place,
+  `.claude/shapes/`, read at the closing gate; compared by
+  judgment, not by text; a fourth way a difference ends, a new
+  shape; and a shape that names work must be asked for by the skill
+  that runs it. This project's own shapes follow: the test shape
+  moves from `.claude/rules/` to `.claude/shapes/`, leaving the
+  red-run rule it repeated to `cbc-slice`; the slice-record shape
+  becomes one block per guarantee, with the record's order.
+  Step 10, commits 4, 5 and 5b, from the retrospective's D11, D12,
+  D14 and D18. The copy is still running: Step 10's own close reads
+  the slice records against the new shape.
+  Why: a test written without the shape in view can teach the
+  shape, or show a new kind (the reviewer's reason, D18); the
+  `temp/` staging was never used; one guarantee was spread over
+  five sections of its record (D11). The backstop line is work no
+  skill asked for, which is how §4 was found.
+  Rejected: the test shape kept loaded while tests are written (it
+  protects form, which the gate can fix; the costly miss, a
+  worthless red, is `cbc-slice`'s build gate); a pointer rule for
+  it (the same); two places, unexposed and exposed (the split was
+  never a maturity ladder here).
+
+- 2026-10-14 Two more shapes of this project's own, for framing's
+  records: a kill (`.claude/shapes/kill.md`) and a slice's registry
+  entry (`.claude/shapes/registry-entry.md`), written 2026-10-13 in
+  Step 10 (8782a78, 00eabbd), from the retrospective's D29. Each was
+  written after a look at run 3's examples, and tried on the
+  definition and the registry. The kill shape is read at framing's
+  closing gate; the registry entry's at each slice's close. Logged
+  here late: the rules in force named only two shapes, found at
+  Step 10's commit 37.
+  Why: four of the 20 kills lost what dies when composed (D7), and
+  the registry's entries grew stories at two slice closes (D5);
+  nothing at a gate could see either.
+  Rejected: none weighed; the reviewer asked for them (D29).
+
+- 2026-10-14 `cbc-framing`, a delivered copy finished with in this
+  run, edited under rules 2 and 7 since the pin 5361213: tags in
+  full words, one spelling everywhere (55887bd, D6); each step's
+  result written once, into its export, the derivation linking to
+  it (07cf9ab, D7); the registry template's entry with every field,
+  a Record link and a line per close answer (8db57c0, D5, D29).
+  Found at Step 10, from the retrospective. Untried here: framing
+  will not run again in this run, so the new wording is first used
+  by the deliverer (rule 7). Why: run 3 invented its own letters
+  for tags; the definition's kills lost what dies when composed;
+  the registry grew stories at slice closes.
+
+- 2026-10-14 `cbc-slice`, a delivered copy finished with in this
+  run, edited under rules 2 and 7 since the pin 5361213: tags in
+  full words (d023336, D6); the record's skeleton as a minimum, one
+  block per guarantee (0a8b1a9, D12); every evidence reading checks
+  the promise, then the invariant, before any number, and the red
+  run notes each backstop seen or unproven (f49a71e, D13, D18); the
+  close writes "Answered at close" lines and ARCHITECTURE rows, and
+  shape differences end by the shapes rule (a291147, D5, D16);
+  SKILL.md says what to do and each gate, the workflow reference
+  only the outline, the why and the examples, "face" becoming
+  "option" and the outline's "the shape the walls need" becoming
+  "what the walls need" (2794ac6, D21, D2). Found at Step 10. Untried
+  here: every slice is closed, so the deliverer uses the new
+  wording first (rule 7). Why: SL-3's tests lacked the promise
+  check; a backstop was named and never seen; one guarantee was
+  spread over five sections; SKILL.md and its reference shared a
+  third of their long phrases.
+
+- 2026-10-14 `cbc-bootstrap`, a delivered copy finished with in
+  this run, edited under rules 2 and 7 since the pin 5361213: the
+  requirements' constraints point to the record that decided them,
+  and end as history once certified (7007337, D10); the harness's
+  form is chosen by what ships (a2a776e, D26); the lived default
+  places tests by kind (2a05394, D27). Found at Step 10. Untried
+  here (rule 7). Why: the bootstrap requirements were read as if
+  current; the harness's form was argued from cost; tests were
+  placed with no rule.
+
+- 2026-10-14 `infra-establish`, a delivered copy finished with in
+  this run, edited under rules 2 and 7 since the pin 5361213: the
+  ground proves the engine and the store's promises, and each lever
+  is proven by the harness that pulls it (1cadda1, D9). Found at
+  Step 10. Untried here (rule 7). Why: run 3's container kill and
+  scale were proven at the ground and never used.
+
+- 2026-10-14 `delivered-copies.md`, a delivered copy still running
+  in this run, edited under rule 2 since the pin 5361213: a concept
+  chapter is edited as any copy, only from a mistake lived here; a
+  finished copy is fixed whenever the evidence is here, and its
+  hand-off line says untried (c6d21b8, D28); then written plain,
+  meaning unchanged, each rule keeping its number (128801b, D2).
+  Found at Step 10. Running: this run's own close is its first use.
+  Why: the rule kept concept chapters unedited and lessons for
+  finished copies as notes, so a lived mistake had nowhere exact to
+  go.
+
+- 2026-10-14 `shapes-lifecycle.md` §1, a delivered copy still
+  running, edited under rule 2 since the pin 5361213: before a shape
+  is written, its examples are read for where they differ and what
+  they all could do better; the reviewer settles what the look
+  finds; the shape is then tried, on an earlier version too where a
+  miss is known (cdfc432, D29, lived at the kill and registry-entry
+  shapes). Found at Step 10. Running. Why: a shape copied from its
+  examples would never ask for what they all lacked, such as a
+  worked example with numbers.
+
+- 2026-10-15 `commit-plan`, a delivered copy still running, edited
+  under rule 2 since the pin 5361213, from how Step 10's plan ran
+  (RETRO.md D19, D25): a planned commit may be built as small
+  commits, folded into it at its boundary or, where the reviewer
+  allows them to land, grouped by kind at the end, all kept on
+  `<branch>-detail`; a look back at the landed commits before the
+  close, regrouped on the reviewer's word; a commit inserted later
+  takes a letter (8b); a planned commit may repeat over a set of
+  records, naming its order and its stop rule; each small commit
+  follows commit-messages when written. Found at Step 10. Running:
+  this step's own look back is its first use.
+  Why: Step 10's plan grew lettered commits (8b, 22b, E2.1 to
+  E2.12), ran its plain pass three times over the records with a
+  stop rule, and landed many small commits on the reviewer's word;
+  sixteen of them broke the 50-character subject, found only at the
+  close.
+
+- 2026-10-15 A skill of this project's own, kept:
+  `.claude/skills/apply-retrospective/`, SKILL.md for the agent and
+  manual.md for the reviewer. Built at Step 10's close from its
+  provisional manual (`.claude/apply-retro/manual.md`, moved beside
+  the skill) and from what the step did (RETRO.md D24, D25). The
+  `retrospective` skill and its manual name it as the step after.
+  Why: applying a retrospective was done for the first time, from a
+  manual changed as the work went; the skill describes what worked.
+  Rejected: a part of `retrospective`, since that skill changes
+  nothing in the run and this one changes its records, so each half
+  would need an exception for the other; the skill written before
+  the step (D25).
+

@@ -21,7 +21,8 @@ commit messages, comments. How it reads, never what it says.
    second way."
 6. **Names are labels.** Keep defined names and references exactly:
    kill 7, W1, G2, SL-3, ADR-0014. Define each coined word once, in
-   plain words. Coin a word only when plain English cannot say it.
+   plain words, in the glossary (`docs/glossary.md`). Coin a word
+   only when plain English cannot say it.
    A number local to one record carries its owner outside it:
    "SL-4 G1", never a bare "G1".
 7. **Cut what adds nothing.** If a sentence can go without losing
@@ -68,3 +69,5 @@ this rule then names that kind and its style.
   (the retrospective's D6).
 - 2026-10-12: kept, at the retrospective's close. No longer on
   trial.
+- 2026-10-14: a coined word is defined in the glossary, its one
+  place (the retrospective's D2 and D6; Step 10's commit 22).
