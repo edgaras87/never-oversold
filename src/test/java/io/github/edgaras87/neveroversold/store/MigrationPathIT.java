@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.store;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -58,7 +58,7 @@ class MigrationPathIT extends DatabaseIT {
 
     @Test
     void theWallIsInTheCatalog() {
-        // SL-1's owner for G1 and G3 is this constraint (slice record, §7);
+        // SL-1's owner for G1 and G3 is this constraint (SL-1's record);
         // structure forbids, tests only sample — so its presence is asserted,
         // not inferred from a green storm
         String wall = jdbc.sql("""
@@ -75,7 +75,7 @@ class MigrationPathIT extends DatabaseIT {
 
     @Test
     void theReceiptsWallsAreInTheCatalog() {
-        // SL-3's owners are the store's (slice record, §8): the key, the
+        // SL-3's owners are the store's (SL-3's record): the key, the
         // reference, the kind check, and the guard trigger. The migrator or
         // the superuser could drop or disable any of them; this is where
         // that is seen, before a storm could pass around the gap
@@ -113,7 +113,7 @@ class MigrationPathIT extends DatabaseIT {
 
     @Test
     void theUnitsHeldCheckIsInTheCatalog() {
-        // SL-3's G6, revised 2026-10-05 (slice record, §8): one deferred
+        // SL-3 G6, revised 2026-10-05 (SL-3's record): one deferred
         // constraint trigger on each table whose rows the units held count.
         // Enabled, not merely present: a disabled one refuses nothing
         Map<String, String> checks = new TreeMap<>();

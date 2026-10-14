@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.structure;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -30,7 +30,8 @@ import static io.github.edgaras87.neveroversold.testsupport.LedgerSql.writesRece
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * E7 for SL-3 — G6, every way a reservation ends faces the same rules
+ * SL-3 E7 · G6 — any path that ends a reservation, or moves the numbers
+ * for one, meets the same checks as consume and release
  * (the slice record: {@code docs/construction/sl-3-a-reservation-exits-once.md}).
  * A structural test: it reads the application's SQL as written, not a
  * run of it, in the spirit of SL-2's
@@ -65,9 +66,9 @@ class NoSecondWayOutTest {
     private static final Pattern WRITES_THE_UNITS_HELD = Pattern.compile("(?i)\\breserved\\s*=");
 
     /**
-     * E7 · G6 — a second writer of receipts or of the units held, outside
-     * the ledger, fails it: a cleanup job, an admin path, a later feature
-     * with SQL of its own.
+     * SL-3 E7 · G6 — a second writer of receipts or of the units held,
+     * outside the ledger, fails it: a cleanup job, an admin path, a later
+     * feature with SQL of its own.
      */
     @Test
     void receiptsAndTheUnitsHeldAreWrittenByTheLedgerAlone() {
@@ -84,12 +85,12 @@ class NoSecondWayOutTest {
         }
 
         assertThat(writers)
-                .as("a second writer of reservation_exit or of reserved is a second way out (G6)")
+                .as("a second writer of reservation_exit or of reserved is a second way out (SL-3 G6)")
                 .containsExactly(LEDGER);
     }
 
     /**
-     * E7 · G6 — the ledger writes SQL only as text blocks, the form the
+     * SL-3 E7 · G6 — the ledger writes SQL only as text blocks, the form the
      * next rule reads. A statement in a plain string would go unread: a
      * force release written {@code "UPDATE item SET reserved = …"} fails
      * here.
@@ -102,7 +103,7 @@ class NoSecondWayOutTest {
     }
 
     /**
-     * E7 · G6 — inside the ledger, every statement that lowers the units
+     * SL-3 E7 · G6 — inside the ledger, every statement that lowers the units
      * held or the count writes a receipt in the same statement, and every
      * statement that writes a receipt moves the numbers by the receipts it
      * wrote — its own returned rows, the key deciding which. A statement
@@ -154,7 +155,7 @@ class NoSecondWayOutTest {
     }
 
     /**
-     * E7 · G6 — the ledger never updates or deletes a reservation. A
+     * SL-3 E7 · G6 — the ledger never updates or deletes a reservation. A
      * reservation ends by its receipt; removed with its units, or edited,
      * it would end with none, and the check on the units held would not
      * see it, the numbers still agreeing. Under T4 the ledger is the only
@@ -171,8 +172,9 @@ class NoSecondWayOutTest {
     }
 
     /**
-     * E4 · G4 for SL-4 — nothing makes one of consume's moves without the
-     * other (the slice record:
+     * SL-4 E4 · G4 — any path that lowers the count for a consume also ends
+     * the reservation, and any path that ends one by consume also lowers the
+     * count (the slice record:
      * {@code docs/construction/sl-4-consumes-two-moves-hold-together.md}).
      *
      * <p>A statement writes a {@code consumed} receipt if and only if it

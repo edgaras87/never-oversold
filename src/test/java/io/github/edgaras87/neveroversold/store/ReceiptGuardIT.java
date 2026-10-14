@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.store;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -14,9 +14,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * SL-3's walls, checked on their own, straight against the store as
  * {@code runtime} — no ledger, no door (the slice record:
- * {@code docs/construction/sl-3-a-reservation-exits-once.md}, §8). Each
- * statement here is one a script outside the application could send,
- * and the store refuses it whoever sends it.
+ * {@code docs/construction/sl-3-a-reservation-exits-once.md}, each
+ * guarantee's wall). Each statement here is one a script outside the
+ * application could send, and the store refuses it whoever sends it.
  *
  * <p>Not evidence: these are the walls' own checks, in the spirit of
  * {@code MigrationPathIT.theWallIsInTheCatalog}, so the walls are known
@@ -45,7 +45,7 @@ class ReceiptGuardIT extends DatabaseIT {
         assertThat(kindOf(reservation)).isEqualTo("consumed");
     }
 
-    /** G6: the cleanup script cannot make an ended reservation look active again. */
+    /** SL-3 G6: the cleanup script cannot make an ended reservation look active again. */
     @Test
     void aReceiptIsNeverDeleted() {
         UUID reservation = aReservationExpiringIn("1 hour");
@@ -58,7 +58,7 @@ class ReceiptGuardIT extends DatabaseIT {
         assertThat(kindOf(reservation)).isEqualTo("consumed");
     }
 
-    /** G6: nor turn one ending into another. */
+    /** SL-3 G6: nor turn one ending into another. */
     @Test
     void aReceiptIsNeverChanged() {
         UUID reservation = aReservationExpiringIn("1 hour");
@@ -71,7 +71,7 @@ class ReceiptGuardIT extends DatabaseIT {
         assertThat(kindOf(reservation)).isEqualTo("consumed");
     }
 
-    /** G3: nothing ends a reservation by expiry before its instant, by the store's clock. */
+    /** SL-3 G3: nothing ends a reservation by expiry before its instant, by the store's clock. */
     @Test
     void anExpiryReceiptIsNotTakenEarly() {
         UUID reservation = aReservationExpiringIn("1 minute");
@@ -82,7 +82,7 @@ class ReceiptGuardIT extends DatabaseIT {
         assertThat(hasReceipt(reservation)).isFalse();
     }
 
-    /** G2: a reservation that has run out can no longer be consumed or released. */
+    /** SL-3 G2: a reservation that has run out can no longer be consumed or released. */
     @Test
     void aConsumeOrReleaseReceiptIsNotTakenLate() {
         UUID reservation = aReservationThatExpired("1 minute");

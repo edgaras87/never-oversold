@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.adversity;
 
 import java.net.http.HttpResponse;
 import java.time.Duration;
@@ -17,8 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * A consume whose instance loses the store mid-work (the slice record:
- * {@code docs/construction/sl-4-consumes-two-moves-hold-together.md}, §5,
- * E3). Each test starts from {@link InterruptedConsumeScene} — 10 on
+ * {@code docs/construction/sl-4-consumes-two-moves-hold-together.md},
+ * SL-4 E3). Each test starts from {@link InterruptedConsumeScene} — 10 on
  * hand, R holding 3, S holding 5.
  */
 class StoreOutOfReachIT {
@@ -26,8 +26,8 @@ class StoreOutOfReachIT {
     private static final Duration GONE_WITHIN = Duration.ofSeconds(10);
 
     /**
-     * E3 · G3 — kill 16, our silence: an interrupted consume settles on
-     * its own.
+     * SL-4 E3 · G3 — kill 16, our silence: an interrupted consume ends with
+     * both moves or neither, with nothing more sent.
      *
      * <p>R's consume is held between its moves — its receipt written, the
      * item's row not yet moved. The store is frozen, the caller gives up,

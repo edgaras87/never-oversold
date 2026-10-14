@@ -16,9 +16,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * held, and the sum of active reservations as the store judges them: no
  * receipt yet, and not past expiry by the store's own clock
  * ({@code expires_at > now()}). A reservation past its expiry with no
- * receipt is ended already (SL-3's record, §3); its receipt is written by
- * the next request that meets it. The invariant is §1 of the slice
- * record; this class reads it, never computes it from replies.
+ * receipt is ended already (SL-3's record, "When an expired hold's
+ * units are free"); its receipt is written by the next request that meets
+ * it. The invariant is the one SL-1's record states; this class reads it,
+ * never computes it from replies.
  *
  * <p>Plain JDBC on purpose: no application context, no pool the ledger
  * shares, so a forked-instance test and an in-process test read the same
@@ -65,7 +66,7 @@ public final class Witness {
      * An item's numbers and one reservation's ending, read together: one
      * statement, so one moment of the store. Two separate readings could
      * fall either side of a commit and show half a consume that never
-     * existed; this cannot (SL-4's record, §8).
+     * existed; this cannot (SL-4's record, "The surface").
      */
     public record Reading(Numbers numbers, String ending) {
     }
@@ -97,7 +98,7 @@ public final class Witness {
         }
     }
 
-    /** Whether a reservation with this id is in the store — E4's "every admitted reply names a record". */
+    /** Whether a reservation with this id is in the store — SL-1 E4's "every admitted reply names a record". */
     public static boolean holdsReservation(UUID id) {
         try (Connection store = connect();
              PreparedStatement statement = store.prepareStatement(
@@ -132,7 +133,7 @@ public final class Witness {
     /**
      * Every receipt a reservation has, by kind. One at most while the key
      * stands; a storm run with the key absent shows two here, which is
-     * the broken promise E1 looks for.
+     * the broken promise SL-3 E1 looks for.
      */
     public static List<String> receiptsOf(UUID reservation) {
         try (Connection store = connect();

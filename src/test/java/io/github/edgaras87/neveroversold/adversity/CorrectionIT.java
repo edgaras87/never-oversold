@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.adversity;
 
 import java.util.Map;
 import java.util.UUID;
@@ -42,7 +42,7 @@ class CorrectionIT extends WebDatabaseIT {
     private TestRestTemplate door;
 
     /**
-     * E1 · G1 — kill 6.
+     * SL-2 E1 · G1 — kill 6.
      *
      * <p>Ten on hand, eight held by customers, and the operator counts the
      * shelf and finds seven. The ledger says no: the count keeps its old
@@ -70,7 +70,7 @@ class CorrectionIT extends WebDatabaseIT {
     }
 
     /**
-     * E1 · G1 — ADR-0010's two answers.
+     * SL-2 E1 · G1 — ADR-0010's two answers.
      *
      * <p>"Your correction does not fit" and "your request is nonsense" are
      * not the same thing, and an operator must be able to tell them apart:
@@ -86,7 +86,7 @@ class CorrectionIT extends WebDatabaseIT {
     }
 
     /**
-     * E1 · G2 — the mirror of the refusal.
+     * SL-2 E1 · G2 — the mirror of the refusal.
      *
      * <p>Eight held, and the operator asserts eight: it fits, so it is
      * taken — and taken at exactly eight. The ledger never writes a number
@@ -104,11 +104,11 @@ class CorrectionIT extends WebDatabaseIT {
 
         Witness.Numbers after = Witness.read(item);
         assertThat(after.onHandCount()).as("taken whole, never clamped: %s", after).isEqualTo(8);
-        assertThat(after.holds()).isTrue();
+        assertThat(after.holds()).as("the invariant: %s", after).isTrue();
     }
 
     /**
-     * E2 · G3 — a refusal moves nothing.
+     * SL-2 E2 · G3 — a refusal moves nothing.
      *
      * <p>Stricter than the test above, which looks only at the count and
      * the active holds. This compares every number the store keeps for the
@@ -130,7 +130,7 @@ class CorrectionIT extends WebDatabaseIT {
     }
 
     /**
-     * E3 · G4 — kill 7, the correction that fits.
+     * SL-2 E3 · G4 — kill 7, the correction that fits.
      *
      * <p>The same request body sent twice at the same door. Because an
      * adjustment asserts a state rather than a movement, the second send
@@ -156,7 +156,7 @@ class CorrectionIT extends WebDatabaseIT {
     }
 
     /**
-     * E3 · G4 — kill 7, the correction that does not fit.
+     * SL-2 E3 · G4 — kill 7, the correction that does not fit.
      *
      * <p>The other half of the resend: a correction the ledger cannot
      * honour is refused both times, and moves nothing either time. A
@@ -178,11 +178,12 @@ class CorrectionIT extends WebDatabaseIT {
 
     /**
      * Not evidence — a tripwire: the invariant cannot fail here, both
-     * corrections sitting above the held units. It pins a decision, that the
-     * ledger keeps no order of its own, so adding any goes red on purpose.
-     * Why that was chosen, and why the older number surviving is W1's
-     * remainder rather than a broken promise: §3 and §8's G5 in the slice
-     * record. Kill 8's evidence is {@link #aLateOlderCorrectionUnderTheHoldsIsRefused}.
+     * corrections sitting above the held units. It pins a decision, that
+     * the ledger keeps no order of its own, so adding any goes red on
+     * purpose. Why that was chosen, and why the older number surviving is
+     * W1's remainder rather than a broken promise: SL-2's record, "The
+     * correction's shape — decided" and SL-2 G5's options weighed. Kill 8's
+     * evidence is {@link #aLateOlderCorrectionUnderTheHoldsIsRefused}.
      */
     @Test
     void theArrivalOrderDecidesWhichNumberSurvives() {
@@ -208,12 +209,14 @@ class CorrectionIT extends WebDatabaseIT {
         // correction's number: the count is then wrong about the world —
         // W1's remainder, not a broken promise. This slice claims no
         // ordering and fixes none.
-        assertThat(madeOrder.onHandCount()).isEqualTo(7);
-        assertThat(swappedOrder.onHandCount()).isEqualTo(9);
+        assertThat(madeOrder.onHandCount()).as("delivered as made, the later number stands: %s", madeOrder)
+                .isEqualTo(7);
+        assertThat(swappedOrder.onHandCount()).as("delivered reordered, the older number stands: %s", swappedOrder)
+                .isEqualTo(9);
     }
 
     /**
-     * E4 · G5 — kill 8's evidence half.
+     * SL-2 E4 · G5 — kill 8's evidence half.
      *
      * <p>The operator counts seven, then recounts and sends nine; the
      * network swaps them, so nine lands first and seven arrives late —

@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.adversity;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -48,8 +48,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * runs and read after; the replies are checked last, for what they say
  * about the state.
  *
- * <p>E1's and E6's numbers start from the record's own example (§4):
- * one item, 10 on hand; reservation R holds 3, reservation S holds 5.
+ * <p>SL-3 E1's and E6's numbers start from the record's own example
+ * ("Guarantees"): one item, 10 on hand; reservation R holds 3,
+ * reservation S holds 5.
  */
 class ExitStormIT extends WebDatabaseIT {
 
@@ -60,7 +61,7 @@ class ExitStormIT extends WebDatabaseIT {
     private TestRestTemplate door;
 
     /**
-     * E1 · G1 — kill 13, consume × consume.
+     * SL-3 E1 · G1 — kill 13, consume × consume.
      *
      * <p>Fifty consumes on R, held at a line and released at one instant.
      * Each checks that R is still active and each would see that it is.
@@ -87,7 +88,7 @@ class ExitStormIT extends WebDatabaseIT {
     }
 
     /**
-     * E1 · G1 — kill 13, consume × release (F4).
+     * SL-3 E1 · G1 — kill 13, consume × release (F4).
      *
      * <p>Twenty-five consumes and twenty-five releases on R, interleaved,
      * released at one instant. One kind wins: R's receipt says which, and
@@ -119,7 +120,7 @@ class ExitStormIT extends WebDatabaseIT {
     }
 
     /**
-     * E1 · G1 — kills 13 and 14 across instances (F17).
+     * SL-3 E1 · G1 — kills 13 and 14 across instances (F17).
      *
      * <p>The same race split across three instances of the ledger, each
      * its own operating-system process against the one store: sixty
@@ -170,7 +171,7 @@ class ExitStormIT extends WebDatabaseIT {
     }
 
     /**
-     * E2 · G1, with time — kill 14, consume × expiry (F23): kill 13 with
+     * SL-3 E2 · G1, with time — kill 14, consume × expiry (F23): kill 13 with
      * time as one racer.
      *
      * <p>Forty holds of one unit for one second, the shortest the door
@@ -241,7 +242,7 @@ class ExitStormIT extends WebDatabaseIT {
     }
 
     /**
-     * E2 · G1, with time and tidy — consume × expiry by tidy.
+     * SL-3 E2 · G1, with time and tidy — consume × expiry by tidy.
      *
      * <p>E2 again, with a second racer at each instant: beside each
      * consume, at the same moment, a reserve for one unit on the same
@@ -328,7 +329,7 @@ class ExitStormIT extends WebDatabaseIT {
     }
 
     /**
-     * E6 · G5 — expiry acting with no request of its own.
+     * SL-3 E6 · G5 — expiry acting with no request of its own.
      *
      * <p>10 on hand; R holds 3 for one second, S holds 5 for fifteen
      * minutes. R runs out. Fifty reserves for one unit are held at a line

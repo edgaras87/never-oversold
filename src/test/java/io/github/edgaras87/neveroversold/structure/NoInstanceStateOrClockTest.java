@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.structure;
 
 import java.time.Clock;
 import java.util.Collection;
@@ -21,19 +21,19 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noFields;
 
 /**
- * E5, the structural half, and G2's — a test that reads the compiled
- * code, not the runtime. Two guarantees are held by what the application
- * does <em>not</em> contain, and an absence cannot be seen by running
- * anything:
+ * SL-1 E5, the structural half, and SL-1 G2's — a test that reads the
+ * compiled code, not the runtime. Two guarantees are held by what the
+ * application does <em>not</em> contain, and an absence cannot be seen by
+ * running anything:
  *
  * <ul>
- *   <li>G5, one clock: the ledger never asks its own process what time
+ *   <li>SL-1 G5, one clock: the ledger never asks its own process what time
  *       it is. Expiry is set and judged by the store's clock; an
  *       instance's skew cannot enter what it never supplies. So no call
  *       to any {@code now()} in {@code java.time}, no dependency on
  *       {@code Clock} or {@code Date}, no {@code System.currentTimeMillis}
  *       or {@code nanoTime} — as calls or as method references.</li>
- *   <li>G2, no state outside the store: the ledger keeps no item
+ *   <li>SL-1 G2, no state outside the store: the ledger keeps no item
  *       numbers in memory, so two instances cannot disagree. So no field
  *       of a map, collection or atomic type, and no mutable static
  *       field.</li>
@@ -52,7 +52,7 @@ class NoInstanceStateOrClockTest {
             .importPackages("io.github.edgaras87.neveroversold");
 
     /**
-     * E5 · G5 — kill 10, the structural half.
+     * SL-1 E5 · G5 — kill 10, the structural half.
      *
      * <p>Reads the compiled application, not a run of it. Any use of the
      * process's own time fails it — a {@code now()} from {@code java.time},
@@ -65,19 +65,19 @@ class NoInstanceStateOrClockTest {
     void theLedgerConsultsNoProcessClock() {
         // accesses, not only calls: a method reference such as Instant::now is an access too
         noClasses().should().accessTargetWhere(target(name("now")).and(target(owner(resideInAPackage("java.time..")))))
-                .because("expiry is set and judged by the store's clock, never an instance's (G5)")
+                .because("expiry is set and judged by the store's clock, never an instance's (SL-1 G5)")
                 .check(LEDGER);
         noClasses().should().dependOnClassesThat().belongToAnyOf(Clock.class, Date.class)
-                .because("a Clock, or a Date, is a process clock by another name (G5)")
+                .because("a Clock, or a Date, is a process clock by another name (SL-1 G5)")
                 .check(LEDGER);
         noClasses().should().accessTargetWhere(
                         target(name("currentTimeMillis").or(name("nanoTime"))).and(target(owner(type(System.class)))))
-                .because("the JVM's time is an instance's own (G5)")
+                .because("the JVM's time is an instance's own (SL-1 G5)")
                 .check(LEDGER);
     }
 
     /**
-     * E2 · G2 — kill 2, the structural half.
+     * SL-1 E2 · G2 — kill 2, the structural half.
      *
      * <p>Reads the compiled application. A field holding a map, a
      * collection or an atomic value, or a static field that is not final,
@@ -89,10 +89,10 @@ class NoInstanceStateOrClockTest {
         noFields().should().haveRawType(assignableTo(Map.class)
                         .or(assignableTo(Collection.class))
                         .or(resideInAPackage("java.util.concurrent.atomic")))
-                .because("the row is the only state; nothing kept in memory can take part in an admit (G2)")
+                .because("the row is the only state; nothing kept in memory can take part in an admit (SL-1 G2)")
                 .check(LEDGER);
         fields().that().areStatic().should().beFinal()
-                .because("a mutable static is shared state an instance holds outside the store (G2)")
+                .because("a mutable static is shared state an instance holds outside the store (SL-1 G2)")
                 .check(LEDGER);
     }
 }

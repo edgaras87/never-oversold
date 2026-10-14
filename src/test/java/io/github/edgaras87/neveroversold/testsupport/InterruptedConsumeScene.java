@@ -12,10 +12,10 @@ import java.util.concurrent.CompletableFuture;
  * The scene for interrupting a consume — SL-4's tests start from it, and
  * it lives here, not in one test class, because several share it and its
  * numbers must stay the record's. Set through a forked instance's real
- * door, since an interrupted consume needs an instance that can be killed:
- * an item with 10 on hand; reservation R holding 3, S holding 5 — 8 held,
- * 2 free (SL-4's record, §4). A consume of R should leave 7 on hand and 5
- * held.
+ * door, since an interrupted consume needs an instance that can be
+ * killed: an item with 10 on hand; reservation R holding 3, S holding 5 —
+ * 8 held, 2 free (SL-4's record, "Guarantees"). A consume of R should
+ * leave 7 on hand and 5 held.
  *
  * <p>Setting the scene asserts, since a scene that did not set is no
  * scene. The door's helpers it sets it with are its own, not a general

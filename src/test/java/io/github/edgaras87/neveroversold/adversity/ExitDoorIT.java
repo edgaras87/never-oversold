@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.adversity;
 
 import java.util.Map;
 import java.util.UUID;
@@ -24,11 +24,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * that does not exist, and an exit after expiry — on its own, and after
  * a new reserve has taken the expired hold's units.
  *
- * <p>The numbers start from the record's own example (§4): one item,
- * 10 on hand; reservation R holds 3, reservation S holds 5, so 8 are
- * held and 2 are free. The witness is read from the store first in
- * every test, the door's answer after: the promise is a property of
- * the state, and the status is what the door says about it.
+ * <p>The numbers start from the record's own example ("Guarantees"): one
+ * item, 10 on hand; reservation R holds 3, reservation S holds 5, so 8
+ * are held and 2 are free. The witness is read from the store first in
+ * every test, the door's answer after: the promise is a property of the
+ * state, and the status is what the door says about it.
  */
 class ExitDoorIT extends WebDatabaseIT {
 
@@ -40,7 +40,8 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E5 · G4 — a consume moves exactly what its reservation holds (FC2).
+     * SL-3 E5 · G4 — a consume moves exactly what its reservation holds
+     * (FC2).
      *
      * <p>Consume R: 10 on hand becomes 7, 8 held becomes 5, and S is
      * untouched. The answer is R as persisted, now saying how and when it
@@ -68,7 +69,7 @@ class ExitDoorIT extends WebDatabaseIT {
         assertThat(body.has("$.endedAt")).isTrue();
     }
 
-    /** E5 · G4 — a release frees exactly what its reservation holds; the count stays. */
+    /** SL-3 E5 · G4 — a release frees exactly what its reservation holds; the count stays. */
     @Test
     void aReleaseFreesExactlyItsReservationsUnits() {
         Scene scene = theRecordsExample();
@@ -86,7 +87,7 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E5 · G4 — an exit carries no quantity (FC2, folded here).
+     * SL-3 E5 · G4 — an exit carries no quantity (FC2, folded here).
      *
      * <p>A caller sends a consume with a body asking for 1 unit. The door
      * binds no body, so the consume moves R's 3 all the same. This fails if
@@ -107,7 +108,7 @@ class ExitDoorIT extends WebDatabaseIT {
         assertThat(answer.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
-    /** E5 · G4 — an exit naming a reservation that does not exist is unknown, and nothing moves. */
+    /** SL-3 E5 · G4 — an exit naming a reservation that does not exist is unknown, and nothing moves. */
     @Test
     void anExitOnAnUnknownReservationIsUnknownAndMovesNothing() {
         Scene scene = theRecordsExample();
@@ -124,7 +125,7 @@ class ExitDoorIT extends WebDatabaseIT {
         assertThat(Body.of(answer.getBody()).stringAt("$.title")).isEqualTo("unknown reservation");
     }
 
-    /** Not evidence — the door's nonsense rule (G6, SL-1) reaching the new paths. */
+    /** Not evidence — the door's rule for invalid requests (SL-1 G6) reaching the new paths. */
     @Test
     void anExitNamingNoReservationIsInvalid() {
         ResponseEntity<String> answer = door.postForEntity(
@@ -150,7 +151,7 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E3 · G2 — kill 12: the reply is lost, the caller consumes again.
+     * SL-3 E3 · G2 — kill 12: the reply is lost, the caller consumes again.
      *
      * <p>Consume R, then the same consume again. The count moves once: 7
      * on hand, 5 held, after both. The second answer is the first's
@@ -174,7 +175,7 @@ class ExitDoorIT extends WebDatabaseIT {
                 .isEqualTo(Body.of(first.getBody()).stringAt("$.endedAt"));
     }
 
-    /** E3 · G2 — kill 12, the release side: released twice, freed once. */
+    /** SL-3 E3 · G2 — kill 12, the release side: released twice, freed once. */
     @Test
     void theSameReleaseTwiceMovesOnce() {
         Scene scene = theRecordsExample();
@@ -191,7 +192,7 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E3 · G2 — a different exit after the first is refused and moves
+     * SL-3 E3 · G2 — a different exit after the first is refused and moves
      * nothing (ADR-0010, as ADR-0013 narrowed it).
      *
      * <p>Consume R, then release R. Without the wall the release would
@@ -215,7 +216,7 @@ class ExitDoorIT extends WebDatabaseIT {
         assertThat(Body.of(answer.getBody()).stringAt("$.title")).isEqualTo("refused");
     }
 
-    /** E3 · G2 — and the other way round: consume after release, refused, nothing left the shelf. */
+    /** SL-3 E3 · G2 — and the other way round: consume after release, refused, nothing left the shelf. */
     @Test
     void aConsumeAfterAReleaseIsRefusedAndMovesNothing() {
         Scene scene = theRecordsExample();
@@ -232,7 +233,7 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E4 · G3 — kill 19, nothing ends a hold early.
+     * SL-3 E4 · G3 — kill 19, nothing ends a hold early.
      *
      * <p>R holds 3 for three seconds, S holds 5. A second in, with two
      * left by the store's clock, a reserve for 2 on the same item tidies
@@ -268,7 +269,7 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E3 · G2 — a consume after expiry is refused; the expiry it met is
+     * SL-3 E3 · G2 — a consume after expiry is refused; the expiry it met is
      * recorded.
      *
      * <p>R holds 3 for one second and runs out. A consume on it then
@@ -298,7 +299,7 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E3 · G2 — kill 11 in full.
+     * SL-3 E3 · G2 — kill 11 in full.
      *
      * <p>R holds 3 for one second, S holds 5 for fifteen minutes. R runs
      * out, and a new reserve for 5, T, takes the units R's expiry freed:
@@ -334,10 +335,10 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * Not evidence — a tripwire for §3's choice, at the reserve: an
-     * expired hold's units are free from the instant. It guards the
-     * decided face, not the promise — holding more than needed cannot
-     * oversell — and discharges no kill.
+     * Not evidence — a tripwire for the choice in SL-3's record, "When an
+     * expired hold's units are free", at the reserve: an expired hold's units
+     * are free from the instant. It guards the decided face, not the promise
+     * — holding more than needed cannot oversell — and discharges no kill.
      *
      * <p>R holds 3 for one second, S holds 5: 2 free. R runs out, and a
      * reserve for 5 is admitted, which fits only if R's 3 are free. This
@@ -363,8 +364,9 @@ class ExitDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * Not evidence — a tripwire for §3's choice, at the correction: the
-     * same decided face, on SL-2's path. It discharges no kill.
+     * Not evidence — a tripwire for the choice in SL-3's record, "When an
+     * expired hold's units are free", at the correction: the same decided
+     * face, on SL-2's path. It discharges no kill.
      *
      * <p>R holds 3 for one second, S holds 5: 8 held. R runs out, and the
      * operator sets the count to 5, which is accepted: only S's 5 stand

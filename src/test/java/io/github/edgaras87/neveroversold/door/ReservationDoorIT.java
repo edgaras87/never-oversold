@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.door;
 
 import java.util.Map;
 import java.util.UUID;
@@ -23,10 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * The door under ADR-0010, one request at a time — no adversity yet, the
- * storms are the evidence tests' (E1–E5). What this holds: the three
+ * storms are the evidence tests' (SL-1 E1–E5). What this holds: the three
  * kinds of answer with their statuses and Problem Details bodies; an
  * item becoming known by its first adjustment (ADR-0011); every answer
- * carrying the record as persisted; and E6 — nonsense never reaching
+ * carrying the record as persisted; and SL-1 E6 — nonsense never reaching
  * the decision, the numbers untouched (G6, FC1).
  */
 class ReservationDoorIT extends WebDatabaseIT {
@@ -114,7 +114,7 @@ class ReservationDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E6 · G6 — kill 18, folded (FC1): the unknown item.
+     * SL-1 E6 · G6 — kill 18, folded (FC1): the unknown item.
      *
      * <p>A reserve on an item no adjustment has created is answered 404,
      * "unknown item" — the status ADR-0010 names for it, neither refused nor
@@ -134,7 +134,8 @@ class ReservationDoorIT extends WebDatabaseIT {
      * Not SL-1's evidence — SL-2's decision, seen at the door: the count
      * never drops under what reservations hold, and a correction that would
      * is refused rather than ending holds to fit. Its evidence is
-     * {@link CorrectionIT}.
+     * {@link io.github.edgaras87.neveroversold.adversity.CorrectionIT
+     * CorrectionIT}.
      *
      * <p>Ten on hand, seven held, the operator asserts six: the answer is
      * 409, and the numbers stay ten and seven.
@@ -167,7 +168,7 @@ class ReservationDoorIT extends WebDatabaseIT {
     }
 
     /**
-     * E6 · G6 — kill 18, folded (FC1).
+     * SL-1 E6 · G6 — kill 18, folded (FC1).
      *
      * <p>Nine malformed reserve requests, one per run: a quantity of zero,
      * negative, over the bound or missing; a hold of zero, over seven days,
@@ -186,12 +187,15 @@ class ReservationDoorIT extends WebDatabaseIT {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_PROBLEM_JSON);
         assertThat(Body.of(response.getBody()).stringAt("$.title")).isEqualTo("invalid request");
-        assertThat(held(item)).isZero();
-        assertThat(count(item)).isEqualTo(10);
+        int held = held(item);
+        int count = count(item);
+        String after = "held " + held + ", on hand " + count;
+        assertThat(held).as("units held after the invalid request: %s", after).isZero();
+        assertThat(count).as("the count after the invalid request: %s", after).isEqualTo(10);
     }
 
     /**
-     * E6 · G6 — kill 18, folded (FC1): the adjustment's own nonsense.
+     * SL-1 E6 · G6 — kill 18, folded (FC1): the adjustment's own nonsense.
      *
      * <p>An adjustment asserting minus one is answered 400 "invalid
      * request". This fails if a negative count ever gets past the door.

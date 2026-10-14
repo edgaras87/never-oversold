@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.folds;
 
 import java.util.Map;
 import java.util.UUID;
@@ -14,22 +14,24 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * E5, the behavioural half — active is judged by one clock, the store's
- * (G5, FC3; kill 10 removed rather than staged). Two facts read from the
- * store: a reservation's expiry instant is the store's own assignment
- * (its distance from the store-stamped creation instant is exactly the
- * hold asked for), and activeness is judged against the store's clock —
- * a hold that has run out by that clock leaves the active sum, one that
- * has not stays in it. The ledger supplied no timestamp in either case;
- * {@link NoInstanceStateOrClockTest} shows it could not have.
+ * SL-1 E5, the behavioural half — active is judged by one clock, the
+ * store's (SL-1 G5, FC3; kill 10 removed rather than staged). Two facts read
+ * from the store: a reservation's expiry instant is the store's own
+ * assignment (its distance from the store-stamped creation instant is
+ * exactly the hold asked for), and activeness is judged against the
+ * store's clock — a hold that has run out by that clock leaves the active
+ * sum, one that has not stays in it. The ledger supplied no timestamp in
+ * either case;
+ * {@link io.github.edgaras87.neveroversold.structure.NoInstanceStateOrClockTest
+ * NoInstanceStateOrClockTest} shows it could not have.
  *
  * <p>The counter {@code reserved} keeps counting the expired hold until
  * the next decision on the item frees it: the hold is ended at its
- * instant (SL-3's record, §3), and its receipt is written, and its units
- * freed, by the first reserve or correction on the item, or exit on the
- * reservation, that meets it. Between the two the counter reads high,
- * which no decision sees. Stated here so the asymmetry is read as
- * designed.
+ * instant (SL-3's record, "When an expired hold's units are free"), and
+ * its receipt is written, and its units freed, by the first reserve or
+ * correction on the item, or exit on the reservation, that meets it.
+ * Between the two the counter reads high, which no decision sees. Stated
+ * here so the asymmetry is read as designed.
  */
 class OneClockIT extends WebDatabaseIT {
 
@@ -40,7 +42,7 @@ class OneClockIT extends WebDatabaseIT {
     private JdbcClient store;
 
     /**
-     * E5 · G5 — kill 10, removed rather than staged (FC3).
+     * SL-1 E5 · G5 — kill 10, removed rather than staged (FC3).
      *
      * <p>A fifteen-minute hold is asked for, and the store's record puts its
      * expiry exactly fifteen minutes after the store's own creation stamp.
@@ -57,19 +59,19 @@ class OneClockIT extends WebDatabaseIT {
         String distance = store.sql("""
                 SELECT (expires_at - created_at)::text FROM reservation WHERE item_id = :item
                 """).param("item", item).query(String.class).single();
-        assertThat(distance).isEqualTo("00:15:00");
+        assertThat(distance).as("expiry minus the store's creation stamp").isEqualTo("00:15:00");
     }
 
     /**
-     * E5 · G5 — kill 10.
+     * SL-1 E5 · G5 — kill 10.
      *
      * <p>Two holds on one item, one for a second and one for ten minutes. A
      * second and a half later the short one has left the active sum and the
      * long one has not, judged by the store's clock. The held-units counter
      * still counts both: nothing has met the item since, so nothing has
-     * written the expired hold's receipt (SL-3's record, §3). This fails if
-     * an expired hold is ever still counted as active, or a live one
-     * dropped.
+     * written the expired hold's receipt (SL-3's record, "When an expired
+     * hold's units are free"). This fails if an expired hold is ever still
+     * counted as active, or a live one dropped.
      */
     @Test
     void activenessIsJudgedByTheStoresClock() throws InterruptedException {
@@ -78,15 +80,16 @@ class OneClockIT extends WebDatabaseIT {
         assertThat(reserve(item, "PT10M")).isEqualTo(HttpStatus.CREATED);
 
         Witness.Numbers both = Witness.read(item);
-        assertThat(both.activeSum()).as("both holds active at first").isEqualTo(2);
-        assertThat(both.held()).isEqualTo(2);
+        assertThat(both.activeSum()).as("both holds active at first: %s", both).isEqualTo(2);
+        assertThat(both.held()).as("both holds counted: %s", both).isEqualTo(2);
 
         Thread.sleep(1_500);   // the one-second hold runs out — by the store's clock, not this JVM's
 
         Witness.Numbers later = Witness.read(item);
-        assertThat(later.activeSum()).as("the run-out hold left the active sum").isEqualTo(1);
-        assertThat(later.held()).as("the counter still counts it until a decision meets the item").isEqualTo(2);
-        assertThat(later.holds()).isTrue();
+        assertThat(later.activeSum()).as("the run-out hold left the active sum: %s", later).isEqualTo(1);
+        assertThat(later.held()).as("the counter still counts it until a decision meets the item: %s", later)
+                .isEqualTo(2);
+        assertThat(later.holds()).as("the invariant: %s", later).isTrue();
     }
 
     private HttpStatus reserve(String item, String hold) {

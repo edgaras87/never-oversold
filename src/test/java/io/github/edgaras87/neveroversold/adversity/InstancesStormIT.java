@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.adversity;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * E2 — the storm across instances (ADR-0009): three instances of the
+ * SL-1 E2 — the storm across instances (ADR-0009): three instances of the
  * ledger as separate operating-system processes against one store, a
  * hundred and twenty reserve requests spread round-robin across their
  * doors and released at one instant, against an item holding twenty
@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * <p>What this proves that {@link ReserveStormIT} cannot: no belief an
  * instance holds in memory can save the invariant — the racers do not
- * share a process (G2, F17).
+ * share a process (SL-1 G2, F17).
  */
 class InstancesStormIT {
 
@@ -41,7 +41,7 @@ class InstancesStormIT {
     private static final int REQUESTS = 120;
 
     /**
-     * E2 · G2 — kill 2. E4 · G4 — kill 9, riding on the same storm.
+     * SL-1 E2 · G2 — kill 2. SL-1 E4 · G4 — kill 9, riding on the same storm.
      *
      * <p>E1's storm split across three separate processes: a hundred and
      * twenty requests for one unit each against twenty on hand. At most
@@ -110,21 +110,27 @@ class InstancesStormIT {
                 assertThat(answeredBy[i]).as("instance %d (pid %d) answered its share", i, ledgers.get(i).pid())
                         .isEqualTo(sentTo[i]);
             }
-            assertThat(ledgers.stream().map(ForkedLedger::pid).distinct().count()).isEqualTo(INSTANCES);
+            assertThat(ledgers.stream().map(ForkedLedger::pid).distinct().count())
+                    .as("each instance its own process").isEqualTo(INSTANCES);
 
             // the storm was real
-            assertThat(refused).as("some were refused").isGreaterThan(0);
+            assertThat(refused).as("some were refused: %d of %d", refused, REQUESTS).isGreaterThan(0);
 
             // the witness, read by none of them
             Witness.Numbers after = Witness.read(item);
-            assertThat(after.activeSum()).as("active sum ≤ on-hand-count").isLessThanOrEqualTo(after.onHandCount());
-            assertThat(after.held()).as("held ≤ on-hand-count").isLessThanOrEqualTo(after.onHandCount());
-            assertThat(admitted).isEqualTo(after.held());
-            assertThat(after.reservations()).isEqualTo(admittedIds.size());
+            assertThat(after.activeSum()).as("active sum ≤ on-hand-count: %s", after)
+                    .isLessThanOrEqualTo(after.onHandCount());
+            assertThat(after.held()).as("held ≤ on-hand-count: %s", after)
+                    .isLessThanOrEqualTo(after.onHandCount());
+            assertThat(admitted)
+                    .as("admitted replies account for exactly the units held: %d admitted, %s", admitted, after)
+                    .isEqualTo(after.held());
+            assertThat(after.reservations()).as("the store holds exactly the admitted reservations: %s", after)
+                    .isEqualTo(admittedIds.size());
             for (UUID id : admittedIds) {
-                assertThat(Witness.holdsReservation(id)).isTrue();
+                assertThat(Witness.holdsReservation(id)).as("reservation %s is in the store", id).isTrue();
             }
-            assertThat(samples).isNotEmpty();
+            assertThat(samples).as("the sampler read the store during the storm").isNotEmpty();
             assertThat(Witness.violations(samples)).as("every sampled state satisfies the invariant").isEmpty();
         } finally {
             stormOver.set(true);

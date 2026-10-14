@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.adversity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,14 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * E1 — the storm on one item's last units, in one instance: a hundred
- * reserve requests held at a line and released at one instant against
- * an item holding twenty units, each a full HTTP → application → store
- * round-trip through the real door. The witness (§1) is read from the
- * store — sampled while the storm runs and read after — never computed
- * from replies. E4 rides on it: every reply that says admitted names a
- * reservation the store holds, and the store holds exactly those.
+ * SL-1 E1 — the storm on one item's last units, in one instance: a
+ * hundred reserve requests held at a line and released at one instant
+ * against an item holding twenty units, each a full HTTP → application →
+ * store round-trip through the real door. The witness (SL-1's invariant)
+ * is read from the store — sampled while the storm runs and read after —
+ * never computed from replies. SL-1 E4 rides on it: every reply that says
+ * admitted names a reservation the store holds, and the store holds
+ * exactly those.
  *
  * <p>The storm is shown real: more is asked than fits, and some are
  * refused. What this does not prove: the same across instances — that
@@ -43,7 +44,8 @@ class ReserveStormIT extends WebDatabaseIT {
     private TestRestTemplate door;
 
     /**
-     * E1 · G1 — kills 1, 3 and 4. E4 · G4 — kill 9, riding on the same storm.
+     * SL-1 E1 · G1 — kills 1, 3 and 4. SL-1 E4 · G4 — kill 9, riding on the
+     * same storm.
      *
      * <p>Twenty units on hand, a hundred requests for one unit each, all
      * released at the same instant. At most twenty may be admitted, and the
@@ -97,17 +99,24 @@ class ReserveStormIT extends WebDatabaseIT {
 
             // the storm was real
             assertThat(REQUESTS).isGreaterThan(ON_HAND);
-            assertThat(refused).as("some were refused").isGreaterThan(0);
+            assertThat(refused).as("some were refused: %d of %d", refused, REQUESTS).isGreaterThan(0);
 
             // the witness, after
             Witness.Numbers after = Witness.read(item);
-            assertThat(after.activeSum()).as("active sum ≤ on-hand-count").isLessThanOrEqualTo(after.onHandCount());
-            assertThat(after.held()).as("held ≤ on-hand-count").isLessThanOrEqualTo(after.onHandCount());
-            assertThat(admitted).as("admitted replies account for exactly the units held").isEqualTo(after.held());
-            assertThat(admitted + refused).isEqualTo(REQUESTS);
+            assertThat(after.activeSum()).as("active sum ≤ on-hand-count: %s", after)
+                    .isLessThanOrEqualTo(after.onHandCount());
+            assertThat(after.held()).as("held ≤ on-hand-count: %s", after)
+                    .isLessThanOrEqualTo(after.onHandCount());
+            assertThat(admitted)
+                    .as("admitted replies account for exactly the units held: %d admitted, %s", admitted, after)
+                    .isEqualTo(after.held());
+            assertThat(admitted + refused)
+                    .as("every reply admitted or refused: %d admitted, %d refused", admitted, refused)
+                    .isEqualTo(REQUESTS);
 
-            // E4: every admitted reply names a record; the store holds exactly those
-            assertThat(after.reservations()).isEqualTo(admittedIds.size());
+            // SL-1 E4: every admitted reply names a record; the store holds exactly those
+            assertThat(after.reservations()).as("the store holds exactly the admitted reservations: %s", after)
+                    .isEqualTo(admittedIds.size());
             for (UUID id : admittedIds) {
                 assertThat(Witness.holdsReservation(id)).as("reservation %s is in the store", id).isTrue();
             }

@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.door;
 
 import io.github.edgaras87.neveroversold.testsupport.WebDatabaseIT;
 import io.github.edgaras87.neveroversold.testsupport.Body;

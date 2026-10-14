@@ -10,7 +10,7 @@ import org.springframework.transaction.TransactionSystemException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Not evidence — a tripwire for §8's choice in SL-4's record, "The
+ * Not evidence — a tripwire for the choice in SL-4's record, "The
  * surface": ADR-0016's answer is decided by the store's own error class,
  * not by the framework's exception type. It pins that decision and
  * discharges no kill.

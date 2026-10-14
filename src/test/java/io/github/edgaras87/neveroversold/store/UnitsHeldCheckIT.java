@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.store;
 
 import java.util.UUID;
 
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * V3's check on the units held, on its own, straight against the store
  * as {@code runtime} — no ledger, no door (the slice record:
- * {@code docs/construction/sl-3-a-reservation-exits-once.md}, §8, G6,
+ * {@code docs/construction/sl-3-a-reservation-exits-once.md}, SL-3 G6,
  * revised 2026-10-05). Each statement is one a script outside the
  * application could send: at its commit the store compares the item's
  * units held with the units of its reservations that have no receipt,
@@ -57,7 +57,7 @@ class UnitsHeldCheckIT extends DatabaseIT {
         assertThat(receipts(scene)).isEqualTo(1);
     }
 
-    /** G6: the cleanup script cannot give back R's units without ending R. */
+    /** SL-3 G6: the cleanup script cannot give back R's units without ending R. */
     @Test
     void unitsFreedWithoutAReceiptAreRefused() {
         Scene scene = anItemHoldingR();
@@ -69,7 +69,7 @@ class UnitsHeldCheckIT extends DatabaseIT {
         assertThat(unitsHeld(scene)).isEqualTo(3);
     }
 
-    /** G6: nor end R and leave its units held. */
+    /** SL-3 G6: nor end R and leave its units held. */
     @Test
     void aReceiptWithoutItsUnitsFreedIsRefused() {
         Scene scene = anItemHoldingR();

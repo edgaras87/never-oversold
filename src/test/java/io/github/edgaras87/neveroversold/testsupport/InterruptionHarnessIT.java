@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.testsupport;
 
 import java.net.http.HttpResponse;
 import java.time.Duration;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Not evidence — the harness's own checks, before any evidence leans on
- * it (SL-4's record, §8, "The surface"). They show that the harness can
+ * it (SL-4's record, "The surface"). They show that the harness can
  * do what SL-4's evidence needs: hold a consume at each of two points
  * mid-work, kill its instance outright, freeze and thaw the store, end
  * one session. They discharge no kill and read the witness only to show

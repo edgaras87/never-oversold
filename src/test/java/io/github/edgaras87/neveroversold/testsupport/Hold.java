@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * A row held at the store from outside every instance, so a consume that
  * needs it stops there, mid-work, until the test lets go (SL-4's record,
- * §8, "The surface"). No test code runs inside an instance (ADR-0009):
+ * "The surface"). No test code runs inside an instance (ADR-0009):
  * the consume stops because the store makes it wait, as it would for any
  * other transaction holding the row.
  *

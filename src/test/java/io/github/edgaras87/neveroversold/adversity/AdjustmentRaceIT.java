@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.adversity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,15 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * E3 — the race with a different partner (F10, kill 5): reserve requests
- * and an operator's downward adjustment on one item released at one
- * instant, repeated over fresh items. The witness (§1) is sampled while
- * each round runs and read after. Beyond the invariant, the adjustment's
- * answer must agree with the state: admitted means the count is the new
- * value with the held units under it; refused means the count is still
- * the old one. Which outcome a round gets is the race's to decide (W3:
- * who wins is not ours); that neither outcome ever leaves the invariant
- * broken is.
+ * SL-1 E3 — the race with a different partner (F10, kill 5): reserve
+ * requests and an operator's downward adjustment on one item released
+ * at one instant, repeated over fresh items. The witness (SL-1's
+ * invariant) is sampled while each round runs and read after. Beyond
+ * the invariant, the adjustment's answer must agree with the state:
+ * admitted means the count is the new value with the held units under
+ * it; refused means the count is still the old one. Which outcome a
+ * round gets is the race's to decide (W3: who wins is not ours); that
+ * neither outcome ever leaves the invariant broken is.
  */
 class AdjustmentRaceIT extends WebDatabaseIT {
 
@@ -42,7 +42,7 @@ class AdjustmentRaceIT extends WebDatabaseIT {
     private TestRestTemplate door;
 
     /**
-     * E3 · G3 — kill 5.
+     * SL-1 E3 · G3 — kill 5.
      *
      * <p>Twenty on hand; thirty requests for one unit each and one operator
      * correction down to ten, all released at the same instant, five rounds
@@ -106,23 +106,25 @@ class AdjustmentRaceIT extends WebDatabaseIT {
             Witness.Numbers after = Witness.read(item);
             System.out.printf("AdjustmentRaceIT round %d: correction %s, admitted %d, after %s%n",
                     round, corrected.getStatusCode(), admitted, after);
-            assertThat(after.activeSum()).as("round %d: active sum ≤ on-hand-count", round)
+            assertThat(after.activeSum()).as("round %d: active sum ≤ on-hand-count: %s", round, after)
                     .isLessThanOrEqualTo(after.onHandCount());
-            assertThat(after.held()).as("round %d: held ≤ on-hand-count", round)
+            assertThat(after.held()).as("round %d: held ≤ on-hand-count: %s", round, after)
                     .isLessThanOrEqualTo(after.onHandCount());
-            assertThat(admitted).as("round %d: admitted replies account for the units held", round)
+            assertThat(admitted)
+                    .as("round %d: admitted replies account for the units held: %d admitted, %s",
+                            round, admitted, after)
                     .isEqualTo(after.held());
 
             // the adjustment's answer agrees with the state
             if (corrected.getStatusCode() == HttpStatus.OK) {
-                assertThat(after.onHandCount()).as("round %d: admitted correction set the count", round)
+                assertThat(after.onHandCount()).as("round %d: admitted correction set the count: %s", round, after)
                         .isEqualTo(LOWERED_TO);
-                assertThat(after.held()).as("round %d: the held units sit under the new count", round)
+                assertThat(after.held()).as("round %d: the held units sit under the new count: %s", round, after)
                         .isLessThanOrEqualTo(LOWERED_TO);
             } else {
                 assertThat(corrected.getStatusCode()).as("round %d: a correction is admitted or refused", round)
                         .isEqualTo(HttpStatus.CONFLICT);
-                assertThat(after.onHandCount()).as("round %d: refused correction left the count", round)
+                assertThat(after.onHandCount()).as("round %d: refused correction left the count: %s", round, after)
                         .isEqualTo(ON_HAND);
             }
 

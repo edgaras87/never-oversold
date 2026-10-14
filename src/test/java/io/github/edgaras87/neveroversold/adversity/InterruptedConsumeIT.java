@@ -1,4 +1,4 @@
-package io.github.edgaras87.neveroversold;
+package io.github.edgaras87.neveroversold.adversity;
 
 import java.net.http.HttpResponse;
 import java.time.Duration;
@@ -17,7 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * SL-4's evidence for a consume interrupted mid-work (the slice record:
- * {@code docs/construction/sl-4-consumes-two-moves-hold-together.md}, §5).
+ * {@code docs/construction/sl-4-consumes-two-moves-hold-together.md}, E1
+ * and E2).
  * Each test starts from {@link InterruptedConsumeScene} — 10 on hand, R
  * holding 3, S holding 5 — and holds R's consume at one of two points
  * with a {@link Hold}, so the interruption lands mid-work on purpose and
@@ -28,7 +29,7 @@ class InterruptedConsumeIT {
     private static final Duration GONE_WITHIN = Duration.ofSeconds(10);
 
     /**
-     * E1 · G1 — kill 15: we die between consume's two moves.
+     * SL-4 E1 · G1 — kill 15: we die between consume's two moves.
      *
      * <p>R's consume is held with its receipt written and the item's row
      * not yet moved; its instance is killed outright; then the hold lets
@@ -43,8 +44,8 @@ class InterruptedConsumeIT {
     }
 
     /**
-     * E1 · G1 — kill 15, at the second point: both moves written, neither
-     * committed.
+     * SL-4 E1 · G1 — kill 15, at the second point: both moves written,
+     * neither committed.
      *
      * <p>R's consume is held at the end of its statement, the item's row
      * already moved to 7 on hand and 5 held; its instance is killed
@@ -58,7 +59,7 @@ class InterruptedConsumeIT {
     }
 
     /**
-     * E2 · G2 — kill 15, met by a reader: a consume under way is seen
+     * SL-4 E2 · G2 — kill 15, met by a reader: a consume under way is seen
      * whole or not at all.
      *
      * <p>R's consume is held with both moves written, uncommitted. While
@@ -77,7 +78,7 @@ class InterruptedConsumeIT {
     }
 
     /**
-     * E2 · G2 — kill 15, met by a reader, the consume then dying.
+     * SL-4 E2 · G2 — kill 15, met by a reader, the consume then dying.
      *
      * <p>As above, but the consume's instance is killed while held. The
      * reserve then decides against the state before the consume — 2 free
