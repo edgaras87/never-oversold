@@ -31,6 +31,9 @@ when it closes.
 7. At the close, the run's own lists point to the decisions, the
    next run's checks become its gate items, and the branch lands on
    main, regrouped, on your word.
+8. After it, a step of its own applies the retro to this run before
+   Release (`apply-retrospective`): what improves the records
+   without changing what was proved.
 
 ## How it decides
 

@@ -115,6 +115,8 @@ note's commits move back). The note's Experiments line records which.
 6. **Land it.** Regroup the commits by kind, agent files apart from
    project files. Keep the small commits on a local
    `retrospective-detail`. Merge on the reviewer's word.
+7. **Then apply it to this run,** before Release:
+   `.claude/skills/apply-retrospective/`.
 
 ## Between sessions
 
