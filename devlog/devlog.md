@@ -8,6 +8,15 @@
      whole, word for word, to devlog/<YYYY-MM>.md: September 2026
      is in devlog/2026-09.md. -->
 
+## 2026-10-15  (Step 10 closed)
+
+- Main fast-forwarded from `step-10-apply-retro` (16 commits,
+  d1cb909 to e350314), on the reviewer's word. The ~180 small
+  commits stay on `step-10-apply-retro-detail`, a branch and a tag,
+  where RETRO.md's hashes point. Nothing pushed.
+- Resume: the deliverer re-checks this run from main (TODO, Now).
+  Then Release, its gate written from the step form when it opens.
+
 ## 2026-10-15  (Step 10: the build and the close)
 
 - Built from 2026-10-13 to 2026-10-15, one planned commit at a time,
