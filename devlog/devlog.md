@@ -8,6 +8,16 @@
      whole, word for word, to devlog/<YYYY-MM>.md: September 2026
      is in devlog/2026-09.md. -->
 
+## 2026-10-15  (after Step 10: the polish folder removed)
+
+- `.claude/polish/` removed from main (9c0640d): pass 1 was done,
+  and Step 10 did the work of passes 2 and 3 (RETRO.md D24).
+  Nothing in it was in force; git history keeps every brief and
+  report. CLAUDE.md's row went with it; the glossary points to
+  history.
+- Resume: the deliverer re-checks this run from main (TODO, Now):
+  RETRO.md, and TODO's *To the deliverer*. Then Release.
+
 ## 2026-10-15  (Step 10 closed)
 
 - Main fast-forwarded from `step-10-apply-retro` (16 commits,
