@@ -1,42 +1,61 @@
 # The shape of a slice record
 
-**Governs:** how three parts of a slice record are written — the
-guarantees derived by attack; the owners in its plan, which name
-what holds each guarantee; and the faces weighed for a guarantee,
-the one chosen and the ones not. Their form, never their content:
-what a guarantee says comes from the attack, and what holds it and
-why comes from the plan.
+**Governs:** how a slice record is laid out, and how each
+guarantee's block is written. Their form, never their content: what
+a guarantee says comes from the attack, and what holds it comes from
+the plan.
 
 <!-- A shape: what a kind of output looks like here, its form and
-     never its content. How shapes live — where one sits, who moves
-     it, what a gate does with one — is
-     .claude/rules/shapes-lifecycle.md, and not repeated here. -->
+     never its content. Read at a slice's closing gate. How shapes
+     live is .claude/rules/shapes-lifecycle.md, and not repeated
+     here. How a record reads sentence by sentence is the writing
+     rule's (.claude/rules/writing.md). -->
 
 ## What this document controls
 
-**The form of three parts, and nothing else.** The guarantees
-derived by attack, the owners in the plan that name what holds
-each one, and the faces weighed for a guarantee — how each is laid
-out on the page, not what it claims. A guarantee this document
-would accept can still be the wrong guarantee; that is the
-attack's business, and the specification's.
+**The record's order, and the form of a guarantee's block.** A
+block this shape accepts can still hold the wrong guarantee; that
+is the attack's business, and the specification's. Every other
+section is the slice's own, as long as the slice needs.
 
-These three because they are the ones that were written, read,
-found wanting and rebuilt — not because they matter most. Every
-other section is the slice's own, and a record is as long as its
-slice needs. When another section turns out to need a shape, it is added
-here with a dated line.
+## The record's order
 
-## The three shapes
+1. **Invariant.** What the slice protects, in one statement.
+2. **Adversity.** What attacks it, and how the evidence creates it,
+   for every guarantee alike.
+3. **Decided before the specification,** where something was.
+4. **Guarantees.** One block per guarantee, below.
+5. **Folds and flags:** what the registry handed this slice, each
+   answered.
+6. **What this slice does not claim.**
+7. **The plan, across guarantees:** what the walls need (or
+   what stands already), the escape hatches hunted, the surface,
+   the red as planned, the deviations and provisionals.
+8. **Evidence, as delivered:** the suite as a whole, the tests
+   beside the evidence that are not evidence, the red runs, and
+   what the build found that the specification had not.
+9. **Standing guards:** what keeps the guarantees true after the
+   slice closes.
+10. **Sign-offs.**
 
-### A guarantee, in the guarantees section
+What spans every guarantee has its own section. What belongs to one
+guarantee is in its block, and nowhere else.
+
+## A guarantee's block
+
+The block grows by stage. The specification writes the claim, the
+attack and the evidence criterion. The plan adds what holds it and
+the options weighed. The close adds the tests. The reviewer signs a
+stage by reading the parts it added.
 
 ```markdown
-**Gn. <the claim, one sentence, no mechanism>**
+### SL-<n> G<k>. <the claim, condition first (a when, while or if
+clause, or the condition as the subject), then what a test can see
+happen>
 
 *What could go wrong (the attack):* <what would let the invariant
 hold on paper and break in fact>
-*Say:* <real numbers from this system — 8 held, the operator
+*Say:* <real numbers from this system: 8 held, the operator
 asserts 7>
 
 *What we guarantee:* <the property that answers it>
@@ -44,125 +63,103 @@ asserts 7>
 
 *Kills:* <n>
 
----
-```
+- **E<m> (G<k>).** <the adversity the test creates, and what the
+  witness must read after it>
 
-### An owner, in the plan
-
-```markdown
-**Gn. <the guarantee, restated in a line>**
-
-*The wall:* <what holds it, named — a constraint, a statement, an
+*The wall:* <the wall, named: a constraint, a statement, an
 absence with the test that guards it>
-
 *Why it beats this attack:* <against the named adversity, not
 adversity in general>
 *Say:* <real numbers>
+*If the wall were ever wrong:* <what stands behind it, or nothing,
+said so; and "seen at the red run" or "unproven">
 
-*If the wall were ever wrong:* <what stands behind it, or nothing
-and say so — and whether it was seen catching the attack when the
-wall was removed for its red, or is unproven>
+*Options weighed:*
 
----
-```
-
-### A face, in the faces weighed for a guarantee
-
-```markdown
-**<the guarantee the faces are weighed for, in a line>**
-
-**<the face chosen>** — *chosen*
-
-*How it holds Gn:* <how this face holds the guarantee>
-
+**<the option chosen>** — *chosen*
+*How it holds it:* <how>
 *Cost:* <what choosing it costs>
-*Assumes:* <the size that cost is true at — the definition's, where
-it states one — and what would make the face worth revisiting>
+*Assumes:* <the size that cost is true at, and what would make the
+option worth revisiting>
 
----
-
-**<a face not chosen>**
-
-*How it holds Gn:* <how it would hold the guarantee>
-
+**<an option not chosen>**
+*How it would hold it:* <how>
 *Why not:* <why it lost, against the named adversity>
 
+*Proven by:*
+
+| Criterion | Test | The adversity it creates |
+|---|---|---|
+| E<m> · G<k> | `<Class.method>` | <what it does, with the kill it answers> |
+
 ---
 ```
 
-**A face revised after the plan was signed** keeps its block and
-dates the change. The new winner comes first as always, marked
-`*chosen <date>*`; the face it replaced moves below it, marked
-`*as signed on <date>*`, and answers under `*Why not, on
-revision:*`. A reader sees that a decision was signed and then
-overturned, and when — not that it was always so.
+### Rules for the parts
 
-Seven things these encode, so a reader checking a record knows what
-is being checked:
-
-- **The parts are labelled in plain words, keeping the method's own
-  term where one exists** — *What could go wrong (the attack):*,
-  not *Attack:* alone and not *What could go wrong* alone.
-- **A worked example follows the claim it illustrates,** on its own
-  line, marked `*Say:*`, with real numbers from this system rather
-  than "some units".
-- **Blocks are separated by a rule** (`---`), so where one ends is
-  visible without counting blank lines.
+- **The claim is written once,** at the top of its block. No other
+  section restates it.
+- **The claim says what happens to what,** in this system's nouns:
+  the condition first where there is one, as a clause or as the
+  subject ("A refused change moves nothing"), then the outcome a
+  test can see. No abstract noun standing for the mechanism ("nonsense",
+  "the truth").
 - **A `*Say:*` line is owed wherever a mechanism is involved,** and
-  not forced where the claim is already concrete without one. A
-  face carries none: the chosen face's numbers are in its owner's
-  block, and a rejected face was never run.
-- **The chosen face comes first and says so,** and every face
-  answers the same two questions under the same labels — *How it
-  holds* and then *Cost* for the chosen one, *Why not* for the
-  rest — so faces are weighed by reading down, not across.
-- **A cost says the size it is true at.** A face chosen at one size
-  can lose at another; *Assumes:* is where a later reader finds when
-  to look again, rather than finding out by the system slowing.
+  not forced where the claim is concrete without one. An option
+  carries none: the chosen one's numbers are in *What holds it*, and
+  a rejected one was never run.
+- **Options are weighed where this slice made the choice.** Where
+  the wall already stood, the block names where its options were
+  weighed ("in SL-1 G1's block") instead of weighing them again.
+- **The chosen option comes first and says so.** Every option
+  answers the same questions under the same labels, so options are
+  weighed by reading down, not across.
+- **A cost says the size it is true at.** An option chosen at one
+  size can lose at another; *Assumes:* is where a later reader finds
+  when to look again.
+- **An evidence criterion is a list item,** so it can hold
+  sub-points and name more than one guarantee ("E1 (G1, G2)"). The
+  table names the criterion beside each test, since one criterion
+  can serve two guarantees.
 - **A backstop says whether it was seen.** The red run removes the
-  wall; that is the one moment its backstop meets the attack. A
-  backstop named and never seen there is written as unproven, not
-  assumed to hold.
-
-A passage outside these three parts that carries **one claim** is
-left alone. The fences in the definition and the intent's
-commitments are the examples: short sentences, each standing by
-itself, and nothing here asks for them to change.
-
-The line, if one is ever needed elsewhere: if a reader has to hold
-two claims in mind to follow a third, the passage carries an
-argument.
+  wall, and that is the one moment the backstop meets the attack. A
+  backstop never seen there is written "unproven".
+- **An option changed after the plan was signed keeps its dates.**
+  The new choice comes first, marked `*chosen <date>*`. The one it
+  replaced moves below, marked `*as signed on <date>*`, and answers
+  under `*Why not, on revision:*`.
+- **Blocks are separated by a rule** (`---`).
 
 ## What is exempt, and why
 
-- **Lookup tables** — kill ↔ slice, criterion ↔ test, a records
-  index. A table row is one line in the file; a four-column row of
-  prose measured 435 characters, which an editor cannot show and a
-  diff marks whole when one word changes. Tables stay for lookups,
-  where cells are short by nature.
-- **Bullet lists of single claims** — the evidence criteria, what
-  the slice does not claim, the standing guards.
+- **Lookup tables:** kill to slice, criterion to test, a records
+  index. A table row is one line in the file, so its cells stay
+  short. A row of prose 435 characters long cannot be read in an
+  editor, and a diff marks it whole when one word changes.
+- **Lists of single claims:** what the slice does not claim, the
+  standing guards.
 
 ## What to check at a close
 
-Read the new record and ask:
+Read the record and ask:
 
-1. Does every argument-carrying passage have labelled parts?
-2. Does every mechanism have a `*Say:*` line with real numbers?
-3. Are the blocks separated by rules, and does every set of faces
-   put the chosen one first?
-4. Does the chosen face say what size its cost assumes, and does
-   every backstop say whether it was seen at the red run?
-5. Are the short-claim passages untouched?
-6. Where the record diverges from this shape — did it find
-   something better? If so, this document changes and the change
-   is dated.
+1. Does it follow the record's order, with what spans guarantees in
+   its own sections?
+2. Is each guarantee one block, its parts in order, and no part of
+   it elsewhere?
+3. Is each claim written once, condition first, saying what a test
+   can see?
+4. Does every chosen option come first, with its cost and the size
+   that cost assumes?
+5. Does every backstop say whether it was seen at the red run?
+6. Where the record differs from this shape: did it drift, did it
+   find something better, or is it a different kind? The shapes rule
+   says how each ends.
 
 ## Revisions
 
 <!-- Dated lines: what changed, what taught it, and what was read
-     from elsewhere. Whether this shape has stopped teaching is
-     read from these — shapes-lifecycle §3. -->
+     from elsewhere. -->
 
 - 2026-09-22 — written, from SL-2's record. Nothing read from
   elsewhere yet: no shape for this kind has been delivered into
@@ -191,3 +188,29 @@ Read the new record and ask:
   evidence's size, unstated beyond it, until the definition gave the
   system a size. From SL-4's record on; closed records are not
   reopened (shapes-lifecycle §5). Nothing read from elsewhere.
+- 2026-10-13 — one block per guarantee (RETRO.md, D11 and D12): the
+  three shapes (a guarantee, an owner, a face) become parts of one
+  block, in the order the stages write them, with the evidence
+  criterion and the tests added. The record's order is here too,
+  since run 3 has no slice skill outline to carry it. The claim's
+  form is condition first (D14). The labels' and the worked
+  numbers' explanations leave: the writing rule says them (rules 3
+  and 4). Taught by the retrospective: one guarantee was spread over
+  five sections. Nothing read from elsewhere.
+- 2026-10-14 — cbc-slice now carries the record's skeleton, which
+  every run needs before any shape exists. This shape keeps the full
+  order anyway: it is the form this project repeats, read at the
+  close, and complete without the skill. Nothing read from
+  elsewhere.
+- 2026-10-14 — "the shape the walls need" becomes "what the walls
+  need", the slice records' section name since Step 10's pass 2:
+  a shape is a page here, not a design. Nothing read from
+  elsewhere.
+- 2026-10-14 — the shape was wrong here, found at Step 10's closing
+  reading of all four slice records, which agree with each other:
+  the wall's label is *The wall:*, matching *If the wall were ever
+  wrong*; an evidence criterion is a list item, and the table names
+  the criterion beside each test; the chosen option is marked with
+  a dash; options are weighed only where the slice made the choice,
+  else the block names where; a claim's condition may be its
+  subject. Nothing read from elsewhere.

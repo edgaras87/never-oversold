@@ -6,90 +6,92 @@ foundation: the shapes convention
 
 # Shapes: what they are, and how they live
 
-A **shape** says what a kind of output looks like in this project —
+A **shape** says what a kind of output looks like in this project:
 its form, never its content. It opens with one line naming what it
 covers:
 
 > **Governs:** how `<which parts>` of `<which artifact>` are
 > written. Their form, never their content.
 
-That line is how a step finds which shapes apply to what it made. A
-file here without it is not a shape.
+A step finds the shapes that apply to its work by that line. A file
+without it is not a shape. A shape says nothing about when it is
+written or changed; that is this file's.
 
-A shape says its form and nothing of any lifecycle. When the output
-it governs opens, extends and closes is the owning convention's to
-say; when the shape itself is written, moved or changed is this
-file's. A shape that restates either is a copy of it, and a copy
-that repeats is what drifts.
+## 1. Written from work that exists
 
-## 1. Written from work that exists, never in advance
+A shape is written from outputs that already exist: a pair that
+recurred, or one piece worth keeping. Never from an idea of how the
+work should go. If no shape covers what a step made, its gate checks
+nothing for it.
 
-Write a shape from a pair that recurred — what they share is the
-shape — or from one piece judged worth keeping beyond here. Never
-from an idea of how the work should go. If no shape covers what a
-step made, its gate carries no check for it; do not invent one.
+Before a shape is written, its examples are read side by side, with
+two questions:
 
-## 2. Two places, and the place is the force
+- **Where do they differ?** Each difference ends as one form for
+  all, a variant the shape names and allows, or a better form
+  neither example had.
+- **What could they all do better?** Read against the writing rule,
+  the project's decisions, and what went wrong. A weakness every
+  example shares never shows up by comparing them. Example: twenty
+  entries that all lack a worked example with numbers.
 
-**Unexposed — `.claude/shapes/`.** Nothing loads it; it is opened
-at a gate. Keep a shape here while what the work produces *without*
-it still matters — above all before this project's first output of
-that kind.
+The reviewer settles what the look finds; anything the writer adds
+beyond it is named as theirs. Then the shape is tried on the
+examples it came from, and on an earlier version where a miss is
+known. A shape catches a part that is missing, not a part that kept
+its place but lost half its meaning: only the source shows that.
 
-**Exposed — `.claude/rules/`, with its own `paths:`.** Loads
-whenever a matching path is touched. Move a shape here when
-conformance is what is wanted.
+## 2. One place, read at the gate
 
-**Held at the deliverer.** An unexposed shape reaches this project
-only as a delivery staged in `temp/`, read at a gate and not before
-(§4). An exposed one arrives as a delivered copy, under
-`delivered-copies.md`.
+Every shape lives in `.claude/shapes/`. Nothing loads it while the
+work is written. It is read at the step's closing gate.
 
-## 3. Moving a shape
+Why: work written without the shape in view can show that the shape
+is wrong, or that a new one is needed. What must hold while the work
+is written is not a shape. It belongs to the skill or the rule that
+runs the work.
 
-The reviewer moves a shape, in both directions; no count does. A
-count only prompts the question, and the shape's own dated lines
-are what it is asked against. Changing an exposed shape does not
-withdraw it; it returns to `.claude/shapes/` only when someone
-decides the question is open again.
+## 3. A difference at the gate
 
-## 4. At a step's close: what arrives in `temp/`
+The gate reads what the step made against every shape that governs
+it. The comparison is by judgment, not by text: does the output
+have the parts the shape names, in its order, reading as it says?
+Each difference is named, with the line from the output and the
+line from the shape. It ends one of four ways, judged one
+difference at a time. Any change it leads to, in the output or in
+the shape, is shown before it is made, never applied silently:
 
-This project fetches nothing; a shape is there because a person
-staged it. At the close:
-
-1. **Look in `temp/` for shapes staged for this step.** Nothing
-   there: tick the item with one line saying so — a complete answer,
-   not a failure. Something there: read each against what the step
-   produced, settle each difference (§5), and tick with a note naming
-   what was checked against.
-2. **Keep it.** The result moves into `.claude/shapes/` as this
-   project's shape for that kind — unchanged, changed by what this
-   project found, or merged with what was already here — with dated
-   lines saying what arrived, what was taken and what was refused.
-   The staging leaves.
-3. **Offer, never push.** This project's shapes sit here and are read
-   when the deliverer reads this repository. Mark what is this
-   project's illustration apart from the skeleton, so a reader can
-   take one and leave the other.
-
-Only exposed shapes ship. An unexposed one is offered as a finding.
-
-## 5. A difference
-
-A gate reads what a step made against every shape governing it.
-Propose each difference as a diff; never correct it. It ends one of
-three ways, judged per difference and never by a policy:
-
-- **the shape was wrong here** — the output stands; the shape
-  changes to match it.
-- **the output drifted** — the shape stands; the output is brought
+- **The output drifted.** The shape stands; the output is brought
   to it.
-- **each has something** — the shape takes what this output found,
-  and the output is brought to the shape as changed.
+- **The shape was wrong here.** The output stands; the shape
+  changes, with a dated line.
+- **Each had something.** The shape takes what the output found,
+  and the output is brought to the changed shape.
+- **The output is a different kind.** Both stand, and a new shape
+  starts from the output (§1). Either of the last three can name
+  new work (§4).
 
-Outputs closed before a change are not reopened. An exposed shape
-that changes stays exposed.
+Outputs closed before a change are not reopened.
+
+## 4. When a shape names work
+
+A shape mostly names form: the order of parts, how they read. Some
+parts need work done during the step. Example: a backstop "seen at
+the red run" can only be known by looking during the red run.
+
+When a shape is written or changed so that it names such a part,
+the skill that runs the work is checked. If the skill does not ask
+for that part, it is changed too, under `delivered-copies.md`.
+Otherwise the gate finds the part missing when it is too late to
+produce, and the work must be redone.
+
+## 5. Offering a shape back
+
+The deliverer reads this project's shapes when it reads the
+repository. A shape marks what any project would want (its
+skeleton) apart from this project's example (its illustration), so
+the deliverer can take one and leave the other. How an edit reaches
+the deliverer is `delivered-copies.md`'s.
 
 ## 6. What this does not govern
 
