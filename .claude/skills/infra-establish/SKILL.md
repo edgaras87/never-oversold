@@ -65,7 +65,9 @@ non-negotiables:
 
 - **Step 1 gate:** the environment decision is logged with its why
   *before* any ground file exists. **No compose file is born at step
-  1** — its content is steps 2–5's outcome. The operator manual's
+  1** — its content is steps 2–5's outcome. The adversities' demands
+  choose the environment; **the levers the evidence pulls are proven
+  by the harness that pulls them**, not here. The operator manual's
   environment section is written from the lived stand-up, at the
   moment it happens.
 - **Step 2 gate:** one logged evaluation, slice by slice: what

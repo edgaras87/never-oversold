@@ -95,24 +95,37 @@ polish passes.
   slices + folds — nothing silently dropped) and a chosen-next slice.
   Ordering is an expectation, re-decided at each slice close.
 
-## The record — one derivation doc
+## The record — the exports, and one derivation doc
 
-The framing's working record is **one file,
-`docs/system/framing/derivation.md`** — nested beside the truth it
-earns, kept as the archive forever, never deleted. Three rules give
-it multi-doc's virtues without the file sprawl:
+**Each step's result is written once, straight into its export,**
+when the human gives the verdict: the intent at step 0, the
+definition's layer at steps 1 to 5, the registry at step 6. The
+export is the result's only home; it carries a draft line at its
+top until the close. Example, in the definition: "FACT-CALLER-7. A
+caller consumes a reservation that is not theirs, or claims a
+quantity other than the reservation's → a lie at the door."
 
-1. **One section per step**, each split in two: *what this step
-   earned* (clean statements, on top — export composes from these)
-   and *how it ran* (reasoning, probes, dead ends, below). Verdicts
-   are written inline, where they happen.
-2. **A section freezes at its verdict.** Append-only after that;
-   revisions touch it only as logged return trips.
+**The derivation keeps how each step ran:**
+`docs/system/framing/derivation.md`, nested beside the truth it
+earns, kept as the archive forever, never deleted. It links to each
+result and never restates it. Three rules:
+
+1. **One section per step:** what was considered, the probes, the
+   dead ends, the human's questions, and the verdict, written
+   inline where it happens; then a link to where the result lives.
+   Example: "Step 2, 2026-09-10. Considered 'a caller sends a
+   negative quantity'; folded into FACT-CALLER-7. Asked: is a wrong
+   reservation id the same fact as a wrong quantity? Yes: both are a
+   caller lying at the door. Verdict: accepted. Results: definition,
+   L1."
+2. **A section freezes at its verdict.** Append-only after that. A
+   return trip changes the export, and adds one line here: what
+   changed, and why.
 3. **The escape valve:** a genuinely bulky mechanical sweep may
    live as a referenced appendix file beside it in the same
    directory, plain-named (`collision-grid.md`, say), carrying
    sweep output only, never decisions. The doc stays the single
-   record.
+   record of how the framing ran.
 
 Where each record kind lives: framing verdicts — inline here; a
 delegation arrangement — the run's `.claude/decisions.md` (agent
@@ -121,16 +134,18 @@ run's `docs/adr/` at close.
 
 ## Export and handoff
 
-At close, **compose** the three artifacts from the derivation doc's
-earned blocks, under the **residue filter**: an export never
-references the derivation doc's machinery — conclusions travel
-re-grounded in the exports themselves, which must stand alone. The
+At close, **check that each export reads alone**, then remove its
+draft line. Nothing is composed or copied: a result copied from one
+file to another drifts, and a rewording can turn true into false.
+The **residue filter** holds throughout: an export never references
+the derivation doc's machinery — conclusions stand re-grounded in
+the exports themselves. The
 same filter refuses **agent language**: nothing in an export names
 this skill, a workflow step, or the run's arrangement — a reader
 without the skills directory must not need it to read them.
 Default export practice: **commit in derivation order** — the
-intent; the system definition growing L2 → L1 → L4 → L3 → L5, one
-lived state per commit; the registry; the adoption record; the
+intent; the system definition growing L2 → L1 → L4 → L3 → L5, each
+step's result committed at its verdict; the registry; the adoption record; the
 README last (the surface derives from committed internals) — so
 the run repo's own history tells the derivation story. The order
 is the commits', not the file's: each layer commit places its

@@ -6,7 +6,7 @@ every slice. How each item gets satisfied — which store, which language,
 which harness tooling — is deliberately unspecified: bootstrap is project
 work, not method work.*
 
-## R1 — The framing artifacts are in the repo
+## READINESS-1 — The framing artifacts are in the repo
 
 - `docs/system/intent.md` — the one promise, with banked rejections.
 - `docs/system/definition.md` — L1–L5, each layer filled or
@@ -18,7 +18,7 @@ work, not method work.*
 Why: the slice workflow's Stage 1 consumes the registry entry *as written*
 — no artifacts, nothing to consume.
 
-## R2 — The repo builds, runs, and tests run
+## READINESS-2 — The repo builds, runs, and tests run
 
 A skeleton service exists: it compiles, starts, and an empty/trivial test
 suite executes green. No features required — the surface is derived later,
@@ -28,7 +28,7 @@ Why: a slice's build stage must land in a place where code and tests
 already run; fighting the toolchain mid-slice pollutes the record with
 noise that isn't method feedback.
 
-## R3 — The real store is reachable from tests
+## READINESS-3 — The real store is reachable from tests
 
 The store the enforcement will live in (the one whose constraints are
 candidate walls) is provisioned and reachable from the test suite — not
@@ -38,7 +38,7 @@ Why: the strongest walls (unique constraints, atomic conditional updates)
 are *store behavior*. Evidence against a mock proves the mock, not the
 invariant.
 
-## R4 — The harness can create the adversity class this slice names
+## READINESS-4 — The harness can create the adversity class this slice names
 
 Read this slice's registry entry; for **the adversity class it names**, the
 test harness must be able to generate it:
@@ -58,7 +58,7 @@ Why: a slice closes only on a test that *creates* its adversity. If the
 harness can't create it, the completion gate is physically unrunnable and
 "done" becomes a feeling again.
 
-## R5 — The harness can fail
+## READINESS-5 — The harness can fail
 
 Self-test: break an invariant deliberately (drop the constraint, comment
 the guard — on a branch) and confirm the adversity test goes red, then
@@ -69,9 +69,9 @@ bootstrap or an inherited schema already carries one — this check cannot
 be answered at Stage 0. It is answered inside that slice's build instead:
 the evidence is seen red with the wall absent before the wall stands,
 recorded from actual output. The slice's gate says so at its opening;
-readiness is signed with R5 owed there.
+readiness is signed with READINESS-5 owed there.
 
-## R6 — The run's record surfaces exist
+## READINESS-6 — The run's record surfaces exist
 
 The registry is writable, and the project's own record scheme (decided at
 bootstrap, not by this method) has a place for deviations and sign-offs —
@@ -79,7 +79,7 @@ slice closes and re-decisions land there.
 
 ## Sign-off
 
-Readiness is a human verdict, not a script's: walk R1–R6, check each, and
-record the sign-off (one line in the registry or the project's records:
-date + "ready for slice N"). The slice workflow's Stage 0 asks for this before
-Stage 1 opens.
+Readiness is a human verdict, not a script's: walk READINESS-1 to
+READINESS-6, check each, and record the sign-off (one line in the registry
+or the project's records: date + "ready for slice N"). The slice workflow's
+Stage 0 asks for this before Stage 1 opens.

@@ -1,17 +1,16 @@
-# CbC slice workflow
+# CbC slice workflow — the outline, the why, the examples
 
-*The core loop for one slice: **one invariant made real**. Input: one local
-problem (L4) from the framing — an invariant and the adversity that
-threatens it. Output: demonstrated evidence that the invariant survives.*
+*SKILL.md says what to do at each stage, and each gate. This file
+holds only what SKILL.md does not: the record's outline, why each
+stage runs as it does, and worked examples. Each section names the
+stage it serves.*
 
 ---
 
 ## The unit
 
-A **slice** = one invariant × one adversity, carried all the way to passing
-evidence. Not a feature, not an endpoint, not a ticket. The completion test
-is single and non-negotiable: **the adversity-creating test exists and
-passes**. No evidence, no closed slice.
+A **slice** is one invariant × one adversity, carried all the way to
+passing evidence. Not a feature, not an endpoint, not a ticket.
 
 ```
 specify-correctness  →  plan  →  build  →  document
@@ -19,248 +18,202 @@ specify-correctness  →  plan  →  build  →  document
                         chosen)    it real)   legible)
 ```
 
-The first boundary is the load-bearing one: **what** must be true is settled
-completely before any **how** is allowed into the room. Fusing them is the
-classic corruption — a mechanism named early masquerades as a property, and
+The first boundary matters most: **what** must be true is settled
+completely before any **how** is allowed in. Mixing them is the usual
+failure. A mechanism named early is taken for a property, and the
 alternatives are never weighed against the actual requirement.
 
 ---
 
-## Stage 1 — specify-correctness
+## The slice's record — its outline
 
-*Question: what must hold, against what, and what would proof look like?*
+One record per slice, written as the stages go. This is the minimum
+every record needs: where each stage's output goes, and one block
+per guarantee. A project may keep a shape that adds to it and says
+how each part reads; the shape is read at the close, never while
+writing. Beside each part, the stage that writes it.
 
-1. **Take the invariant from the framing's registry entry — as written,
-   zero translation.** The kill arrived invariant-shaped from step 3 of the
-   framing; consuming it is the handoff. Only when no framing exists (the
-   seed-example case) is the invariant named directly here: a property of
-   state that must never be violated, one sentence, falsifiable. ("N
-   identical requests → exactly one persisted order.")
-2. **Take the adversity from the L1 census — pulled, not invented.**
-   Precisely what threatens the invariant — contention, duplicate delivery,
-   crashes/partial failure, reordering. "Correct" is meaningless until you
-   say correct *against what*. Same fallback: named directly only when no
-   framing exists.
-3. **Name the whats the framing does not carry.** A slice may need
-   answers the framing never gave — how the thing the invariant is about
-   comes to exist at all, the conventions of the door the adversity
-   arrives through, what the first schema holds. The first slice meets
-   most of them. Each is a *what*, decided at the opening as a record with
-   its options, before the specification that depends on it; absorbing one
-   into code is the silent decision this workflow forbids. It is still not
-   a mechanism — "an item becomes known by its first adjustment" names no
-   table. One recorded as an ADR is **Proposed** until the slice's closing
-   records (Stage 4), then **Accepted**: the build can still reshape it,
-   and a Proposed record is corrected in place where an Accepted one could
-   only be superseded.
-4. **Run the guarantee challenge.** Attack your own invariant: *"what would
-   let this hold on paper yet be violated in fact?"* Every distinct answer
-   becomes a **guarantee** — a strategy-free sub-property that must hold.
-   (For the order example: uniqueness of the key; a winner and a loser under
-   concurrency; safe replay of the winner's response; correct key scope.)
-   Guarantees are **derived by attack, never looked up** — this middle layer
-   is the real work; textbook examples skip it.
-5. **Set evidence criteria.** For each guarantee: what test would *create*
-   its adversity and show survival? Named now, built in stage 3.
+```
+# SLICE-<n> — <the invariant in a few words>
 
-**Exit:** a **correctness spec** — invariant → guarantees → evidence
-criteria, plus the adversity model — and every flag the registry row
-carries answered by name: a flag means the adversity cannot be staged the
-normal way, so the spec says what its evidence is instead, staged as its
-own evidence or removed by a definition the spec adopts, with the removal
-shown. **Gate: zero mechanisms.** If the spec mentions a lock, a
-constraint, a queue, or any technology — it has leaked; park the mechanism
-and restate as a property.
+## Invariant                                  specify
+## Adversity                                  specify
+   what attacks it, and how the evidence creates it, for every
+   guarantee alike
+## Decided before the specification           the opening, where something was
+## Guarantees
+### SLICE-<n> GUARANTEE-<k>. <the claim>       one block per guarantee:
+   the attack, and what we guarantee          specify
+   its evidence criterion                     specify
+   what holds it, and what stands behind it   plan
+   the options weighed                        plan
+   the tests that prove it                    the close
+## Folds and flags                            specify: each one the registry handed over, answered
+## What this slice does not claim             specify
+## The plan, across guarantees                plan: what the walls need, the escape
+                                              hatches hunted, the surface, the red as planned,
+                                              the deviations and provisionals
+## Evidence, as delivered                     build and close: the suite, the tests beside
+                                              the evidence, the red runs, what the build found
+## Standing guards                            the close
+## Sign-offs                                  the human's, one per stage
+```
 
-## Stage 2 — plan
+What spans every guarantee has its own section. What belongs to one
+guarantee is in its block, and nowhere else: the claim is written
+once, at the top of its block. A stage that adds to a block adds to
+that block. It does not open a section of its own.
 
-*Question: what structure makes each guarantee impossible to violate?*
+---
 
-1. **Assign one structural owner per guarantee**, choosing the strongest
-   wall available:
+## Stage 1 — why, and an example
 
-   ```
-   the store's refusal (a constraint, a right withheld) → type system
-   → single validated entry path → runtime check → code review → hope
-   ```
+*Question: what must hold, against what, and what would proof look
+like?*
 
-   A guarantee owned by "all the code being careful" is a design defect —
-   flag it now, before implementation.
-2. **Justify each choice against the named adversity.** Not "we use a
-   unique constraint" but "a unique constraint defeats duplicate delivery
-   because the second insert cannot physically succeed." Where more than
-   one face could hold the guarantee, the plan shows the candidates as a
-   comparison the signer can weigh — each face, how it holds the
-   guarantee, its cost — and recommends one, the way an ADR presents
-   options. A cost is true at some size: say which — read from the size
-   the definition says the system is built for, where it says one — and
-   what would make the face worth revisiting, since a face chosen at one
-   size can lose at another. Faces named in a paragraph after the choice
-   are not weighed; the reviewer reads past them and asks afterwards
-   whether alternatives existed. The sign-off is only real if the
-   alternatives were in front of the signer.
-3. **Hunt escape hatches.** Any path that bypasses the wall — an admin
-   endpoint, a raw script, a migration — turns the guarantee into fiction.
-   Every write path goes through the owner, or the owner is not an owner.
-   Hunt them against the definition's trust list. A writer the definition
-   trusts — the store's superuser, the identity it names as the system's
-   own — is named in the plan as trusted, not walled; a guarantee cannot
-   wall against a writer who can remove the wall, and trying turns every
-   slice into an open-ended defence. A writer the definition never
-   mentions is a question for the definition, answered there by a dated
-   revision, before it becomes a wall built by default.
-4. **Name the surface at its minimum.** Only what the guarantees need
-   somewhere to live — the door they are attacked through, the schema
-   the walls stand in, the records the close needs — and nothing beyond.
-   A slice is not a feature: the door exists because the invariant needs
-   one, and anything entering here that no guarantee needs is scope, to be
-   refused or sent back to the registry.
+**Taken as written, from the framing.** The kill arrived shaped as an
+invariant from the framing's step 3. Using it is the handoff. The seed
+example's invariant: "N identical requests → exactly one persisted
+order." The adversity is pulled from the L1 census, not invented:
+contention, duplicate delivery, crashes and partial failure,
+reordering. "Correct" means nothing until it says correct *against
+what*.
 
-**Exit:** every guarantee has exactly one named owner and a one-line reason
-it defeats the adversity; the surface named at its minimum. **Gate: no
-unowned guarantees.**
+**What the framing does not carry is still a what.** "An item
+becomes known by its first adjustment" names no table. Absorbing
+such a decision into code is the silent decision this workflow
+forbids. An ADR for it stays Proposed until the close because the
+build can still reshape it: a Proposed record is corrected in place,
+where an Accepted one could only be superseded.
 
-## Stage 3 — build
+**Why every flag is answered.** A flag left unanswered is a warning
+the slice inherited and dropped.
+
+**Guarantees are derived by attack, never looked up.** This middle
+layer is the real work, and textbook examples skip it. For the order
+example, the attack yields: uniqueness of the key; a winner and a
+loser under concurrency; safe replay of the winner's response;
+correct key scope. Each is strategy-free: it says what must hold,
+not how.
+
+The output is a **correctness spec**: invariant → guarantees →
+evidence criteria, plus the adversity model.
+
+## Stage 2 — why
+
+*Question: what structure makes each guarantee impossible to
+violate?*
+
+**"All the code being careful" is a design defect,** flagged before
+implementation, not discovered after.
+
+**Why the comparison, and why the size.** Options named in a
+paragraph after the choice are not weighed: the reviewer reads past
+them and asks afterwards whether alternatives existed. The sign-off
+is only real if the alternatives were in front of the signer. And a
+cost is true at some size. Read it from the size the definition says
+the system is built for, where it says one: an option chosen at one
+size can lose at another.
+
+**Why a trusted writer is not walled.** Any path that bypasses the
+wall makes the guarantee false, so every write path goes through the
+owner. But a guarantee cannot wall against a writer who can remove the
+wall, such as the store's superuser or the identity the definition
+names as the system's own. Trying turns every slice into an open-ended
+defence.
+
+**Why the surface is minimal.** The door exists because the
+invariant needs one, and a slice is not a feature.
+
+## Stage 3 — why
 
 *Question: does the invariant actually survive the adversity?*
 
-1. **Implement the enforcement.** The code should be boring — the thinking
-   already happened. Surprising cleverness here usually means stage 1 or 2
-   was skipped.
-2. **Build the evidence tests — tests that CREATE the adversity**, not
-   sample around it: hammer concurrently, inject duplicate deliveries, kill
-   the process mid-transaction, replay out of order. Then watch the
-   invariant survive, guarantee by guarantee. A test that runs sequentially
-   is not evidence for a contention guarantee — the evidence must generate
-   the same adversity the spec names.
-3. **Record deviations.** Departing from the spec or plan is legal, silent
-   departure is not — every deviation lands in the project's own record
-   scheme. If the build reveals a missed guarantee, add it to the spec with
-   this slice as provenance — guarantees are discovered in flight too.
+**Boring code.** The thinking already happened. Surprising
+cleverness here usually means Stage 1 or 2 was skipped.
 
-4. **See it red.** Run each evidence test with its wall absent — in a
-   state that never lands in history — and record the red from actual
-   output;
-   then, with the wall standing, watch the same test, unchanged, go green.
-   How the wall is made absent is the slice's choice: when this slice
-   births the wall, the naive version can land first and the wall be its
-   own diff; when the wall already stands, remove it and restore it; when
-   the wall is a rule over the code, plant the violation it forbids. This
-   is also how a slice answers R5 when readiness had no wall to break —
-   the usual first slice.
+**Create, don't sample.** A test that runs one request at a time is
+not evidence for a contention guarantee. The evidence must generate
+the adversity the spec names.
 
-   A red counts only if it fails on the witness. A test that stops on a
-   status code, a crash or a failing setup step before it reads the state
-   has proved that it reads status codes, not that it watches the
-   invariant; reorder it so the witness is asserted first, and take the
-   red again. And a race whose red needs its window held open — a pause
-   added so the interleaving the test is named for actually happens —
-   gets that pause on the red tree only, and the record says so: the
-   evidence as committed runs without it.
-5. **Say on each test what it is for.** Beside the test, not only in the
-   record: which evidence criterion, which guarantee, which kill, and then
-   in plain words what it checks and what would trip it. The reasons — why
-   this face, why this shape — stay in the slice record, or the two drift
-   apart and neither can be trusted. A reader who lands on a test should
-   not have to reconstruct its purpose from its assertions.
-6. **A test that is not evidence says so.** A slice may leave behind a test
-   that cannot fail for the invariant, because what it guards is a decided
-   face: it goes red only when someone changes, by hand, something the
-   slice chose on purpose. That is worth keeping — it speaks to whoever
-   stands over it when it reddens — but it says on itself that it is a
-   tripwire, which decision it pins, and where the reasons live. And the
-   counting rule that keeps this from becoming a hole: **a tripwire never
-   discharges a kill.** Every kill still owes a test that was seen red, and
-   the red run decides which kind a test is, not its author — a test that
-   cannot be reddened by removing the wall it claims to guard is not
-   evidence, whatever it is called.
-7. **A wall may be shown on its own.** Send it its refusal directly — the
-   second key inserted, the forbidden write made straight to the store —
-   or read it from where it lives, its definition in the catalog. That is
-   the wall's own check: it proves the wall stands before any path leans
-   on it, and it is where a wall dropped "for a while" is noticed before
-   any storm samples around the gap. It is not evidence and discharges no
-   kill: it creates no adversity, it only shows the wall is there. It says
-   so on itself, like a tripwire.
+**Why the promise is read first.** A test that checks only the
+numbers it expected passes when the promise breaks in a way it did
+not foresee.
 
-**Exit:** all evidence tests pass. **Gate: every guarantee has a test that
-creates its adversity, and was red without the wall — a green suite of
-happy-path tests closes nothing, and a test never seen red proves only
-that it runs.**
+**Why the race's pause stays on the red tree.** The evidence as
+committed runs without it, so what is committed is what runs.
 
-## Stage 4 — document
+**Why the backstop is noted at the red run.** The red run is the one
+moment the backstop meets the attack. A backstop not seen there is
+recorded as unproven, never assumed.
 
-*Question: can a stranger see what is promised and why to believe it?*
+**Why each test is labelled beside itself.** A reader who lands on a
+test should not have to rebuild its purpose from its assertions. The
+reasons (why this option, why this form) stay in the slice record,
+or the two drift apart and neither can be trusted.
 
-Record, compactly: the invariant → its guarantees → the owner enforcing
-each → the evidence proving each. This is the slice's visible product — in
-this discipline the guarantee depth, not the feature, is what's on display.
+**Why a tripwire is kept, and why it counts for nothing.** It goes red
+only when someone changes, by hand, something the slice chose on
+purpose. That is worth keeping: when it goes red, it tells whoever
+changed that choice that it was made on purpose. But a test that
+cannot be made red by removing the wall it claims to guard is not
+evidence, whatever it is called.
 
-The registry close is more than a status flip. The row went to
-`in-progress` when the specification landed — the first project-visible
-work — so the registry never read `chosen-next` through a build. At the
-close, the row's entry names what this slice left provisional and what it
-hands to later slices, by name: a wall that already holds part of a later
-invariant, a counter that over-approximates until a later slice ends
-something, a shape a later slice must decide. Then the ordering is
-re-decided with its reason written. This is the step that lets a built
-slice teach that the next expected slice is wrong, split, or unnecessary
-— the registry can only re-decide on what the close wrote down.
+**Why the wall's own check.** It proves the wall stands before any
+path leans on it, and it notices a wall dropped "for a while" before
+any evidence test samples around the gap. It creates no adversity, so
+it is not evidence.
 
-**Last, read what the slice made against the project's own shapes.** A
-project may hold a record of what a kind of its output looks like — the
-form of a slice record's sections, of the machinery the evidence leans
-on. One may govern each thing this slice produced, or none may. They are
-the project's, never this skill's: a shape handed down is an answer a
-project did not earn, and one adopted from elsewhere hides what this
-project would have arrived at on its own.
+## Stage 4 — why
 
-- **None for what this slice made?** Nothing is checked, and that is
-  correct. Whether this output is worth writing a shape from is a
-  judgement the project makes when it makes it, not a step of this close.
-- **One exists?** Read what the slice made against it and propose, as a
-  diff, every place they differ. **Propose, never correct.** Each
-  difference ends one of three ways and the human says which: the shape
-  was wrong here, so it changes and the output stands; the output
-  drifted, so it is brought to the shape; or each has something, and both
-  move.
+*Question: can a stranger see what is promised and why to believe
+it?*
 
-This runs at the close and not before, and the reason is not
-independence — inside one project the records inherit from each other
-anyway, the writer having read the last one. It is that a record written
-from the shape follows the shape, and a record written from the slice
-follows the material. Where this slice's material does not fit — a
-guarantee with a part the shape has no line for, an owner that is an
-absence rather than a thing — writing from the material shows it, and
-writing into the shape hides it as a filled-in form. A shape record that
-never changes is either finished or unread.
+**The record is the slice's visible product.** In this discipline
+the guarantee depth, not the feature, is what is on display.
 
-**Exit:** the slice closes in the registry as evidence-closed, with its
-provisionals and hand-ons named and the ordering re-decided in writing;
-and its record has been read against the project's shapes, with each
-difference either settled or taken up into the shape.
+**Why the close writes its answers.** A built slice can teach that
+the next expected slice is wrong, split or unnecessary, but the
+registry can only re-decide on what the close wrote down. Examples
+of what a close hands on: a wall that already holds part of a later
+invariant; a counter that over-approximates until a later slice ends
+something; a choice a later slice must make. And a
+registry that reads `chosen-next` through a whole build is not the
+source of truth for what is being worked.
+
+**Why ARCHITECTURE gains rows, not paragraphs.** It answers what a
+later slice may rely on now, so it stays short and current. Each row
+names what computes the rule, what refuses a wrong result, the test
+that goes red, and the slice that proved it.
+
+**Why the shapes are the project's own.** A shape handed down is an
+answer a project did not earn, and one adopted from elsewhere hides
+what this project would have arrived at itself. Whether an output
+is worth writing a shape from is a judgement the project makes when
+it makes it, not a step of this close. Why a shape is read only at
+the close: the shapes rule, "One place, read at the gate".
 
 ---
 
 ## Standing guards (after the slice closes)
 
-- **Guarantee erosion:** any later feature touching this slice's state
-  re-checks this spec before shipping. New surface = new attack surface
-  against your own walls.
-- **Testing theater:** if a guarantee's wall weakens over time (constraint
-  dropped "temporarily", type loosened) and only the test remains, the
-  guarantee has silently moved from structure to sampling. Structure
-  forbids; tests only sample.
-- **Escape hatch watch:** every new admin path or script is checked against
-  the owners it might bypass.
+- **Guarantee erosion:** any later feature touching this slice's
+  state re-checks this spec before shipping. New surface is new
+  attack surface against your own walls.
+- **Testing theater:** if a guarantee's wall weakens over time (a
+  constraint dropped "temporarily", a type loosened) and only the
+  test remains, the guarantee has silently moved from structure to
+  sampling. Structure forbids; tests only sample.
+- **Escape hatch watch:** every new admin path or script is checked
+  against the owners it might bypass.
 
 ## Working defaults
 
-Two choices are heuristics — working defaults, overridable with a recorded
+Two choices are working defaults, overridable with a recorded
 reason:
 
-- **Prove/verify lives inside build**: evidence tests are stage 3's second
-  move, no separate gate between build and document.
-- **The spec is prose under fixed headings** — *invariant / adversity /
-  guarantees / evidence criteria* — one spec per slice. Structure enough to
-  diff, prose enough not to front-load a schema.
+- **Prove and verify live inside build:** evidence tests are Stage
+  3's second move, with no separate gate between build and document.
+- **The spec is prose under fixed headings** (*invariant /
+  adversity / guarantees / evidence criteria*), one spec per slice.
+  Structure enough to diff, prose enough not to front-load a schema.

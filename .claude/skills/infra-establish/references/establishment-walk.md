@@ -22,8 +22,18 @@ one commit, then the walk begins (Stage 0, check 2).
 Derive what the slices' adversities demand the evidence be able to
 *do*: kill processes mid-write, race plural instances, break a commit
 boundary, survive restarts — each project's own list. This derivation
-is the step's living half — it feeds verification design and the
-manuals.
+is the step's living half — it chooses the environment, and the
+manuals record it.
+
+**The demands choose the environment; the ground does not prove
+them.** The ground proves the engine (below) and, at step 5, what the
+store itself promises: each constraint seen refused, and the facility
+a slice will need (two writers on one row, one made to wait). A lever
+the evidence pulls — starting several instances, killing one,
+freezing the store — is proven where the harness that pulls it is
+built, in the form it pulls it: the bootstrap's harness for its first
+adversity, each slice's readiness check for the rest. Proven here, a
+lever is proven in a form the harness may never use.
 
 Check the **lived default — podman local containers, compose-driven —**
 against those demands and the definition's runtime facts. Weigh

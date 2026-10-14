@@ -72,6 +72,12 @@ Reason out and present for confirmation, each with its why:
   one instance, and if it does, a single-process pass proves a shape
   nobody runs — the proof must cross the process boundary (the stack
   walkthrough's stage 5). Decide it here, by name, with its why.
+  Decide, too, **the form the harness starts the system in: the form
+  it ships.** A plain process ships, so the evidence forks plain
+  processes of the build's output, with the environment a real
+  instance gets and no test code inside; an image ships, so it starts
+  the image. Never the form that is cheapest to start: that proves a
+  system nobody runs.
 - **The initialization identity**: group (the owner's namespace — ask, never
   invent), artifact (the project's name), base package (hyphens dropped),
   packaging, language version.
@@ -109,7 +115,8 @@ choose — beside the builder's other manuals; both lived runs put it at
 
 - §1 the initialization identity
 - §2 the capabilities, each with its why
-- §3 the constraints, each with its why
+- §3 the constraints, each **by pointer** to the ADR or contract that
+  decided it; the why is stated here only where no record holds it
 - §4 the ground's facts **by pointer** — cite the operator manual and
   contract, never restate them; carry only what the code needs in hand: the
   identity the application connects as, and the endpoint facts.
@@ -185,6 +192,15 @@ by member:
 Then write the exit records in the project's own docs: the milestone
 certified, run and test commands, operator manual linked, an honest "no
 business behavior yet", the probe's death scheduled at the first slice.
+
+**Once certified, the requirements are history,** like a closed ADR:
+never updated, and no banner listing what changed since. What a slice
+may rely on from now on is ARCHITECTURE's, so the close writes its
+components as they stand: the store, the application, the harness,
+each with what a slice may rely on and the ADR that shaped it. The
+harness's component says the form it starts the system in, and why
+that is the form that ships. The project's records table sends "what
+may a slice rely on" there.
 
 The certified facts also project into the README (CBC ADR-0013): the
 **Run** and **Test** sections, plus the stack's line joining the

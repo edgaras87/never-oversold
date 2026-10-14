@@ -61,6 +61,31 @@ Four rules govern every handoff:
 
 ---
 
+## Tags — one name per thing, in full words
+
+Every numbered item in the exports gets a tag: its kind in capitals,
+then a domain where it helps, then the number. One spelling
+everywhere, at the source and in every citation, so a search finds
+every use. Numbers run once through an export, never restarting per
+section.
+
+| Item | Tag | Example |
+|---|---|---|
+| a possession (step 1) | POSSESSION-<n> | POSSESSION-4 |
+| a fact (step 2), with its actor | FACT-<ACTOR>-<n> | FACT-STORE-19 |
+| a trust assumption (step 2) | ASSUMPTION-<n> | ASSUMPTION-4 |
+| a fence (step 2) | NOT-OURS-<n> | NOT-OURS-2 |
+| a scope verdict (step 2) | SYSTEM-BOUNDARY-<n> | SYSTEM-BOUNDARY-5 |
+| a kill (step 3) | KILL-<n> | KILL-15 |
+| a definition folded into a slice (step 6) | FOLD-<n> | FOLD-1 |
+| a slice (step 6) | SLICE-<n> | SLICE-4 |
+| a layer | L1 to L5, as the concept chapter has them | L4 |
+
+A concern that becomes exactly one slice is called by that slice's
+tag from step 6 on; a letter only for a concern that does not. A
+number local to one record carries its owner outside it, owner
+first: "SLICE-4 GUARANTEE-1".
+
 ## Step 0 — Choose the promise (intent)
 
 *Question: what claim is this project selling, and to whom?*
@@ -198,10 +223,10 @@ written refusal or deferral line, never silence.
 
 **What the exit leaves behind — three ledgers, in ink:**
 
-- **The fence list.** Every written-out scope exclusion as a
-  numbered line (W1, W2, …). A fence is a working boundary, not a
-  disclaimer — it earns its ink by *visibly stopping facts* at
-  step 3, where a fenced fact collides with nothing.
+- **The fence list.** Every written-out scope exclusion as a numbered line
+  (NOT-OURS-1, NOT-OURS-2, …). A fence is a working boundary, not a
+  disclaimer — it earns its ink by *visibly stopping facts* at step 3,
+  where a fenced fact collides with nothing.
 - **The not-probed ledger.** What was *not* examined, named honestly
   (clock skew, deployment transitions, …) — so a later reader knows
   the census's edge, not just its content. An unprobed door flagged
@@ -285,7 +310,7 @@ runs as **three passes**, each with its test and its record:
    slice, merged visibly; different ⇒ both stand. Splits parked
    earlier as visible choices are settled here.
 3. **The folds.** Each definition folds into the first slice that
-   consumes it, its check riding along. The registry is composed,
+   consumes it, its check riding along. The registry is written,
    carrying the **fold-reconciliation line** (concerns ↔ slices +
    folds) so nothing is silently dropped.
 

@@ -196,8 +196,11 @@ never pasted**; read its variation points before writing a line.
 **Lived realization (once):** the instances are **forked from the
 build's own output** — `target/classes` plus exactly the runtime
 classpath, which the dependency plugin writes to a file at
-`process-test-classes` — because the test phase runs before packaging,
-so an image of the system would need a second command. No test-scope
+`process-test-classes` — because the system ships as a plain process,
+and the evidence starts it in the form it ships. That this needs no
+second command (the test phase runs before packaging) is a gain, not
+the reason: were an image to ship, the evidence would start the image.
+No test-scope
 code runs inside an instance (verify: the written classpath carries no
 flyway, testcontainers, junit or `-test` artifact). Each instance is
 started with the three environment facts a real instance gets — the

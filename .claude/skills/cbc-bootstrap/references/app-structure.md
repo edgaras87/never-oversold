@@ -23,10 +23,18 @@ owns only the *shape they land in*.
 earned per feature.** Lived across nine slices:
 
 ```
-<base-package>
+<base-package>                main
 ├── <feature-a>/     FeatureAController, FeatureADomainClass
-├── <feature-b>/     ...
-└── testsupport/     the harness bases (harness reference)
+└── <feature-b>/     ...
+
+<base-package>                test
+├── adversity/       creates the danger for real: races, storms, kills
+├── folds/           a fold's fact shown by running the system, no attack
+├── structure/       reads the code: a guarantee held by an absence
+├── store/           the store's own refusals, and the migration path
+├── door/            the HTTP contract: each answer and its status
+├── testsupport/     the harness bases (harness reference), and its own test
+└── <feature-a>/     a unit test that needs the feature's package access
 ```
 
 - **One package per problem area**, holding everything that area
@@ -42,6 +50,15 @@ earned per feature.** Lived across nine slices:
   appears inside one feature when that feature's own complexity
   earns it, and appears nowhere else. Layers inside a feature are
   legal; a repo-wide layer template is provisioning ahead of need.
+- **Tests are placed by the kind of check they are,** never by
+  slice: a slice is the order of building, and one test may serve
+  several. A test that mixes kinds goes by its main job. The folder
+  answers "show me every race test" or "I changed the door: what
+  checks it?"; which test proves which guarantee is the slice
+  record's. The bootstrap's first tests go in from the start: the
+  contention probe in `adversity/`, the migration path in `store/`.
+  These test packages were laid out after one run's slices, not yet
+  lived from a bootstrap.
 
 This is the shape a run gets when its log says nothing else.
 

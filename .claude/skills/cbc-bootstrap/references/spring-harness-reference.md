@@ -212,7 +212,7 @@ authority split witnessed: the runtime identity cannot change
 structure in the miniature, refused with the ground's own message.
 
 ```java
-package <base-package>;
+package <base-package>.store;
 
 import <base-package>.testsupport.DatabaseIT;
 import org.junit.jupiter.api.Test;
@@ -336,7 +336,7 @@ class GroundProbeController {
 ```
 
 ```java
-package <base-package>;
+package <base-package>.adversity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -475,7 +475,8 @@ class ContentionProbeIT extends WebDatabaseIT {
    lived passes used; what matters is that they are released
    together.
 7. **Package layout** (`testsupport/`, `probe/`) is the executor's —
-   the layering is the outcome, the names are not.
+   the layering is the outcome, the names are not. The test packages
+   by kind are `app-structure.md`'s.
 8. **Plural instances, when the definition names them.** The shape
    above stages the race inside one test process. If the framing's
    runtime ground says the system runs as more than one instance,
