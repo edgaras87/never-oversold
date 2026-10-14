@@ -214,7 +214,9 @@ record carries its owner outside it: "SL-4 G1", never a bare "G1".
   the bundle: Step 0's work.
 - **The arrangement.** The agent setup under `.claude/`: the entry
   file, the rules, the skills, the shapes and the decisions log.
-- **The polish.** The records review run in passes after the last
-  slice; pass 1 ran. [`.claude/polish/`](../.claude/polish/)
+- **The polish.** The records review planned in passes after the
+  last slice. Pass 1 ran; Step 10 did the work of the other two. Its
+  briefs and report are in git history (`.claude/polish/`, removed
+  at Step 10's close).
 - **The walk-through.** The review planned after the polish, which
   became Step 9's retrospective.
